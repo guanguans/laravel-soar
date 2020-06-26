@@ -46,5 +46,17 @@ class SoarServiceProvider extends ServiceProvider
         $this->app->singleton(Soar::class, function ($app) {
             return new Soar(config('soar'));
         });
+
+        $this->app->alias(Soar::class, 'soar');
+    }
+
+    /**
+     * Get the services provided by the provider.
+     *
+     * @return array
+     */
+    public function provides()
+    {
+        return [Soar::class, 'soar'];
     }
 }
