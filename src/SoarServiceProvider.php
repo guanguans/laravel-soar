@@ -8,7 +8,7 @@
  * This source file is subject to the MIT license that is bundled.
  */
 
-namespace Overtrue\LaravelPackage;
+namespace Guanguans\LaravelSoar;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -19,19 +19,32 @@ class SoarServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        if ($this->app->runningInConsole()) {
-            $this->publishes([
-                __DIR__ . '/../config/soar.php' => \config_path('soar.php'),
-            ], 'laravel-soar-config');
-        }
-
-        $this->mergeConfigFrom(__DIR__ . '/../config/soar.php', 'soar');
+        $this->setupConfig();
     }
 
+    /**
+     * Setup the config.
+     */
+    protected function setupConfig()
+    {
+        $source = __DIR__.'/../config/soar.php';
+
+        if ($this->app->runningInConsole()) {
+            $this->publishes([$source => config_path('soar.php')], 'laravel-soar');
+        }
+
+        $this->mergeConfigFrom($source, 'soar');
+    }
+
+    /**
+     * Register the provider.
+     */
     public function register()
     {
-        // $this->app->singleton(Package::class, function(){
-        //    return new Package();
-        // });
+        $this->setupConfig();
+
+        $this->app->singleton(Soar::class, function ($app) {
+            return new Soar(config('soar'));
+        });
     }
 }

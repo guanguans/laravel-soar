@@ -1,11 +1,11 @@
 {
-    "name": "overtrue/laravel-package",
-    "description": "Laravel package template",
+    "name": "guanguans/laravel-soar",
+    "description": "Laravel Soar.",
     "license": "MIT",
     "authors": [
         {
-            "name": "overtrue",
-            "email": "anzhengchao@gmail.com"
+            "name": "guanguans",
+            "email": "ityaozm@gmail.com"
         }
     ],
     "require": {
@@ -13,7 +13,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Overtrue\\LaravelPackage\\": "src"
+            "Guanguans\\LaravelSoar\\": "src"
         }
     },
     "autoload-dev": {
