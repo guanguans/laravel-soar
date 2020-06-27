@@ -8,7 +8,9 @@
  * This source file is subject to the MIT license that is bundled.
  */
 
-namespace Tests;
+namespace Tests\Feature;
+
+use Tests\TestCase;
 
 /**
  * Class FeatureTest.

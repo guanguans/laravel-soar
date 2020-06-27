@@ -8,12 +8,14 @@
  * This source file is subject to the MIT license that is bundled.
  */
 
-namespace Guanguans\LaravelSoar;
+namespace Guanguans\LaravelSoar\Facades;
 
-class Facade extends \Illuminate\Support\Facades\Facade
+use Guanguans\LaravelSoar\Soar as Accessor;
+
+class Soar extends \Illuminate\Support\Facades\Facade
 {
     public static function getFacadeAccessor()
     {
-        return Soar::class;
+        return Accessor::class;
     }
 }

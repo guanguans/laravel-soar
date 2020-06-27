@@ -15,6 +15,11 @@ use Illuminate\Support\ServiceProvider;
 class SoarServiceProvider extends ServiceProvider
 {
     /**
+     * @var bool
+     */
+    protected $defer = true;
+
+    /**
      * Perform post-registration booting of services.
      */
     public function boot()
