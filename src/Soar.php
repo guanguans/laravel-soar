@@ -1,6 +1,6 @@
 <?php
 
-/*
+/**
  * This file is part of the guanguans/laravel-soar.
  *
  * (c) guanguans <ityaozm@gmail.com>

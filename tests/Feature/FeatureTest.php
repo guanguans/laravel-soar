@@ -1,6 +1,6 @@
 <?php
 
-/*
+/**
  * This file is part of the guanguans/laravel-soar.
  *
  * (c) guanguans <ityaozm@gmail.com>
@@ -22,7 +22,7 @@ class FeatureTest extends TestCase
         parent::setUp();
     }
 
-    public function test_basic_features()
+    public function testBasicFeatures()
     {
         $this->assertTrue(true);
     }
