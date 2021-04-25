@@ -1,6 +1,6 @@
 <?php
 
-/*
+/**
  * This file is part of the guanguans/laravel-soar.
  *
  * (c) guanguans <ityaozm@gmail.com>
@@ -8,11 +8,17 @@
  * This source file is subject to the MIT license that is bundled.
  */
 
+use Guanguans\SoarPHP\Support\OsHelper;
+
 return [
     /**
      * soar 路径
      */
-    '-soar-path'   => env('SOAR_FILE', 'you_soar_path'),
+    '-soar-path' => env(
+        'SOAR_FILE',
+        OsHelper::isWindows() ? base_path('vendor/guanguans/soar-php/bin/soar.windows-amd64') :
+        (OsHelper::isMacOS() ? base_path('vendor/guanguans/soar-php/bin/soar.darwin-amd64') : base_path('vendor/guanguans/soar-php/bin/soar.linux-amd64'))
+    ),
 
     /**
      * 测试环境配置
@@ -33,9 +39,9 @@ return [
     '-online-dsn'  => [
         'host'     => env('DB_HOST', 'you_host'),
         'port'     => env('DB_PORT', 'you_port'),
-        'dbname'   => env('DB_PORT', 'you_port'),
-        'username' => env('DB_PORT', 'you_port'),
-        'password' => env('DB_PORT', 'you_port'),
+        'dbname'   => env('DB_DATABASE', 'you_dbname'),
+        'username' => env('DB_USERNAME', 'you_username'),
+        'password' => env('DB_PASSWORD', 'you_password'),
         'disable'  => true,
     ],
 
