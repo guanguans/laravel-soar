@@ -1,7 +1,14 @@
-.idea
-/vendor/
+.idea/
+.php_cs
+build/
+coverage/
+clover.xml
+phpunit.xml
+psalm.xml
+vendor/
+.DS_Store
+.history/
 composer.lock
 .php_cs.cache
-/coverage/
 .phpunit.result.cache
 tests.php
