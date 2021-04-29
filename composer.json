@@ -26,12 +26,13 @@
         "guanguans/soar-php": "^2.1"
     },
     "require-dev": {
-        "mockery/mockery": "^1.2",
-        "orchestra/testbench": "^3.7",
         "brainmaestro/composer-git-hooks": "^2.7",
         "friendsofphp/php-cs-fixer": "^2.16",
-        "vimeo/psalm": "^3.11",
-        "phpunit/phpunit": "^8.0"
+        "mockery/mockery": "^1.2",
+        "orchestra/testbench": "^3.7",
+        "overtrue/phplint": "dev-master",
+        "phpunit/phpunit": "^8.0",
+        "vimeo/psalm": "^3.11"
     },
     "autoload": {
         "psr-4": {
@@ -46,29 +47,36 @@
     "config": {
         "sort-packages": true
     },
-    "extra": {
-        "laravel": {
-            "providers": [
-                "Guanguans\\LaravelSoar\\SoarServiceProvider"
-            ]
-        },
-        "hooks": {
-            "pre-commit": [
-                "composer test",
-                "composer check-style"
-            ],
-            "pre-push": [
-                "composer test",
-                "composer check-style"
-            ]
-        }
-    },
     "funding": [
         {
             "type": "wechat",
             "url": "https://www.guanguans.cn/images/wechat.jpeg"
         }
     ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Guanguans\\LaravelSoar\\SoarServiceProvider"
+            ],
+            "aliases": {
+                "Soar": "Guanguans\\LaravelSoar\\Facades\\Soar"
+            }
+        },
+        "hooks": {
+            "pre-commit": [
+                "composer lint",
+                "composer style-lint",
+                "composer md-lint",
+                "composer test"
+            ],
+            "pre-push": [
+                "composer lint",
+                "composer style-lint",
+                "composer md-lint",
+                "composer test"
+            ]
+        }
+    },
     "scripts": {
         "post-update-cmd": [
             "cghooks update"
@@ -79,15 +87,23 @@
             "cghooks update"
         ],
         "cghooks": "./vendor/bin/cghooks",
-        "check-style": "php-cs-fixer fix --using-cache=no --diff --config=.php_cs.dist --dry-run --ansi",
-        "fix-style": "php-cs-fixer fix --using-cache=no --config=.php_cs.dist --ansi",
+        "lint": "./vendor/bin/phplint --no-cache --configuration=.phplint.yml --ansi",
+        "md-lint": "lint-md --config .lintmdrc *.md .github/*.md .github/ISSUE_TEMPLATE/*.md",
+        "md-fix": "lint-md --config .lintmdrc --fix *.md .github/*.md .github/ISSUE_TEMPLATE/*.md",
+        "style-lint": "./vendor/bin/php-cs-fixer fix --using-cache=no --diff --config=.php_cs.dist --dry-run --ansi",
+        "style-fix": "./vendor/bin/php-cs-fixer fix --using-cache=no --config=.php_cs.dist --ansi",
         "psalm": "./vendor/bin/psalm",
         "test": "./vendor/bin/phpunit --coverage-text --colors=always --verbose",
         "test-coverage": "./vendor/bin/phpunit --coverage-html=coverage/ --coverage-clover=clover.xml --color=always --verbose"
     },
     "scripts-descriptions": {
-        "check-style": "Run style checks (only dry run - no fixing!).",
-        "fix-style": "Run style checks and fix violations.",
+        "cghooks": "Run git cghooks.",
+        "lint": "Run phplint checks.",
+        "md-lint": "Run markdown checks.",
+        "md-fix": "Run markdown fixing.",
+        "style-lint": "Run style checks (only dry run - no fixing!).",
+        "style-fix": "Run style checks and fix violations.",
+        "psalm": "Run psalm checks.",
         "test": "Run all tests.",
         "test-coverage": "Run all tests with coverage."
     }
