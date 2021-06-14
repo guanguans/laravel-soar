@@ -2,7 +2,7 @@
 
 > An extension package for optimizing sql statements easily and easily in laravel applications. - 在 Laravel 应用程序中轻松容易的优化 sql 语句的扩展包。
 
-[简体中文](README-CN.md) | [ENGLISH](README.md)
+[简体中文](README.md) | [ENGLISH](README-EN.md)
 
 [![Tests](https://github.com/guanguans/laravel-soar/workflows/Tests/badge.svg)](https://github.com/guanguans/laravel-soar/actions)
 [![Check & fix styling](https://github.com/guanguans/laravel-soar/workflows/Check%20&%20fix%20styling/badge.svg)](https://github.com/guanguans/laravel-soar/actions)
@@ -13,7 +13,6 @@
 
 ## 功能
 
-* 目前只支持 MySQL 语法族协议的 SQL 优化
 * 支持基于启发式算法的语句优化
 * 支持复杂查询的多列索引优化（UPDATE, INSERT, DELETE, SELECT）
 * 支持 EXPLAIN 信息丰富解读
@@ -43,7 +42,7 @@ $ php artisan vendor:publish --provider="Guanguans\\LaravelSoar\\SoarServiceProv
 ### 生成 sql 评分报告示例
 
 ``` php
-// 查询构建器示例
+// 查询构建器使用示例
 DB::table('yb_member')
     ->select('*')
     ->join('yb_member_account as yb_member_account', 'yb_member_account.member_id', '=', 'yb_member.id')
@@ -60,18 +59,14 @@ DB::table('yb_member')
     // ->dumpSoarScore() // 打印 sql 评分报告
     ->ddSoarScore()      // 打印 sql 评分报告，并且退出应用程序。
 ;
-
-// 门面和 app 函数示例
-echo \Soar::score($sql);
-echo app('soar')->score($sql);
 ```
 
 ![score](./docs/score.png)
 
-### 生成 Explain 信息解读报告示例
+### 生成 explain 信息解读报告示例
 
 ``` php
-// 查询构建器示例
+// 查询构建器使用示例
 DB::table('yb_member')
     ->select('*')
     ->join('yb_member_account as yb_member_account', 'yb_member_account.member_id', '=', 'yb_member.id')
@@ -84,17 +79,51 @@ DB::table('yb_member')
     ->groupByRaw("yb_member.status, '100'")
     ->having('yb_member.id', '>', '100')
     ->inRandomOrder()
-    // ->toSoarHtmlExplain()   // 生成 Explain 信息解读报告
-    // ->dumpSoarHtmlExplain() // 打印 Explain 信息解读报告
-    ->ddSoarHtmlExplain()      // 打印 Explain 信息解读报告，并且退出应用程序。
+    // ->toSoarHtmlExplain()   // 生成 explain 信息解读报告
+    // ->dumpSoarHtmlExplain() // 打印 explain 信息解读报告
+    ->ddSoarHtmlExplain()      // 打印 explain 信息解读报告，并且退出应用程序。
 ;
-
-// 门面和 app 函数示例
-echo \Soar::htmlExplain($sql);
-echo app('soar')->htmlExplain($sql);
 ```
 
 ![explain](./docs/explain.png)
+
+### 美化 sql 语句
+
+``` php
+// 查询构建器使用示例
+DB::table('yb_member')
+    ->select('*')
+    ->join('yb_member_account as yb_member_account', 'yb_member_account.member_id', '=', 'yb_member.id')
+    ->whereRaw('1 <> 1')
+    ->where('yb_member.nickname', 'like', 'admin')
+    ->where('yb_member.username', 'like', '%admin%')
+    ->whereRaw("substring(yb_member.username, 1, 5) = 'admin'")
+    ->whereIn('yb_member.id', [110, 120])
+    ->orWhereNotNull('yb_member.realname')
+    ->groupByRaw("yb_member.status, '100'")
+    ->having('yb_member.id', '>', '100')
+    ->inRandomOrder()
+    // ->toSoarPretty()   // 生成美化后的 sql
+    // ->dumpSoarPretty() // 打印美化后的 sql
+    ->dumpSoarPretty()    // 打印美化后的 sql，并且退出应用程序。
+;
+```
+
+![pretty](./docs/pretty.png)
+
+### 其他使用示例
+
+``` php
+\Soar::score($sql);        // 生成 sql 评分报告
+\Soar::mdExplain($sql);    // 生成 markdown 格式的 explain 信息解读报告
+\Soar::htmlExplain($sql);  // 生成 html 格式的 Explain 信息解读报告
+\Soar::syntaxCheck($sql);  // sql 语法检查
+\Soar::fingerPrint($sql);  // 生成 sql 指纹
+\Soar::pretty($sql);       // 美化 sql
+\Soar::md2html($sql);      // 将 markdown 格式内容转化为 html 格式内容
+\Soar::help($sql);         // 输出 soar 帮助命令内容
+\Soar::exec($command);     // 执行任意 soar 命令
+```
 
 ## 测试
 

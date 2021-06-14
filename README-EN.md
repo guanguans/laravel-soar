@@ -1,6 +1,6 @@
 # laravel-soar
 
-> SQL optimizer and rewriter extension package for laravel framework. - 适配于 laravel 的 SQL 优化器和重写器扩展包。
+> An extension package for optimizing sql statements easily and easily in laravel applications. - 在 Laravel 应用程序中轻松容易的优化 sql 语句的扩展包。
 
 [简体中文](README.md) | [ENGLISH](README-EN.md)
 
@@ -10,6 +10,16 @@
 [![Latest Stable Version](https://poser.pugx.org/guanguans/laravel-soar/v)](//packagist.org/packages/guanguans/laravel-soar)
 [![Total Downloads](https://poser.pugx.org/guanguans/laravel-soar/downloads)](//packagist.org/packages/guanguans/laravel-soar)
 [![License](https://poser.pugx.org/guanguans/laravel-soar/license)](//packagist.org/packages/guanguans/laravel-soar)
+
+## Feature
+
+* Support sentence optimization based on heuristic algorithm
+* Support multi-column index optimization for complex queries (UPDATE, INSERT, DELETE, SELECT)
+* Support EXPLAIN informative interpretation
+* Support SQL fingerprint, compression and beautification
+* Support multiple ALTER request merging of the same table
+* Support SQL rewriting of custom rules
+* Support Eloquent query builder method to generate SQL optimization report
 
 ## Requirement
 
@@ -29,10 +39,90 @@ $ php artisan vendor:publish --provider="Guanguans\\LaravelSoar\\SoarServiceProv
 
 ## Usage
 
+### Generate sql scoring report example
+
 ``` php
-echo Guanguans\LaravelSoar\Facades\Soar::htmlExplain('select * from `users` where `id` = 1 limit 1');
-// or
-echo app('soar')->htmlExplain('select * from `users` where `id` = 1 limit 1');
+// Query builder usage example.
+DB::table('yb_member')
+    ->select('*')
+    ->join('yb_member_account as yb_member_account', 'yb_member_account.member_id', '=', 'yb_member.id')
+    ->whereRaw('1 <> 1')
+    ->where('yb_member.nickname', 'like', 'admin')
+    ->where('yb_member.username', 'like', '%admin%')
+    ->whereRaw("substring(yb_member.username, 1, 5) = 'admin'")
+    ->whereIn('yb_member.id', [110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120])
+    ->orWhereNotNull('yb_member.realname')
+    ->groupByRaw("yb_member.status, '100'")
+    ->having('yb_member.id', '>', '100')
+    ->inRandomOrder()
+    // ->toSoarScore()   // Generate sql score report.
+    // ->dumpSoarScore() // Print sql scoring report.
+    ->ddSoarScore()      // Print the sql score report and exit the application.
+;
+```
+
+![score](./docs/score.png)
+
+### Generate an explain information interpretation report example
+
+``` php
+// Query builder usage example.
+DB::table('yb_member')
+    ->select('*')
+    ->join('yb_member_account as yb_member_account', 'yb_member_account.member_id', '=', 'yb_member.id')
+    ->whereRaw('1 <> 1')
+    ->where('yb_member.nickname', 'like', 'admin')
+    ->where('yb_member.username', 'like', '%admin%')
+    ->whereRaw("substring(yb_member.username, 1, 5) = 'admin'")
+    ->whereIn('yb_member.id', [110, 120])
+    ->orWhereNotNull('yb_member.realname')
+    ->groupByRaw("yb_member.status, '100'")
+    ->having('yb_member.id', '>', '100')
+    ->inRandomOrder()
+    // ->toSoarHtmlExplain()   // Generate explain information interpretation report.
+    // ->dumpSoarHtmlExplain() // Print explain information interpretation report.
+    ->ddSoarHtmlExplain()      // Print the explain information interpretation report, and exit the application.
+;
+```
+
+![explain](./docs/explain.png)
+
+### Beautify sql statemen
+
+``` php
+// Query builder usage example.
+DB::table('yb_member')
+    ->select('*')
+    ->join('yb_member_account as yb_member_account', 'yb_member_account.member_id', '=', 'yb_member.id')
+    ->whereRaw('1 <> 1')
+    ->where('yb_member.nickname', 'like', 'admin')
+    ->where('yb_member.username', 'like', '%admin%')
+    ->whereRaw("substring(yb_member.username, 1, 5) = 'admin'")
+    ->whereIn('yb_member.id', [110, 120])
+    ->orWhereNotNull('yb_member.realname')
+    ->groupByRaw("yb_member.status, '100'")
+    ->having('yb_member.id', '>', '100')
+    ->inRandomOrder()
+    // ->toSoarPretty()   // Generate beautified sql.
+    // ->dumpSoarPretty() // Print beautified sql.
+    ->dumpSoarPretty()    // Print the beautified sql, and exit the application.
+;
+```
+
+![pretty](./docs/pretty.png)
+
+### Other usage examples
+
+``` php
+\Soar::score($sql);        // Generate sql score report.
+\Soar::mdExplain($sql);    // Generate explain information interpretation report in markdown format.
+\Soar::htmlExplain($sql);  // Generate Explain information interpretation report in html format.
+\Soar::syntaxCheck($sql);  // SQL syntax check.
+\Soar::fingerPrint($sql);  // Generate sql fingerprint.
+\Soar::pretty($sql);       // Beautify sql.
+\Soar::md2html($sql);      // Convert markdown format content to html format content.
+\Soar::help($sql);         // Output soar help command content.
+\Soar::exec($command);     // Execute any soar command.
 ```
 
 ## Testing
@@ -57,6 +147,14 @@ Please review [our security policy](../../security/policy) on how to report secu
 
 * [guanguans](https://github.com/guanguans)
 * [All Contributors](../../contributors)
+
+## Related Links
+
+* [https://github.com/XiaoMi/soar](https://github.com/XiaoMi/soar)
+* [https://github.com/guanguans/soar-php](https://github.com/guanguans/soar-php)
+* [https://github.com/huangdijia/laravel-web-soar](https://github.com/huangdijia/laravel-web-soar)
+* [https://github.com/wilbur-yu/hyperf-soar](https://github.com/wilbur-yu/hyperf-soar)
+* [https://github.com/guanguans/think-soar](https://github.com/guanguans/think-soar)
 
 ## License
 
