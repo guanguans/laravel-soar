@@ -50,6 +50,23 @@ $ php artisan vendor:publish --provider="Guanguans\\LaravelSoar\\SoarServiceProv
 ### 生成 sql 评分报告示例
 
 ``` php
+use App\Models\Member;
+    
+Member::query()
+    ->select([
+        'id',
+        'nickname',
+    ])
+    ->where('id', 100)
+    // ->toSoarScore()
+    // ->dumpSoarScore()
+    ->ddSoarScore()
+;
+```
+
+![high-score](./docs/high-score.png)
+
+``` php
 // 查询构建器使用示例
 DB::table('yb_member')
     ->select('*')
@@ -62,14 +79,14 @@ DB::table('yb_member')
     ->orWhereNotNull('yb_member.realname')
     ->groupByRaw("yb_member.status, '100'")
     ->having('yb_member.id', '>', '100')
-    ->inRandomOrder()
+    ->orderByRaw('RAND()')
     // ->toSoarScore()   // 生成 sql 评分报告
     // ->dumpSoarScore() // 打印 sql 评分报告
     ->ddSoarScore()      // 打印 sql 评分报告，并且退出应用程序。
 ;
 ```
 
-![score](./docs/score.png)
+![score](./docs/low-score.png)
 
 ### 生成 explain 信息解读报告示例
 
@@ -86,7 +103,7 @@ DB::table('yb_member')
     ->orWhereNotNull('yb_member.realname')
     ->groupByRaw("yb_member.status, '100'")
     ->having('yb_member.id', '>', '100')
-    ->inRandomOrder()
+    ->orderByRaw('RAND()')
     // ->toSoarHtmlExplain()   // 生成 explain 信息解读报告
     // ->dumpSoarHtmlExplain() // 打印 explain 信息解读报告
     ->ddSoarHtmlExplain()      // 打印 explain 信息解读报告，并且退出应用程序。
@@ -110,7 +127,7 @@ DB::table('yb_member')
     ->orWhereNotNull('yb_member.realname')
     ->groupByRaw("yb_member.status, '100'")
     ->having('yb_member.id', '>', '100')
-    ->inRandomOrder()
+    ->orderByRaw('RAND()')
     // ->toSoarPretty()   // 生成美化后的 sql
     // ->dumpSoarPretty() // 打印美化后的 sql
     ->dumpSoarPretty()    // 打印美化后的 sql，并且退出应用程序。

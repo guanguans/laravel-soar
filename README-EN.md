@@ -50,6 +50,23 @@ $ php artisan vendor:publish --provider="Guanguans\\LaravelSoar\\SoarServiceProv
 ### Generate sql scoring report example
 
 ``` php
+use App\Models\Member;
+    
+Member::query()
+    ->select([
+        'id',
+        'nickname',
+    ])
+    ->where('id', 100)
+    // ->toSoarScore()
+    // ->dumpSoarScore()
+    ->ddSoarScore()
+;
+```
+
+![high-score](./docs/high-score.png)
+
+``` php
 // Query builder usage example.
 DB::table('yb_member')
     ->select('*')
@@ -62,14 +79,14 @@ DB::table('yb_member')
     ->orWhereNotNull('yb_member.realname')
     ->groupByRaw("yb_member.status, '100'")
     ->having('yb_member.id', '>', '100')
-    ->inRandomOrder()
+    ->orderByRaw('RAND()')
     // ->toSoarScore()   // Generate sql score report.
     // ->dumpSoarScore() // Print sql scoring report.
     ->ddSoarScore()      // Print the sql score report and exit the application.
 ;
 ```
 
-![score](./docs/score.png)
+![score](./docs/low-score.png)
 
 ### Generate an explain information interpretation report example
 
@@ -86,7 +103,7 @@ DB::table('yb_member')
     ->orWhereNotNull('yb_member.realname')
     ->groupByRaw("yb_member.status, '100'")
     ->having('yb_member.id', '>', '100')
-    ->inRandomOrder()
+    ->orderByRaw('RAND()')
     // ->toSoarHtmlExplain()   // Generate explain information interpretation report.
     // ->dumpSoarHtmlExplain() // Print explain information interpretation report.
     ->ddSoarHtmlExplain()      // Print the explain information interpretation report, and exit the application.
@@ -110,7 +127,7 @@ DB::table('yb_member')
     ->orWhereNotNull('yb_member.realname')
     ->groupByRaw("yb_member.status, '100'")
     ->having('yb_member.id', '>', '100')
-    ->inRandomOrder()
+    ->orderByRaw('RAND()')
     // ->toSoarPretty()   // Generate beautified sql.
     // ->dumpSoarPretty() // Print beautified sql.
     ->dumpSoarPretty()    // Print the beautified sql, and exit the application.
