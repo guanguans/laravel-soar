@@ -20,3 +20,10 @@ All notable changes to `guanguans/laravel-soar` will be documented in this file.
 * Optimize soar config.
 * Add some CI config files.
 * Add comment docs for facade.
+
+## 1.1.0 - 2021-06-14
+
+* Add database query builder soar methods.
+* Add IDE helper file.
+* Add `guanguans/laravel-dump-sql` Dependent package.
+* Update config file.
