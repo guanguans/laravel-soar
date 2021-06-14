@@ -31,7 +31,7 @@
         "friendsofphp/php-cs-fixer": "^2.16",
         "mockery/mockery": "^1.2",
         "orchestra/testbench": "^3.7",
-        "overtrue/phplint": "dev-master",
+        "overtrue/phplint": "^2.4",
         "phpunit/phpunit": "^8.0",
         "vimeo/psalm": "^3.11"
     },
