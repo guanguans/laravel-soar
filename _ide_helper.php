@@ -13,6 +13,10 @@ namespace {
     {
     }
 
+    class Soar extends \Guanguans\LaravelSoar\Facades\Soar
+    {
+    }
+
     class Eloquent extends \Illuminate\Database\Eloquent\Model
     {
         /**
