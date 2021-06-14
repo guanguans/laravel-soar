@@ -10,10 +10,13 @@
 
 namespace Guanguans\LaravelSoar;
 
+use Guanguans\LaravelDumpSql\Traits\RegisterDatabaseBuilderMethodAble;
 use Illuminate\Support\ServiceProvider;
 
 class SoarServiceProvider extends ServiceProvider
 {
+    use RegisterDatabaseBuilderMethodAble;
+
     /**
      * @var bool
      */
@@ -25,6 +28,12 @@ class SoarServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->setupConfig();
+
+        $this->registerSoarMethod('score');
+        $this->registerSoarMethod('mdExplain');
+        $this->registerSoarMethod('htmlExplain');
+        $this->registerSoarMethod('pretty');
+        $this->registerSoarMethod('help');
     }
 
     /**
@@ -53,6 +62,35 @@ class SoarServiceProvider extends ServiceProvider
         });
 
         $this->app->alias(Soar::class, 'soar');
+    }
+
+    protected function registerSoarMethod(string $methodName)
+    {
+        $ucfirstMethodName = ucfirst($methodName);
+
+        $this->registerDatabaseBuilderMethod(sprintf('toSoar%s', $ucfirstMethodName), function () use ($methodName) {
+            $sql = $this->{config('dumpsql.to_raw_sql', 'toRawSql')}();
+
+            return app('soar')->{$methodName}($sql);
+        });
+
+        $this->registerDatabaseBuilderMethod(sprintf('dumpSoar%s', $ucfirstMethodName), function () use ($methodName) {
+            $sql = $this->{config('dumpsql.to_raw_sql', 'toRawSql')}();
+            if ('pretty' === $methodName || 'help' === $methodName) {
+                echo '<pre>';
+            }
+
+            echo app('soar')->{$methodName}($sql);
+        });
+
+        $this->registerDatabaseBuilderMethod(sprintf('ddSoar%s', $ucfirstMethodName), function () use ($methodName) {
+            $sql = $this->{config('dumpsql.to_raw_sql', 'toRawSql')}();
+            if ('pretty' === $methodName || 'help' === $methodName) {
+                echo '<pre>';
+            }
+
+            exit(app('soar')->{$methodName}($sql));
+        });
     }
 
     /**
