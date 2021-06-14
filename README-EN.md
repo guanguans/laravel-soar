@@ -21,6 +21,14 @@
 * Support SQL rewriting of custom rules
 * Support Eloquent query builder method to generate SQL optimization report
 
+## Related Links
+
+* [https://github.com/XiaoMi/soar](https://github.com/XiaoMi/soar)
+* [https://github.com/guanguans/soar-php](https://github.com/guanguans/soar-php)
+* [https://github.com/huangdijia/laravel-web-soar](https://github.com/huangdijia/laravel-web-soar)
+* [https://github.com/wilbur-yu/hyperf-soar](https://github.com/wilbur-yu/hyperf-soar)
+* [https://github.com/guanguans/think-soar](https://github.com/guanguans/think-soar)
+
 ## Requirement
 
 * laravel >= 5.5
@@ -147,14 +155,6 @@ Please review [our security policy](../../security/policy) on how to report secu
 
 * [guanguans](https://github.com/guanguans)
 * [All Contributors](../../contributors)
-
-## Related Links
-
-* [https://github.com/XiaoMi/soar](https://github.com/XiaoMi/soar)
-* [https://github.com/guanguans/soar-php](https://github.com/guanguans/soar-php)
-* [https://github.com/huangdijia/laravel-web-soar](https://github.com/huangdijia/laravel-web-soar)
-* [https://github.com/wilbur-yu/hyperf-soar](https://github.com/wilbur-yu/hyperf-soar)
-* [https://github.com/guanguans/think-soar](https://github.com/guanguans/think-soar)
 
 ## License
 

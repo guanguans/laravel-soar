@@ -21,6 +21,14 @@
 * 支持自定义规则的 SQL 改写
 * 支持 Eloquent 查询构建器方法生成 SQL 优化报告
 
+## 相关项目
+
+* [https://github.com/XiaoMi/soar](https://github.com/XiaoMi/soar)
+* [https://github.com/guanguans/soar-php](https://github.com/guanguans/soar-php)
+* [https://github.com/huangdijia/laravel-web-soar](https://github.com/huangdijia/laravel-web-soar)
+* [https://github.com/wilbur-yu/hyperf-soar](https://github.com/wilbur-yu/hyperf-soar)
+* [https://github.com/guanguans/think-soar](https://github.com/guanguans/think-soar)
+
 ## 环境要求
 
 * laravel >= 5.5
@@ -147,14 +155,6 @@ $ composer test
 
 * [guanguans](https://github.com/guanguans)
 * [所有贡献者](../../contributors)
-
-## 相关项目
-
-* [https://github.com/XiaoMi/soar](https://github.com/XiaoMi/soar)
-* [https://github.com/guanguans/soar-php](https://github.com/guanguans/soar-php)
-* [https://github.com/huangdijia/laravel-web-soar](https://github.com/huangdijia/laravel-web-soar)
-* [https://github.com/wilbur-yu/hyperf-soar](https://github.com/wilbur-yu/hyperf-soar)
-* [https://github.com/guanguans/think-soar](https://github.com/guanguans/think-soar)
 
 ## 协议
 
