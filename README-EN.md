@@ -39,7 +39,7 @@
 $ composer require guanguans/laravel-soar --dev -vvv
 ```
 
-### Publish Configuration
+### Publish service provider
 
 ```php
 $ php artisan vendor:publish --provider="Guanguans\\LaravelSoar\\SoarServiceProvider"
@@ -86,7 +86,7 @@ DB::table('yb_member')
 ;
 ```
 
-![score](./docs/low-score.png)
+![low-score](./docs/low-score.png)
 
 ### Generate an explain information interpretation report example
 
