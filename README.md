@@ -1,6 +1,6 @@
 # laravel-soar
 
-> SQL optimizer and rewriter extension package for laravel framework. - 适配于 laravel 的 SQL 优化器和重写器扩展包。
+> An extension package for optimizing sql statements easily and easily in laravel applications. - 在 Laravel 应用程序中轻松容易的优化 sql 语句的扩展包。
 
 [简体中文](README-CN.md) | [ENGLISH](README.md)
 
@@ -10,6 +10,17 @@
 [![Latest Stable Version](https://poser.pugx.org/guanguans/laravel-soar/v)](//packagist.org/packages/guanguans/laravel-soar)
 [![Total Downloads](https://poser.pugx.org/guanguans/laravel-soar/downloads)](//packagist.org/packages/guanguans/laravel-soar)
 [![License](https://poser.pugx.org/guanguans/laravel-soar/license)](//packagist.org/packages/guanguans/laravel-soar)
+
+## 功能
+
+* 目前只支持 MySQL 语法族协议的 SQL 优化
+* 支持基于启发式算法的语句优化
+* 支持复杂查询的多列索引优化（UPDATE, INSERT, DELETE, SELECT）
+* 支持 EXPLAIN 信息丰富解读
+* 支持 SQL 指纹、压缩和美化
+* 支持同一张表多条 ALTER 请求合并
+* 支持自定义规则的 SQL 改写
+* 支持 Eloquent 查询构建器方法生成 SQL 优化报告
 
 ## 环境要求
 
@@ -107,6 +118,14 @@ $ composer test
 
 * [guanguans](https://github.com/guanguans)
 * [所有贡献者](../../contributors)
+
+## 相关项目
+
+* [https://github.com/XiaoMi/soar](https://github.com/XiaoMi/soar)
+* [https://github.com/guanguans/soar-php](https://github.com/guanguans/soar-php)
+* [https://github.com/huangdijia/laravel-web-soar](https://github.com/huangdijia/laravel-web-soar)
+* [https://github.com/wilbur-yu/hyperf-soar](https://github.com/wilbur-yu/hyperf-soar)
+* [https://github.com/guanguans/think-soar](https://github.com/guanguans/think-soar)
 
 ## 协议
 

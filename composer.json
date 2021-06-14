@@ -5,9 +5,12 @@
         "sql",
         "mysql",
         "debug",
-        "laravel"
+        "laravel",
+        "statement",
+        "optimize",
+        "rewrite"
     ],
-    "description": "适配于 laravel 的 SQL 优化器和重写器扩展包。 - SQL optimizer and rewriter extension package for laravel framework.",
+    "description": "An extension package for optimizing sql statements easily and easily in laravel applications. - 在 Laravel 应用程序中轻松容易的优化 sql 语句的扩展包。",
     "support": {
         "issues": "https://github.com/guanguans/laravel-soar/issues",
         "source": "https://github.com/guanguans/laravel-soar"
