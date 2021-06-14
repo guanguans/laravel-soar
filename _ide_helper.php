@@ -165,7 +165,7 @@ namespace Illuminate\Database\Query {
         }
 
         /**
-         * @see \Guanguans\LaravelDumpSql\ServiceProvider::registerEloquentBuilderMethod()
+         * @see \Guanguans\LaravelSoar\SoarServiceProvider::boot()
          */
         public function toSoarMdExplain()
         {
@@ -173,7 +173,7 @@ namespace Illuminate\Database\Query {
         }
 
         /**
-         * @see \Guanguans\LaravelDumpSql\ServiceProvider::registerEloquentBuilderMethod()
+         * @see \Guanguans\LaravelSoar\SoarServiceProvider::boot()
          */
         public function dumpSoarMdExplain()
         {
@@ -181,7 +181,7 @@ namespace Illuminate\Database\Query {
         }
 
         /**
-         * @see \Guanguans\LaravelDumpSql\ServiceProvider::registerEloquentBuilderMethod()
+         * @see \Guanguans\LaravelSoar\SoarServiceProvider::boot()
          */
         public function ddSoarMdExplain()
         {
@@ -189,7 +189,7 @@ namespace Illuminate\Database\Query {
         }
 
         /**
-         * @see \Guanguans\LaravelDumpSql\ServiceProvider::registerEloquentBuilderMethod()
+         * @see \Guanguans\LaravelSoar\SoarServiceProvider::boot()
          */
         public function toSoarHtmlExplain()
         {
@@ -197,7 +197,7 @@ namespace Illuminate\Database\Query {
         }
 
         /**
-         * @see \Guanguans\LaravelDumpSql\ServiceProvider::registerEloquentBuilderMethod()
+         * @see \Guanguans\LaravelSoar\SoarServiceProvider::boot()
          */
         public function dumpSoarHtmlExplain()
         {
@@ -205,7 +205,7 @@ namespace Illuminate\Database\Query {
         }
 
         /**
-         * @see \Guanguans\LaravelDumpSql\ServiceProvider::registerEloquentBuilderMethod()
+         * @see \Guanguans\LaravelSoar\SoarServiceProvider::boot()
          */
         public function ddSoarHtmlExplain()
         {
@@ -213,7 +213,7 @@ namespace Illuminate\Database\Query {
         }
 
         /**
-         * @see \Guanguans\LaravelDumpSql\ServiceProvider::registerEloquentBuilderMethod()
+         * @see \Guanguans\LaravelSoar\SoarServiceProvider::boot()
          */
         public function toSoarPretty()
         {
@@ -221,7 +221,7 @@ namespace Illuminate\Database\Query {
         }
 
         /**
-         * @see \Guanguans\LaravelDumpSql\ServiceProvider::registerEloquentBuilderMethod()
+         * @see \Guanguans\LaravelSoar\SoarServiceProvider::boot()
          */
         public function dumpSoarPretty()
         {
@@ -229,7 +229,7 @@ namespace Illuminate\Database\Query {
         }
 
         /**
-         * @see \Guanguans\LaravelDumpSql\ServiceProvider::registerEloquentBuilderMethod()
+         * @see \Guanguans\LaravelSoar\SoarServiceProvider::boot()
          */
         public function ddSoarPretty()
         {
@@ -237,7 +237,7 @@ namespace Illuminate\Database\Query {
         }
 
         /**
-         * @see \Guanguans\LaravelDumpSql\ServiceProvider::registerEloquentBuilderMethod()
+         * @see \Guanguans\LaravelSoar\SoarServiceProvider::boot()
          */
         public function toSoarHelp()
         {
@@ -245,7 +245,7 @@ namespace Illuminate\Database\Query {
         }
 
         /**
-         * @see \Guanguans\LaravelDumpSql\ServiceProvider::registerEloquentBuilderMethod()
+         * @see \Guanguans\LaravelSoar\SoarServiceProvider::boot()
          */
         public function dumpSoarHelp()
         {
@@ -253,7 +253,7 @@ namespace Illuminate\Database\Query {
         }
 
         /**
-         * @see \Guanguans\LaravelDumpSql\ServiceProvider::registerEloquentBuilderMethod()
+         * @see \Guanguans\LaravelSoar\SoarServiceProvider::boot()
          */
         public function ddSoarHelp()
         {
