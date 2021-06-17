@@ -20,7 +20,7 @@ class SoarServiceProvider extends ServiceProvider
     /**
      * @var bool
      */
-    protected $defer = true;
+    protected $defer = false;
 
     /**
      * Perform post-registration booting of services.
