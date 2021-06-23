@@ -136,9 +136,11 @@ DB::table('yb_member')
 
 ![pretty](./docs/pretty.png)
 
-### 其他使用示例
+### 门面使用示例
 
 ``` php
+$sql = Member::query()->select(['id',  'nickname'])->where('id',  100)->toRawSql();
+
 \Soar::score($sql);        // 生成 sql 评分报告
 \Soar::mdExplain($sql);    // 生成 markdown 格式的 explain 信息解读报告
 \Soar::htmlExplain($sql);  // 生成 html 格式的 Explain 信息解读报告

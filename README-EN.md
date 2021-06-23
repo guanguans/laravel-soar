@@ -136,9 +136,11 @@ DB::table('yb_member')
 
 ![pretty](./docs/pretty.png)
 
-### Other usage examples
+### Facade usage examples
 
 ``` php
+$sql = Member::query()->select(['id',  'nickname'])->where('id',  100)->toRawSql();
+
 \Soar::score($sql);        // Generate sql score report.
 \Soar::mdExplain($sql);    // Generate explain information interpretation report in markdown format.
 \Soar::htmlExplain($sql);  // Generate Explain information interpretation report in html format.
