@@ -58,9 +58,9 @@ Member::query()
         'nickname',
     ])
     ->where('id', 100)
-    // ->toSoarScore()
-    // ->dumpSoarScore()
-    ->ddSoarScore()
+    // ->toSoarScore()   // 生成 sql 评分报告
+    // ->dumpSoarScore() // 打印 sql 评分报告
+    ->ddSoarScore()      // 打印 sql 评分报告，并且退出应用程序。
 ;
 ```
 

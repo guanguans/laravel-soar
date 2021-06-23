@@ -58,9 +58,9 @@ Member::query()
         'nickname',
     ])
     ->where('id', 100)
-    // ->toSoarScore()
-    // ->dumpSoarScore()
-    ->ddSoarScore()
+    // ->toSoarScore()   // Generate sql score report.
+    // ->dumpSoarScore() // Print sql scoring report.
+    ->ddSoarScore()      // Print the sql score report and exit the application.
 ;
 ```
 
