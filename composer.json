@@ -27,7 +27,8 @@
     "require": {
         "guanguans/laravel-dump-sql": "^1.0.4",
         "guanguans/soar-php": "^2.2",
-        "laravel/framework": "^5.5 || ^6.0 || ^7.0 || ^8.0"
+        "laravel/framework": "^5.5 || ^6.0 || ^7.0 || ^8.0",
+        "phpbench/phpbench": "^1.0"
     },
     "require-dev": {
         "brainmaestro/composer-git-hooks": "^2.7",
@@ -98,7 +99,8 @@
         "style-fix": "./vendor/bin/php-cs-fixer fix --using-cache=no --config=.php_cs.dist --ansi",
         "psalm": "./vendor/bin/psalm",
         "test": "./vendor/bin/phpunit --coverage-text --colors=always --verbose",
-        "test-coverage": "./vendor/bin/phpunit --coverage-html=coverage/ --coverage-clover=clover.xml --color=always --verbose"
+        "test-coverage": "./vendor/bin/phpunit --coverage-html=coverage/ --coverage-clover=clover.xml --color=always --verbose",
+        "benchmark": "./vendor/bin/phpbench run --retry-threshold=3 --iterations=3 --revs=10 --warmup=2"
     },
     "scripts-descriptions": {
         "cghooks": "Run git cghooks.",
@@ -109,6 +111,7 @@
         "style-fix": "Run style checks and fix violations.",
         "psalm": "Run psalm checks.",
         "test": "Run all tests.",
-        "test-coverage": "Run all tests with coverage."
+        "test-coverage": "Run all tests with coverage.",
+        "benchmark": "Run all benchmark."
     }
 }
