@@ -11,7 +11,10 @@
 use Guanguans\SoarPHP\Support\OsHelper;
 
 /**
- * @BeforeMethods({"setUp"})
+ * @beforeMethods({"setUp"})
+ * @warmup(2)
+ * @revs(10)
+ * @iterations(3)
  */
 final class SoarBench
 {
@@ -23,7 +26,7 @@ final class SoarBench
     public function setUp(): void
     {
         $config = [
-            // 包自带soar 路径或者自定义的 soar 路径
+            // 包自带 soar 路径或者自定义的 soar 路径
             '-soar-path' => OsHelper::isWindows() ? __DIR__.'/../vendor/guanguans/soar-php/bin/soar.windows-amd64' : (OsHelper::isMacOS() ? __DIR__.'/../vendor/guanguans/soar-php/bin/soar.darwin-amd64' : __DIR__.'/../vendor/guanguans/soar-php/bin/soar.linux-amd64'),
             // 测试环境配置
             '-test-dsn' => [
@@ -35,7 +38,7 @@ final class SoarBench
             ],
             // 日志输出文件
             '-log-output' => __DIR__.'/soar.log',
-            // 报告输出格式: 默认  markdown [markdown, html, json]
+            // 报告输出格式: [markdown, html, json, ...]
             '-report-type' => 'html',
         ];
 
