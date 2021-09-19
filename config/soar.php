@@ -20,7 +20,7 @@ return [
      */
     '-soar-path' => env(
         'SOAR_FILE',
-        OsHelper::isWindows() ? base_path('vendor/guanguans/soar-php/bin/soar.windows-amd64') :
+        OsHelper::isWindows() ? base_path('vendor\guanguans\soar-php\bin\soar.windows-amd64') :
             (OsHelper::isMacOS() ? base_path('vendor/guanguans/soar-php/bin/soar.darwin-amd64') : base_path('vendor/guanguans/soar-php/bin/soar.linux-amd64'))
     ),
 
