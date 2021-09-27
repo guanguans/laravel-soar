@@ -35,7 +35,7 @@
 
 ## 安装
 
-``` shell
+```shell
 $ composer require guanguans/laravel-soar --dev -vvv
 ```
 
@@ -49,7 +49,7 @@ $ php artisan vendor:publish --provider="Guanguans\\LaravelSoar\\SoarServiceProv
 
 ### 生成 sql 评分报告示例
 
-``` php
+```php
 use App\Models\Member;
     
 Member::query()
@@ -66,7 +66,7 @@ Member::query()
 
 ![high-score](./docs/high-score.png)
 
-``` php
+```php
 // 查询构建器使用示例
 DB::table('yb_member')
     ->select('*')
@@ -90,7 +90,7 @@ DB::table('yb_member')
 
 ### 生成 explain 信息解读报告示例
 
-``` php
+```php
 // 查询构建器使用示例
 DB::table('yb_member')
     ->select('*')
@@ -114,7 +114,7 @@ DB::table('yb_member')
 
 ### 美化 sql 语句
 
-``` php
+```php
 // 查询构建器使用示例
 DB::table('yb_member')
     ->select('*')
@@ -138,7 +138,7 @@ DB::table('yb_member')
 
 ### 门面使用示例
 
-``` php
+```php
 $sql = Member::query()->select(['id',  'nickname'])->where('id',  100)->toRawSql();
 
 \Soar::score($sql);        // 生成 sql 评分报告
@@ -154,7 +154,7 @@ $sql = Member::query()->select(['id',  'nickname'])->where('id',  100)->toRawSql
 
 ## 测试
 
-``` bash
+```bash
 $ composer test
 ```
 

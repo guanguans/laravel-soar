@@ -35,7 +35,7 @@
 
 ## Installation
 
-``` shell
+```shell
 $ composer require guanguans/laravel-soar --dev -vvv
 ```
 
@@ -49,7 +49,7 @@ $ php artisan vendor:publish --provider="Guanguans\\LaravelSoar\\SoarServiceProv
 
 ### Generate sql scoring report example
 
-``` php
+```php
 use App\Models\Member;
     
 Member::query()
@@ -66,7 +66,7 @@ Member::query()
 
 ![high-score](./docs/high-score.png)
 
-``` php
+```php
 // Query builder usage example.
 DB::table('yb_member')
     ->select('*')
@@ -90,7 +90,7 @@ DB::table('yb_member')
 
 ### Generate an explain information interpretation report example
 
-``` php
+```php
 // Query builder usage example.
 DB::table('yb_member')
     ->select('*')
@@ -114,7 +114,7 @@ DB::table('yb_member')
 
 ### Beautify sql statemen
 
-``` php
+```php
 // Query builder usage example.
 DB::table('yb_member')
     ->select('*')
@@ -138,7 +138,7 @@ DB::table('yb_member')
 
 ### Facade usage examples
 
-``` php
+```php
 $sql = Member::query()->select(['id',  'nickname'])->where('id',  100)->toRawSql();
 
 \Soar::score($sql);        // Generate sql score report.
@@ -154,7 +154,7 @@ $sql = Member::query()->select(['id',  'nickname'])->where('id',  100)->toRawSql
 
 ## Testing
 
-``` bash
+```bash
 $ composer test
 ```
 
