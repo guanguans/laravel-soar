@@ -37,7 +37,7 @@
         "orchestra/testbench": "^3.7",
         "overtrue/phplint": "^2.4",
         "phpunit/phpunit": "^8.0",
-        "vimeo/psalm": "^3.11"
+        "vimeo/psalm": "^4.10"
     },
     "autoload": {
         "psr-4": {
