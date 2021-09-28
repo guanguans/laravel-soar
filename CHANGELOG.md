@@ -2,7 +2,7 @@
 
 All notable changes to `guanguans/laravel-soar` will be documented in this file.
 
-## 1.1.2 - 2021-09-27
+## 1.1.2 - 2021-09-28
 
 * Bump codecov/codecov-action from 1 to 2.1.0.
 * Update CI config files.
