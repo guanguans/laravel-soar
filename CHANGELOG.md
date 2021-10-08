@@ -2,6 +2,11 @@
 
 All notable changes to `guanguans/laravel-soar` will be documented in this file.
 
+## 1.2.0 - 2021-10-08
+
+* Adapt lumen.
+* Update github config files.
+
 ## 1.1.2 - 2021-09-28
 
 * Bump codecov/codecov-action from 1 to 2.1.0.
