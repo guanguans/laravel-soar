@@ -39,10 +39,22 @@
 $ composer require guanguans/laravel-soar --dev -vvv
 ```
 
-### Publish service provider
+## Configuration
+
+### Register service
+
+#### laravel
+
+```bash
+$ php artisan vendor:publish --provider="Guanguans\\LaravelSoar\\SoarServiceProvider"
+```
+
+#### lumen
+
+Add the following snippet to the `bootstrap/app.php` file under the `Register Service Providers` section as follows:
 
 ```php
-$ php artisan vendor:publish --provider="Guanguans\\LaravelSoar\\SoarServiceProvider"
+$app->register(\Guanguans\LaravelSoar\SoarServiceProvider::class);
 ```
 
 ## Usage
