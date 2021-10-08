@@ -11,7 +11,10 @@
 namespace Guanguans\LaravelSoar;
 
 use Guanguans\LaravelDumpSql\Traits\RegisterDatabaseBuilderMethodAble;
+use Illuminate\Database\ConnectionInterface;
+use Illuminate\Foundation\Application as LaravelApplication;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Lumen\Application as LumenApplication;
 
 class SoarServiceProvider extends ServiceProvider
 {
@@ -41,10 +44,18 @@ class SoarServiceProvider extends ServiceProvider
      */
     protected function setupConfig()
     {
-        $source = __DIR__.'/../config/soar.php';
+        $source = realpath($raw = __DIR__.'/../config/soar.php') ?: $raw;
 
-        if ($this->app->runningInConsole()) {
+        if ($this->app instanceof LaravelApplication && $this->app->runningInConsole()) {
             $this->publishes([$source => config_path('soar.php')], 'laravel-soar');
+        } elseif ($this->app instanceof LumenApplication) {
+            $this->app->configure('soar');
+
+            $this->app->bindIf(ConnectionInterface::class, function ($app) {
+                return $app['db']->connection();
+            });
+
+            $this->app->register(\Guanguans\LaravelDumpSql\ServiceProvider::class);
         }
 
         $this->mergeConfigFrom($source, 'soar');
