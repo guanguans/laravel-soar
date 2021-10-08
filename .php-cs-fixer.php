@@ -19,7 +19,7 @@ $finder = PhpCsFixer\Finder::create()
     ])
     ->name('*.php')
     ->notName('*.blade.php')
-    ->notName('_ide_helper.php')
+    // ->notName('_ide_helper.php')
     ->ignoreDotFiles(true)
     ->ignoreVCS(true);
 
@@ -35,12 +35,12 @@ return (new PhpCsFixer\Config())
         'ordered_imports' => ['sort_algorithm' => 'alpha'],
         'no_unused_imports' => true,
         'not_operator_with_successor_space' => true,
-        // 'trailing_comma_in_multiline' => true,
         'no_useless_else' => true,
         'no_useless_return' => true,
         'single_quote' => true,
         'class_attributes_separation' => true,
         'standardize_not_equals' => true,
+        // 'trailing_comma_in_multiline' => true,
         // 'php_unit_construct' => true,
         // 'php_unit_strict' => true,
         // 'declare_strict_types' => true,
