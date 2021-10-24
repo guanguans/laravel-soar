@@ -19,9 +19,13 @@ return [
      * soar 路径
      */
     '-soar-path' => env(
-        'SOAR_FILE',
-        OsHelper::isWindows() ? base_path('vendor\guanguans\soar-php\bin\soar.windows-amd64') :
-            (OsHelper::isMacOS() ? base_path('vendor/guanguans/soar-php/bin/soar.darwin-amd64') : base_path('vendor/guanguans/soar-php/bin/soar.linux-amd64'))
+        'SOAR_PATH',
+        OsHelper::isWindows()
+            ? base_path('vendor\guanguans\soar-php\bin\soar.windows-amd64')
+            : (OsHelper::isMacOS()
+                ? base_path('vendor/guanguans/soar-php/bin/soar.darwin-amd64')
+                : base_path('vendor/guanguans/soar-php/bin/soar.linux-amd64')
+            )
     ),
 
     /*
