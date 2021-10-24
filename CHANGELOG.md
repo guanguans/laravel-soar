@@ -2,6 +2,10 @@
 
 All notable changes to `guanguans/laravel-soar` will be documented in this file.
 
+## 1.2.1 - 2021-10-24
+
+* Rename `SOAR_FILE` -> `SOAR_PATH`.
+
 ## 1.2.0 - 2021-10-08
 
 * Adapt lumen.
