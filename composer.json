@@ -26,7 +26,7 @@
     ],
     "require": {
         "php": ">=7.1",
-        "guanguans/laravel-dump-sql": "^2.0",
+        "guanguans/laravel-dump-sql": "^1.1 || ^2.0",
         "guanguans/soar-php": "^2.2",
         "illuminate/support": "^5.5 || ^6.0 || ^7.0 || ^8.0"
     },
