@@ -21,6 +21,7 @@
             <directory suffix=".php">src/</directory>
             <exclude>
                 <file>src/Soar.php</file>
+                <file>src/Facades/Soar.php</file>
             </exclude>
         </whitelist>
     </filter>
