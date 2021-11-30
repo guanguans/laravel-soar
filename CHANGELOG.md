@@ -2,6 +2,10 @@
 
 All notable changes to `guanguans/laravel-soar` will be documented in this file.
 
+## 1.2.3 - 2021-11-30
+
+* Update overtrue/phplint requirement from `^2.4|| ^3.0` to `^3.0|^4.0`.
+
 ## 1.2.2 - 2021-11-04
 
 * Update guanguans/laravel-dump-sql requirement from  ^2.0 to `^1.1 || 2.0`.
