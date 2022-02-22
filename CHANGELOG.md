@@ -2,6 +2,10 @@
 
 All notable changes to `guanguans/laravel-soar` will be documented in this file.
 
+## 1.3.0 - 2022-02-14
+
+* Support laravel9.
+
 ## 1.2.3 - 2021-11-30
 
 * Update overtrue/phplint requirement from `^2.4|| ^3.0` to `^3.0|^4.0`.
