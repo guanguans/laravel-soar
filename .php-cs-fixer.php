@@ -16,7 +16,7 @@ $finder = PhpCsFixer\Finder::create()
         __DIR__ . '/tests',
     ])
     ->exclude([
-        __DIR__.'/vendor',
+        'vendor',
     ])
     ->name('*.php')
     ->notName('*.blade.php')
