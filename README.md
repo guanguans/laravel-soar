@@ -1,6 +1,6 @@
 # laravel-soar
 
-> An extension package for optimizing sql statements easily and easily in laravel applications. - 在 Laravel 应用程序中轻松容易的优化 sql 语句的扩展包。
+> Assist laravel application sql optimization and rewriting. - 辅助 laravel 应用 sql 优化、重写。
 
 [简体中文](README.md) | [ENGLISH](README-EN.md)
 
