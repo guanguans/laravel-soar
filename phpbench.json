@@ -3,7 +3,7 @@
         "PhpBench\\Extension\\DevelopmentExtension"
     ],
     "runner.bootstrap": "vendor/autoload.php",
-    "runner.path": "benchmark",
+    "runner.path": "benchmarks",
     "runner.php_config": {
         "xdebug.mode": "none"
     },
