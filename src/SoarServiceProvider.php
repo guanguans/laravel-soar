@@ -11,7 +11,11 @@
 namespace Guanguans\LaravelSoar;
 
 use Guanguans\LaravelDumpSql\Traits\RegisterDatabaseBuilderMethodAble;
+use Guanguans\LaravelSoar\Macros\QueryBuilderMacro;
 use Illuminate\Database\ConnectionInterface;
+use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
+use Illuminate\Database\Eloquent\Relations\Relation as RelationBuilder;
+use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Foundation\Application as LaravelApplication;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Lumen\Application as LumenApplication;
@@ -26,17 +30,13 @@ class SoarServiceProvider extends ServiceProvider
     protected $defer = false;
 
     /**
-     * Perform post-registration booting of services.
+     * Register the provider.
      */
-    public function boot()
+    public function register()
     {
         $this->setupConfig();
-
-        $this->registerSoarMethod('score');
-        $this->registerSoarMethod('mdExplain');
-        $this->registerSoarMethod('htmlExplain');
-        $this->registerSoarMethod('pretty');
-        $this->registerSoarMethod('help');
+        $this->registerMacros();
+        $this->registerSoar();
     }
 
     /**
@@ -62,46 +62,25 @@ class SoarServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register the provider.
+     * @throws \ReflectionException
      */
-    public function register()
+    protected function registerMacros(): void
     {
-        $this->setupConfig();
+        QueryBuilder::mixin($queryBuilderMacro = $this->app->make(QueryBuilderMacro::class));
+        EloquentBuilder::mixin($queryBuilderMacro);
+        RelationBuilder::mixin($queryBuilderMacro);
+    }
 
+    /**
+     * @throws \Guanguans\SoarPHP\Exceptions\InvalidConfigException
+     */
+    protected function registerSoar(): void
+    {
         $this->app->singleton(Soar::class, function ($app) {
             return new Soar(config('soar'));
         });
 
         $this->app->alias(Soar::class, 'soar');
-    }
-
-    protected function registerSoarMethod(string $methodName)
-    {
-        $ucfirstMethodName = ucfirst($methodName);
-
-        $this->registerDatabaseBuilderMethod(sprintf('toSoar%s', $ucfirstMethodName), function () use ($methodName) {
-            $sql = $this->{config('dumpsql.to_raw_sql', 'toRawSql')}();
-
-            return app('soar')->{$methodName}($sql);
-        });
-
-        $this->registerDatabaseBuilderMethod(sprintf('dumpSoar%s', $ucfirstMethodName), function () use ($methodName) {
-            $sql = $this->{config('dumpsql.to_raw_sql', 'toRawSql')}();
-            if ('pretty' === $methodName || 'help' === $methodName) {
-                echo '<pre>';
-            }
-
-            echo app('soar')->{$methodName}($sql);
-        });
-
-        $this->registerDatabaseBuilderMethod(sprintf('ddSoar%s', $ucfirstMethodName), function () use ($methodName) {
-            $sql = $this->{config('dumpsql.to_raw_sql', 'toRawSql')}();
-            if ('pretty' === $methodName || 'help' === $methodName) {
-                echo '<pre>';
-            }
-
-            exit(app('soar')->{$methodName}($sql));
-        });
     }
 
     /**

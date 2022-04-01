@@ -21,22 +21,22 @@ return [
     '-soar-path' => env(
         'SOAR_PATH',
         OsHelper::isWindows()
-            ? base_path('vendor\guanguans\soar-php\bin\soar.windows-amd64')
-            : (OsHelper::isMacOS()
-                ? base_path('vendor/guanguans/soar-php/bin/soar.darwin-amd64')
-                : base_path('vendor/guanguans/soar-php/bin/soar.linux-amd64')
-            )
+        ? base_path('vendor\guanguans\soar-php\bin\soar.windows-amd64')
+        : (OsHelper::isMacOS()
+            ? base_path('vendor/guanguans/soar-php/bin/soar.darwin-amd64')
+            : base_path('vendor/guanguans/soar-php/bin/soar.linux-amd64')
+        )
     ),
 
     /*
      * 测试环境配置
      */
     '-test-dsn' => [
-        'host' => env('DB_HOST', 'you_host'),
-        'port' => env('DB_PORT', 'you_port'),
-        'dbname' => env('DB_DATABASE', 'you_dbname'),
-        'username' => env('DB_USERNAME', 'you_username'),
-        'password' => env('DB_PASSWORD', 'you_password'),
+        'host' => env('SOAR_TEST_DB_HOST', config('database.connections.mysql.host', 'you_host')),
+        'port' => env('SOAR_TEST_DB_PORT', config('database.connections.mysql.port', 'you_port')),
+        'dbname' => env('SOAR_TEST_DB_DATABASE', config('database.connections.mysql.database', 'you_dbname')),
+        'username' => env('SOAR_TEST_DB_USERNAME', config('database.connections.mysql.username', 'you_username')),
+        'password' => env('SOAR_TEST_DB_PASSWORD', config('database.connections.mysql.password', 'you_password')),
         'disable' => false,
     ],
 
@@ -44,18 +44,18 @@ return [
      * 线上环境配置(线上数据库用户只需 select 权限)
      */
     '-online-dsn' => [
-        'host' => env('DB_HOST', 'you_host'),
-        'port' => env('DB_PORT', 'you_port'),
-        'dbname' => env('DB_DATABASE', 'you_dbname'),
-        'username' => env('DB_USERNAME', 'you_username'),
-        'password' => env('DB_PASSWORD', 'you_password'),
+        'host' => env('SOAR_ONLINE_DB_HOST', config('database.connections.mysql.host', 'you_host')),
+        'port' => env('SOAR_ONLINE_DB_PORT', config('database.connections.mysql.port', 'you_port')),
+        'dbname' => env('SOAR_ONLINE_DB_DATABASE', config('database.connections.mysql.database', 'you_dbname')),
+        'username' => env('SOAR_ONLINE_DB_USERNAME', config('database.connections.mysql.username', 'you_username')),
+        'password' => env('SOAR_ONLINE_DB_PASSWORD', config('database.connections.mysql.password', 'you_password')),
         'disable' => true,
     ],
 
     /*
      * 日志输出文件
      */
-    '-log-output' => env('SOAR_LOG_FILE', storage_path('logs/soar.log')),
+    '-log-output' => env('SOAR_LOG_PATH', storage_path('logs/soar.log')),
 
     /*
      * 日志级别
