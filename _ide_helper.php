@@ -12,27 +12,31 @@ namespace {
     class DB extends \Illuminate\Support\Facades\DB
     {
     }
+
+    class Soar extends \Guanguans\LaravelSoar\Facades\Soar
+    {
+    }
 }
 
 namespace Illuminate\Database\Query {
     /**
-     * @method string toSoarScore()
-     * @method void   dumpSoarScore()
-     * @method void   ddSoarScore()
-     * @method string toSoarMdExplain()
-     * @method void   dumpSoarMdExplain()
-     * @method void   ddSoarMdExplain()
+     * @method string toRawSql()
+     * @method void   dumpRawSql()
+     * @method void   ddRawSql()
+     * @method array  toSoarArrayScore()
+     * @method void   dumpSoarArrayScore()
+     * @method void   ddSoarArrayScore()
+     * @method string toSoarJsonScore()
+     * @method void   dumpSoarJsonScore()
+     * @method void   ddSoarJsonScore()
+     * @method string toSoarHtmlScore()
+     * @method void   echoSoarHtmlScore()
+     * @method void   exitSoarHtmlScore()
      * @method string toSoarHtmlExplain()
-     * @method void   dumpSoarHtmlExplain()
-     * @method void   ddSoarHtmlExplain()
-     * @method string toSoarPretty()
-     * @method void   dumpSoarPretty()
-     * @method void   ddSoarPretty()
-     * @method string toSoarHelp()
-     * @method void   dumpSoarHelp()
-     * @method void   ddSoarHelp()
+     * @method void   echoSoarHtmlExplain()
+     * @method void   exitSoarHtmlExplain()
      *
-     * @see \Guanguans\LaravelDumpSql\ServiceProvider
+     * @see \Guanguans\LaravelSoar\Support\Macros\QueryBuilderMacro
      * @see \Illuminate\Database\Query\Builder
      */
     class Builder
@@ -42,25 +46,25 @@ namespace Illuminate\Database\Query {
 
 namespace Illuminate\Database\Eloquent {
     /**
-     * @method string toSoarScore()
-     * @method void   dumpSoarScore()
-     * @method void   ddSoarScore()
-     * @method string toSoarMdExplain()
-     * @method void   dumpSoarMdExplain()
-     * @method void   ddSoarMdExplain()
+     * @method string toRawSql()
+     * @method void   dumpRawSql()
+     * @method void   ddRawSql()
+     * @method array  toSoarArrayScore()
+     * @method void   dumpSoarArrayScore()
+     * @method void   ddSoarArrayScore()
+     * @method string toSoarJsonScore()
+     * @method void   dumpSoarJsonScore()
+     * @method void   ddSoarJsonScore()
+     * @method string toSoarHtmlScore()
+     * @method void   echoSoarHtmlScore()
+     * @method void   exitSoarHtmlScore()
      * @method string toSoarHtmlExplain()
-     * @method void   dumpSoarHtmlExplain()
-     * @method void   ddSoarHtmlExplain()
-     * @method string toSoarPretty()
-     * @method void   dumpSoarPretty()
-     * @method void   ddSoarPretty()
-     * @method string toSoarHelp()
-     * @method void   dumpSoarHelp()
-     * @method void   ddSoarHelp()
+     * @method void   echoSoarHtmlExplain()
+     * @method void   exitSoarHtmlExplain()
      *
      * @mixin \Illuminate\Database\Query\Builder
      *
-     * @see \Guanguans\LaravelDumpSql\ServiceProvider
+     * @see \Guanguans\LaravelSoar\Support\Macros\QueryBuilderMacro
      * @see \Illuminate\Database\Eloquent\Builder
      */
     class Builder
@@ -70,25 +74,25 @@ namespace Illuminate\Database\Eloquent {
 
 namespace Illuminate\Database\Eloquent\Relations {
     /**
-     * @method string toSoarScore()
-     * @method void   dumpSoarScore()
-     * @method void   ddSoarScore()
-     * @method string toSoarMdExplain()
-     * @method void   dumpSoarMdExplain()
-     * @method void   ddSoarMdExplain()
+     * @method string toRawSql()
+     * @method void   dumpRawSql()
+     * @method void   ddRawSql()
+     * @method array  toSoarArrayScore()
+     * @method void   dumpSoarArrayScore()
+     * @method void   ddSoarArrayScore()
+     * @method string toSoarJsonScore()
+     * @method void   dumpSoarJsonScore()
+     * @method void   ddSoarJsonScore()
+     * @method string toSoarHtmlScore()
+     * @method void   echoSoarHtmlScore()
+     * @method void   exitSoarHtmlScore()
      * @method string toSoarHtmlExplain()
-     * @method void   dumpSoarHtmlExplain()
-     * @method void   ddSoarHtmlExplain()
-     * @method string toSoarPretty()
-     * @method void   dumpSoarPretty()
-     * @method void   ddSoarPretty()
-     * @method string toSoarHelp()
-     * @method void   dumpSoarHelp()
-     * @method void   ddSoarHelp()
+     * @method void   echoSoarHtmlExplain()
+     * @method void   exitSoarHtmlExplain()
      *
      * @mixin \Illuminate\Database\Eloquent\Builder
      *
-     * @see \Guanguans\LaravelDumpSql\ServiceProvider
+     * @see \Guanguans\LaravelSoar\Support\Macros\QueryBuilderMacro
      * @see \Illuminate\Database\Eloquent\Relations\Relation
      */
     class Relation

@@ -10,8 +10,13 @@
 
 namespace Guanguans\LaravelSoar;
 
-use Guanguans\LaravelDumpSql\Traits\RegisterDatabaseBuilderMethodAble;
-use Guanguans\LaravelSoar\Macros\QueryBuilderMacro;
+use Guanguans\LaravelSoar\Outputs\DebugBarOutput;
+use Guanguans\LaravelSoar\Outputs\DumpOutput;
+use Guanguans\LaravelSoar\Outputs\JsonOutput;
+use Guanguans\LaravelSoar\Outputs\LogOutput;
+use Guanguans\LaravelSoar\Support\Macros\QueryBuilderMacro;
+use Guanguans\SoarPHP\Soar;
+use Illuminate\Contracts\Container\Container;
 use Illuminate\Database\ConnectionInterface;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Relations\Relation as RelationBuilder;
@@ -22,27 +27,29 @@ use Laravel\Lumen\Application as LumenApplication;
 
 class SoarServiceProvider extends ServiceProvider
 {
-    use RegisterDatabaseBuilderMethodAble;
-
     /**
      * @var bool
      */
     protected $defer = false;
 
     /**
-     * Register the provider.
+     * {@inheritdoc}
      */
     public function register()
     {
         $this->setupConfig();
         $this->registerMacros();
+        $this->registerSingletons();
         $this->registerSoar();
+        $this->registerOutputManager();
     }
 
-    /**
-     * Setup the config.
-     */
-    protected function setupConfig()
+    public function boot()
+    {
+        $this->app->make(Bootstrapper::class)->bootIf(config('soar.enabled'), $this->app);
+    }
+
+    protected function setupConfig(): void
     {
         $source = realpath($raw = __DIR__.'/../config/soar.php') ?: $raw;
 
@@ -54,16 +61,11 @@ class SoarServiceProvider extends ServiceProvider
             $this->app->bindIf(ConnectionInterface::class, function ($app) {
                 return $app['db']->connection();
             });
-
-            $this->app->register(\Guanguans\LaravelDumpSql\ServiceProvider::class);
         }
 
         $this->mergeConfigFrom($source, 'soar');
     }
 
-    /**
-     * @throws \ReflectionException
-     */
     protected function registerMacros(): void
     {
         QueryBuilder::mixin($queryBuilderMacro = $this->app->make(QueryBuilderMacro::class));
@@ -71,22 +73,44 @@ class SoarServiceProvider extends ServiceProvider
         RelationBuilder::mixin($queryBuilderMacro);
     }
 
-    /**
-     * @throws \Guanguans\SoarPHP\Exceptions\InvalidConfigException
-     */
+    protected function registerSingletons(): void
+    {
+        $this->app->singleton(Bootstrapper::class);
+        $this->app->singleton(DebugBarOutput::class);
+        $this->app->singleton(DumpOutput::class);
+        $this->app->singleton(JsonOutput::class);
+        $this->app->singleton(LogOutput::class);
+    }
+
     protected function registerSoar(): void
     {
         $this->app->singleton(Soar::class, function ($app) {
-            return new Soar(config('soar'));
+            return Soar::create(config('soar.options'), config('soar.path'));
         });
 
         $this->app->alias(Soar::class, 'soar');
     }
 
+    protected function registerOutputManager(): void
+    {
+        $this->app->singleton(OutputManager::class, function (Container $app) {
+            $outputs = collect(config('soar.output'))
+                ->map(function ($parameters, $class) use ($app) {
+                    ! is_array($parameters) and [$parameters, $class] = [$class, $parameters];
+
+                    return $app->make($class, (array) $parameters);
+                })
+                ->values()
+                ->all();
+
+            return new OutputManager($outputs);
+        });
+
+        $this->app->alias(OutputManager::class, 'output_manager');
+    }
+
     /**
-     * Get the services provided by the provider.
-     *
-     * @return array
+     * {@inheritdoc}
      */
     public function provides()
     {

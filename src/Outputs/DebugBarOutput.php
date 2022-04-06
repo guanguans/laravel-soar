@@ -1,0 +1,51 @@
+<?php
+
+/**
+ * This file is part of the guanguans/laravel-soar.
+ *
+ * (c) guanguans <ityaozm@gmail.com>
+ *
+ * This source file is subject to the MIT license that is bundled.
+ */
+
+namespace Guanguans\LaravelSoar\Outputs;
+
+use Barryvdh\Debugbar\Facade as LaravelDebugbar;
+use DebugBar\DataCollector\MessagesCollector;
+use Illuminate\Support\Collection;
+
+class DebugBarOutput extends Output
+{
+    /**
+     * @var \DebugBar\DataCollector\MessagesCollector
+     */
+    protected static $collector;
+
+    /**
+     * @param \Symfony\Component\HttpFoundation\Response $response
+     *
+     * @return mixed
+     */
+    public function output(Collection $scores, $response)
+    {
+        if (! $this->shouldOutputInDebugBar()) {
+            return;
+        }
+
+        $scores->tap(function ($scores) use (&$collector) {
+            $collector = $this->createCollector();
+        })->each(function (array $score) use ($collector) {
+            $collector->addMessage($score['Summary'], $level = $score['Basic']['Level']);
+            $collector->addMessage($score, $level);
+            $collector->addMessage(PHP_EOL);
+        });
+    }
+
+    protected function createCollector(): MessagesCollector
+    {
+        self::$collector instanceof MessagesCollector or self::$collector = new MessagesCollector('Soar Scores');
+        LaravelDebugbar::hasCollector(self::$collector->getName()) or LaravelDebugbar::addCollector(self::$collector);
+
+        return self::$collector;
+    }
+}

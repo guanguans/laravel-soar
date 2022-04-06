@@ -10,21 +10,19 @@
 
 namespace Guanguans\LaravelSoar\Facades;
 
-use Guanguans\LaravelSoar\Soar as Accessor;
-
 /**
  * @method static getSoarPath()
  * @method static setSoarPath(string $soarPath)
- * @method static getPdoConfig()
- * @method static setPdoConfig(array $pdoConfig)
- * @method static getPdo()
- * @method static getExplainService(\PDO $pdo)
- * @method static getConfig()
- * @method static setConfig($key, $value = null)
- * @method static formatConfig(array $configs)
+ * @method static getOptions()
+ * @method static setOption(string $key, $value)
+ * @method static setOptions(array $options)
  * @method static score(string $sql)
+ * @method static jsonScore(string $sql)
+ * @method static arrayScore(string $sql)
+ * @method static htmlScore(string $sql)
+ * @method static mdScore(string $sql)
  * @method static exec(string $command)
- * @method static explain(string $sql, string $format)
+ * @method static explain(string $sql)
  * @method static mdExplain(string $sql)
  * @method static htmlExplain(string $sql)
  * @method static syntaxCheck(string $sql)
@@ -39,6 +37,6 @@ class Soar extends \Illuminate\Support\Facades\Facade
 {
     public static function getFacadeAccessor()
     {
-        return Accessor::class;
+        return 'soar';
     }
 }

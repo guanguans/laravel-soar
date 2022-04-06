@@ -8,8 +8,8 @@
  * This source file is subject to the MIT license that is bundled.
  */
 
-namespace Guanguans\LaravelSoar;
+namespace Guanguans\LaravelSoar\Exceptions;
 
-class Soar extends \Guanguans\SoarPHP\Soar
+class Exception extends \Exception
 {
 }
