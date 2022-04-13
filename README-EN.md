@@ -1,8 +1,8 @@
 # laravel-soar
 
-> Assist laravel application sql optimization and rewriting. - 辅助 laravel 应用 sql 优化、重写。
+![](docs/debug-bar.png)
 
-[简体中文](README.md) | [ENGLISH](README-EN.md)
+> Sql optimizer、rewriter for laravel. - sql 优化器、重写器。
 
 [![Tests](https://github.com/guanguans/laravel-soar/workflows/Tests/badge.svg)](https://github.com/guanguans/laravel-soar/actions)
 [![Check & fix styling](https://github.com/guanguans/laravel-soar/workflows/Check%20&%20fix%20styling/badge.svg)](https://github.com/guanguans/laravel-soar/actions)
@@ -59,109 +59,16 @@ $app->register(\Guanguans\LaravelSoar\SoarServiceProvider::class);
 
 ## Usage
 
-### Generate sql scoring report example
+### Automatically monitor output sql score
+
+![](docs/debug-bar.png)
+
+### Example of use
 
 ```php
-use App\Models\Member;
-    
-Member::query()
-    ->select([
-        'id',
-        'nickname',
-    ])
-    ->where('id', 100)
-    // ->toSoarScore()   // Generate sql score report.
-    // ->dumpSoarScore() // Print sql scoring report.
-    ->ddSoarScore()      // Print the sql score report and exit the application.
-;
-```
-
-![high-score](./docs/high-score.png)
-
-```php
-// Query builder usage example.
-DB::table('yb_member')
-    ->select('*')
-    ->join('yb_member_account as yb_member_account', 'yb_member_account.member_id', '=', 'yb_member.id')
-    ->whereRaw('1 <> 1')
-    ->where('yb_member.nickname', 'like', 'admin')
-    ->where('yb_member.username', 'like', '%admin%')
-    ->whereRaw("substring(yb_member.username, 1, 5) = 'admin'")
-    ->whereIn('yb_member.id', [110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120])
-    ->orWhereNotNull('yb_member.realname')
-    ->groupByRaw("yb_member.status, '100'")
-    ->having('yb_member.id', '>', '100')
-    ->orderByRaw('RAND()')
-    // ->toSoarScore()   // Generate sql score report.
-    // ->dumpSoarScore() // Print sql scoring report.
-    ->ddSoarScore()      // Print the sql score report and exit the application.
-;
-```
-
-![low-score](./docs/low-score.png)
-
-### Generate an explain information interpretation report example
-
-```php
-// Query builder usage example.
-DB::table('yb_member')
-    ->select('*')
-    ->join('yb_member_account as yb_member_account', 'yb_member_account.member_id', '=', 'yb_member.id')
-    ->whereRaw('1 <> 1')
-    ->where('yb_member.nickname', 'like', 'admin')
-    ->where('yb_member.username', 'like', '%admin%')
-    ->whereRaw("substring(yb_member.username, 1, 5) = 'admin'")
-    ->whereIn('yb_member.id', [110, 120])
-    ->orWhereNotNull('yb_member.realname')
-    ->groupByRaw("yb_member.status, '100'")
-    ->having('yb_member.id', '>', '100')
-    ->orderByRaw('RAND()')
-    // ->toSoarHtmlExplain()   // Generate explain information interpretation report.
-    // ->dumpSoarHtmlExplain() // Print explain information interpretation report.
-    ->ddSoarHtmlExplain()      // Print the explain information interpretation report, and exit the application.
-;
-```
-
-![explain](./docs/explain.png)
-
-### Beautify sql statemen
-
-```php
-// Query builder usage example.
-DB::table('yb_member')
-    ->select('*')
-    ->join('yb_member_account as yb_member_account', 'yb_member_account.member_id', '=', 'yb_member.id')
-    ->whereRaw('1 <> 1')
-    ->where('yb_member.nickname', 'like', 'admin')
-    ->where('yb_member.username', 'like', '%admin%')
-    ->whereRaw("substring(yb_member.username, 1, 5) = 'admin'")
-    ->whereIn('yb_member.id', [110, 120])
-    ->orWhereNotNull('yb_member.realname')
-    ->groupByRaw("yb_member.status, '100'")
-    ->having('yb_member.id', '>', '100')
-    ->orderByRaw('RAND()')
-    // ->toSoarPretty()   // Generate beautified sql.
-    // ->dumpSoarPretty() // Print beautified sql.
-    ->dumpSoarPretty()    // Print the beautified sql, and exit the application.
-;
-```
-
-![pretty](./docs/pretty.png)
-
-### Facade usage examples
-
-```php
-$sql = Member::query()->select(['id',  'nickname'])->where('id',  100)->toRawSql();
-
-\Soar::score($sql);        // Generate sql score report.
-\Soar::mdExplain($sql);    // Generate explain information interpretation report in markdown format.
-\Soar::htmlExplain($sql);  // Generate Explain information interpretation report in html format.
-\Soar::syntaxCheck($sql);  // SQL syntax check.
-\Soar::fingerPrint($sql);  // Generate sql fingerprint.
-\Soar::pretty($sql);       // Beautify sql.
-\Soar::md2html($sql);      // Convert markdown format content to html format content.
-\Soar::help($sql);         // Output soar help command content.
-\Soar::exec($command);     // Execute any soar command.
+$soar = app('soar'); // get soar instance
+User::query()->ddSoarJsonScore() // Convenience query method to output scoring report
+\Soar::jsonScore(User::query()->toRawSql()); // soar facade generates scoring report
 ```
 
 ## Testing

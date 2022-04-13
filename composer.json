@@ -1,6 +1,6 @@
 {
     "name": "guanguans/laravel-soar",
-    "description": "Assist laravel application sql optimization and rewriting. - 辅助 laravel 应用 sql 优化、重写。",
+    "description": "Sql optimizer、rewriter for laravel. - sql 优化器、重写器。",
     "license": "MIT",
     "type": "laravel",
     "keywords": [
