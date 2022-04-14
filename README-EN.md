@@ -2,7 +2,7 @@
 
 ![](docs/debug-bar.png)
 
-> Sql optimizer、rewriter for laravel. - sql 优化器、重写器。
+> SQL optimizer and rewriter for laravel. - laravel 的 SQL 优化器和重写器。
 
 [![Tests](https://github.com/guanguans/laravel-soar/workflows/Tests/badge.svg)](https://github.com/guanguans/laravel-soar/actions)
 [![Check & fix styling](https://github.com/guanguans/laravel-soar/workflows/Check%20&%20fix%20styling/badge.svg)](https://github.com/guanguans/laravel-soar/actions)

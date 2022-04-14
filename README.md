@@ -2,7 +2,7 @@
 
 ![](docs/debug-bar.png)
 
-> Sql optimizer、rewriter for laravel. - sql 优化器、重写器。
+> SQL optimizer and rewriter for laravel. - laravel 的 SQL 优化器和重写器。
 
 [简体中文](README.md) | [ENGLISH](README-EN.md)
 
