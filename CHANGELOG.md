@@ -2,11 +2,14 @@
 
 All notable changes to `guanguans/laravel-soar` will be documented in this file.
 
+## v2.0.1 - 2022-04-14
+
+**Full Changelog**: https://github.com/guanguans/laravel-soar/compare/v2.0.0...v2.0.1
+
 ## v2.0.0 - 2022-04-13
 
 <img width="1333" alt="debug-bar" src="https://user-images.githubusercontent.com/22309277/163159595-1ad269a7-0360-407a-b711-87e1ab08ee48.png">
 **Full Changelog**: https://github.com/guanguans/laravel-soar/compare/v1.3.2...v2.0.0
-
 ## v1.3.2 - 2022-03-26
 
 ## What's Changed
