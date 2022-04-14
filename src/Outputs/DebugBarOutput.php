@@ -35,9 +35,10 @@ class DebugBarOutput extends Output
         $scores->tap(function ($scores) use (&$collector) {
             $collector = $this->createCollector();
         })->each(function (array $score) use ($collector) {
-            $collector->addMessage($score['Summary'], $level = $score['Basic']['Level']);
-            $collector->addMessage($score, $level);
-            $collector->addMessage(PHP_EOL);
+            $summary = $score['Summary'];
+            $level = $score['Basic']['Level'];
+            unset($score['Summary'], $score['Basic']);
+            $collector->addMessage($summary.PHP_EOL.var_output($score, true), $level, false);
         });
     }
 
