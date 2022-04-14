@@ -14,6 +14,7 @@ use Illuminate\Console\Events\CommandFinished;
 use Illuminate\Foundation\Http\Events\RequestHandled;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
+use Illuminate\Support\Str;
 
 trait OutputCondition
 {
@@ -58,8 +59,20 @@ trait OutputCondition
         return $operator instanceof Response;
     }
 
-    protected function shouldOutputInDebugBar(): bool
+    /**
+     * @param mixed $operator
+     */
+    protected function shouldOutputInHtmlResponse($operator): bool
     {
-        return class_exists('Barryvdh\Debugbar\Facade');
+        return $operator instanceof Response
+               && ! $operator instanceof JsonResponse
+               && Str::contains($operator->headers->get('Content-Type'), 'text/html');
+    }
+
+    protected function shouldOutputInDebugBar($operator): bool
+    {
+        return class_exists('Barryvdh\Debugbar\Facade')
+               && \Barryvdh\Debugbar\Facade::isEnabled()
+               && $operator instanceof Response;
     }
 }

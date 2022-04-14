@@ -28,7 +28,7 @@ class DebugBarOutput extends Output
      */
     public function output(Collection $scores, $response)
     {
-        if (! $this->shouldOutputInDebugBar()) {
+        if (! $this->shouldOutputInDebugBar($response)) {
             return;
         }
 
