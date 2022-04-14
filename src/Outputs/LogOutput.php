@@ -38,11 +38,10 @@ class LogOutput extends Output
         }
 
         $scores->each(function (array $score) {
-            Log::channel($this->channel)
-                ->log(
-                    $score['Basic']['Level'],
-                    $score['Summary'].PHP_EOL.var_output($score, true).PHP_EOL
-                );
+            $summary = $score['Summary'];
+            $level = $score['Basic']['Level'];
+            unset($score['Summary'], $score['Basic']);
+            Log::channel($this->channel)->log($level, $summary.PHP_EOL.var_output($score, true));
         });
     }
 }
