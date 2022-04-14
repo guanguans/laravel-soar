@@ -39,8 +39,8 @@ return [
     */
     'output' => [
         \Guanguans\LaravelSoar\Outputs\BarOutput::class,
-        \Guanguans\LaravelSoar\Outputs\ConsoleOutput::class,
-        \Guanguans\LaravelSoar\Outputs\DebugBarOutput::class,
+        // \Guanguans\LaravelSoar\Outputs\ConsoleOutput::class,
+        // \Guanguans\LaravelSoar\Outputs\DebugBarOutput::class,
         \Guanguans\LaravelSoar\Outputs\JsonOutput::class,
         \Guanguans\LaravelSoar\Outputs\LogOutput::class,
         // \Guanguans\LaravelSoar\Outputs\DumpOutput::class,

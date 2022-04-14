@@ -20,26 +20,35 @@ class ConsoleOutput extends Output
             return;
         }
 
+        $js = $this->transformToJs($scores);
         $content = $operator->getContent();
-        $outputContent = $this->getOutputContent($scores);
-
         $content = false === ($pos = strripos($content, '</body>'))
-        ? $content.$outputContent
-        : substr($content, 0, $pos).$outputContent.substr($content, $pos);
+        ? $content.$js
+        : substr($content, 0, $pos).$js.substr($content, $pos);
 
-        // Update the new content and reset the content length
         $operator->setContent($content);
         $operator->headers->remove('Content-Length');
     }
 
-    protected function getOutputContent(Collection $scores)
+    protected function transformToJs(Collection $scores)
     {
-        $output = '<script type="text/javascript">';
-        foreach ($scores as $score) {
-            $output .= sprintf("console.warn(JSON.parse('%s')); ", addslashes(json_encode($score, JSON_UNESCAPED_UNICODE)));
-        }
-        $output .= '</script>';
+        return $scores->pipe(function ($scores) {
+            $js = $scores->reduce(function ($js, $score) {
+                unset($score['Basic']);
+                $score = str_replace('`', '', var_output($score, true));
 
-        return $output;
+                return $js.<<<JS
+
+var score = `
+$score    
+`
+console.warn(score)
+JS;
+            }, '');
+
+            return <<<JS
+<script type="text/javascript">$js</script>
+JS;
+        });
     }
 }
