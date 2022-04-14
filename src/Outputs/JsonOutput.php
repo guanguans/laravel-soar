@@ -26,6 +26,12 @@ class JsonOutput extends Output
             return;
         }
 
+        $scores = $scores->map(function ($score) {
+            unset($score['Basic']);
+
+            return $score;
+        });
+
         $data = Arr::wrap($response->getData(true)) and $data['soar_scores'] = $scores;
         $response->setData($data);
     }

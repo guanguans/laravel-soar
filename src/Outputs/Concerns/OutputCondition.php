@@ -48,7 +48,22 @@ trait OutputCondition
      */
     protected function shouldOutputInJsonResponse($operator): bool
     {
-        return $operator instanceof JsonResponse;
+        return $operator instanceof JsonResponse
+               && Str::contains($operator->headers->get('Content-Type'), 'application/json')
+               && transform($operator, function ($operator) {
+                   /* @var JsonResponse $operator */
+                   $content = $operator->getContent();
+                   if ('' === $content) {
+                       return false;
+                   }
+
+                   json_decode($content);
+                   if (json_last_error()) {
+                       return false;
+                   }
+
+                   return true;
+               });
     }
 
     /**
