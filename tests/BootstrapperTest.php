@@ -44,8 +44,12 @@ class BootstrapperTest extends TestCase
         $this->assertNotEmpty($scores);
 
         $scores->each(function ($score) {
+            $this->assertArrayHasKey('Summary', $score);
+            $this->assertArrayHasKey('HeuristicRules', $score);
             $this->assertArrayHasKey('IndexRules', $score);
-            $this->assertArrayHasKey('IndexRules', $score);
+            $this->assertArrayHasKey('Explain', $score);
+            $this->assertArrayHasKey('Backtraces', $score);
+            $this->assertArrayHasKey('Basic', $score);
         });
     }
 
