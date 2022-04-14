@@ -1,6 +1,6 @@
-# laravel-soar
-
 ![](docs/debug-bar.png)
+
+# laravel-soar
 
 > SQL optimizer and rewriter for laravel. - laravel 的 SQL 优化器和重写器。
 
@@ -8,7 +8,7 @@
 
 [![Tests](https://github.com/guanguans/laravel-soar/workflows/Tests/badge.svg)](https://github.com/guanguans/laravel-soar/actions)
 [![Check & fix styling](https://github.com/guanguans/laravel-soar/workflows/Check%20&%20fix%20styling/badge.svg)](https://github.com/guanguans/laravel-soar/actions)
-[![codecov](https://codecov.io/gh/guanguans/laravel-soar/branch/main/graph/badge.svg?token=URGFAWS6S4)](https://codecov.io/gh/guanguans/laravel-soar)
+[![codecov](https://codecov.io/gh/guanguans/laravel-soar/branch/master/graph/badge.svg?token=EWBG8GV4JD)](https://codecov.io/gh/guanguans/laravel-soar)
 [![Latest Stable Version](https://poser.pugx.org/guanguans/laravel-soar/v)](//packagist.org/packages/guanguans/laravel-soar)
 [![Total Downloads](https://poser.pugx.org/guanguans/laravel-soar/downloads)](//packagist.org/packages/guanguans/laravel-soar)
 [![License](https://poser.pugx.org/guanguans/laravel-soar/license)](//packagist.org/packages/guanguans/laravel-soar)
@@ -61,16 +61,41 @@ $app->register(\Guanguans\LaravelSoar\SoarServiceProvider::class);
 
 ## 使用
 
-### 自动监控输出 sql 评分
+### 监控输出 SQL 评分
 
 ![](docs/debug-bar.png)
 
-### 使用示例
+### 接口方法
 
 ```php
-$soar = app('soar'); // 获取 soar 实例
-User::query()->ddSoarJsonScore() // 便捷查询器方法输出评分报告
-\Soar::jsonScore(User::query()->toRawSql()); // soar 门面生成评分报告
+$soar = app('soar'); // 获取 Soar 实例
+
+/**
+ * Soar 门面.
+ *
+ * @method static string score(string $sql)                              // SQL 评分
+ * @method static array arrayScore(string $sql)                          // SQL 数组格式评分
+ * @method static string jsonScore(string $sql)                          // SQL json 格式评分
+ * @method static string htmlScore(string $sql)                          // SQL html 格式评分
+ * @method static string mdScore(string $sql)                            // SQL markdown 格式评分
+ * @method static string explain(string $sql)                            // explain 解读信息
+ * @method static string mdExplain(string $sql)                          // markdown 格式 explain 解读信息
+ * @method static string htmlExplain(string $sql)                        // html 格式 explain 解读信息
+ * @method static null|string syntaxCheck(string $sql)                   // 语法检查
+ * @method static string fingerPrint(string $sql)                        // SQL 指纹
+ * @method static string pretty(string $sql)                             // 格式化 SQL
+ * @method static string md2html(string $sql)                            // markdown 转 html
+ * @method static string help()                                          // Soar 帮助
+ * @method static null|string exec(string $command)                      // 执行任意 Soar 命令
+ * @method static string getSoarPath()                                   // 获取 Soar 路径
+ * @method static array getOptions()                                     // 获取 Soar 配置选项
+ * @method static \Guanguans\SoarPHP\Soar setSoarPath(string $soarPath)  // 设置 Soar 路径
+ * @method static \Guanguans\SoarPHP\Soar setOption(string $key, $value) // 设置 Soar 配置选项
+ * @method static \Guanguans\SoarPHP\Soar setOptions(array $options)     // 批量设置 Soar 配置选项
+ *
+ * @see \Guanguans\SoarPHP\Soar
+ */
+class Soar{}
 ```
 
 ## 测试
