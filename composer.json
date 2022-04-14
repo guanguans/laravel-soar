@@ -32,6 +32,12 @@
     "require": {
         "ext-json": "*",
         "guanguans/soar-php": "^2.5",
+        "illuminate/console": "^6.10 || ^7.0 || ^8.0 || ^9.0",
+        "illuminate/contracts": "^6.10 || ^7.0 || ^8.0 || ^9.0",
+        "illuminate/database": "^6.10 || ^7.0 || ^8.0 || ^9.0",
+        "illuminate/events": "^6.10 || ^7.0 || ^8.0 || ^9.0",
+        "illuminate/http": "^6.10 || ^7.0 || ^8.0 || ^9.0",
+        "illuminate/log": "^6.10 || ^7.0 || ^8.0 || ^9.0",
         "illuminate/support": "^6.10 || ^7.0 || ^8.0 || ^9.0"
     },
     "require-dev": {
@@ -45,6 +51,11 @@
         "phpbench/phpbench": "^1.1",
         "phpunit/phpunit": "^7.0 || ^8.0 || ^9.0",
         "vimeo/psalm": "^4.10"
+    },
+    "suggest": {
+        "barryvdh/laravel-debugbar": "^3.4",
+        "itsgoingd/clockwork": "^5.1",
+        "laravel/telescope": "^3.0 || ^4.0"
     },
     "minimum-stability": "dev",
     "autoload": {
