@@ -20,8 +20,15 @@
         <whitelist>
             <directory suffix=".php">src/</directory>
             <exclude>
-                <file>src/Soar.php</file>
-                <file>src/Facades/Soar.php</file>
+                <directory>src/Contracts/</directory>
+                <directory>src/Events/</directory>
+                <directory>src/Exceptions/</directory>
+                <directory>src/Facades/</directory>
+                <directory>src/Middleware/</directory>
+                <directory>src/Outputs/</directory>
+                <directory>src/Support/</directory>
+                <file>src/OutputManager.php</file>
+                <file>src/SoarServiceProvider.php</file>
             </exclude>
         </whitelist>
     </filter>
