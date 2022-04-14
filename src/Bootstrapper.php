@@ -84,7 +84,7 @@ class Bootstrapper
         return $this->booted;
     }
 
-    public function isEnabledSoarScore(): bool
+    public function isEnabled(): bool
     {
         return config('soar.enabled');
     }

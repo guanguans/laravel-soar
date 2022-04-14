@@ -27,8 +27,6 @@ class OutputManager extends Fluent implements Output
         foreach ($outputs as $index => $output) {
             $this->offsetSet($index, $output);
         }
-
-        parent::__construct($outputs);
     }
 
     public function offsetSet($offset, $value): void
