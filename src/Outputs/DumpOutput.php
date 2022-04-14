@@ -27,6 +27,7 @@ class DumpOutput extends Output
         }
 
         $scores->each(function (array $score) {
+            unset($score['Basic']);
             dump($score);
         });
     }
