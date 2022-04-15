@@ -56,7 +56,10 @@ class Bootstrapper
         $this->booted = true;
 
         DB::listen(function (QueryExecuted $queryExecutedEvent) {
-            if ($this->isExcludedSql($sql = $this->transformToSql($queryExecutedEvent))) {
+            if (
+                $this->isExcludedSql($queryExecutedEvent->sql) ||
+                $this->isExcludedSql($sql = $this->transformToSql($queryExecutedEvent))
+            ) {
                 return;
             }
 
@@ -106,10 +109,7 @@ class Bootstrapper
             })
             ->sortBy('Score')
             ->map(function (array $score) {
-                $query = (array) collect($this->queries)->first(function ($query) use ($score) {
-                    return $score['Sample'] === str_replace(['`', '"'], ['', "'"], $query['sql']);
-                });
-
+                $query = $this->matchQuery($this->queries, $score);
                 $star = str_repeat('★', $good = round($score['Score'] / 100 * 5)).str_repeat('☆', 5 - $good);
 
                 return [
@@ -117,7 +117,7 @@ class Bootstrapper
                     'HeuristicRules' => (array) $score['HeuristicRules'],
                     'IndexRules' => (array) $score['IndexRules'],
                     'Explain' => $score['Explain'][0] ?? $score['Explain'] ?? [],
-                    'Backtraces' => $this->getBacktraces(),
+                    'Backtraces' => $query['backtraces'],
                     'Basic' => [
                         'ID' => $score['ID'],
                         'Fingerprint' => $score['Fingerprint'],
@@ -171,9 +171,41 @@ class Bootstrapper
                 return isset($trace['file']) && isset($trace['line']) && ! Str::contains($trace['file'], 'vendor');
             })
             ->map(function ($trace, $index) {
-                return sprintf('#%s %s(%s)', $index, str_replace(base_path(), '', $trace['file']), $trace['line']);
+                return sprintf('#%s %s:%s', $index, str_replace(base_path(), '', $trace['file']), $trace['line']);
             })
             ->values()
             ->all();
+    }
+
+    /**
+     * @return array{
+     *     sql: string,
+     *     time: string,
+     *     connection: string,
+     *     driver: string,
+     *     backtraces: array<string>
+     * }
+     */
+    public function matchQuery(array $queries, array $score): array
+    {
+        $query = (array) collect($queries)->first(function ($query) use ($score) {
+            return $score['Sample'] === str_replace(['`', '"'], ['', "'"], $query['sql']);
+        });
+
+        $query or $query = collect($queries)
+            ->map(function ($query) use ($score) {
+                $query['similarity'] = similar_text($score['Sample'], $query['sql']);
+
+                return $query;
+            })
+            ->sortByDesc('similarity')
+            ->pipe(function (Collection $queries) {
+                $first = $queries->first();
+                unset($first['similarity']);
+
+                return $first;
+            });
+
+        return $query;
     }
 }
