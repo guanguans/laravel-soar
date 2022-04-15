@@ -35,14 +35,12 @@ class ConsoleOutput extends Output
         return $scores->pipe(function ($scores) {
             $js = $scores->reduce(function ($js, $score) {
                 unset($score['Basic']);
-                $score = str_replace('`', '', var_output($score, true));
+                $score = str_replace('`', '\`', var_output($score, true));
 
                 return $js.<<<JS
-
-var score = `
-$score    
-`
-console.warn(score)
+console.warn(`
+$score
+`);
 JS;
             }, '');
 
