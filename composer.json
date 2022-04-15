@@ -52,19 +52,16 @@
         "friendsofphp/php-cs-fixer": "^3.1",
         "itsgoingd/clockwork": "^5.0",
         "laravel/legacy-factories": "^1.0",
-        "laravel/telescope": "^3.0 || ^4.0",
         "mockery/mockery": "^1.3",
         "nyholm/nsa": "^1.3",
         "orchestra/testbench": "^3.0 || ^4.0 || ^5.0 || ^6.0",
         "phpbench/phpbench": "^1.1",
         "phpunit/phpunit": "^7.0 || ^8.0 || ^9.0",
-        "recca0120/laravel-tracy": "^1.9",
         "vimeo/psalm": "^4.10"
     },
     "suggest": {
-        "barryvdh/laravel-debugbar": "^3.4",
-        "itsgoingd/clockwork": "^5.1",
-        "laravel/telescope": "^3.0 || ^4.0"
+        "barryvdh/laravel-debugbar": "Output SQL score to Laravel DebugBar.",
+        "itsgoingd/clockwork": "Output SQL score to Clockwork."
     },
     "minimum-stability": "dev",
     "autoload": {
