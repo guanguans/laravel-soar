@@ -2,6 +2,10 @@
 
 All notable changes to `guanguans/laravel-soar` will be documented in this file.
 
+## v2.0.3 - 2022-04-15
+
+**Full Changelog**: https://github.com/guanguans/laravel-soar/compare/v2.0.2...v2.0.3
+
 ## v2.0.2 - 2022-04-14
 
 **Full Changelog**: https://github.com/guanguans/laravel-soar/compare/v2.0.1...v2.0.2
@@ -16,7 +20,6 @@ All notable changes to `guanguans/laravel-soar` will be documented in this file.
 **Full Changelog**: https://github.com/guanguans/laravel-soar/compare/v1.3.2...v2.0.0
 ## v1.3.2 - 2022-03-26
 ## What's Changed
-
 - Bump actions/checkout from 2 to 3 by @dependabot in https://github.com/guanguans/laravel-soar/pull/20
 - Bump actions/cache from 2 to 3 by @dependabot in https://github.com/guanguans/laravel-soar/pull/21
 
