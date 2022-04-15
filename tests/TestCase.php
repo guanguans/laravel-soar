@@ -22,8 +22,8 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
     {
         parent::setUp();
         $this->setUpDatabase();
-        // $this->withFactories(__DIR__.'/Factories/');
-        // $this->seed(TestSeeder::class);
+        $this->withFactories(__DIR__.'/Factories/');
+        $this->seed(TestSeeder::class);
     }
 
     protected function getPackageProviders($app)
