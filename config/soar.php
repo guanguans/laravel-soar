@@ -30,6 +30,7 @@ return [
     */
     'except' => [
         '*telescope*',
+        '*horizon*',
     ],
 
     /*

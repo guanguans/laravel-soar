@@ -42,6 +42,7 @@ class SoarServiceProvider extends ServiceProvider
         $this->registerSingletons();
         $this->registerSoar();
         $this->registerOutputManager();
+        $this->registerRoutes();
     }
 
     public function boot()
@@ -107,6 +108,11 @@ class SoarServiceProvider extends ServiceProvider
         });
 
         $this->app->alias(OutputManager::class, 'output_manager');
+    }
+
+    protected function registerRoutes(): void
+    {
+        $this->loadRoutesFrom(realpath(__DIR__.'/Http/routes.php'));
     }
 
     /**

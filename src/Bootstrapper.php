@@ -11,7 +11,7 @@
 namespace Guanguans\LaravelSoar;
 
 use Guanguans\LaravelSoar\Facades\Soar;
-use Guanguans\LaravelSoar\Middleware\OutputSoarScoreMiddleware;
+use Guanguans\LaravelSoar\Http\Middleware\OutputSoarScoreMiddleware;
 use Illuminate\Console\Events\CommandFinished;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Http\Kernel;

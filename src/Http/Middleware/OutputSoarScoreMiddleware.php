@@ -8,7 +8,7 @@
  * This source file is subject to the MIT license that is bundled.
  */
 
-namespace Guanguans\LaravelSoar\Middleware;
+namespace Guanguans\LaravelSoar\Http\Middleware;
 
 use Closure;
 use Guanguans\LaravelSoar\Bootstrapper;
