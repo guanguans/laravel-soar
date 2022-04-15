@@ -90,4 +90,9 @@ trait OutputCondition
                && \Barryvdh\Debugbar\Facade::isEnabled()
                && $operator instanceof Response;
     }
+
+    protected function shouldOutputInClockwork($operator): bool
+    {
+        return function_exists('clock') && $this->shouldOutputInEvent($operator);
+    }
 }
