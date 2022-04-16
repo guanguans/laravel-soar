@@ -15,37 +15,46 @@ use Illuminate\Support\Collection;
 
 class SoarBarOutput extends Output
 {
+    /**
+     * @var \Guanguans\LaravelSoar\SoarBar
+     */
+    private $debugBar;
+
+    /**
+     * @var \DebugBar\JavascriptRenderer
+     */
+    private $renderer;
+
     public function __construct(SoarBar $debugBar)
     {
         $this->debugBar = $debugBar;
+        $this->renderer = $debugBar->getJavascriptRenderer();
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Response $response
+     * @param \Symfony\Component\HttpFoundation\Response $operator
      *
      * @return mixed
      */
-    public function output(Collection $scores, $response)
+    public function output(Collection $scores, $operator)
     {
-        if (! $this->shouldOutputInHtmlResponse($response) || $this->shouldOutputInDebugBar($response)) {
+        if (! $this->shouldOutputInSoarBar($operator)) {
             return;
         }
 
-        $debugBar = $this->debugBar;
-        $renderer = $debugBar->getJavascriptRenderer();
-        $scores->each(function (array $score) use ($debugBar) {
+        $scores->each(function (array $score) {
             unset($score['Basic']);
             // warning error info
-            $debugBar['messages']->addMessage(
+            $this->debugBar['messages']->addMessage(
                 $score['Summary'].PHP_EOL.json_encode($score, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT),
                 'warning',
                 false
             );
         });
 
-        $content = $response->getContent();
-        $head = $renderer->renderHead();
-        $widget = $renderer->render();
+        $content = $operator->getContent();
+        $head = $this->renderer->renderHead();
+        $widget = $this->renderer->render();
 
         // Try to put the js/css directly before the </head>
         $pos = strripos($content, '</head>');
@@ -65,7 +74,7 @@ class SoarBarOutput extends Output
         }
 
         // Update the new content and reset the content length
-        $response->setContent($content);
-        $response->headers->remove('Content-Length');
+        $operator->setContent($content);
+        $operator->headers->remove('Content-Length');
     }
 }

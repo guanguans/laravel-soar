@@ -22,6 +22,11 @@ class DebugBarOutput extends Output
     protected static $collector;
 
     /**
+     * @var bool
+     */
+    private static $outputed = false;
+
+    /**
      * @param \Symfony\Component\HttpFoundation\Response $response
      *
      * @return mixed
@@ -42,6 +47,13 @@ class DebugBarOutput extends Output
                 false
             );
         });
+
+        self::$outputed = true;
+    }
+
+    public static function isOutputed()
+    {
+        return self::$outputed;
     }
 
     protected function createCollector(): MessagesCollector

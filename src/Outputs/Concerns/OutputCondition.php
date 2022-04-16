@@ -10,6 +10,7 @@
 
 namespace Guanguans\LaravelSoar\Outputs\Concerns;
 
+use Guanguans\LaravelSoar\Outputs\DebugBarOutput;
 use Illuminate\Console\Events\CommandFinished;
 use Illuminate\Foundation\Http\Events\RequestHandled;
 use Illuminate\Http\JsonResponse;
@@ -94,5 +95,11 @@ trait OutputCondition
     protected function shouldOutputInClockwork($operator): bool
     {
         return function_exists('clock') && $this->shouldOutputInEvent($operator);
+    }
+
+    protected function shouldOutputInSoarBar($operator): bool
+    {
+        return $this->shouldOutputInHtmlResponse($operator)
+               && ! DebugBarOutput::isOutputed();
     }
 }
