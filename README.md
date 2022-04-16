@@ -1,4 +1,4 @@
-![](docs/debug-bar.png)
+![](docs/soar-bar.png)
 
 # laravel-soar
 
@@ -63,7 +63,7 @@ $app->register(\Guanguans\LaravelSoar\SoarServiceProvider::class);
 
 ### 监控输出 SQL 评分
 
-![](docs/debug-bar.png)
+![](docs/soar-bar.png)
 
 ### 接口方法
 

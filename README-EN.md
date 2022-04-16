@@ -1,4 +1,4 @@
-![](docs/debug-bar.png)
+![](docs/soar-bar.png)
 
 # laravel-soar
 
@@ -61,7 +61,7 @@ $app->register(\Guanguans\LaravelSoar\SoarServiceProvider::class);
 
 ### Monitor output SQL score
 
-![](docs/debug-bar.png)
+![](docs/soar-bar.png)
 
 ### Interface method
 
