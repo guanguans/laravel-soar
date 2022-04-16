@@ -11,7 +11,7 @@
 namespace Guanguans\LaravelSoar\Http\Controllers;
 
 use DateTime;
-use Guanguans\LaravelSoar\SoarDebugBar;
+use Guanguans\LaravelSoar\SoarBar;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
@@ -22,9 +22,14 @@ use Illuminate\Routing\Controller;
  */
 class AssetController extends Controller
 {
-    public function __construct(SoarDebugBar $debugBar)
+    /**
+     * @var \DebugBar\JavascriptRenderer
+     */
+    private $renderer;
+
+    public function __construct(SoarBar $debugBar)
     {
-        $this->debugBar = $debugBar;
+        $this->renderer = $debugBar->getJavascriptRenderer();
     }
 
     /**
@@ -34,13 +39,8 @@ class AssetController extends Controller
      */
     public function js()
     {
-        $renderer = $this->debugBar->getJavascriptRenderer();
-        $content = $renderer->dumpAssetsToString('js');
-        $response = new Response(
-            $content,
-            200,
-            ['Content-Type' => 'text/javascript']
-        );
+        $js = $this->renderer->dumpAssetsToString('js');
+        $response = new Response($js, 200, ['Content-Type' => 'text/javascript']);
 
         return $this->cacheResponse($response);
     }
@@ -52,13 +52,8 @@ class AssetController extends Controller
      */
     public function css()
     {
-        $renderer = $this->debugBar->getJavascriptRenderer();
-        $content = $renderer->dumpAssetsToString('css');
-        $response = new Response(
-            $content,
-            200,
-            ['Content-Type' => 'text/css']
-        );
+        $css = $this->renderer->dumpAssetsToString('css');
+        $response = new Response($css, 200, ['Content-Type' => 'text/css']);
 
         return $this->cacheResponse($response);
     }

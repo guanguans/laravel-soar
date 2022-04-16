@@ -10,12 +10,12 @@
 
 namespace Guanguans\LaravelSoar\Outputs;
 
-use Guanguans\LaravelSoar\SoarDebugBar;
+use Guanguans\LaravelSoar\SoarBar;
 use Illuminate\Support\Collection;
 
-class BarOutput extends Output
+class SoarBarOutput extends Output
 {
-    public function __construct(SoarDebugBar $debugBar)
+    public function __construct(SoarBar $debugBar)
     {
         $this->debugBar = $debugBar;
     }
@@ -37,7 +37,7 @@ class BarOutput extends Output
             $summary = $score['Summary'];
             $level = $score['Basic']['Level'];
             unset($score['Summary'], $score['Basic']);
-            $debugBar['messages']->addMessage($summary.PHP_EOL.var_output($score, true), $level, false);
+            $debugBar['scores']->addMessage($summary.PHP_EOL.var_output($score, true), $level, false);
         });
 
         $content = $response->getContent();

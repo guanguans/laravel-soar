@@ -38,12 +38,11 @@ class JavascriptRenderer extends \DebugBar\JavascriptRenderer
      */
     public function renderHead()
     {
-        $cssRoute = route('soar.debugbar.assets.css', [
+        $cssRoute = route('soar.bar.assets.css', [
             'v' => $this->getModifiedTime('css'),
-            'theme' => config('debugbar.theme', 'auto'),
         ]);
 
-        $jsRoute = route('soar.debugbar.assets.js', [
+        $jsRoute = route('soar.bar.assets.js', [
             'v' => $this->getModifiedTime('js'),
         ]);
 

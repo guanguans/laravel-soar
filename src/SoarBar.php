@@ -13,15 +13,17 @@ namespace Guanguans\LaravelSoar;
 use DebugBar\DataCollector\MemoryCollector;
 use DebugBar\DataCollector\MessagesCollector;
 use DebugBar\DataCollector\PhpInfoCollector;
+use DebugBar\DataCollector\RequestDataCollector;
 use DebugBar\DebugBar;
 
-class SoarDebugBar extends DebugBar
+class SoarBar extends DebugBar
 {
     public function __construct()
     {
-        $this->addCollector(new PhpInfoCollector());
-        $this->addCollector(new MessagesCollector());
+        $this->addCollector(new MessagesCollector('scores'));
         $this->addCollector(new MemoryCollector());
+        $this->addCollector(new PhpInfoCollector());
+        // $this->addCollector(new RequestDataCollector());
         $this->jsRenderer = new JavascriptRenderer($this);
     }
 }

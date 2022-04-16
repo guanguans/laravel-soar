@@ -18,13 +18,6 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | soar 路径
-    |--------------------------------------------------------------------------
-    */
-    'path' => env('SOAR_PATH'),
-
-    /*
-    |--------------------------------------------------------------------------
     | 排除 soar 评分的 sql
     |--------------------------------------------------------------------------
     */
@@ -43,10 +36,17 @@ return [
         // \Guanguans\LaravelSoar\Outputs\ClockworkOutput::class,
         // \Guanguans\LaravelSoar\Outputs\DebugBarOutput::class,
         // \Guanguans\LaravelSoar\Outputs\DumpOutput::class,
-        \Guanguans\LaravelSoar\Outputs\BarOutput::class,
+        \Guanguans\LaravelSoar\Outputs\SoarBarOutput::class,
         \Guanguans\LaravelSoar\Outputs\JsonOutput::class,
         \Guanguans\LaravelSoar\Outputs\LogOutput::class,
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | soar 路径
+    |--------------------------------------------------------------------------
+    */
+    'path' => env('SOAR_PATH'),
 
     /*
     |--------------------------------------------------------------------------

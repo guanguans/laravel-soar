@@ -15,7 +15,6 @@ use Guanguans\LaravelSoar\Outputs\DumpOutput;
 use Guanguans\LaravelSoar\Outputs\JsonOutput;
 use Guanguans\LaravelSoar\Outputs\LogOutput;
 use Guanguans\LaravelSoar\Support\Macros\QueryBuilderMacro;
-use Guanguans\SoarPHP\Soar;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Database\ConnectionInterface;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
@@ -77,6 +76,7 @@ class SoarServiceProvider extends ServiceProvider
     protected function registerSingletons(): void
     {
         $this->app->singleton(Bootstrapper::class);
+        $this->app->singleton(SoarBar::class);
         $this->app->singleton(DebugBarOutput::class);
         $this->app->singleton(DumpOutput::class);
         $this->app->singleton(JsonOutput::class);

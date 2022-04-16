@@ -36,6 +36,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static \Guanguans\SoarPHP\Soar setOptions(array $options)     // 批量设置 Soar 配置选项
  *
  * @see \Guanguans\SoarPHP\Soar
+ * @see \Guanguans\LaravelSoar\Soar
  */
 class Soar extends Facade
 {
