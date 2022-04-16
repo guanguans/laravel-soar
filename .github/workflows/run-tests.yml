@@ -1,6 +1,6 @@
 name: Tests
 
-on: [push, pull_request]
+on: [ push, pull_request ]
 
 jobs:
   test:
@@ -8,9 +8,9 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        os: [ubuntu-latest]
-        php: [7.3, 8.0]
-        dependency-version: [prefer-stable]
+        os: [ windows-latest, ubuntu-latest ]
+        php: [ 7.3 ]
+        dependency-version: [ prefer-stable ]
 
     name: P${{ matrix.php }} - ${{ matrix.dependency-version }} - ${{ matrix.os }}
 
