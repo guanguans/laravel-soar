@@ -12,7 +12,9 @@ namespace Tests;
 
 use Guanguans\LaravelSoar\SoarServiceProvider;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Str;
 use Tests\Models\User;
 use Tests\Seeder\TestSeeder;
 
@@ -64,13 +66,49 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
     protected function setUpApplicationRoutes(): void
     {
         Route::get('/json', function () {
-            User::all();
+            // DB::select('create table "users" ("id" integer not null primary key autoincrement, "name" varchar not null, "email" varchar not null, "email_verifie_at" datetime, "password" varchar not null, "remember_token" varchar, "created_at" datetime, "updated_at" datetime)');
+
+            User::query()->insert([
+                'name' => 'soar',
+                'email' => 'soar@soar.com',
+                'email_verified_at' => now(),
+                'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+                'remember_token' => Str::random(10),
+            ]);
+
+            User::query()->where('id', 1)->delete();
+
+            User::query()->where('id', 2)->update([
+                'email_verified_at' => now(),
+                'password' => Str::random(32),
+                'remember_token' => Str::random(10),
+            ]);
+
+            User::query()->where('name', 'soar')->first();
 
             return response()->json('soar');
         });
 
         Route::get('/html', function () {
-            User::all();
+            // DB::select('create table "users" ("id" integer not null primary key autoincrement, "name" varchar not null, "email" varchar not null, "email_verifie_at" datetime, "password" varchar not null, "remember_token" varchar, "created_at" datetime, "updated_at" datetime)');
+
+            User::query()->insert([
+                'name' => 'soar',
+                'email' => 'soar@soar.com',
+                'email_verified_at' => now(),
+                'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+                'remember_token' => Str::random(10),
+            ]);
+
+            User::query()->where('id', 1)->delete();
+
+            User::query()->where('id', 2)->update([
+                'email_verified_at' => now(),
+                'password' => Str::random(32),
+                'remember_token' => Str::random(10),
+            ]);
+
+            User::query()->where('name', 'soar')->first();
 
             return response('soar');
         });

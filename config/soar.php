@@ -24,7 +24,7 @@ return [
     'except' => [
         '*telescope*',
         '*horizon*',
-        'create table*',
+        // 'create table*',
     ],
 
     /*
