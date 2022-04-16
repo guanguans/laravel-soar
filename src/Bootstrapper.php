@@ -115,7 +115,12 @@ class Bootstrapper
                     'Summary' => sprintf('[%s|%d分|%s|%s]', $star = score_to_star($score['Score']), $score['Score'], $query['time'], $query['sql']),
                     'HeuristicRules' => (array) $score['HeuristicRules'],
                     'IndexRules' => (array) $score['IndexRules'],
-                    'Explain' => $score['Explain'][0] ?? $score['Explain'] ?? [],
+                    'Explain' => transform($score['Explain'][0] ?? $score['Explain'] ?? [], function ($explain) {
+                        $explain['Content'] = explode("\n", $explain['Content']);
+                        $explain['Case'] = explode("\n", $explain['Case']);
+
+                        return $explain;
+                    }),
                     'Backtraces' => $query['backtraces'],
                     'Basic' => [
                         'Sample' => $query['sql'],
