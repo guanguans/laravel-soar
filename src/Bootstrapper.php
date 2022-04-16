@@ -110,21 +110,17 @@ class Bootstrapper
             ->sortBy('Score')
             ->map(function (array $score) {
                 $query = $this->matchQuery($this->queries, $score);
-                $star = str_repeat('★', $good = round($score['Score'] / 100 * 5)).str_repeat('☆', 5 - $good);
 
                 return [
-                    'Summary' => sprintf('%s|%d分|%s|%s', $star, $score['Score'], $query['time'], $query['sql']),
+                    'Summary' => sprintf('[%s|%d分|%s|%s]', $star = score_to_star($score['Score']), $score['Score'], $query['time'], $query['sql']),
                     'HeuristicRules' => (array) $score['HeuristicRules'],
                     'IndexRules' => (array) $score['IndexRules'],
                     'Explain' => $score['Explain'][0] ?? $score['Explain'] ?? [],
                     'Backtraces' => $query['backtraces'],
                     'Basic' => [
-                        'ID' => $score['ID'],
-                        'Fingerprint' => $score['Fingerprint'],
                         'Sample' => $query['sql'],
                         'Score' => $score['Score'],
                         'Star' => $star,
-                        'Level' => $score['Score'] >= 80 ? 'info' : ($score['Score'] >= 60 ? 'warning' : 'critical'),
                         'Time' => $query['time'],
                         'Connection' => $query['connection'],
                         'Driver' => $query['driver'],

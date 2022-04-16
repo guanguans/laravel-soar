@@ -21,10 +21,8 @@ class ClockworkOutput extends Output
         }
 
         $scores->each(function (array $score) {
-            $summary = $score['Summary'];
-            $level = $score['Basic']['Level'];
-            unset($score['Summary'], $score['Basic']);
-            clock()->{$level}($summary, $score);
+            unset($score['Basic']);
+            clock()->info($score['Summary'], $score);
         });
     }
 }

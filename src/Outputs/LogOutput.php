@@ -38,10 +38,10 @@ class LogOutput extends Output
         }
 
         $scores->each(function (array $score) {
-            $summary = $score['Summary'];
-            $level = $score['Basic']['Level'];
-            unset($score['Summary'], $score['Basic']);
-            Log::channel($this->channel)->log($level, $summary.PHP_EOL.var_output($score, true));
+            unset($score['Basic']);
+            Log::channel($this->channel)->info(
+                $score['Summary'].PHP_EOL.json_encode($score, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT)
+            );
         });
     }
 }

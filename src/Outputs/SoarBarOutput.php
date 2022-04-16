@@ -34,10 +34,12 @@ class SoarBarOutput extends Output
         $debugBar = $this->debugBar;
         $renderer = $debugBar->getJavascriptRenderer();
         $scores->each(function (array $score) use ($debugBar) {
-            $summary = $score['Summary'];
-            $level = $score['Basic']['Level'];
-            unset($score['Summary'], $score['Basic']);
-            $debugBar['scores']->addMessage($summary.PHP_EOL.var_output($score, true), $level, false);
+            unset($score['Basic']);
+            $debugBar['messages']->addMessage(
+                $score['Summary'].PHP_EOL.json_encode($score, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT),
+                'info',
+                false
+            );
         });
 
         $content = $response->getContent();

@@ -35,10 +35,12 @@ class DebugBarOutput extends Output
         $scores->tap(function ($scores) use (&$collector) {
             $collector = $this->createCollector();
         })->each(function (array $score) use ($collector) {
-            $summary = $score['Summary'];
-            $level = $score['Basic']['Level'];
-            unset($score['Summary'], $score['Basic']);
-            $collector->addMessage($summary.PHP_EOL.var_output($score, true), $level, false);
+            unset($score['Basic']);
+            $collector->addMessage(
+                $score['Summary'].PHP_EOL.json_encode($score, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT),
+                'info',
+                false
+            );
         });
     }
 

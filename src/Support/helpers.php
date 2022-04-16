@@ -50,3 +50,10 @@ if (! function_exists('array_reduces')) {
         return $carry;
     }
 }
+
+if (! function_exists('score_to_star')) {
+    function score_to_star(int $score): string
+    {
+        return str_repeat('★', $good = round($score / 100 * 5)).str_repeat('☆', 5 - $good);
+    }
+}

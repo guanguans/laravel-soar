@@ -35,7 +35,10 @@ class ConsoleOutput extends Output
         return $scores->pipe(function ($scores) {
             $js = $scores->reduce(function ($js, $score) {
                 unset($score['Basic']);
-                $score = str_replace('`', '\`', var_output($score, true));
+                $score = str_replace(
+                    '`', '\`',
+                    json_encode($score, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT)
+                );
 
                 return $js.<<<JS
 console.warn(`

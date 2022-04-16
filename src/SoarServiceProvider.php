@@ -10,10 +10,13 @@
 
 namespace Guanguans\LaravelSoar;
 
+use Guanguans\LaravelSoar\Outputs\ClockworkOutput;
+use Guanguans\LaravelSoar\Outputs\ConsoleOutput;
 use Guanguans\LaravelSoar\Outputs\DebugBarOutput;
 use Guanguans\LaravelSoar\Outputs\DumpOutput;
 use Guanguans\LaravelSoar\Outputs\JsonOutput;
 use Guanguans\LaravelSoar\Outputs\LogOutput;
+use Guanguans\LaravelSoar\Outputs\SoarBarOutput;
 use Guanguans\LaravelSoar\Support\Macros\QueryBuilderMacro;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Database\ConnectionInterface;
@@ -77,10 +80,14 @@ class SoarServiceProvider extends ServiceProvider
     {
         $this->app->singleton(Bootstrapper::class);
         $this->app->singleton(SoarBar::class);
+
+        $this->app->singleton(ClockworkOutput::class);
+        $this->app->singleton(ConsoleOutput::class);
         $this->app->singleton(DebugBarOutput::class);
         $this->app->singleton(DumpOutput::class);
         $this->app->singleton(JsonOutput::class);
         $this->app->singleton(LogOutput::class);
+        $this->app->singleton(SoarBarOutput::class);
     }
 
     protected function registerSoar(): void
