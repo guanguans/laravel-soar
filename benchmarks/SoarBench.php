@@ -28,6 +28,11 @@ final class SoarBench
         $this->soar = Soar::create();
     }
 
+    public function benchScore(): void
+    {
+        $this->soar->score('select * from user;');
+    }
+
     public function benchSyntaxCheck(): void
     {
         $this->soar->syntaxCheck('select * from user id = 1;');
