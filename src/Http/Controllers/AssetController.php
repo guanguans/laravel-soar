@@ -58,6 +58,22 @@ class AssetController extends Controller
         return $this->cacheResponse($response);
     }
 
+    public function fonts(string $suffix)
+    {
+        $file = base_path("vendor/maximebf/debugbar/src/DebugBar/Resources/vendor/font-awesome/fonts/fontawesome-webfont.$suffix");
+        $response = new Response(file_get_contents($file), 200, ['Content-Type' => 'text/font']);
+
+        return $this->cacheResponse($response);
+    }
+
+    public function fontAwesome()
+    {
+        $file = base_path('vendor/maximebf/debugbar/src/DebugBar/Resources/vendor/font-awesome/fonts/FontAwesome.otf');
+        $response = new Response(file_get_contents($file), 200, ['Content-Type' => 'text/font']);
+
+        return $this->cacheResponse($response);
+    }
+
     /**
      * Cache the response 1 year (31536000 sec).
      */

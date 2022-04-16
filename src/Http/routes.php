@@ -23,4 +23,14 @@ app('router')->group([
             'uses' => 'AssetController@js',
             'as' => 'soar.bar.assets.js',
         ]);
+
+        $router->get('fonts/FontAwesome.otf', [
+            'uses' => 'AssetController@fontAwesome',
+            'as' => 'soar.bar.assets.fontAwesome',
+        ]);
+
+        $router->get('fonts/fontawesome-webfont.{suffix}', [
+            'uses' => 'AssetController@fonts',
+            'as' => 'soar.bar.assets.fonts',
+        ]);
     });
