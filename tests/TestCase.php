@@ -12,7 +12,6 @@ namespace Tests;
 
 use Guanguans\LaravelSoar\SoarServiceProvider;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 use Tests\Models\User;
@@ -66,8 +65,6 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
     protected function setUpApplicationRoutes(): void
     {
         Route::get('/json', function () {
-            // DB::select('create table "users" ("id" integer not null primary key autoincrement, "name" varchar not null, "email" varchar not null, "email_verifie_at" datetime, "password" varchar not null, "remember_token" varchar, "created_at" datetime, "updated_at" datetime)');
-
             User::query()->insert([
                 'name' => 'soar',
                 'email' => 'soar@soar.com',
@@ -90,8 +87,6 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
         });
 
         Route::get('/html', function () {
-            // DB::select('create table "users" ("id" integer not null primary key autoincrement, "name" varchar not null, "email" varchar not null, "email_verifie_at" datetime, "password" varchar not null, "remember_token" varchar, "created_at" datetime, "updated_at" datetime)');
-
             User::query()->insert([
                 'name' => 'soar',
                 'email' => 'soar@soar.com',

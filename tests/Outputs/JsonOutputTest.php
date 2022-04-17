@@ -16,7 +16,7 @@ class JsonOutputTest extends TestCase
 {
     public function testOutput()
     {
-        $this->markTestSkipped(__METHOD__.' is not implemented.');
+        // $this->markTestSkipped(__METHOD__.' is not implemented.');
         $response = $this->get('/json');
         $response->assertSee('soar');
         $response->assertSee('soar_scores');
