@@ -8,6 +8,8 @@
  * This source file is subject to the MIT license that is bundled.
  */
 
+use Guanguans\SoarPHP\Support\OsHelper;
+
 if (! function_exists('var_output')) {
     /**
      * @param $expression
@@ -65,5 +67,16 @@ if (! function_exists('to_pretty_json')) {
         int $depth = 512
     ): string {
         return json_encode($score, $options | JSON_PRETTY_PRINT, $depth);
+    }
+}
+
+if (! function_exists('normalize_sql')) {
+    function normalize_sql(string $sql): string
+    {
+        if (OsHelper::isWindows()) {
+            return str_replace(['`', '"'], ['', ''], $sql);
+        }
+
+        return str_replace(['`', '"'], ['\`', '\"'], $sql);
     }
 }

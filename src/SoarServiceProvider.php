@@ -49,7 +49,9 @@ class SoarServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        $this->app->make(Bootstrapper::class)->bootIf(config('soar.enabled'), $this->app);
+        /* @var \Guanguans\LaravelSoar\Bootstrapper $bootstrapper */
+        $bootstrapper = $this->app->make(Bootstrapper::class);
+        $bootstrapper->bootIf($bootstrapper->isEnabled(), $this->app);
     }
 
     protected function setupConfig(): void

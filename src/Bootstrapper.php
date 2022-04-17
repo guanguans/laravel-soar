@@ -55,8 +55,10 @@ class Bootstrapper
 
         $this->booted = true;
 
+        // 记录 SQL
         DB::listen(function (QueryExecuted $queryExecutedEvent) {
             if (
+                isset($this->queries[$queryExecutedEvent->sql]) ||
                 $this->isExcludedSql($queryExecutedEvent->sql) ||
                 $this->isExcludedSql($sql = $this->transformToSql($queryExecutedEvent))
             ) {
@@ -72,6 +74,7 @@ class Bootstrapper
             ];
         });
 
+        // 事件中输出
         Event::listen([
             RequestHandled::class,
             CommandFinished::class,
@@ -79,6 +82,7 @@ class Bootstrapper
             $app->make(OutputManager::class)->output($this->getScores(), $event);
         });
 
+        // 中间件中输出
         $app->make(Kernel::class)->pushMiddleware(OutputSoarScoreMiddleware::class);
     }
 
@@ -190,7 +194,7 @@ class Bootstrapper
     public function matchQuery(array $queries, array $score): array
     {
         $query = (array) collect($queries)->first(function ($query) use ($score) {
-            return $score['Sample'] === str_replace(['`', '"'], ['', "'"], $query['sql']);
+            return $score['Sample'] === normalize_sql($query['sql']);
         });
 
         $query or $query = collect($queries)
