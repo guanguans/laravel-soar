@@ -33,15 +33,18 @@ class LogOutput extends Output
      */
     public function output(Collection $scores, $event)
     {
-        if ($this->shouldOutputInEvent($event)) {
+        if (! $this->shouldOutput($event)) {
             return;
         }
 
         $scores->each(function (array $score) {
             unset($score['Basic']);
-            Log::channel($this->channel)->info(
-                $score['Summary'].PHP_EOL.json_encode($score, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT)
-            );
+            Log::channel($this->channel)->warning($score['Summary'].PHP_EOL.to_pretty_json($score));
         });
+    }
+
+    protected function shouldOutput($event)
+    {
+        return $this->isEvent($event);
     }
 }

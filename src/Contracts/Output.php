@@ -15,11 +15,11 @@ use Illuminate\Support\Collection;
 interface Output
 {
     /**
-     * @param \Symfony\Component\HttpFoundation\Response        $operator
-     * @param \Illuminate\Console\Events\CommandFinished        $operator
-     * @param \Illuminate\Foundation\Http\Events\RequestHandled $operator
+     * @param \Symfony\Component\HttpFoundation\Response        $requestHandled
+     * @param \Illuminate\Console\Events\CommandFinished        $requestHandled
+     * @param \Illuminate\Foundation\Http\Events\RequestHandled $requestHandled
      *
      * @return mixed
      */
-    public function output(Collection $scores, $operator);
+    public function output(Collection $scores, $requestHandled);
 }

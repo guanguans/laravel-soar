@@ -14,20 +14,37 @@ use Illuminate\Support\Collection;
 
 class ConsoleOutput extends Output
 {
-    public function output(Collection $scores, $operator)
+    /**
+     * @param \Illuminate\Foundation\Http\Events\RequestHandled $requestHandled
+     *
+     * @return mixed
+     */
+    public function output(Collection $scores, $requestHandled)
     {
-        if (! $this->shouldOutputInHtmlResponse($operator)) {
+        if (! $this->shouldOutput($requestHandled)) {
             return;
         }
 
         $js = $this->transformToJs($scores);
-        $content = $operator->getContent();
-        $content = false === ($pos = strripos($content, '</body>'))
-        ? $content.$js
-        : substr($content, 0, $pos).$js.substr($content, $pos);
+        $content = $requestHandled->response->getContent();
 
-        $operator->setContent($content);
-        $operator->headers->remove('Content-Length');
+        // Try to put the widget at the end, directly before the </body>
+        $pos = strripos($content, '</body>');
+        if (false !== $pos) {
+            $content = substr($content, 0, $pos).$js.substr($content, $pos);
+        } else {
+            $content = $content.$js;
+        }
+
+        // Update the new content and reset the content length
+        $requestHandled->response->setContent($content);
+        $requestHandled->response->headers->remove('Content-Length');
+    }
+
+    protected function shouldOutput($requestHandled): bool
+    {
+        return $this->isRequestHandledEvent($requestHandled) &&
+               $this->isHtmlResponse($requestHandled->response);
     }
 
     protected function transformToJs(Collection $scores)
@@ -35,10 +52,7 @@ class ConsoleOutput extends Output
         return $scores->pipe(function ($scores) {
             $js = $scores->reduce(function ($js, $score) {
                 unset($score['Basic']);
-                $score = str_replace(
-                    '`', '\`',
-                    json_encode($score, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT)
-                );
+                $score = str_replace('`', '\`', to_pretty_json($score));
 
                 return $js.<<<JS
 console.warn(`

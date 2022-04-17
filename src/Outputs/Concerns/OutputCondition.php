@@ -10,7 +10,6 @@
 
 namespace Guanguans\LaravelSoar\Outputs\Concerns;
 
-use Guanguans\LaravelSoar\Outputs\DebugBarOutput;
 use Illuminate\Console\Events\CommandFinished;
 use Illuminate\Foundation\Http\Events\RequestHandled;
 use Illuminate\Http\JsonResponse;
@@ -20,41 +19,57 @@ use Illuminate\Support\Str;
 trait OutputCondition
 {
     /**
-     * @param mixed $operator
+     * @param mixed $event
      */
-    protected function shouldOutputInEvent($operator): bool
+    protected function isEvent($event): bool
     {
-        return $operator instanceof CommandFinished
-               || $operator instanceof RequestHandled;
+        return $event instanceof CommandFinished ||
+               $event instanceof RequestHandled;
     }
 
     /**
-     * @param mixed $operator
+     * @param mixed $event
      */
-    protected function shouldOutputInCommandFinished($operator): bool
+    protected function isCommandFinishedEvent($event): bool
     {
-        return $operator instanceof CommandFinished;
+        return $event instanceof CommandFinished;
     }
 
     /**
-     * @param mixed $operator
+     * @param mixed $event
      */
-    protected function shouldOutputInRequestHandled($operator): bool
+    protected function isRequestHandledEvent($event): bool
     {
-        return $operator instanceof RequestHandled;
+        return $event instanceof RequestHandled;
     }
 
     /**
-     * @param mixed $operator
+     * @param mixed $response
      */
-    protected function shouldOutputInJsonResponse($operator): bool
+    protected function isResponse($response): bool
     {
-        return $operator instanceof JsonResponse
-               && Str::contains($operator->headers->get('Content-Type'), 'application/json')
-               && transform($operator, function ($operator) {
-                   /* @var JsonResponse $operator */
-                   $content = $operator->getContent();
-                   if ('' === $content) {
+        return $response instanceof Response;
+    }
+
+    /**
+     * @param mixed $response
+     */
+    protected function isHtmlResponse($response): bool
+    {
+        return $response instanceof Response &&
+               Str::contains($response->headers->get('Content-Type'), 'text/html') &&
+               ! $this->isJsonResponse($response);
+    }
+
+    /**
+     * @param mixed $response
+     */
+    protected function isJsonResponse($response): bool
+    {
+        return $response instanceof JsonResponse &&
+               Str::contains($response->headers->get('Content-Type'), 'application/json') &&
+               transform($response, function (JsonResponse $response) {
+                   if ('' === ($content = $response->getContent())) {
                        return false;
                    }
 
@@ -65,41 +80,5 @@ trait OutputCondition
 
                    return true;
                });
-    }
-
-    /**
-     * @param mixed $operator
-     */
-    protected function shouldOutputInResponse($operator): bool
-    {
-        return $operator instanceof Response;
-    }
-
-    /**
-     * @param mixed $operator
-     */
-    protected function shouldOutputInHtmlResponse($operator): bool
-    {
-        return $operator instanceof Response
-               && ! $operator instanceof JsonResponse
-               && Str::contains($operator->headers->get('Content-Type'), 'text/html');
-    }
-
-    protected function shouldOutputInDebugBar($operator): bool
-    {
-        return class_exists('Barryvdh\Debugbar\Facade')
-               && \Barryvdh\Debugbar\Facade::isEnabled()
-               && $operator instanceof Response;
-    }
-
-    protected function shouldOutputInClockwork($operator): bool
-    {
-        return function_exists('clock') && $this->shouldOutputInEvent($operator);
-    }
-
-    protected function shouldOutputInSoarBar($operator): bool
-    {
-        return $this->shouldOutputInHtmlResponse($operator)
-               && ! DebugBarOutput::isOutputed();
     }
 }

@@ -32,27 +32,23 @@ class SoarBarOutput extends Output
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Response $operator
+     * @param \Illuminate\Foundation\Http\Events\RequestHandled $requestHandled
      *
      * @return mixed
      */
-    public function output(Collection $scores, $operator)
+    public function output(Collection $scores, $requestHandled)
     {
-        if (! $this->shouldOutputInSoarBar($operator)) {
+        if (! $this->shouldOutput($requestHandled)) {
             return;
         }
 
         $scores->each(function (array $score) {
             unset($score['Basic']);
             // warning error info
-            $this->debugBar['messages']->addMessage(
-                $score['Summary'].PHP_EOL.json_encode($score, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT),
-                'warning',
-                false
-            );
+            $this->debugBar['scores']->addMessage($score['Summary'].PHP_EOL.to_pretty_json($score), 'warning', false);
         });
 
-        $content = $operator->getContent();
+        $content = $requestHandled->response->getContent();
         $head = $this->renderer->renderHead();
         $widget = $this->renderer->render();
 
@@ -74,7 +70,14 @@ class SoarBarOutput extends Output
         }
 
         // Update the new content and reset the content length
-        $operator->setContent($content);
-        $operator->headers->remove('Content-Length');
+        $requestHandled->response->setContent($content);
+        $requestHandled->response->headers->remove('Content-Length');
+    }
+
+    protected function shouldOutput($requestHandled)
+    {
+        return $this->isRequestHandledEvent($requestHandled)
+            && ! DebugBarOutput::isOutputted()
+            && $this->isHtmlResponse($requestHandled->response);
     }
 }

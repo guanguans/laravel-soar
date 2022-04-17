@@ -14,15 +14,27 @@ use Illuminate\Support\Collection;
 
 class ClockworkOutput extends Output
 {
-    public function output(Collection $scores, $operator)
+    /**
+     * @param \Illuminate\Console\Events\CommandFinished        $event
+     * @param \Illuminate\Foundation\Http\Events\RequestHandled $event
+     *
+     * @return mixed
+     */
+    public function output(Collection $scores, $event)
     {
-        if (! $this->shouldOutputInClockwork($operator)) {
+        if (! $this->shouldOutput($event)) {
             return;
         }
 
         $scores->each(function (array $score) {
             unset($score['Basic']);
-            clock()->info($score['Summary'], $score);
+            clock()->warning($score['Summary'], $score);
         });
+    }
+
+    protected function shouldOutput($event): bool
+    {
+        return $this->isEvent($event) &&
+               function_exists('clock');
     }
 }

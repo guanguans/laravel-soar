@@ -22,7 +22,7 @@ class DumpOutput extends Output
      */
     public function output(Collection $scores, $event)
     {
-        if (! $this->shouldOutputInEvent($event)) {
+        if (! $this->shouldOutput($event)) {
             return;
         }
 
@@ -30,5 +30,10 @@ class DumpOutput extends Output
             unset($score['Basic']);
             dump($score);
         });
+    }
+
+    protected function shouldOutput($event): bool
+    {
+        return $this->isEvent($event);
     }
 }

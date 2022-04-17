@@ -20,8 +20,7 @@ class SoarBar extends DebugBar
 {
     public function __construct()
     {
-        // $this->addCollector(new MessagesCollector('scores'));
-        $this->addCollector(new MessagesCollector());
+        $this->addCollector(new MessagesCollector('scores'));
         $this->addCollector(new MemoryCollector());
         $this->addCollector(new PhpInfoCollector());
         // $this->addCollector(new RequestDataCollector());

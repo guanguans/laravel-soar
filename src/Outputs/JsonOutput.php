@@ -16,13 +16,13 @@ use Illuminate\Support\Collection;
 class JsonOutput extends Output
 {
     /**
-     * @param \Symfony\Component\HttpFoundation\Response $response
+     * @param \Illuminate\Foundation\Http\Events\RequestHandled $requestHandled
      *
      * @return mixed
      */
-    public function output(Collection $scores, $response)
+    public function output(Collection $scores, $requestHandled)
     {
-        if (! $this->shouldOutputInJsonResponse($response)) {
+        if (! $this->shouldOutput($requestHandled)) {
             return;
         }
 
@@ -32,7 +32,15 @@ class JsonOutput extends Output
             return $score;
         });
 
-        $data = Arr::wrap($response->getData(true)) and $data['soar_scores'] = $scores;
-        $response->setData($data);
+        $data = Arr::wrap($requestHandled->response->getData(true)) and $data['soar_scores'] = $scores;
+        // Update the new content and reset the content length
+        $requestHandled->response->setData($data);
+        $requestHandled->response->headers->remove('Content-Length');
+    }
+
+    protected function shouldOutput($requestHandled)
+    {
+        return $this->isRequestHandledEvent($requestHandled) &&
+               $this->isJsonResponse($requestHandled->response);
     }
 }

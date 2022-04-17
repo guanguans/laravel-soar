@@ -24,7 +24,7 @@ class DebugBarOutput extends Output
     /**
      * @var bool
      */
-    private static $outputed = false;
+    private static $outputted = false;
 
     /**
      * @param \Symfony\Component\HttpFoundation\Response $response
@@ -33,7 +33,7 @@ class DebugBarOutput extends Output
      */
     public function output(Collection $scores, $response)
     {
-        if (! $this->shouldOutputInDebugBar($response)) {
+        if (! $this->shouldOutput($response)) {
             return;
         }
 
@@ -41,19 +41,22 @@ class DebugBarOutput extends Output
             $collector = $this->createCollector();
         })->each(function (array $score) use ($collector) {
             unset($score['Basic']);
-            $collector->addMessage(
-                $score['Summary'].PHP_EOL.json_encode($score, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT),
-                'info',
-                false
-            );
+            $collector->addMessage($score['Summary'].PHP_EOL.to_pretty_json($score), 'warning', false);
         });
 
-        self::$outputed = true;
+        self::$outputted = true;
     }
 
-    public static function isOutputed()
+    public static function isOutputted()
     {
-        return self::$outputed;
+        return self::$outputted;
+    }
+
+    protected function shouldOutput($response): bool
+    {
+        return $this->isResponse($response) &&
+               class_exists('Barryvdh\Debugbar\Facade') &&
+               \Barryvdh\Debugbar\Facade::isEnabled();
     }
 
     protected function createCollector(): MessagesCollector
