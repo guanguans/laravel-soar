@@ -12,6 +12,7 @@ namespace Guanguans\LaravelSoar;
 
 use Guanguans\LaravelSoar\Facades\Soar;
 use Guanguans\LaravelSoar\Http\Middleware\OutputSoarScoreMiddleware;
+use Guanguans\SoarPHP\Support\OsHelper;
 use Illuminate\Console\Events\CommandFinished;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Http\Kernel;
@@ -105,6 +106,14 @@ class Bootstrapper
     {
         $this->scores or $this->scores = collect($this->queries)
             ->pipe(function (Collection $queries) {
+                if (OsHelper::isWindows()) {
+                    return $queries->reduce(function (Collection $scores, $query) {
+                        $score = Soar::arrayScore($query['sql']);
+
+                        return isset($score[0]) and $scores->add($score[0]);
+                    }, collect());
+                }
+
                 $sql = $queries->reduce(function ($sql, $query) {
                     return $sql.$query['sql'].'; ';
                 }, '');
