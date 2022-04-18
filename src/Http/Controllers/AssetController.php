@@ -13,14 +13,13 @@ namespace Guanguans\LaravelSoar\Http\Controllers;
 use DateTime;
 use Guanguans\LaravelSoar\SoarBar;
 use Illuminate\Http\Response;
-use Illuminate\Routing\Controller;
 
 /**
  * This is modified from the https://github.com/barryvdh/laravel-debugbar.
  *
  * @see https://github.com/barryvdh/laravel-debugbar/blob/master/src/Controllers/AssetController.php
  */
-class AssetController extends Controller
+class AssetController
 {
     /**
      * @var \DebugBar\JavascriptRenderer

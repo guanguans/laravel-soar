@@ -34,6 +34,6 @@ class DumpOutput extends Output
 
     protected function shouldOutput($event): bool
     {
-        return $this->isEvent($event);
+        return true;
     }
 }

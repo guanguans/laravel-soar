@@ -32,15 +32,14 @@ class JsonOutput extends Output
             return $score;
         });
 
-        $data = Arr::wrap($requestHandled->response->getData(true)) and $data['soar_scores'] = $scores;
+        $data = Arr::wrap($requestHandled->getData(true)) and $data['soar_scores'] = $scores;
         // Update the new content and reset the content length
-        $requestHandled->response->setData($data);
-        $requestHandled->response->headers->remove('Content-Length');
+        $requestHandled->setData($data);
+        $requestHandled->headers->remove('Content-Length');
     }
 
     protected function shouldOutput($requestHandled): bool
     {
-        return $this->isRequestHandledEvent($requestHandled) &&
-               $this->isJsonResponse($requestHandled->response);
+        return $this->isJsonResponse($requestHandled);
     }
 }

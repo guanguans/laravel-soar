@@ -9,6 +9,8 @@
  */
 
 use Guanguans\SoarPHP\Support\OsHelper;
+use Illuminate\Contracts\Container\Container;
+use Laravel\Lumen\Application as LumenApplication;
 
 if (! function_exists('var_output')) {
     /**
@@ -78,5 +80,14 @@ if (! function_exists('normalize_sql')) {
         }
 
         return str_replace(['`', '"'], ['\`', '\"'], $sql);
+    }
+}
+
+if (! function_exists('is_lumen')) {
+    function is_lumen(?Container $app = null): bool
+    {
+        $app = $app ?: app();
+
+        return $app instanceof LumenApplication;
     }
 }

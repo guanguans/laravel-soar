@@ -26,7 +26,7 @@ class ConsoleOutput extends Output
         }
 
         $js = $this->transformToJs($scores);
-        $content = $requestHandled->response->getContent();
+        $content = $requestHandled->getContent();
 
         // Try to put the widget at the end, directly before the </body>
         $pos = strripos($content, '</body>');
@@ -37,14 +37,13 @@ class ConsoleOutput extends Output
         }
 
         // Update the new content and reset the content length
-        $requestHandled->response->setContent($content);
-        $requestHandled->response->headers->remove('Content-Length');
+        $requestHandled->setContent($content);
+        $requestHandled->headers->remove('Content-Length');
     }
 
     protected function shouldOutput($requestHandled): bool
     {
-        return $this->isRequestHandledEvent($requestHandled) &&
-               $this->isHtmlResponse($requestHandled->response);
+        return $this->isHtmlResponse($requestHandled);
     }
 
     protected function transformToJs(Collection $scores): string

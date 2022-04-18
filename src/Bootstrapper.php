@@ -17,7 +17,6 @@ use Illuminate\Console\Events\CommandFinished;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Database\Events\QueryExecuted;
-use Illuminate\Foundation\Http\Events\RequestHandled;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Event;
@@ -82,15 +81,14 @@ class Bootstrapper
         });
 
         // 事件中输出
-        Event::listen([
-            RequestHandled::class,
-            CommandFinished::class,
-        ], function ($event) use ($app) {
+        Event::listen(CommandFinished::class, function ($event) use ($app) {
             $app->make(OutputManager::class)->output($this->getScores(), $event);
         });
 
         // 中间件中输出
-        $app->make(Kernel::class)->pushMiddleware(OutputSoarScoreMiddleware::class);
+        is_lumen()
+        ? $app->middleware(OutputSoarScoreMiddleware::class)
+        : $app->make(Kernel::class)->pushMiddleware(OutputSoarScoreMiddleware::class);
     }
 
     public function isBooted(): bool

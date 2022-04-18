@@ -34,7 +34,6 @@ class ClockworkOutput extends Output
 
     protected function shouldOutput($event): bool
     {
-        return $this->isEvent($event) &&
-               function_exists('clock');
+        return function_exists('clock');
     }
 }
