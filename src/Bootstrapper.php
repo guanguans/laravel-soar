@@ -109,8 +109,9 @@ class Bootstrapper
                 if (OsHelper::isWindows()) {
                     return $queries->reduce(function (Collection $scores, $query) {
                         $score = Soar::arrayScore($query['sql']);
+                        isset($score[0]) and $scores->add($score[0]);
 
-                        return isset($score[0]) and $scores->add($score[0]);
+                        return $scores;
                     }, collect());
                 }
 
