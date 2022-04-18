@@ -32,13 +32,11 @@ class SoarBarOutput extends Output
     }
 
     /**
-     * @param \Illuminate\Foundation\Http\Events\RequestHandled $requestHandled
-     *
-     * @return mixed
+     * {@inheritdoc}
      */
-    public function output(Collection $scores, $requestHandled)
+    public function output(Collection $scores, $dispatcher)
     {
-        if (! $this->shouldOutput($requestHandled)) {
+        if (! $this->shouldOutput($dispatcher)) {
             return;
         }
 
@@ -48,7 +46,7 @@ class SoarBarOutput extends Output
             $this->debugBar['scores']->addMessage($score['Summary'].PHP_EOL.to_pretty_json($score), 'warning', false);
         });
 
-        $content = $requestHandled->getContent();
+        $content = $dispatcher->getContent();
         $head = $this->renderer->renderHead();
         $widget = $this->renderer->render();
 
@@ -70,13 +68,13 @@ class SoarBarOutput extends Output
         }
 
         // Update the new content and reset the content length
-        $requestHandled->setContent($content);
-        $requestHandled->headers->remove('Content-Length');
+        $dispatcher->setContent($content);
+        $dispatcher->headers->remove('Content-Length');
     }
 
-    protected function shouldOutput($requestHandled): bool
+    protected function shouldOutput($dispatcher): bool
     {
-        return ! DebugBarOutput::isOutputted()
-            && $this->isHtmlResponse($requestHandled);
+        return ! DebugBarOutput::isOutputted() &&
+               $this->isHtmlResponse($dispatcher);
     }
 }

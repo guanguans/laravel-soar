@@ -26,25 +26,13 @@ class LogOutput extends Output
     }
 
     /**
-     * @param \Illuminate\Console\Events\CommandFinished        $event
-     * @param \Illuminate\Foundation\Http\Events\RequestHandled $event
-     *
-     * @return mixed
+     * {@inheritdoc}
      */
     public function output(Collection $scores, $event)
     {
-        if (! $this->shouldOutput($event)) {
-            return;
-        }
-
         $scores->each(function (array $score) {
             unset($score['Basic']);
             Log::channel($this->channel)->warning($score['Summary'].PHP_EOL.to_pretty_json($score));
         });
-    }
-
-    protected function shouldOutput($event): bool
-    {
-        return true;
     }
 }

@@ -15,25 +15,13 @@ use Illuminate\Support\Collection;
 class DumpOutput extends Output
 {
     /**
-     * @param \Illuminate\Console\Events\CommandFinished        $event
-     * @param \Illuminate\Foundation\Http\Events\RequestHandled $event
-     *
-     * @return mixed
+     * {@inheritdoc}
      */
-    public function output(Collection $scores, $event)
+    public function output(Collection $scores, $dispatcher)
     {
-        if (! $this->shouldOutput($event)) {
-            return;
-        }
-
         $scores->each(function (array $score) {
             unset($score['Basic']);
             dump($score);
         });
-    }
-
-    protected function shouldOutput($event): bool
-    {
-        return true;
     }
 }

@@ -16,13 +16,11 @@ use Illuminate\Support\Collection;
 class JsonOutput extends Output
 {
     /**
-     * @param \Illuminate\Foundation\Http\Events\RequestHandled $requestHandled
-     *
-     * @return mixed
+     * {@inheritdoc}
      */
-    public function output(Collection $scores, $requestHandled)
+    public function output(Collection $scores, $dispatcher)
     {
-        if (! $this->shouldOutput($requestHandled)) {
+        if (! $this->isJsonResponse($dispatcher)) {
             return;
         }
 
@@ -32,14 +30,9 @@ class JsonOutput extends Output
             return $score;
         });
 
-        $data = Arr::wrap($requestHandled->getData(true)) and $data['soar_scores'] = $scores;
+        $data = Arr::wrap($dispatcher->getData(true)) and $data['soar_scores'] = $scores;
         // Update the new content and reset the content length
-        $requestHandled->setData($data);
-        $requestHandled->headers->remove('Content-Length');
-    }
-
-    protected function shouldOutput($requestHandled): bool
-    {
-        return $this->isJsonResponse($requestHandled);
+        $dispatcher->setData($data);
+        $dispatcher->headers->remove('Content-Length');
     }
 }

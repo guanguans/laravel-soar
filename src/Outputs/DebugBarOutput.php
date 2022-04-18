@@ -27,13 +27,11 @@ class DebugBarOutput extends Output
     private static $outputted = false;
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Response $response
-     *
-     * @return mixed
+     * {@inheritdoc}
      */
-    public function output(Collection $scores, $response)
+    public function output(Collection $scores, $dispatcher)
     {
-        if (! $this->shouldOutput($response)) {
+        if (! $this->shouldOutput($dispatcher)) {
             return;
         }
 
@@ -52,9 +50,9 @@ class DebugBarOutput extends Output
         return self::$outputted;
     }
 
-    protected function shouldOutput($response): bool
+    protected function shouldOutput($dispatcher): bool
     {
-        return $this->isResponse($response) &&
+        return $this->isHtmlResponse($dispatcher) &&
                class_exists('Barryvdh\Debugbar\Facade') &&
                \Barryvdh\Debugbar\Facade::isEnabled();
     }

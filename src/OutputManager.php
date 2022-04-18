@@ -39,18 +39,14 @@ class OutputManager extends Fluent implements Output
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Response        $requestHandled
-     * @param \Illuminate\Console\Events\CommandFinished        $requestHandled
-     * @param \Illuminate\Foundation\Http\Events\RequestHandled $requestHandled
-     *
-     * @return mixed
+     * {@inheritdoc}
      */
-    public function output(Collection $scores, $requestHandled)
+    public function output(Collection $scores, $dispatcher)
     {
         /* @var Output $output */
         foreach ($this->attributes as $output) {
-            event(new OutputtingEvent($output, $scores, $requestHandled));
-            $result = $output->output($scores, $requestHandled);
+            event(new OutputtingEvent($output, $scores, $dispatcher));
+            $result = $output->output($scores, $dispatcher);
             event(new OutputtedEvent($output, $scores, $result));
         }
     }

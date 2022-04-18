@@ -11,7 +11,6 @@
 namespace Guanguans\LaravelSoar\Outputs\Concerns;
 
 use Illuminate\Console\Events\CommandFinished;
-use Illuminate\Foundation\Http\Events\RequestHandled;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use Illuminate\Support\Str;
@@ -19,67 +18,40 @@ use Illuminate\Support\Str;
 trait OutputCondition
 {
     /**
-     * @param \Symfony\Component\HttpFoundation\Response        $event
-     * @param \Illuminate\Console\Events\CommandFinished        $event
-     * @param \Illuminate\Foundation\Http\Events\RequestHandled $event
+     * @param \Illuminate\Console\Events\CommandFinished|\Symfony\Component\HttpFoundation\Response $dispatcher
      */
-    protected function isEvent($event): bool
+    protected function isCommandFinished($dispatcher): bool
     {
-        return $event instanceof CommandFinished ||
-               $event instanceof RequestHandled;
+        return $dispatcher instanceof CommandFinished;
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Response        $event
-     * @param \Illuminate\Console\Events\CommandFinished        $event
-     * @param \Illuminate\Foundation\Http\Events\RequestHandled $event
+     * @param \Illuminate\Console\Events\CommandFinished|\Symfony\Component\HttpFoundation\Response $dispatcher
      */
-    protected function isCommandFinishedEvent($event): bool
+    protected function isResponse($dispatcher): bool
     {
-        return $event instanceof CommandFinished;
+        return $dispatcher instanceof Response;
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Response        $event
-     * @param \Illuminate\Console\Events\CommandFinished        $event
-     * @param \Illuminate\Foundation\Http\Events\RequestHandled $event
+     * @param \Illuminate\Console\Events\CommandFinished|\Symfony\Component\HttpFoundation\Response $dispatcher
      */
-    protected function isRequestHandledEvent($event): bool
+    protected function isHtmlResponse($dispatcher): bool
     {
-        return $event instanceof RequestHandled;
+        return $dispatcher instanceof Response &&
+               Str::contains($dispatcher->headers->get('Content-Type'), 'text/html') &&
+               ! $this->isJsonResponse($dispatcher);
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Response        $response
-     * @param \Illuminate\Console\Events\CommandFinished        $response
-     * @param \Illuminate\Foundation\Http\Events\RequestHandled $response
+     * @param \Illuminate\Console\Events\CommandFinished|\Symfony\Component\HttpFoundation\Response $dispatcher
      */
-    protected function isResponse($response): bool
+    protected function isJsonResponse($dispatcher): bool
     {
-        return $response instanceof Response;
-    }
-
-    /**
-     * @param \Illuminate\Http\Response     $response
-     * @param \Illuminate\Http\JsonResponse $response
-     */
-    protected function isHtmlResponse($response): bool
-    {
-        return $response instanceof Response &&
-               Str::contains($response->headers->get('Content-Type'), 'text/html') &&
-               ! $this->isJsonResponse($response);
-    }
-
-    /**
-     * @param \Illuminate\Http\Response     $response
-     * @param \Illuminate\Http\JsonResponse $response
-     */
-    protected function isJsonResponse($response): bool
-    {
-        return $response instanceof JsonResponse &&
-               Str::contains($response->headers->get('Content-Type'), 'application/json') &&
-               transform($response, function (JsonResponse $response) {
-                   if ('' === ($content = $response->getContent())) {
+        return $dispatcher instanceof JsonResponse &&
+               Str::contains($dispatcher->headers->get('Content-Type'), 'application/json') &&
+               transform($dispatcher, function (JsonResponse $dispatcher) {
+                   if ('' === ($content = $dispatcher->getContent())) {
                        return false;
                    }
 

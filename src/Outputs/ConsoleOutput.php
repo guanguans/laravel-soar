@@ -15,18 +15,16 @@ use Illuminate\Support\Collection;
 class ConsoleOutput extends Output
 {
     /**
-     * @param \Illuminate\Foundation\Http\Events\RequestHandled $requestHandled
-     *
-     * @return mixed
+     * {@inheritdoc}
      */
-    public function output(Collection $scores, $requestHandled)
+    public function output(Collection $scores, $dispatcher)
     {
-        if (! $this->shouldOutput($requestHandled)) {
+        if (! $this->isHtmlResponse($dispatcher)) {
             return;
         }
 
         $js = $this->transformToJs($scores);
-        $content = $requestHandled->getContent();
+        $content = $dispatcher->getContent();
 
         // Try to put the widget at the end, directly before the </body>
         $pos = strripos($content, '</body>');
@@ -37,13 +35,8 @@ class ConsoleOutput extends Output
         }
 
         // Update the new content and reset the content length
-        $requestHandled->setContent($content);
-        $requestHandled->headers->remove('Content-Length');
-    }
-
-    protected function shouldOutput($requestHandled): bool
-    {
-        return $this->isHtmlResponse($requestHandled);
+        $dispatcher->setContent($content);
+        $dispatcher->headers->remove('Content-Length');
     }
 
     protected function transformToJs(Collection $scores): string

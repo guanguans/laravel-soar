@@ -15,11 +15,9 @@ use Illuminate\Support\Collection;
 interface Output
 {
     /**
-     * @param \Symfony\Component\HttpFoundation\Response        $requestHandled
-     * @param \Illuminate\Console\Events\CommandFinished        $requestHandled
-     * @param \Illuminate\Foundation\Http\Events\RequestHandled $requestHandled
+     * @param \Illuminate\Console\Events\CommandFinished|\Symfony\Component\HttpFoundation\Response $dispatcher
      *
      * @return mixed
      */
-    public function output(Collection $scores, $requestHandled);
+    public function output(Collection $scores, $dispatcher);
 }
