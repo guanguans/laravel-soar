@@ -26,19 +26,25 @@ use Illuminate\Support\Str;
 class Bootstrapper
 {
     /**
-     * @var \Illuminate\Support\Collection|null
+     * @var \Illuminate\Support\Collection
      */
-    protected $scores;
+    protected $queries;
 
     /**
-     * @var array
+     * @var \Illuminate\Support\Collection
      */
-    protected $queries = [];
+    protected $scores;
 
     /**
      * @var bool
      */
     protected $booted = false;
+
+    public function __construct()
+    {
+        $this->queries = collect();
+        $this->scores = collect();
+    }
 
     /**
      * @param mixed $condition
@@ -104,22 +110,9 @@ class Bootstrapper
 
     public function getScores(): Collection
     {
-        $this->scores or $this->scores = collect($this->queries)
+        $this->scores->isEmpty() and $this->scores = $this->queries
             ->pipe(function (Collection $queries) {
-                if (OsHelper::isWindows()) {
-                    return $queries->reduce(function (Collection $scores, $query) {
-                        $score = Soar::arrayScore($query['sql']);
-                        isset($score[0]) and $scores->add($score[0]);
-
-                        return $scores;
-                    }, collect());
-                }
-
-                $sql = $queries->reduce(function ($sql, $query) {
-                    return $sql.$query['sql'].'; ';
-                }, '');
-
-                return collect(Soar::arrayScore($sql));
+                return $this->transformToScores($queries);
             })
             ->sortBy('Score')
             ->map(function (array $score) {
@@ -129,12 +122,7 @@ class Bootstrapper
                     'Summary' => sprintf('[%s|%d分|%s|%s]', $star = score_to_star($score['Score']), $score['Score'], $query['time'], $query['sql']),
                     'HeuristicRules' => (array) $score['HeuristicRules'],
                     'IndexRules' => (array) $score['IndexRules'],
-                    'Explain' => transform($score['Explain'][0] ?? $score['Explain'] ?? [], function ($explain) {
-                        $explain['Content'] = explode("\n", $explain['Content']);
-                        $explain['Case'] = explode("\n", $explain['Case']);
-
-                        return $explain;
-                    }),
+                    'Explain' => $this->formatExplain($score['Explain']),
                     'Backtraces' => $query['backtraces'],
                     'Basic' => [
                         'Sample' => $query['sql'],
@@ -201,26 +189,57 @@ class Bootstrapper
      *     backtraces: array<string>
      * }
      */
-    public function matchQuery(array $queries, array $score): array
+    public function matchQuery(Collection $queries, array $score): array
     {
-        $query = (array) collect($queries)->first(function ($query) use ($score) {
+        $query = (array) $queries->first(function ($query) use ($score) {
             return $score['Sample'] === normalize_sql($query['sql']);
         });
 
-        $query or $query = collect($queries)
+        $query or $query = $queries
             ->map(function ($query) use ($score) {
                 $query['similarity'] = similar_text($score['Sample'], $query['sql']);
 
                 return $query;
             })
             ->sortByDesc('similarity')
-            ->pipe(function (Collection $queries) {
-                $first = $queries->first();
-                unset($first['similarity']);
-
-                return $first;
-            });
+            ->first();
 
         return $query;
+    }
+
+    protected function transformToScores(Collection $queries): Collection
+    {
+        if (OsHelper::isWindows()) {
+            return $queries->reduce(function (Collection $scores, $query) {
+                $score = Soar::arrayScore($query['sql']);
+                isset($score[0]) and $scores->add($score[0]);
+
+                return $scores;
+            }, collect());
+        }
+
+        return $queries->pipe(function (Collection $queries) {
+            $sql = $queries->reduce(function ($sql, $query) {
+                return $sql.$query['sql'].'; ';
+            }, '');
+
+            return collect(Soar::arrayScore($sql));
+        });
+    }
+
+    /**
+     * @param array|null $explain
+     */
+    public function formatExplain($explain): array
+    {
+        if (empty($explain)) {
+            return (array) $explain;
+        }
+
+        $explain = $explain[0] ?? $explain;
+        $explain['Content'] = explode("\n", $explain['Content']);
+        $explain['Case'] = explode("\n", $explain['Case']);
+
+        return $explain;
     }
 }
