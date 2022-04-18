@@ -2,6 +2,14 @@
 
 All notable changes to `guanguans/laravel-soar` will be documented in this file.
 
+## v2.0.8 - 2022-04-18
+
+## What's Changed
+
+- [ImgBot] Optimize images by @imgbot in https://github.com/guanguans/laravel-soar/pull/24
+
+**Full Changelog**: https://github.com/guanguans/laravel-soar/compare/v2.0.7...v2.0.8
+
 ## v2.0.7 - 2022-04-17
 
 ## What's Changed
@@ -41,7 +49,6 @@ All notable changes to `guanguans/laravel-soar` will be documented in this file.
 **Full Changelog**: https://github.com/guanguans/laravel-soar/compare/v1.3.1...v1.3.2
 ## v1.3.1 - 2022-02-22
 **Full Changelog**: https://github.com/guanguans/laravel-soar/compare/v1.3.0...v1.3.1
-
 ## 1.3.0 - 2022-02-14
 
 - Support laravel9.
