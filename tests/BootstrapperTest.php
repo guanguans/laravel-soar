@@ -41,7 +41,7 @@ class BootstrapperTest extends TestCase
     public function testGetScores()
     {
         $this->assertInstanceOf(Collection::class, $scores = $this->bootstrapper->getScores());
-        $this->assertNotEmpty($scores);
+        $this->assertTrue($scores->isNotEmpty());
 
         $scores->each(function ($score) {
             $this->assertArrayHasKey('Summary', $score);
