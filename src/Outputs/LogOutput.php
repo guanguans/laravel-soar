@@ -43,7 +43,7 @@ class LogOutput extends Output
         });
     }
 
-    protected function shouldOutput($event)
+    protected function shouldOutput($event): bool
     {
         return $this->isEvent($event);
     }

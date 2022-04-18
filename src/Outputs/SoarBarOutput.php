@@ -74,7 +74,7 @@ class SoarBarOutput extends Output
         $requestHandled->response->headers->remove('Content-Length');
     }
 
-    protected function shouldOutput($requestHandled)
+    protected function shouldOutput($requestHandled): bool
     {
         return $this->isRequestHandledEvent($requestHandled)
             && ! DebugBarOutput::isOutputted()

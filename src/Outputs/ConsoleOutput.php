@@ -47,7 +47,7 @@ class ConsoleOutput extends Output
                $this->isHtmlResponse($requestHandled->response);
     }
 
-    protected function transformToJs(Collection $scores)
+    protected function transformToJs(Collection $scores): string
     {
         return $scores->pipe(function ($scores) {
             $js = $scores->reduce(function ($js, $score) {

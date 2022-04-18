@@ -19,7 +19,9 @@ use Illuminate\Support\Str;
 trait OutputCondition
 {
     /**
-     * @param mixed $event
+     * @param \Symfony\Component\HttpFoundation\Response        $event
+     * @param \Illuminate\Console\Events\CommandFinished        $event
+     * @param \Illuminate\Foundation\Http\Events\RequestHandled $event
      */
     protected function isEvent($event): bool
     {
@@ -28,7 +30,9 @@ trait OutputCondition
     }
 
     /**
-     * @param mixed $event
+     * @param \Symfony\Component\HttpFoundation\Response        $event
+     * @param \Illuminate\Console\Events\CommandFinished        $event
+     * @param \Illuminate\Foundation\Http\Events\RequestHandled $event
      */
     protected function isCommandFinishedEvent($event): bool
     {
@@ -36,7 +40,9 @@ trait OutputCondition
     }
 
     /**
-     * @param mixed $event
+     * @param \Symfony\Component\HttpFoundation\Response        $event
+     * @param \Illuminate\Console\Events\CommandFinished        $event
+     * @param \Illuminate\Foundation\Http\Events\RequestHandled $event
      */
     protected function isRequestHandledEvent($event): bool
     {
@@ -44,7 +50,9 @@ trait OutputCondition
     }
 
     /**
-     * @param mixed $response
+     * @param \Symfony\Component\HttpFoundation\Response        $response
+     * @param \Illuminate\Console\Events\CommandFinished        $response
+     * @param \Illuminate\Foundation\Http\Events\RequestHandled $response
      */
     protected function isResponse($response): bool
     {
@@ -52,7 +60,8 @@ trait OutputCondition
     }
 
     /**
-     * @param mixed $response
+     * @param \Illuminate\Http\Response     $response
+     * @param \Illuminate\Http\JsonResponse $response
      */
     protected function isHtmlResponse($response): bool
     {
@@ -62,7 +71,8 @@ trait OutputCondition
     }
 
     /**
-     * @param mixed $response
+     * @param \Illuminate\Http\Response     $response
+     * @param \Illuminate\Http\JsonResponse $response
      */
     protected function isJsonResponse($response): bool
     {

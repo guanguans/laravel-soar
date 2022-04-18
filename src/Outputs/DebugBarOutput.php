@@ -47,7 +47,7 @@ class DebugBarOutput extends Output
         self::$outputted = true;
     }
 
-    public static function isOutputted()
+    public static function isOutputted(): bool
     {
         return self::$outputted;
     }
