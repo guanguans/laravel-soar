@@ -50,6 +50,7 @@ class BootstrapperTest extends TestCase
             $this->assertArrayHasKey('Explain', $score);
             $this->assertArrayHasKey('Backtraces', $score);
             $this->assertArrayHasKey('Basic', $score);
+            $this->assertEquals(0, $score['Basic']['Score']);
         });
     }
 
@@ -58,5 +59,21 @@ class BootstrapperTest extends TestCase
         $humanTime = NSA::invokeMethod($this->bootstrapper, 'transformToHumanTime', 2345.43);
         $this->assertIsString($humanTime);
         $this->assertEquals('2.35s', $humanTime);
+    }
+
+    public function testFormatExplain()
+    {
+        $explain = [[
+            'Item' => 'EXP.000',
+            'Severity' => 'L0',
+            'Summary' => 'Explain信息',
+            'Content' => '| id | select\\_type | table | partitions | type | possible_keys | key | key\\_len | ref | rows | filtered | scalability | Extra | |---|---|---|---|---|---|---|---|---|---|---|---|---| | 1 | SIMPLE | *users* | NULL | ALL | NULL | NULL | NULL | NULL | 1 | ☠️ **100.00%** | O(n) | NULL | ',
+            'Case' => '### Explain信息解读 #### SelectType信息解读 * **SIMPLE**: 简单SELECT(不使用UNION或子查询等). #### Type信息解读 * **ALL**: 最坏的情况, 从头到尾全表扫描. ',
+            'Position' => 0,
+        ]];
+        $formattedExplain = $this->bootstrapper->formatExplain($explain);
+        $this->assertIsArray($formattedExplain);
+        $this->assertIsArray($formattedExplain['Content']);
+        $this->assertIsArray($formattedExplain['Case']);
     }
 }
