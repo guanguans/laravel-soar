@@ -2,6 +2,10 @@
 
 All notable changes to `guanguans/laravel-soar` will be documented in this file.
 
+## v2.0.9 - 2022-04-18
+
+**Full Changelog**: https://github.com/guanguans/laravel-soar/compare/v2.0.8...v2.0.9
+
 ## v2.0.8 - 2022-04-18
 
 ## What's Changed
@@ -50,7 +54,6 @@ All notable changes to `guanguans/laravel-soar` will be documented in this file.
 ## v1.3.1 - 2022-02-22
 **Full Changelog**: https://github.com/guanguans/laravel-soar/compare/v1.3.0...v1.3.1
 ## 1.3.0 - 2022-02-14
-
 - Support laravel9.
 
 ## 1.2.3 - 2021-11-30
