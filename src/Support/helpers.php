@@ -101,3 +101,10 @@ if (! function_exists('is_lumen')) {
         return $app instanceof LumenApplication;
     }
 }
+
+if (! function_exists('base64_encode_file')) {
+    function base64_encode_file(string $filename): string
+    {
+        return base64_encode(file_get_contents($filename));
+    }
+}
