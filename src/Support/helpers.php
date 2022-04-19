@@ -12,6 +12,16 @@ use Guanguans\SoarPHP\Support\OsHelper;
 use Illuminate\Contracts\Container\Container;
 use Laravel\Lumen\Application as LumenApplication;
 
+if (! function_exists('soar')) {
+    /**
+     * @return \Guanguans\LaravelSoar\Soar
+     */
+    function soar()
+    {
+        app('soar');
+    }
+}
+
 if (! function_exists('var_output')) {
     /**
      * @param $expression
