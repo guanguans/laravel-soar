@@ -15,13 +15,26 @@ use Illuminate\Support\Collection;
 class DumpOutput extends Output
 {
     /**
+     * @var bool
+     */
+    private $exit;
+
+    public function __construct(bool $exit = false)
+    {
+        $this->exit = $exit;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function output(Collection $scores, $dispatcher)
     {
-        $scores->each(function (array $score) {
+        $scores->map(function ($score) {
             unset($score['Basic']);
-            dump($score);
-        });
+
+            return to_pretty_json($score);
+        })->when($this->exit, function (Collection $scores) {
+            $scores->dd();
+        })->dump();
     }
 }
