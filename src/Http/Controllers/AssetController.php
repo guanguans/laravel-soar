@@ -54,9 +54,9 @@ class AssetController
     }
 
     /**
-     * Return the fonts for the DebugBar.
+     * Return the font for the DebugBar.
      */
-    public function fonts(string $suffix): Response
+    public function font(string $suffix): Response
     {
         $file = base_path("vendor/maximebf/debugbar/src/DebugBar/Resources/vendor/font-awesome/fonts/fontawesome-webfont.$suffix");
         $response = new Response(file_get_contents($file), 200, ['Content-Type' => 'text/font']);

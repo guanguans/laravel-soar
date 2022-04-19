@@ -30,7 +30,7 @@ app('router')->group([
         ]);
 
         $router->get('fonts/fontawesome-webfont.{suffix}', [
-            'uses' => 'AssetController@fonts',
-            'as' => 'soar.bar.assets.fonts',
+            'uses' => 'AssetController@font',
+            'as' => 'soar.bar.assets.font',
         ]);
     });
