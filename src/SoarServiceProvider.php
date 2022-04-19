@@ -129,6 +129,11 @@ class SoarServiceProvider extends ServiceProvider
      */
     public function provides()
     {
-        return [Soar::class, 'soar'];
+        return [
+            Soar::class, 'soar',
+            OutputManager::class, 'output_manager',
+            Bootstrapper::class,
+            SoarBar::class,
+        ];
     }
 }

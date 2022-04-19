@@ -23,17 +23,6 @@ class JavascriptRenderer extends \DebugBar\JavascriptRenderer
     protected $ajaxHandlerBindToXHR = true;
 
     /**
-     * Set the URL Generator.
-     *
-     * @param \Illuminate\Routing\UrlGenerator $url
-     *
-     * @deprecated
-     */
-    public function setUrlGenerator($url)
-    {
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function renderHead()
@@ -49,7 +38,7 @@ class JavascriptRenderer extends \DebugBar\JavascriptRenderer
         $cssRoute = preg_replace('/\Ahttps?:/', '', $cssRoute);
         $jsRoute = preg_replace('/\Ahttps?:/', '', $jsRoute);
 
-        $html = "<link rel='stylesheet' type='text/css' property='stylesheet' href='{$cssRoute}'>";
+        $html = "<link rel='stylesheet' type='text/css' property='stylesheet' href='$cssRoute'>";
         $html .= <<<css
 <style>
     div.phpdebugbar-header, a.phpdebugbar-restore-btn {
@@ -58,7 +47,7 @@ class JavascriptRenderer extends \DebugBar\JavascriptRenderer
 </style>
 css;
 
-        $html .= "<script src='{$jsRoute}'></script>";
+        $html .= "<script src='$jsRoute'></script>";
 
         if ($this->isJqueryNoConflictEnabled()) {
             $html .= '<script>jQuery.noConflict(true);</script>'."\n";
@@ -69,7 +58,10 @@ css;
         return $html;
     }
 
-    protected function getInlineHtml()
+    /**
+     * Get inline HTML.
+     */
+    protected function getInlineHtml(): string
     {
         $html = '';
 
@@ -85,11 +77,9 @@ css;
     /**
      * Get the last modified time of any assets.
      *
-     * @param string $type 'js' or 'css'
-     *
-     * @return int
+     * @param string|null $type 'js' or 'css'
      */
-    protected function getModifiedTime($type)
+    protected function getModifiedTime(?string $type): int
     {
         $files = $this->getAssets($type);
 
@@ -107,11 +97,9 @@ css;
     /**
      * Return assets as a string.
      *
-     * @param string $type 'js' or 'css'
-     *
-     * @return string
+     * @param string|null $type 'js' or 'css'
      */
-    public function dumpAssetsToString($type)
+    public function dumpAssetsToString(?string $type): string
     {
         $files = $this->getAssets($type);
 
@@ -126,10 +114,10 @@ css;
     /**
      * Makes a URI relative to another.
      *
-     * @param string|array $uri
-     * @param string       $root
+     * @param string|string[] $uri
+     * @param string          $root
      *
-     * @return array|string
+     * @return string|string[]
      */
     protected function makeUriRelativeTo($uri, $root)
     {

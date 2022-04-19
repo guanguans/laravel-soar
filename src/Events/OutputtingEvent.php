@@ -18,29 +18,25 @@ class OutputtingEvent
     /**
      * @var \Guanguans\LaravelSoar\Contracts\Output
      */
-    protected $output;
+    public $output;
 
     /**
      * @var \Illuminate\Support\Collection
      */
-    protected $scores;
+    public $scores;
 
     /**
-     * @var \Symfony\Component\HttpFoundation\Response
-     * @var \Illuminate\Console\Events\CommandFinished
-     * @var \Illuminate\Foundation\Http\Events\RequestHandled
+     * @var \Illuminate\Console\Events\CommandFinished|\Symfony\Component\HttpFoundation\Response
      */
-    protected $operator;
+    public $dispatcher;
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Response        $operator
-     * @param \Illuminate\Console\Events\CommandFinished        $operator
-     * @param \Illuminate\Foundation\Http\Events\RequestHandled $operator
+     * @param \Illuminate\Console\Events\CommandFinished|\Symfony\Component\HttpFoundation\Response $dispatcher
      */
-    public function __construct(Output $output, Collection $scores, $operator)
+    public function __construct(Output $output, Collection $scores, $dispatcher)
     {
         $this->output = $output;
         $this->scores = $scores;
-        $this->operator = $operator;
+        $this->dispatcher = $dispatcher;
     }
 }

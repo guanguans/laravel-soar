@@ -33,10 +33,8 @@ class AssetController
 
     /**
      * Return the javascript for the DebugBar.
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function js()
+    public function js(): Response
     {
         $js = $this->renderer->dumpAssetsToString('js');
         $response = new Response($js, 200, ['Content-Type' => 'text/javascript']);
@@ -46,10 +44,8 @@ class AssetController
 
     /**
      * Return the stylesheets for the DebugBar.
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function css()
+    public function css(): Response
     {
         $css = $this->renderer->dumpAssetsToString('css');
         $response = new Response($css, 200, ['Content-Type' => 'text/css']);
@@ -57,7 +53,10 @@ class AssetController
         return $this->cacheResponse($response);
     }
 
-    public function fonts(string $suffix)
+    /**
+     * Return the fonts for the DebugBar.
+     */
+    public function fonts(string $suffix): Response
     {
         $file = base_path("vendor/maximebf/debugbar/src/DebugBar/Resources/vendor/font-awesome/fonts/fontawesome-webfont.$suffix");
         $response = new Response(file_get_contents($file), 200, ['Content-Type' => 'text/font']);
@@ -65,7 +64,10 @@ class AssetController
         return $this->cacheResponse($response);
     }
 
-    public function fontAwesome()
+    /**
+     * Return the FontAwesome.otf for the DebugBar.
+     */
+    public function fontAwesome(): Response
     {
         $file = base_path('vendor/maximebf/debugbar/src/DebugBar/Resources/vendor/font-awesome/fonts/FontAwesome.otf');
         $response = new Response(file_get_contents($file), 200, ['Content-Type' => 'text/font']);
@@ -76,7 +78,7 @@ class AssetController
     /**
      * Cache the response 1 year (31536000 sec).
      */
-    protected function cacheResponse(Response $response)
+    protected function cacheResponse(Response $response): Response
     {
         $response->setSharedMaxAge(31536000);
         $response->setMaxAge(31536000);

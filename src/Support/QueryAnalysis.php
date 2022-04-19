@@ -30,14 +30,9 @@ class QueryAnalysis
     public const KEYWORDS2 = 'ALL|DISTINCT|DISTINCTROW|IGNORE|AS|USING|ON|AND|OR|IN|IS|NOT|NULL|[RI]?LIKE|REGEXP|TRUE|FALSE';
 
     /**
-     * Returns syntax highlighted SQL command.
-     *
-     * @param string $sql
-     * @param \PDO   $pdo
-     *
-     * @return string
+     * Returns syntax highlighted SQL.
      */
-    public static function highlight($sql, array $bindings = [], PDO $pdo = null)
+    public static function highlight(string $sql, array $bindings = [], ?PDO $pdo = null): string
     {
         // insert new lines
         $sql = " $sql ";
@@ -101,15 +96,9 @@ class QueryAnalysis
     }
 
     /**
-     * perform query analysis hint.
-     *
-     * @param string $sql
-     * @param string $version
-     * @param float  $driver
-     *
-     * @return array
+     * Perform query analysis hint.
      */
-    public static function performQueryAnalysis($sql, $version = null, $driver = null)
+    public static function performQueryAnalysis(string $sql, ?float $version = null, ?string $driver = null): array
     {
         $hints = [];
         if (preg_match('/^\\s*SELECT\\s*`?[a-zA-Z0-9]*`?\\.?\\*/i', $sql)) {
@@ -144,14 +133,9 @@ class QueryAnalysis
     }
 
     /**
-     * explain sql.
-     *
-     * @param string $sql
-     * @param array  $bindings
-     *
-     * @return array
+     * Explain sql.
      */
-    public static function explain(PDO $pdo, $sql, $bindings = [])
+    public static function explain(PDO $pdo, string $sql, array $bindings = []): array
     {
         $explains = [];
         if (preg_match('#\s*\(?\s*SELECT\s#iA', $sql)) {

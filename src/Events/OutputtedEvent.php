@@ -18,17 +18,17 @@ class OutputtedEvent
     /**
      * @var \Guanguans\LaravelSoar\Contracts\Output
      */
-    protected $output;
+    public $output;
 
     /**
      * @var \Illuminate\Support\Collection
      */
-    protected $scores;
+    public $scores;
 
     /**
      * @var mixed
      */
-    protected $result;
+    public $result;
 
     /**
      * @param mixed $result
