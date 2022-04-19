@@ -92,7 +92,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
                 'remember_token' => Str::random(10),
             ]);
 
-            User::query()->where('name', 'soar')->first();
+            User::query()->where('name', 'soar')->groupBy('name')->orderBy('name')->first();
 
             return response()->json('This is a json response.');
         });
@@ -114,7 +114,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
                 'remember_token' => Str::random(10),
             ]);
 
-            User::query()->where('name', 'soar')->first();
+            User::query()->where('name', 'soar')->groupBy('name')->orderBy('name')->first();
 
             return response('This is a html response.');
         });

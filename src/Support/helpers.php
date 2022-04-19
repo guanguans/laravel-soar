@@ -8,7 +8,6 @@
  * This source file is subject to the MIT license that is bundled.
  */
 
-use Guanguans\SoarPHP\Support\OsHelper;
 use Illuminate\Contracts\Container\Container;
 use Laravel\Lumen\Application as LumenApplication;
 
@@ -85,11 +84,7 @@ if (! function_exists('to_pretty_json')) {
 if (! function_exists('normalize_sql')) {
     function normalize_sql(string $sql): string
     {
-        if (OsHelper::isWindows()) {
-            return str_replace(['`', '"'], ['', ''], $sql);
-        }
-
-        return str_replace(['`', '"'], ['\`', '\"'], $sql);
+        return str_replace(['`', '"'], ['\`', ''], $sql);
     }
 }
 
