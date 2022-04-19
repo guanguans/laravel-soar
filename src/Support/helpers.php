@@ -18,7 +18,7 @@ if (! function_exists('soar')) {
      */
     function soar()
     {
-        app('soar');
+        return app('soar');
     }
 }
 

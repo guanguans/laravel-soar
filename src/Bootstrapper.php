@@ -77,12 +77,12 @@ class Bootstrapper
             ];
         });
 
-        // 事件中输出
+        // 注册输出监听
         $app['events']->listen(CommandFinished::class, function (CommandFinished $commandFinished) use ($app) {
             $app->make(OutputManager::class)->output($this->getScores(), $commandFinished);
         });
 
-        // 中间件中输出
+        // 注册输出中间件
         is_lumen()
         ? $app->middleware(OutputSoarScoreMiddleware::class)
         : $app->make(Kernel::class)->pushMiddleware(OutputSoarScoreMiddleware::class);
@@ -105,10 +105,7 @@ class Bootstrapper
 
     public function getScores(): Collection
     {
-        $this->scores->isEmpty() and $this->scores = $this->queries
-            ->pipe(function (Collection $queries) {
-                return $this->transformToScores($queries);
-            })
+        $this->scores->isEmpty() and $this->scores = $this->transformToScores($this->queries)
             ->sortBy('Score')
             ->map(function (array $score) {
                 $query = $this->matchQuery($this->queries, $score);
@@ -222,13 +219,10 @@ class Bootstrapper
         });
     }
 
-    /**
-     * @param array|null $explain
-     */
-    public function formatExplain($explain): array
+    public function formatExplain(?array $explain): array
     {
-        if (empty($explain)) {
-            return (array) $explain;
+        if (is_null($explain)) {
+            return [];
         }
 
         $explain = $explain[0] ?? $explain;
