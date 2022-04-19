@@ -10,8 +10,6 @@
 
 namespace Guanguans\LaravelSoar\Support\Macros;
 
-use Guanguans\LaravelSoar\Facades\Soar;
-
 class QueryBuilderMacro
 {
     public function toRawSql()
@@ -44,7 +42,7 @@ class QueryBuilderMacro
     {
         return function (): array {
             /* @var \Illuminate\Database\Query\Builder $this */
-            $arrayScore = Soar::arrayScore($this->toRawSql());
+            $arrayScore = app('soar')->arrayScore($this->toRawSql());
 
             return $arrayScore[0] ?? $arrayScore;
         };
@@ -94,7 +92,7 @@ class QueryBuilderMacro
     {
         return function (): string {
             /* @var \Illuminate\Database\Query\Builder $this */
-            return Soar::htmlScore($this->toRawSql());
+            return app('soar')->htmlScore($this->toRawSql());
         };
     }
 
@@ -118,7 +116,7 @@ class QueryBuilderMacro
     {
         return function (): string {
             /* @var \Illuminate\Database\Query\Builder $this */
-            return Soar::htmlExplain($this->toRawSql());
+            return app('soar')->htmlExplain($this->toRawSql());
         };
     }
 

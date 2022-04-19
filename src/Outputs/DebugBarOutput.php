@@ -10,7 +10,6 @@
 
 namespace Guanguans\LaravelSoar\Outputs;
 
-use Barryvdh\Debugbar\Facade as LaravelDebugbar;
 use DebugBar\DataCollector\MessagesCollector;
 use Illuminate\Support\Collection;
 
@@ -53,14 +52,17 @@ class DebugBarOutput extends Output
     protected function shouldOutput($dispatcher): bool
     {
         return $this->isHtmlResponse($dispatcher) &&
-               class_exists('Barryvdh\Debugbar\Facade') &&
-               \Barryvdh\Debugbar\Facade::isEnabled();
+               class_exists('\Barryvdh\Debugbar\LaravelDebugbar') &&
+               app(\Barryvdh\Debugbar\LaravelDebugbar::class)->isEnabled();
     }
 
     protected function createCollector(): MessagesCollector
     {
-        self::$collector instanceof MessagesCollector or self::$collector = new MessagesCollector('Soar Scores');
-        LaravelDebugbar::hasCollector(self::$collector->getName()) or LaravelDebugbar::addCollector(self::$collector);
+        self::$collector instanceof MessagesCollector or
+        self::$collector = new MessagesCollector('Soar Scores');
+
+        app(\Barryvdh\Debugbar\LaravelDebugbar::class)->hasCollector(self::$collector->getName()) or
+        app(\Barryvdh\Debugbar\LaravelDebugbar::class)->addCollector(self::$collector);
 
         return self::$collector;
     }

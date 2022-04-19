@@ -10,7 +10,6 @@
 
 namespace Guanguans\LaravelSoar;
 
-use Guanguans\LaravelSoar\Facades\Soar;
 use Guanguans\LaravelSoar\Http\Middleware\OutputSoarScoreMiddleware;
 use Guanguans\SoarPHP\Support\OsHelper;
 use Illuminate\Console\Events\CommandFinished;
@@ -18,8 +17,6 @@ use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Database\Events\QueryExecuted;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Str;
 
 class Bootstrapper
@@ -62,27 +59,27 @@ class Bootstrapper
         $this->booted = true;
 
         // 记录 SQL
-        DB::listen(function (QueryExecuted $queryExecutedEvent) {
+        $app['events']->listen(QueryExecuted::class, function (QueryExecuted $queryExecuted) {
             if (
-                isset($this->queries[$queryExecutedEvent->sql]) ||
-                $this->isExcludedSql($queryExecutedEvent->sql) ||
-                $this->isExcludedSql($sql = $this->transformToSql($queryExecutedEvent))
+                isset($this->queries[$queryExecuted->sql]) ||
+                $this->isExcludedSql($queryExecuted->sql) ||
+                $this->isExcludedSql($sql = $this->transformToSql($queryExecuted))
             ) {
                 return;
             }
 
-            $this->queries[$queryExecutedEvent->sql] = [
+            $this->queries[$queryExecuted->sql] = [
                 'sql' => $sql,
-                'time' => $this->transformToHumanTime($queryExecutedEvent->time),
-                'connection' => $queryExecutedEvent->connectionName,
-                'driver' => $queryExecutedEvent->connection->getDriverName(),
+                'time' => $this->transformToHumanTime($queryExecuted->time),
+                'connection' => $queryExecuted->connectionName,
+                'driver' => $queryExecuted->connection->getDriverName(),
                 'backtraces' => $this->getBacktraces(),
             ];
         });
 
         // 事件中输出
-        Event::listen(CommandFinished::class, function ($event) use ($app) {
-            $app->make(OutputManager::class)->output($this->getScores(), $event);
+        $app['events']->listen(CommandFinished::class, function (CommandFinished $commandFinished) use ($app) {
+            $app->make(OutputManager::class)->output($this->getScores(), $commandFinished);
         });
 
         // 中间件中输出
@@ -209,7 +206,7 @@ class Bootstrapper
     {
         if (OsHelper::isWindows()) {
             return $queries->reduce(function (Collection $scores, $query) {
-                $score = Soar::arrayScore($query['sql']);
+                $score = app('soar')->arrayScore($query['sql']);
                 isset($score[0]) and $scores->add($score[0]);
 
                 return $scores;
@@ -221,7 +218,7 @@ class Bootstrapper
                 return $sql.$query['sql'].'; ';
             }, '');
 
-            return collect(Soar::arrayScore($sql));
+            return collect(app('soar')->arrayScore($sql));
         });
     }
 

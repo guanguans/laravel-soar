@@ -11,17 +11,23 @@
 namespace Guanguans\LaravelSoar\Outputs;
 
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Log;
+use Psr\Log\LoggerInterface;
 
 class LogOutput extends Output
 {
+    /**
+     * @var \Psr\Log\LoggerInterface
+     */
+    protected $logger;
+
     /**
      * @var string
      */
     protected $channel;
 
-    public function __construct($channel = 'daily')
+    public function __construct(LoggerInterface $logger, $channel = 'daily')
     {
+        $this->logger = $logger;
         $this->channel = $channel;
     }
 
@@ -32,7 +38,7 @@ class LogOutput extends Output
     {
         $scores->each(function (array $score) {
             unset($score['Basic']);
-            Log::channel($this->channel)->warning($score['Summary'].PHP_EOL.to_pretty_json($score));
+            $this->logger->channel($this->channel)->warning($score['Summary'].PHP_EOL.to_pretty_json($score));
         });
     }
 }

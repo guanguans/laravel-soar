@@ -62,7 +62,6 @@ class SoarServiceProvider extends ServiceProvider
             $this->publishes([$source => config_path('soar.php')], 'laravel-soar');
         } elseif ($this->app instanceof LumenApplication) {
             $this->app->configure('soar');
-
             $this->app->bindIf(ConnectionInterface::class, function ($app) {
                 return $app['db']->connection();
             });
