@@ -1,5 +1,5 @@
 {
-    "message": "This is a sql score.",
+    "message": "ok",
     "soar_scores": [
         {
             "Summary": "[☆☆☆☆☆|0分|3.56ms|select * from `users` where `name` = 'soar' group by `name` having `created_at` > '2022-04-19 18:24:33']",

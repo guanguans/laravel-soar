@@ -1,66 +1,7 @@
-![](docs/soar-bar.gif)
-
-# laravel-soar
-
-> SQL optimizer and rewriter for laravel. - laravel 的 SQL 优化器和重写器。
-
-[![Tests](https://github.com/guanguans/laravel-soar/workflows/Tests/badge.svg)](https://github.com/guanguans/laravel-soar/actions)
-[![Check & fix styling](https://github.com/guanguans/laravel-soar/workflows/Check%20&%20fix%20styling/badge.svg)](https://github.com/guanguans/laravel-soar/actions)
-[![codecov](https://codecov.io/gh/guanguans/laravel-soar/branch/master/graph/badge.svg?token=EWBG8GV4JD)](https://codecov.io/gh/guanguans/laravel-soar)
-[![Latest Stable Version](https://poser.pugx.org/guanguans/laravel-soar/v)](//packagist.org/packages/guanguans/laravel-soar)
-[![Total Downloads](https://poser.pugx.org/guanguans/laravel-soar/downloads)](//packagist.org/packages/guanguans/laravel-soar)
-[![License](https://poser.pugx.org/guanguans/laravel-soar/license)](//packagist.org/packages/guanguans/laravel-soar)
-
-## Feature
-
-* Support heuristic algorithm statement optimization suggestions, index optimization suggestions
-* Supports rich interpretation of EXPLAIN information
-* Automatically monitor output SQL optimization recommendations
-* Debug bar、Soar bar、JSON、Clockwork、Console、Dump、Log(Multiple scene output)
-* Support query builder to generate SQL optimization suggestions
-
-## Related Links
-
-* [https://github.com/XiaoMi/soar](https://github.com/XiaoMi/soar)
-* [https://github.com/guanguans/soar-php](https://github.com/guanguans/soar-php)
-* [https://github.com/huangdijia/laravel-web-soar](https://github.com/huangdijia/laravel-web-soar)
-* [https://github.com/wilbur-yu/hyperf-soar](https://github.com/wilbur-yu/hyperf-soar)
-* [https://github.com/guanguans/think-soar](https://github.com/guanguans/think-soar)
-
-## Requirement
-
-* laravel >= 5.5
-
-## Installation
-
-```shell
-$ composer require guanguans/laravel-soar --dev -vvv
-```
-
-## Configuration
-
-### Register service
-
-#### laravel
-
-```bash
-$ php artisan vendor:publish --provider="Guanguans\\LaravelSoar\\SoarServiceProvider"
-```
-
-#### lumen
-
-Add the following snippet to the `bootstrap/app.php` file under the `Register Service Providers` section as follows:
-
-```php
-$app->register(\Guanguans\LaravelSoar\SoarServiceProvider::class);
-```
-
-## Usage
-
-### Sample code
+### 示例代码
 
 <details>
-<summary><b>details</b></summary>
+<summary><b>详情</b></summary>
 
 ```php
 <?php
@@ -125,12 +66,12 @@ SQL
 ```
 </details>
 
-### Automatically monitor output SQL optimization recommendations
+### 自动监控输出 SQL 优化建议
 
 <details>
-<summary><b>Json response</b></summary>
+<summary><b>Json 响应</b></summary>
 
-[Json response](docs/json.json)
+[Json 响应](json.json)
 
 ```json
 {
@@ -410,43 +351,43 @@ SQL
 <details>
 <summary><b>Soar bar</b></summary>
 
-![Soar bar](docs/soar-bar.png)
+![Soar bar](soar-bar.png)
 </details>
 
 <details>
 <summary><b>Debug bar</b></summary>
 
-![Debug bar](docs/debug-bar.png)
+![Debug bar](debug-bar.png)
 </details>
 
 <details>
 <summary><b>Clockwork</b></summary>
 
-![Clockwork](docs/clockwork.png)
+![Clockwork](clockwork.png)
 </details>
 
 <details>
 <summary><b>Console</b></summary>
 
-![Console](docs/console.png)
+![Console](console.png)
 </details>
 
 <details>
 <summary><b>Dump</b></summary>
 
-![Dump](docs/dump.png)
+![Dump](dump.png)
 </details>
 
 <details>
 <summary><b>Log</b></summary>
 
-![Log](docs/log.png)
+![Log](log.png)
 </details>
 
-### Soar instance and methods
+### Soar 实例及方法
 
 <details>
-<summary><b>details</b></summary>
+<summary><b>详情</b></summary>
 
 ```php
 soar();      // 获取 Soar 实例
@@ -481,30 +422,3 @@ app('soar'); // 获取 Soar 实例
 class Soar{}
 ```
 </details>
-
-## Testing
-
-```bash
-$ composer test
-```
-
-## Changelog
-
-Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
-
-## Contributing
-
-Please see [CONTRIBUTING](.github/CONTRIBUTING.md) for details.
-
-## Security Vulnerabilities
-
-Please review [our security policy](../../security/policy) on how to report security vulnerabilities.
-
-## Credits
-
-* [guanguans](https://github.com/guanguans)
-* [All Contributors](../../contributors)
-
-## License
-
-The MIT License (MIT). Please see [License File](LICENSE) for more information.
