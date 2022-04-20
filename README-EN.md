@@ -443,6 +443,37 @@ SQL
 ![Log](docs/log.png)
 </details>
 
+<details>
+<summary><b>query builder</b></summary>
+
+```php
+namespace Illuminate\Database\Eloquent {
+    /**
+     * @method string toRawSql()
+     * @method void   dumpRawSql()
+     * @method void   ddRawSql()
+     * @method array  toSoarArrayScore()
+     * @method void   dumpSoarArrayScore()
+     * @method void   ddSoarArrayScore()
+     * @method string toSoarJsonScore()
+     * @method void   dumpSoarJsonScore()
+     * @method void   ddSoarJsonScore()
+     * @method string toSoarHtmlScore()
+     * @method void   echoSoarHtmlScore()
+     * @method void   exitSoarHtmlScore()
+     * @method string toSoarHtmlExplain()
+     * @method void   echoSoarHtmlExplain()
+     * @method void   exitSoarHtmlExplain()
+     *
+     * @see \Guanguans\LaravelSoar\Support\Macros\QueryBuilderMacro
+     */
+    class Builder
+    {
+    }
+}
+```
+</details>
+
 ### Soar instance and methods
 
 <details>
