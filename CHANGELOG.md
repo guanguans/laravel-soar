@@ -2,6 +2,10 @@
 
 All notable changes to `guanguans/laravel-soar` will be documented in this file.
 
+## v2.0.12 - 2022-04-20
+
+**Full Changelog**: https://github.com/guanguans/laravel-soar/compare/v2.0.11...v2.0.12
+
 ## v2.0.11 - 2022-04-20
 
 **Full Changelog**: https://github.com/guanguans/laravel-soar/compare/v2.0.10...v2.0.11
@@ -69,7 +73,6 @@ All notable changes to `guanguans/laravel-soar` will be documented in this file.
 - Support laravel9.
 ## 1.2.3 - 2021-11-30
 - Update overtrue/phplint requirement from `^2.4|| ^3.0` to `^3.0|^4.0`.
-
 ## 1.2.2 - 2021-11-04
 
 - Update guanguans/laravel-dump-sql requirement from  ^2.0 to `^1.1 || 2.0`.
