@@ -226,7 +226,7 @@ class Bootstrapper
         }
 
         $explain = $explain[0] ?? $explain;
-        $explain['Content'] = explode("\n", $explain['Content']);
+        $explain['Content'] = array_values(array_filter(explode("\n", $explain['Content'])));
         $explain['Case'] = explode("\n", $explain['Case']);
 
         return $explain;
