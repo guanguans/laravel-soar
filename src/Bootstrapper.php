@@ -57,35 +57,8 @@ class Bootstrapper
         }
 
         $this->booted = true;
-
-        // 记录 SQL
-        $app['events']->listen(QueryExecuted::class, function (QueryExecuted $queryExecuted) {
-            if (
-                isset($this->queries[$queryExecuted->sql]) ||
-                $this->isExcludedSql($queryExecuted->sql) ||
-                $this->isExcludedSql($sql = $this->transformToSql($queryExecuted))
-            ) {
-                return;
-            }
-
-            $this->queries[$queryExecuted->sql] = [
-                'sql' => $sql,
-                'time' => $this->transformToHumanTime($queryExecuted->time),
-                'connection' => $queryExecuted->connectionName,
-                'driver' => $queryExecuted->connection->getDriverName(),
-                'backtraces' => $this->getBacktraces(),
-            ];
-        });
-
-        // 注册输出监听
-        $app['events']->listen(CommandFinished::class, function (CommandFinished $commandFinished) use ($app) {
-            $app->make(OutputManager::class)->output($this->getScores(), $commandFinished);
-        });
-
-        // 注册输出中间件
-        is_lumen()
-        ? $app->middleware(OutputSoarScoreMiddleware::class)
-        : $app->make(Kernel::class)->pushMiddleware(OutputSoarScoreMiddleware::class);
+        $this->logQuery($app['events']);
+        $this->registerOutputMonitor($app);
     }
 
     public function isBooted(): bool
@@ -230,5 +203,43 @@ class Bootstrapper
         $explain['Case'] = explode("\n", $explain['Case']);
 
         return $explain;
+    }
+
+    protected function logQuery(\Illuminate\Events\Dispatcher $dispatcher): void
+    {
+        // 记录 SQL
+        $dispatcher->listen(QueryExecuted::class, function (QueryExecuted $queryExecuted) {
+            if (
+                isset($this->queries[$queryExecuted->sql]) ||
+                $this->isExcludedSql($queryExecuted->sql) ||
+                $this->isExcludedSql($sql = $this->transformToSql($queryExecuted))
+            ) {
+                return;
+            }
+
+            $this->queries[$queryExecuted->sql] = [
+                'sql' => $sql,
+                'time' => $this->transformToHumanTime($queryExecuted->time),
+                'connection' => $queryExecuted->connectionName,
+                'driver' => $queryExecuted->connection->getDriverName(),
+                'backtraces' => $this->getBacktraces(),
+            ];
+        });
+    }
+
+    /**
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
+    protected function registerOutputMonitor(Container $app): void
+    {
+        // 注册输出监听
+        $app['events']->listen(CommandFinished::class, function (CommandFinished $commandFinished) use ($app) {
+            $app->make(OutputManager::class)->output($this->getScores(), $commandFinished);
+        });
+
+        // 注册输出中间件
+        is_lumen()
+        ? $app->middleware(OutputSoarScoreMiddleware::class)
+        : $app->make(Kernel::class)->pushMiddleware(OutputSoarScoreMiddleware::class);
     }
 }
