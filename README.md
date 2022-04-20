@@ -28,6 +28,7 @@
 * [https://github.com/huangdijia/laravel-web-soar](https://github.com/huangdijia/laravel-web-soar)
 * [https://github.com/wilbur-yu/hyperf-soar](https://github.com/wilbur-yu/hyperf-soar)
 * [https://github.com/guanguans/think-soar](https://github.com/guanguans/think-soar)
+* [https://github.com/Tinywan/webman-soar](https://github.com/Tinywan/webman-soar)
 
 ## 环境要求
 
