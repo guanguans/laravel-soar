@@ -18,7 +18,7 @@
 * 支持启发式算法语句优化建议、索引优化建议
 * 支持 EXPLAIN 信息丰富解读
 * 自动监控输出 SQL 优化建议
-* Debug bar、Soar bar、JSON、Clockwork、Console、Dump、Log(多种场景输出)
+* Debug bar、Soar bar、JSON、Clockwork、Console、Dump、Log、自定义输出器(多种场景输出)
 * 支持查询构建器生成 SQL 优化建议
 
 ## 相关项目
@@ -130,9 +130,7 @@ SQL
 ### 自动监控输出 SQL 优化建议
 
 <details>
-<summary><b>Json 响应</b></summary>
-
-[Json 响应](docs/json.json)    
+<summary><b>Json 响应</b></summary> 
 
 ```json
 {
@@ -446,33 +444,41 @@ SQL
 </details>
 
 <details>
-<summary><b>查询构建器</b></summary>
+<summary><b>自定义输出器</b></summary>
+
+1. 实现该接口
 
 ```php
-namespace Illuminate\Database\Eloquent {
-    /**
-     * @method string toRawSql()
-     * @method void   dumpRawSql()
-     * @method void   ddRawSql()
-     * @method array  toSoarArrayScore()
-     * @method void   dumpSoarArrayScore()
-     * @method void   ddSoarArrayScore()
-     * @method string toSoarJsonScore()
-     * @method void   dumpSoarJsonScore()
-     * @method void   ddSoarJsonScore()
-     * @method string toSoarHtmlScore()
-     * @method void   echoSoarHtmlScore()
-     * @method void   exitSoarHtmlScore()
-     * @method string toSoarHtmlExplain()
-     * @method void   echoSoarHtmlExplain()
-     * @method void   exitSoarHtmlExplain()
-     *
-     * @see \Guanguans\LaravelSoar\Support\Macros\QueryBuilderMacro
-     */
-    class Builder
-    {
-    }
+<?php
+
+namespace Guanguans\LaravelSoar\Contracts;
+
+use Illuminate\Support\Collection;
+
+interface Output
+{
+    public function output(Collection $scores, $dispatcher);
 }
+```
+
+2. `config/soar.php` 中配置输出器即可
+
+```php
+<?php
+
+return [
+	...
+    'output' => [
+        // \Guanguans\LaravelSoar\Outputs\ClockworkOutput::class,
+        // \Guanguans\LaravelSoar\Outputs\ConsoleOutput::class,
+        // \Guanguans\LaravelSoar\Outputs\DumpOutput::class => ['exit' => false],
+        \Guanguans\LaravelSoar\Outputs\JsonOutput::class,
+        \Guanguans\LaravelSoar\Outputs\LogOutput::class => ['channel' => 'daily'],
+        \Guanguans\LaravelSoar\Outputs\DebugBarOutput::class,
+        \Guanguans\LaravelSoar\Outputs\SoarBarOutput::class,
+    ],
+	...
+];
 ```
 </details>
 
@@ -512,6 +518,39 @@ app('soar'); // 获取 Soar 实例
  * @see \Guanguans\LaravelSoar\Soar
  */
 class Soar{}
+```
+</details>
+
+### 查询构建器方法
+
+<details>
+<summary><b>详情</b></summary>
+
+```php
+namespace Illuminate\Database\Eloquent {
+    /**
+     * @method string toRawSql()
+     * @method void   dumpRawSql()
+     * @method void   ddRawSql()
+     * @method array  toSoarArrayScore()
+     * @method void   dumpSoarArrayScore()
+     * @method void   ddSoarArrayScore()
+     * @method string toSoarJsonScore()
+     * @method void   dumpSoarJsonScore()
+     * @method void   ddSoarJsonScore()
+     * @method string toSoarHtmlScore()
+     * @method void   echoSoarHtmlScore()
+     * @method void   exitSoarHtmlScore()
+     * @method string toSoarHtmlExplain()
+     * @method void   echoSoarHtmlExplain()
+     * @method void   exitSoarHtmlExplain()
+     *
+     * @see \Guanguans\LaravelSoar\Support\Macros\QueryBuilderMacro
+     */
+    class Builder
+    {
+    }
+}
 ```
 </details>
 

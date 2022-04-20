@@ -1,3 +1,5 @@
+![](soar-bar.gif)
+
 ### 示例代码
 
 <details>
@@ -69,9 +71,7 @@ SQL
 ### 自动监控输出 SQL 优化建议
 
 <details>
-<summary><b>Json 响应</b></summary>
-
-[Json 响应](json.json)
+<summary><b>Json 响应</b></summary> 
 
 ```json
 {
@@ -384,6 +384,45 @@ SQL
 ![Log](log.png)
 </details>
 
+<details>
+<summary><b>自定义输出器</b></summary>
+
+1. 实现该接口
+
+```php
+<?php
+
+namespace Guanguans\LaravelSoar\Contracts;
+
+use Illuminate\Support\Collection;
+
+interface Output
+{
+    public function output(Collection $scores, $dispatcher);
+}
+```
+
+2. `config/soar.php` 中配置输出器即可
+
+```php
+<?php
+
+return [
+	...
+    'output' => [
+        // \Guanguans\LaravelSoar\Outputs\ClockworkOutput::class,
+        // \Guanguans\LaravelSoar\Outputs\ConsoleOutput::class,
+        // \Guanguans\LaravelSoar\Outputs\DumpOutput::class => ['exit' => false],
+        \Guanguans\LaravelSoar\Outputs\JsonOutput::class,
+        \Guanguans\LaravelSoar\Outputs\LogOutput::class => ['channel' => 'daily'],
+        \Guanguans\LaravelSoar\Outputs\DebugBarOutput::class,
+        \Guanguans\LaravelSoar\Outputs\SoarBarOutput::class,
+    ],
+	...
+];
+```
+</details>
+
 ### Soar 实例及方法
 
 <details>
@@ -420,5 +459,38 @@ app('soar'); // 获取 Soar 实例
  * @see \Guanguans\LaravelSoar\Soar
  */
 class Soar{}
+```
+</details>
+
+### 查询构建器方法
+
+<details>
+<summary><b>详情</b></summary>
+
+```php
+namespace Illuminate\Database\Eloquent {
+    /**
+     * @method string toRawSql()
+     * @method void   dumpRawSql()
+     * @method void   ddRawSql()
+     * @method array  toSoarArrayScore()
+     * @method void   dumpSoarArrayScore()
+     * @method void   ddSoarArrayScore()
+     * @method string toSoarJsonScore()
+     * @method void   dumpSoarJsonScore()
+     * @method void   ddSoarJsonScore()
+     * @method string toSoarHtmlScore()
+     * @method void   echoSoarHtmlScore()
+     * @method void   exitSoarHtmlScore()
+     * @method string toSoarHtmlExplain()
+     * @method void   echoSoarHtmlExplain()
+     * @method void   exitSoarHtmlExplain()
+     *
+     * @see \Guanguans\LaravelSoar\Support\Macros\QueryBuilderMacro
+     */
+    class Builder
+    {
+    }
+}
 ```
 </details>
