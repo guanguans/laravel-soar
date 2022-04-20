@@ -45,6 +45,84 @@ class JavascriptRenderer extends \DebugBar\JavascriptRenderer
     div.phpdebugbar-header, a.phpdebugbar-restore-btn {
         background: #efefef url(data:image/svg+xml;base64,$base64Logo)  no-repeat 5px 4px / 20px 20px;
     }
+    
+    div.phpdebugbar-widgets-messages div.phpdebugbar-widgets-toolbar {
+        width: calc(100% - 20px);
+        padding: 4px 0px 4px;
+        height: 20px;
+        border: 1px solid #ddd;
+        border-bottom: 0px;
+        background-color: #e8e8e8;
+        border-radius: 5px 5px 0px 0px;
+    }
+    
+    div.phpdebugbar-widgets-messages div.phpdebugbar-widgets-toolbar input {
+        width: calc(100% - 48px);
+        margin-left: 0px;
+        border-radius: 3px;
+        padding: 2px 6px;
+        height: 15px;
+    }
+    
+    .phpdebugbar-widgets-toolbar i.phpdebugbar-fa.phpdebugbar-fa-search {
+        position: relative;
+        top: -1px;
+        padding: 0px 10px;
+    }
+
+    div.phpdebugbar-widgets-messages div.phpdebugbar-widgets-toolbar a.phpdebugbar-widgets-filter,
+    div.phpdebugbar-widgets-messages div.phpdebugbar-widgets-toolbar a.phpdebugbar-widgets-filter.phpdebugbar-widgets-excluded {
+        position: relative;
+        top: -48px;
+        display: inline-block;
+        background-color: #6d6d6d;
+        margin-left: 3px;
+        border-radius: 3px;
+        padding: 5px 8px 4px;
+        text-transform: uppercase;
+        font-size: 10px;
+        text-shadow: 1px 1px #585858;
+        transition: background-color .25s linear 0s, color .25s linear 0s;
+        color: #FFF;
+    
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+    
+    div.phpdebugbar-widgets-messages div.phpdebugbar-widgets-toolbar a.phpdebugbar-widgets-filter[rel="info"],
+    div.phpdebugbar-widgets-messages div.phpdebugbar-widgets-toolbar a.phpdebugbar-widgets-filter.phpdebugbar-widgets-excluded[rel="info"] {
+        background-color: #5896e2;
+    }
+    
+    div.phpdebugbar-widgets-messages div.phpdebugbar-widgets-toolbar a.phpdebugbar-widgets-filter[rel="error"],
+    div.phpdebugbar-widgets-messages div.phpdebugbar-widgets-toolbar a.phpdebugbar-widgets-filter.phpdebugbar-widgets-excluded[rel="error"] {
+        background-color: #fa5661;
+    }
+    
+    div.phpdebugbar-widgets-messages div.phpdebugbar-widgets-toolbar a.phpdebugbar-widgets-filter[rel="warning"],
+    div.phpdebugbar-widgets-messages div.phpdebugbar-widgets-toolbar a.phpdebugbar-widgets-filter.phpdebugbar-widgets-excluded[rel="warning"] {
+        background-color: #f99400;
+    }
+    
+    div.phpdebugbar-widgets-messages div.phpdebugbar-widgets-toolbar a.phpdebugbar-widgets-filter:hover {
+        color: #FFF;
+        opacity: 0.85;
+    }
+    
+    div.phpdebugbar-widgets-messages div.phpdebugbar-widgets-toolbar a.phpdebugbar-widgets-filter.phpdebugbar-widgets-excluded {
+        opacity: 0.45;
+    }
+
+    .phpdebugbar-widgets-toolbar > .fa {
+        width: 25px;
+        font-size: 15px;
+        color: #555;
+        text-align: center;
+    }
 </style>
 css;
 
