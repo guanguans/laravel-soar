@@ -12,7 +12,6 @@ namespace Tests;
 
 use Guanguans\LaravelSoar\Bootstrapper;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Str;
 use Nyholm\NSA;
 
 class BootstrapperTest extends TestCase
@@ -42,6 +41,7 @@ class BootstrapperTest extends TestCase
     public function testGetScores()
     {
         $this->assertInstanceOf(Collection::class, $scores = $this->bootstrapper->getScores());
+        $scores->dump();
         $this->assertTrue($scores->isNotEmpty());
 
         $scores->each(function ($score) {
@@ -51,10 +51,7 @@ class BootstrapperTest extends TestCase
             $this->assertArrayHasKey('Explain', $score);
             $this->assertArrayHasKey('Backtraces', $score);
             $this->assertArrayHasKey('Basic', $score);
-
-            Str::startsWith($score['Basic']['Sample'], ['create', 'CREATE', 'insert', 'INSERT'])
-            ? $this->assertGreaterThanOrEqual(0, $score['Basic']['Score'])
-            : $this->assertGreaterThan(0, $score['Basic']['Score']);
+            $this->assertGreaterThanOrEqual(0, $score['Basic']['Score']);
         });
     }
 

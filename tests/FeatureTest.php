@@ -28,7 +28,7 @@ class FeatureTest extends TestCase
     {
         $response = $this->get('/json');
 
-        $this->assertJson($response->getContent());
+        $this->assertJson($json = $response->getContent());
         $response->assertSee('soar_scores');
         $response->assertSee('Summary');
         $response->assertSee('HeuristicRules');

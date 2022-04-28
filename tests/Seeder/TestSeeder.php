@@ -11,6 +11,7 @@
 namespace Tests\Seeder;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 use Tests\Models\User;
 
 class TestSeeder extends Seeder
@@ -18,5 +19,15 @@ class TestSeeder extends Seeder
     public function run()
     {
         factory(User::class, 5)->create();
+
+        User::query()->where('id', 1)->delete();
+
+        User::query()->where('id', 2)->update([
+            'email_verified_at' => now(),
+            'password' => Str::random(32),
+            'remember_token' => Str::random(10),
+        ]);
+
+        User::query()->where('name', 'soar')->groupBy('name')->orderBy('name')->first();
     }
 }

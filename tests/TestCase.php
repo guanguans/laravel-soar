@@ -26,6 +26,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
         $this->setUpDatabase();
         $this->withFactories(__DIR__.'/Factories/');
         $this->seed(TestSeeder::class);
+        $this->setUpApplicationRoutes();
     }
 
     protected function getPackageProviders($app)
@@ -42,7 +43,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
         $app['config']->set('soar.output', [
             \Guanguans\LaravelSoar\Outputs\ClockworkOutput::class,
             \Guanguans\LaravelSoar\Outputs\ConsoleOutput::class,
-            \Guanguans\LaravelSoar\Outputs\DumpOutput::class => ['exit' => false],
+            // \Guanguans\LaravelSoar\Outputs\DumpOutput::class => ['exit' => false],
             \Guanguans\LaravelSoar\Outputs\JsonOutput::class,
             \Guanguans\LaravelSoar\Outputs\LogOutput::class => ['channel' => 'stack'],
             \Guanguans\LaravelSoar\Outputs\DebugBarOutput::class,
