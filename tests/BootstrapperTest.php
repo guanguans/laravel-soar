@@ -52,7 +52,7 @@ class BootstrapperTest extends TestCase
             $this->assertArrayHasKey('Backtraces', $score);
             $this->assertArrayHasKey('Basic', $score);
 
-            Str::startsWith($score['Basic']['Sample'], ['create', 'CREATE'])
+            Str::startsWith($score['Basic']['Sample'], ['create', 'CREATE', 'insert', 'INSERT'])
             ? $this->assertGreaterThanOrEqual(0, $score['Basic']['Score'])
             : $this->assertGreaterThan(0, $score['Basic']['Score']);
         });

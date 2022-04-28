@@ -11,7 +11,6 @@
 namespace Guanguans\LaravelSoar;
 
 use Guanguans\LaravelSoar\Http\Middleware\OutputSoarScoreMiddleware;
-use Guanguans\SoarPHP\Support\OsHelper;
 use Illuminate\Console\Events\CommandFinished;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Http\Kernel;
@@ -157,7 +156,7 @@ class Bootstrapper
     public function matchQuery(Collection $queries, array $score): array
     {
         $query = (array) $queries->first(function ($query) use ($score) {
-            return $score['Sample'] === normalize_sql($query['sql']);
+            return $score['Sample'] === $query['sql'];
         });
 
         $query or $query = $queries
@@ -174,15 +173,6 @@ class Bootstrapper
 
     protected function transformToScores(Collection $queries): Collection
     {
-        if (OsHelper::isWindows()) {
-            return $queries->reduce(function (Collection $scores, $query) {
-                $score = app('soar')->arrayScore($query['sql']);
-                isset($score[0]) and $scores->add($score[0]);
-
-                return $scores;
-            }, collect());
-        }
-
         return $queries->pipe(function (Collection $queries) {
             $sql = $queries->reduce(function ($sql, $query) {
                 return $sql.$query['sql'].'; ';
