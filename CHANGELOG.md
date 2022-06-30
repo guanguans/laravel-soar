@@ -2,6 +2,10 @@
 
 All notable changes to `guanguans/laravel-soar` will be documented in this file.
 
+## v2.1.3 - 2022-06-30
+
+**Full Changelog**: https://github.com/guanguans/laravel-soar/compare/v2.1.2...v2.1.3
+
 ## v2.1.2 - 2022-06-30
 
 **Full Changelog**: https://github.com/guanguans/laravel-soar/compare/v2.1.1...v2.1.2
@@ -94,7 +98,6 @@ All notable changes to `guanguans/laravel-soar` will be documented in this file.
 ## 1.2.1 - 2021-10-24
 - Rename `SOAR_FILE` -> `SOAR_PATH`.
 - Update github config files.
-
 ## 1.2.0 - 2021-10-08
 
 - Adapt lumen.
