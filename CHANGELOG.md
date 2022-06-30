@@ -2,6 +2,10 @@
 
 All notable changes to `guanguans/laravel-soar` will be documented in this file.
 
+## v2.1.2 - 2022-06-30
+
+**Full Changelog**: https://github.com/guanguans/laravel-soar/compare/v2.1.1...v2.1.2
+
 ## v2.1.1 - 2022-06-30
 
 **Full Changelog**: https://github.com/guanguans/laravel-soar/compare/v2.1.0...v2.1.1
@@ -88,7 +92,6 @@ All notable changes to `guanguans/laravel-soar` will be documented in this file.
 ## 1.2.2 - 2021-11-04
 - Update guanguans/laravel-dump-sql requirement from  ^2.0 to `^1.1 || 2.0`.
 ## 1.2.1 - 2021-10-24
-
 - Rename `SOAR_FILE` -> `SOAR_PATH`.
 - Update github config files.
 
