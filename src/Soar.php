@@ -11,8 +11,10 @@
 namespace Guanguans\LaravelSoar;
 
 use Illuminate\Support\Traits\Macroable;
+use Illuminate\Support\Traits\Tappable;
 
 class Soar extends \Guanguans\SoarPHP\Soar
 {
     use Macroable;
+    use Tappable;
 }

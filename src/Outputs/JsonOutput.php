@@ -16,6 +16,16 @@ use Illuminate\Support\Collection;
 class JsonOutput extends Output
 {
     /**
+     * @var string
+     */
+    protected $key;
+
+    public function __construct(string $key = 'soar_scores')
+    {
+        $this->key = $key;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function output(Collection $scores, $dispatcher)
@@ -30,7 +40,7 @@ class JsonOutput extends Output
             return $score;
         });
 
-        $data = Arr::wrap($dispatcher->getData(true)) and $data['soar_scores'] = $scores;
+        $data = Arr::wrap($dispatcher->getData(true)) and $data[$this->key] = $scores;
         // Update the new content and reset the content length
         $dispatcher->setData($data);
         $dispatcher->headers->remove('Content-Length');
