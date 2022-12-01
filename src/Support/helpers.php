@@ -23,8 +23,6 @@ if (! function_exists('soar')) {
 
 if (! function_exists('var_output')) {
     /**
-     * @param $expression
-     *
      * @return string|void|null
      */
     function var_output($expression, bool $return = false)
@@ -50,8 +48,6 @@ if (! function_exists('var_output')) {
 
 if (! function_exists('array_reduces')) {
     /**
-     * @param $carry
-     *
      * @return mixed|null
      */
     function array_reduces(array $array, callable $callback, $carry = null)

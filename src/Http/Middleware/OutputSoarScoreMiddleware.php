@@ -10,7 +10,6 @@
 
 namespace Guanguans\LaravelSoar\Http\Middleware;
 
-use Closure;
 use Guanguans\LaravelSoar\Bootstrapper;
 use Guanguans\LaravelSoar\OutputManager;
 
@@ -39,7 +38,7 @@ class OutputSoarScoreMiddleware
      *
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle($request, \Closure $next)
     {
         /** @var \Illuminate\Http\Response $response */
         $response = $next($request);

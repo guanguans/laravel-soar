@@ -10,7 +10,6 @@
 
 namespace Guanguans\LaravelSoar\Http\Controllers;
 
-use DateTime;
 use Guanguans\LaravelSoar\SoarBar;
 use Illuminate\Http\Response;
 
@@ -82,7 +81,7 @@ class AssetController
     {
         $response->setSharedMaxAge(31536000);
         $response->setMaxAge(31536000);
-        $response->setExpires(new DateTime('+1 year'));
+        $response->setExpires(new \DateTime('+1 year'));
 
         return $response;
     }

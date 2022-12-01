@@ -10,9 +10,6 @@
 
 namespace Guanguans\LaravelSoar\Support;
 
-use DateTime;
-use PDO;
-
 class QueryAnalysis
 {
     /**
@@ -32,7 +29,7 @@ class QueryAnalysis
     /**
      * Returns syntax highlighted SQL.
      */
-    public static function highlight(string $sql, array $bindings = [], ?PDO $pdo = null): string
+    public static function highlight(string $sql, array $bindings = [], ?\PDO $pdo = null): string
     {
         // insert new lines
         $sql = " $sql ";
@@ -84,7 +81,7 @@ class QueryAnalysis
                        .'>&lt;'.htmlspecialchars($type, ENT_NOQUOTES, 'UTF-8').' resource&gt;</i>';
             }
 
-            if ($binding instanceof DateTime) {
+            if ($binding instanceof \DateTime) {
                 return htmlspecialchars('\''.$binding->format('Y-m-d H:i:s').'\'', ENT_NOQUOTES, 'UTF-8');
             }
 
@@ -135,13 +132,13 @@ class QueryAnalysis
     /**
      * Explain sql.
      */
-    public static function explain(PDO $pdo, string $sql, array $bindings = []): array
+    public static function explain(\PDO $pdo, string $sql, array $bindings = []): array
     {
         $explains = [];
         if (preg_match('#\s*\(?\s*SELECT\s#iA', $sql)) {
             $statement = $pdo->prepare('EXPLAIN '.$sql);
             $statement->execute($bindings);
-            $explains = $statement->fetchAll(PDO::FETCH_CLASS);
+            $explains = $statement->fetchAll(\PDO::FETCH_CLASS);
         }
 
         return $explains;
