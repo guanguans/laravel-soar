@@ -58,7 +58,7 @@
         "orchestra/testbench": "^3.0 || ^4.0 || ^5.0 || ^6.0",
         "phpbench/phpbench": "^1.1",
         "phpunit/phpunit": "^7.0 || ^8.0 || ^9.0",
-        "vimeo/psalm": "^4.10"
+        "vimeo/psalm": "^5.0"
     },
     "suggest": {
         "barryvdh/laravel-debugbar": "Output SQL score to Laravel DebugBar.",
