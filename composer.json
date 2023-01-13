@@ -37,7 +37,7 @@
     "require": {
         "ext-json": "*",
         "ext-pdo": "*",
-        "guanguans/soar-php": "^2.6",
+        "guanguans/soar-php": "^3.0",
         "illuminate/console": "^6.10 || ^7.0 || ^8.0 || ^9.0",
         "illuminate/contracts": "^6.10 || ^7.0 || ^8.0 || ^9.0",
         "illuminate/database": "^6.10 || ^7.0 || ^8.0 || ^9.0",
