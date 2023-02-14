@@ -2,6 +2,14 @@
 
 All notable changes to `guanguans/laravel-soar` will be documented in this file.
 
+## v2.2.0 - 2023-02-14
+
+### What's Changed
+
+- Update vimeo/psalm requirement from ^4.10 to ^5.0 by @dependabot in https://github.com/guanguans/laravel-soar/pull/29
+
+**Full Changelog**: https://github.com/guanguans/laravel-soar/compare/v2.1.3...v2.2.0
+
 ## v2.1.3 - 2022-06-30
 
 **Full Changelog**: https://github.com/guanguans/laravel-soar/compare/v2.1.2...v2.1.3
@@ -99,7 +107,6 @@ All notable changes to `guanguans/laravel-soar` will be documented in this file.
 - Rename `SOAR_FILE` -> `SOAR_PATH`.
 - Update github config files.
 ## 1.2.0 - 2021-10-08
-
 - Adapt lumen.
 - Update github config files.
 
