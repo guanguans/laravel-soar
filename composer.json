@@ -35,6 +35,7 @@
         }
     ],
     "require": {
+        "php": ">=7.3",
         "ext-json": "*",
         "ext-pdo": "*",
         "guanguans/soar-php": "^2.6",
@@ -58,13 +59,14 @@
         "orchestra/testbench": "^3.0 || ^4.0 || ^5.0 || ^6.0",
         "phpbench/phpbench": "^1.1",
         "phpunit/phpunit": "^7.0 || ^8.0 || ^9.0",
-        "vimeo/psalm": "^5.0"
+        "vimeo/psalm": "^4.30 || ^5.0"
     },
     "suggest": {
         "barryvdh/laravel-debugbar": "Output SQL score to Laravel DebugBar.",
         "itsgoingd/clockwork": "Output SQL score to Clockwork."
     },
     "minimum-stability": "dev",
+    "prefer-stable": true,
     "autoload": {
         "psr-4": {
             "Guanguans\\LaravelSoar\\": "src"
@@ -83,11 +85,11 @@
     },
     "extra": {
         "hooks": {
-            "pre-commit": [
+            "post-merge": [
                 "composer style-lint",
                 "composer test"
             ],
-            "pre-push": [
+            "pre-commit": [
                 "composer style-lint",
                 "composer test"
             ]
