@@ -17,7 +17,7 @@ class QueryBuilderMacro
         return function (): string {
             /* @var \Illuminate\Database\Query\Builder $this */
             return array_reduce($this->getBindings(), function ($sql, $binding) {
-                return preg_replace('/\?/', is_numeric($binding) ? $binding : "'".$binding."'", $sql, 1);
+                return preg_replace('/\?/', is_numeric($binding) ? (string) $binding : "'".$binding."'", $sql, 1);
             }, $this->toSql());
         };
     }
