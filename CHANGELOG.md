@@ -2,6 +2,10 @@
 
 All notable changes to `guanguans/laravel-soar` will be documented in this file.
 
+## v2.2.1 - 2023-02-14
+
+**Full Changelog**: https://github.com/guanguans/laravel-soar/compare/v2.2.0...v2.2.1
+
 ## v2.2.0 - 2023-02-14
 
 ### What's Changed
@@ -109,7 +113,6 @@ All notable changes to `guanguans/laravel-soar` will be documented in this file.
 ## 1.2.0 - 2021-10-08
 - Adapt lumen.
 - Update github config files.
-
 ## 1.1.2 - 2021-09-28
 
 - Bump codecov/codecov-action from 1 to 2.1.0.
