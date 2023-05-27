@@ -77,7 +77,7 @@ if (! function_exists('to_pretty_json')) {
         int $options = JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES,
         int $depth = 512
     ): string {
-        return json_encode($score, $options | JSON_PRETTY_PRINT, $depth);
+        return json_encode($score, $options | JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR, $depth);
     }
 }
 

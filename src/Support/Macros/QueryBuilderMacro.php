@@ -21,120 +21,108 @@ class QueryBuilderMacro
 {
     public function toRawSql()
     {
-        return function (): string {
-            // @var \Illuminate\Database\Query\Builder $this
-            return array_reduce($this->getBindings(), static fn ($sql, $binding) => preg_replace('/\?/', is_numeric($binding) ? (string) $binding : "'".$binding."'", $sql, 1), $this->toSql());
-        };
+        return fn (): string => array_reduce(
+            $this->getBindings(),
+            static fn ($sql, $binding) => preg_replace('/\?/', is_numeric($binding) ? (string) $binding : "'".$binding."'", $sql, 1),
+            $this->toSql()
+        );
     }
 
+    /**
+     * @noinspection DebugFunctionUsageInspection
+     * @noinspection ForgottenDebugOutputInspection
+     */
     public function dumpRawSql()
     {
-        return function (): string {
-            // @var \Illuminate\Database\Query\Builder $this
-            return dump($this->toRawSql());
+        return function (): void {
+            dump($this->toRawSql());
         };
     }
 
+    /**
+     * @noinspection DebugFunctionUsageInspection
+     * @noinspection ForgottenDebugOutputInspection
+     */
     public function ddRawSql()
     {
-        return function (): string {
-            // @var \Illuminate\Database\Query\Builder $this
-            return dd($this->toRawSql());
+        return function (): void {
+            dd($this->toRawSql());
         };
     }
 
-    public function toSoarArrayScore()
+    public function toSoarArrayScores()
     {
-        return function (): array {
-            $arrayScore = app('soar')->arrayScores($this->toRawSql());
-
-            return $arrayScore[0] ?? $arrayScore;
-        };
+        return fn (): array => app('soar')->arrayScores($this->toRawSql());
     }
 
-    public function dumpSoarArrayScore()
+    /**
+     * @noinspection DebugFunctionUsageInspection
+     * @noinspection ForgottenDebugOutputInspection
+     */
+    public function dumpSoarArrayScores()
     {
         return function (): void {
-            // @var \Illuminate\Database\Query\Builder $this
-            dump($this->toSoarArrayScore($this->toRawSql()));
+            dump($this->toSoarArrayScores($this->toRawSql()));
         };
     }
 
-    public function ddSoarArrayScore()
+    /**
+     * @noinspection DebugFunctionUsageInspection
+     * @noinspection ForgottenDebugOutputInspection
+     */
+    public function ddSoarArrayScores()
     {
         return function (): void {
-            // @var \Illuminate\Database\Query\Builder $this
-            dd($this->toSoarArrayScore($this->toRawSql()));
+            dd($this->toSoarArrayScores($this->toRawSql()));
         };
     }
 
-    public function toSoarJsonScore()
+    public function toSoarJsonScores()
     {
-        return function ($options = 0, $depth = 128): string {
-            // @var \Illuminate\Database\Query\Builder $this
-            return json_encode($this->toSoarArrayScore($this->toRawSql()), $options, $depth);
-        };
+        return fn ($options = 0, $depth = 128): string => json_encode($this->toSoarArrayScores($this->toRawSql()), $options | JSON_THROW_ON_ERROR, $depth);
     }
 
-    public function dumpSoarJsonScore()
+    /**
+     * @noinspection DebugFunctionUsageInspection
+     * @noinspection ForgottenDebugOutputInspection
+     */
+    public function dumpSoarJsonScores()
     {
         return function ($options = JSON_PRETTY_PRINT, $depth = 128): void {
-            // @var \Illuminate\Database\Query\Builder $this
-            dump($this->toSoarJsonScore($options, $depth));
+            dump($this->toSoarJsonScores($options, $depth));
         };
     }
 
-    public function ddSoarJsonScore()
+    /**
+     * @noinspection DebugFunctionUsageInspection
+     * @noinspection ForgottenDebugOutputInspection
+     */
+    public function ddSoarJsonScores()
     {
         return function ($options = JSON_PRETTY_PRINT, $depth = 128): void {
-            // @var \Illuminate\Database\Query\Builder $this
-            dd($this->toSoarJsonScore($options, $depth));
+            dd($this->toSoarJsonScores($options, $depth));
         };
     }
 
-    public function toSoarHtmlScore()
+    public function toSoarHtmlScores()
     {
-        return function (): string {
-            // @var \Illuminate\Database\Query\Builder $this
-            return app('soar')->htmlScore($this->toRawSql());
-        };
+        return fn (): string => app('soar')->htmlScores($this->toRawSql());
     }
 
-    public function echoSoarHtmlScore()
-    {
-        return function (): void {
-            echo $this->toSoarHtmlScore($this->toRawSql());
-        };
-    }
-
-    public function exitSoarHtmlScore()
+    /**
+     * @noinspection PhpToStringImplementationInspection
+     */
+    public function echoSoarHtmlScores()
     {
         return function (): void {
-            // @var \Illuminate\Database\Query\Builder $this
-            exit($this->toSoarHtmlScore($this->toRawSql()));
+            echo $this->toSoarHtmlScores($this->toRawSql());
         };
     }
 
-    public function toSoarHtmlExplain()
-    {
-        return function (): string {
-            // @var \Illuminate\Database\Query\Builder $this
-            return app('soar')->htmlExplain($this->toRawSql());
-        };
-    }
-
-    public function echoSoarHtmlExplain()
+    public function exitSoarHtmlScores()
     {
         return function (): void {
-            echo $this->toSoarHtmlExplain($this->toRawSql());
-        };
-    }
-
-    public function exitSoarHtmlExplain()
-    {
-        return function (): void {
-            // @var \Illuminate\Database\Query\Builder $this
-            exit($this->toSoarHtmlExplain($this->toRawSql()));
+            exit($this->toSoarHtmlScores($this->toRawSql()));
         };
     }
 }

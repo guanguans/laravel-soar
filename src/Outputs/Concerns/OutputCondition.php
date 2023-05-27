@@ -57,9 +57,13 @@ trait OutputCondition
                        return false;
                    }
 
-                   json_decode($content);
+                   try {
+                       json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                   } catch (\JsonException $jsonException) {
+                       return false;
+                   }
 
-                   return ! json_last_error();
+                   return true;
                });
     }
 }
