@@ -23,17 +23,23 @@ class DumpOutput extends Output
         $this->exit = $exit;
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @noinspection ForgottenDebugOutputInspection
+     * @noinspection ClosureToArrowFunctionInspection
+     * @noinspection DebugFunctionUsageInspection
+     */
     public function output(Collection $scores, $dispatcher): void
     {
         $scores
-            ->map(static function ($score): string {
-                unset($score['Basic']);
-
-                return to_pretty_json($score);
+            ->each(static function (array $score): void {
+                dump($score);
             })
-            ->when($this->exit, static function (Collection $scores): void {
-                $scores->dd();
-            })
-            ->dump();
+            ->tap(function (): void {
+                if ($this->exit) {
+                    exit(1);
+                }
+            });
     }
 }

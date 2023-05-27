@@ -23,7 +23,6 @@ class ClockworkOutput extends Output
         }
 
         $scores->each(static function (array $score): void {
-            unset($score['Basic']);
             clock()->warning($score['Summary'], $score);
         });
     }

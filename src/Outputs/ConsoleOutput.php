@@ -22,7 +22,7 @@ class ConsoleOutput extends Output
             return;
         }
 
-        $js = $this->transformToJs($scores);
+        $js = $this->toJs($scores);
         $content = $dispatcher->getContent();
 
         // Try to put the widget at the end, directly before the </body>
@@ -34,23 +34,15 @@ class ConsoleOutput extends Output
         $dispatcher->headers->remove('Content-Length');
     }
 
-    protected function transformToJs(Collection $scores): string
+    protected function toJs(Collection $scores): string
     {
-        return $scores->pipe(static function ($scores): string {
-            $js = $scores->reduce(static function ($js, $score): string {
-                unset($score['Basic']);
-                $score = str_replace('`', '\`', to_pretty_json($score));
+        $js = $scores
+            ->map(static fn ($score): string => sprintf(
+                'console.warn(`%s`);',
+                str_replace('`', '\`', to_pretty_json($score))
+            ))
+            ->join(PHP_EOL);
 
-                return $js.<<<JS
-                    console.warn(`
-                    $score
-                    `);
-                    JS;
-            }, '');
-
-            return <<<JS
-                <script type="text/javascript">$js</script>
-                JS;
-        });
+        return sprintf('<script type="text/javascript">%s</script>', $js);
     }
 }

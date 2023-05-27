@@ -33,7 +33,6 @@ class DebugBarOutput extends Output
                 $collector = $this->createCollector();
             })
             ->each(static function (array $score) use ($collector): void {
-                unset($score['Basic']);
                 $collector->addMessage($score['Summary'].PHP_EOL.to_pretty_json($score), 'warning', false);
             });
 

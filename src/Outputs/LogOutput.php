@@ -30,7 +30,6 @@ class LogOutput extends Output
     public function output(Collection $scores, $dispatcher): void
     {
         $scores->each(function (array $score): void {
-            unset($score['Basic']);
             $this->logger->channel($this->channel)->warning($score['Summary'].PHP_EOL.to_pretty_json($score));
         });
     }

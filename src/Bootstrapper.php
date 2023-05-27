@@ -70,10 +70,6 @@ class Bootstrapper
                             $query['time'],
                             $query['sql']
                         ),
-                        'HeuristicRules' => (array) $score['HeuristicRules'],
-                        'IndexRules' => (array) $score['IndexRules'],
-                        'Explain' => $this->formatExplain($score['Explain']),
-                        'Backtraces' => $query['backtraces'],
                         'Basic' => [
                             'Sample' => $query['sql'],
                             'Score' => $score['Score'],
@@ -83,6 +79,10 @@ class Bootstrapper
                             'Driver' => $query['driver'],
                             'Tables' => (array) $score['Tables'],
                         ],
+                        'HeuristicRules' => (array) $score['HeuristicRules'],
+                        'IndexRules' => (array) $score['IndexRules'],
+                        'Explain' => $this->formatExplain($score['Explain']),
+                        'Backtraces' => $query['backtraces'],
                     ];
                 })
                 ->values();

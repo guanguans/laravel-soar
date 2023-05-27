@@ -35,7 +35,6 @@ class SoarBarOutput extends Output
         }
 
         $scores->each(function (array $score): void {
-            unset($score['Basic']);
             // warning error info
             $this->soarBar['scores']->addMessage($score['Summary'].PHP_EOL.to_pretty_json($score), 'warning', false);
         });

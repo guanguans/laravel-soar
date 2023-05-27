@@ -30,12 +30,6 @@ class JsonOutput extends Output
             return;
         }
 
-        $scores = $scores->map(static function ($score) {
-            unset($score['Basic']);
-
-            return $score;
-        });
-
         $data = Arr::wrap($dispatcher->getData(true));
         $data[$this->key] = $scores;
 
