@@ -25,7 +25,7 @@ class DumpOutput extends Output
 
     public function output(Collection $scores, $dispatcher): void
     {
-        $scores->map(static function ($score) {
+        $scores->map(static function ($score): string {
             unset($score['Basic']);
 
             return to_pretty_json($score);

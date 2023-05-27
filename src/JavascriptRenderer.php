@@ -134,9 +134,7 @@ class JavascriptRenderer extends \DebugBar\JavascriptRenderer
             $html .= "<script>jQuery.noConflict(true);</script>\n";
         }
 
-        $html .= $this->getInlineHtml();
-
-        return $html;
+        return $html.$this->getInlineHtml();
     }
 
     /**

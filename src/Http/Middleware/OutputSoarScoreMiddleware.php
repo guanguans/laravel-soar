@@ -14,12 +14,13 @@ namespace Guanguans\LaravelSoar\Http\Middleware;
 
 use Guanguans\LaravelSoar\Bootstrapper;
 use Guanguans\LaravelSoar\OutputManager;
+use Illuminate\Http\Request;
 
 class OutputSoarScoreMiddleware
 {
-    protected \Guanguans\LaravelSoar\Bootstrapper $bootstrapper;
+    protected Bootstrapper $bootstrapper;
 
-    protected \Guanguans\LaravelSoar\OutputManager $outputManager;
+    protected OutputManager $outputManager;
 
     public function __construct(Bootstrapper $bootstrapper, OutputManager $outputManager)
     {
@@ -30,7 +31,7 @@ class OutputSoarScoreMiddleware
     /**
      * Handle an incoming request.
      */
-    public function handle(\Illuminate\Http\Request $request, \Closure $next)
+    public function handle(Request $request, \Closure $next)
     {
         /** @var \Illuminate\Http\Response $response */
         $response = $next($request);

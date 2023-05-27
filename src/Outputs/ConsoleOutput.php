@@ -27,11 +27,7 @@ class ConsoleOutput extends Output
 
         // Try to put the widget at the end, directly before the </body>
         $pos = strripos($content, '</body>');
-        if (false !== $pos) {
-            $content = substr($content, 0, $pos).$js.substr($content, $pos);
-        } else {
-            $content = $content.$js;
-        }
+        $content = false !== $pos ? substr($content, 0, $pos).$js.substr($content, $pos) : $content.$js;
 
         // Update the new content and reset the content length
         $dispatcher->setContent($content);
@@ -41,7 +37,7 @@ class ConsoleOutput extends Output
     protected function transformToJs(Collection $scores): string
     {
         return $scores->pipe(static function ($scores) {
-            $js = $scores->reduce(static function ($js, $score) {
+            $js = $scores->reduce(static function ($js, $score): string {
                 unset($score['Basic']);
                 $score = str_replace('`', '\`', to_pretty_json($score));
 

@@ -17,9 +17,9 @@ use Illuminate\Support\Collection;
 
 class OutputtedEvent
 {
-    public \Guanguans\LaravelSoar\Contracts\Output $output;
+    public Output $output;
 
-    public \Illuminate\Support\Collection $scores;
+    public Collection $scores;
 
     public $result;
 

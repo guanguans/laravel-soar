@@ -97,19 +97,19 @@ class SoarServiceProvider extends ServiceProvider
 
     protected function registerSoar(): void
     {
-        $this->app->singleton(Soar::class, static fn ($app) => Soar::create(config('soar.options'), config('soar.path')));
+        $this->app->singleton(Soar::class, static fn ($app): \Guanguans\SoarPHP\Soar => Soar::create(config('soar.options'), config('soar.path')));
 
         $this->app->alias(Soar::class, 'soar');
     }
 
     protected function registerOutputManager(): void
     {
-        $this->app->singleton(OutputManager::class, static function (Container $app) {
+        $this->app->singleton(OutputManager::class, static function (Container $container): OutputManager {
             $outputs = collect(config('soar.output'))
-                ->map(static function ($parameters, $class) use ($app) {
+                ->map(static function ($parameters, $class) use ($container) {
                     ! \is_array($parameters) and [$parameters, $class] = [$class, $parameters];
 
-                    return $app->make($class, (array) $parameters);
+                    return $container->make($class, (array) $parameters);
                 })
                 ->values()
                 ->all();

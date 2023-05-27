@@ -52,7 +52,7 @@ trait OutputCondition
     {
         return $dispatcher instanceof JsonResponse
                && Str::contains($dispatcher->headers->get('Content-Type'), 'application/json')
-               && transform($dispatcher, static function (JsonResponse $dispatcher) {
+               && transform($dispatcher, static function (JsonResponse $dispatcher): bool {
                    if ('' === ($content = $dispatcher->getContent())) {
                        return false;
                    }

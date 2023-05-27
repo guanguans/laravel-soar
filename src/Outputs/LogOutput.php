@@ -17,11 +17,11 @@ use Psr\Log\LoggerInterface;
 
 class LogOutput extends Output
 {
-    protected \Psr\Log\LoggerInterface $logger;
+    protected LoggerInterface $logger;
 
     protected string $channel;
 
-    public function __construct(LoggerInterface $logger, $channel = 'daily')
+    public function __construct(LoggerInterface $logger, string $channel = 'daily')
     {
         $this->logger = $logger;
         $this->channel = $channel;

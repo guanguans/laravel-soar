@@ -10,14 +10,12 @@ declare(strict_types=1);
  * This source file is subject to the MIT license that is bundled.
  */
 
+use Guanguans\LaravelSoar\Soar;
 use Illuminate\Contracts\Container\Container;
 use Laravel\Lumen\Application as LumenApplication;
 
 if (! function_exists('soar')) {
-    /**
-     * @return \Guanguans\LaravelSoar\Soar
-     */
-    function soar(): Guanguans\LaravelSoar\Soar
+    function soar(): Soar
     {
         return app('soar');
     }

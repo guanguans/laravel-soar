@@ -70,7 +70,7 @@ class Bootstrapper
     {
         $this->scores->isEmpty() and $this->scores = $this->transformToScores($this->queries)
             ->sortBy('Score')
-            ->map(function (array $score) {
+            ->map(function (array $score): array {
                 $query = $this->matchQuery($this->queries, $score);
 
                 return [
@@ -106,7 +106,7 @@ class Bootstrapper
      */
     public function matchQuery(Collection $queries, array $score): array
     {
-        $query = (array) $queries->first(static fn ($query) => $score['Sample'] === $query['sql']);
+        $query = (array) $queries->first(static fn ($query): bool => $score['Sample'] === $query['sql']);
 
         $query or $query = $queries
             ->map(static function ($query) use ($score) {
@@ -166,16 +166,16 @@ class Bootstrapper
     {
         return collect(debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, $limit))
             ->forget($forgetLines)
-            ->filter(static fn ($trace) => isset($trace['file']) && isset($trace['line']) && ! Str::contains($trace['file'], 'vendor'))
-            ->map(static fn ($trace, $index) => sprintf('#%s %s:%s', $index, str_replace(base_path(), '', $trace['file']), $trace['line']))
+            ->filter(static fn ($trace): bool => isset($trace['file']) && isset($trace['line']) && ! Str::contains($trace['file'], 'vendor'))
+            ->map(static fn ($trace, $index): string => sprintf('#%s %s:%s', $index, str_replace(base_path(), '', $trace['file']), $trace['line']))
             ->values()
             ->all();
     }
 
     protected function transformToScores(Collection $queries): Collection
     {
-        return $queries->pipe(static function (Collection $queries) {
-            $sql = $queries->reduce(static fn ($sql, $query) => $sql.$query['sql'].'; ', '');
+        return $queries->pipe(static function (Collection $queries): Collection {
+            $sql = $queries->reduce(static fn ($sql, $query): string => $sql.$query['sql'].'; ', '');
 
             return collect(app('soar')->arrayScores($sql));
         });

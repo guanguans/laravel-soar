@@ -17,9 +17,9 @@ use Illuminate\Support\Collection;
 
 class OutputtingEvent
 {
-    public \Guanguans\LaravelSoar\Contracts\Output $output;
+    public Output $output;
 
-    public \Illuminate\Support\Collection $scores;
+    public Collection $scores;
 
     /** @var \Illuminate\Console\Events\CommandFinished|\Symfony\Component\HttpFoundation\Response */
     public $dispatcher;

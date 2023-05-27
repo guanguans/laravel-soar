@@ -12,6 +12,7 @@ declare(strict_types=1);
 
 namespace Guanguans\LaravelSoar\Http\Controllers;
 
+use DebugBar\JavascriptRenderer;
 use Guanguans\LaravelSoar\SoarBar;
 use Illuminate\Http\Response;
 
@@ -22,11 +23,11 @@ use Illuminate\Http\Response;
  */
 class AssetController
 {
-    private \DebugBar\JavascriptRenderer $renderer;
+    private JavascriptRenderer $javascriptRenderer;
 
-    public function __construct(SoarBar $debugBar)
+    public function __construct(SoarBar $soarBar)
     {
-        $this->renderer = $debugBar->getJavascriptRenderer();
+        $this->javascriptRenderer = $soarBar->getJavascriptRenderer();
     }
 
     /**
@@ -34,7 +35,7 @@ class AssetController
      */
     public function js(): Response
     {
-        $js = $this->renderer->dumpAssetsToString('js');
+        $js = $this->javascriptRenderer->dumpAssetsToString('js');
         $response = new Response($js, 200, ['Content-Type' => 'text/javascript']);
 
         return $this->cacheResponse($response);
@@ -45,7 +46,7 @@ class AssetController
      */
     public function css(): Response
     {
-        $css = $this->renderer->dumpAssetsToString('css');
+        $css = $this->javascriptRenderer->dumpAssetsToString('css');
         $response = new Response($css, 200, ['Content-Type' => 'text/css']);
 
         return $this->cacheResponse($response);
@@ -78,8 +79,8 @@ class AssetController
      */
     protected function cacheResponse(Response $response): Response
     {
-        $response->setSharedMaxAge(31536000);
-        $response->setMaxAge(31536000);
+        $response->setSharedMaxAge(31_536_000);
+        $response->setMaxAge(31_536_000);
         $response->setExpires(new \DateTimeImmutable('+1 year'));
 
         return $response;

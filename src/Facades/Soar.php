@@ -44,7 +44,7 @@ use Illuminate\Support\Facades\Facade;
  */
 class Soar extends Facade
 {
-    public static function getFacadeAccessor()
+    protected static function getFacadeAccessor()
     {
         return 'soar';
     }

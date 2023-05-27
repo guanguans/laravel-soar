@@ -12,19 +12,20 @@ declare(strict_types=1);
 
 namespace Guanguans\LaravelSoar\Outputs;
 
+use DebugBar\JavascriptRenderer;
 use Guanguans\LaravelSoar\SoarBar;
 use Illuminate\Support\Collection;
 
 class SoarBarOutput extends Output
 {
-    private \Guanguans\LaravelSoar\SoarBar $debugBar;
+    private SoarBar $soarBar;
 
-    private \DebugBar\JavascriptRenderer $renderer;
+    private JavascriptRenderer $javascriptRenderer;
 
     public function __construct(SoarBar $debugBar)
     {
-        $this->debugBar = $debugBar;
-        $this->renderer = $debugBar->getJavascriptRenderer();
+        $this->soarBar = $debugBar;
+        $this->javascriptRenderer = $debugBar->getJavascriptRenderer();
     }
 
     public function output(Collection $scores, $dispatcher): void
@@ -36,12 +37,12 @@ class SoarBarOutput extends Output
         $scores->each(function (array $score): void {
             unset($score['Basic']);
             // warning error info
-            $this->debugBar['scores']->addMessage($score['Summary'].PHP_EOL.to_pretty_json($score), 'warning', false);
+            $this->soarBar['scores']->addMessage($score['Summary'].PHP_EOL.to_pretty_json($score), 'warning', false);
         });
 
         $content = $dispatcher->getContent();
-        $head = $this->renderer->renderHead();
-        $widget = $this->renderer->render();
+        $head = $this->javascriptRenderer->renderHead();
+        $widget = $this->javascriptRenderer->render();
 
         // Try to put the js/css directly before the </head>
         $pos = strripos($content, '</head>');
@@ -54,11 +55,7 @@ class SoarBarOutput extends Output
 
         // Try to put the widget at the end, directly before the </body>
         $pos = strripos($content, '</body>');
-        if (false !== $pos) {
-            $content = substr($content, 0, $pos).$widget.substr($content, $pos);
-        } else {
-            $content = $content.$widget;
-        }
+        $content = false !== $pos ? substr($content, 0, $pos).$widget.substr($content, $pos) : $content.$widget;
 
         // Update the new content and reset the content length
         $dispatcher->setContent($content);

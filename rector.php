@@ -33,10 +33,14 @@ use Rector\DeadCode\Rector\Assign\RemoveUnusedVariableAssignRector;
 use Rector\DeadCode\Rector\ClassMethod\RemoveEmptyClassMethodRector;
 use Rector\DeadCode\Rector\MethodCall\RemoveEmptyMethodCallRector;
 use Rector\EarlyReturn\Rector\If_\ChangeAndIfToEarlyReturnRector;
+use Rector\EarlyReturn\Rector\If_\ChangeOrIfReturnToEarlyReturnRector;
 use Rector\EarlyReturn\Rector\Return_\ReturnBinaryAndToEarlyReturnRector;
 use Rector\EarlyReturn\Rector\Return_\ReturnBinaryOrToEarlyReturnRector;
 use Rector\EarlyReturn\Rector\StmtsAwareInterface\ReturnEarlyIfVariableRector;
+use Rector\Naming\Rector\ClassMethod\RenameParamToMatchTypeRector;
+use Rector\Naming\Rector\Foreach_\RenameForeachValueVariableToMatchExprVariableRector;
 use Rector\Php56\Rector\FunctionLike\AddDefaultValueForUndefinedVariableRector;
+use Rector\Php71\Rector\FuncCall\RemoveExtraParametersRector;
 use Rector\PHPUnit\Rector\Class_\AddSeeTestAnnotationRector;
 use Rector\PHPUnit\Rector\MethodCall\RemoveExpectAnyFromMockRector;
 use Rector\PHPUnit\Set\PHPUnitLevelSetList;
@@ -73,10 +77,10 @@ return static function (RectorConfig $rectorConfig): void {
     ]);
 
     $rectorConfig->paths([
-        __DIR__.'/config',
+        // __DIR__.'/config',
         __DIR__.'/src',
-        __DIR__.'/tests',
-        __DIR__.'/.php-cs-fixer.php',
+        // __DIR__.'/tests',
+        // __DIR__.'/.php-cs-fixer.php',
         __DIR__.'/rector.php',
         __DIR__.'/examples/soar.options.example.php',
     ]);
@@ -104,9 +108,31 @@ return static function (RectorConfig $rectorConfig): void {
         ReturnBinaryAndToEarlyReturnRector::class,
         WrapEncapsedVariableInCurlyBracesRector::class,
 
-        // NormalizeNamespaceByPSR4ComposerAutoloadRector::class => [
-        //     __DIR__.'/src/Support/helpers.php',
-        // ],
+        RemoveExtraParametersRector::class => [
+            __DIR__.'/src/Support/Macros/QueryBuilderMacro.php',
+        ],
+        ChangeOrIfReturnToEarlyReturnRector::class => [
+            __DIR__.'/src/Bootstrapper.php',
+            __DIR__.'/src/JavascriptRenderer.php',
+        ],
+        ExplicitBoolCompareRector::class => [
+            __DIR__.'/src/JavascriptRenderer.php',
+        ],
+        RenameForeachValueVariableToMatchExprVariableRector::class => [
+            __DIR__.'/src/OutputManager.php',
+        ],
+        RenameParamToMatchTypeRector::class => [
+            __DIR__.'/src/Bootstrapper.php',
+            __DIR__.'/src/Contracts/Output.php',
+            __DIR__.'/src/Events',
+            __DIR__.'/src/OutputManager.php',
+            __DIR__.'/src/Outputs',
+            __DIR__.'/src/Support/helpers.php',
+        ],
+        NormalizeNamespaceByPSR4ComposerAutoloadRector::class => [
+            __DIR__.'/src/Support/helpers.php',
+            __DIR__.'/src/Http/routes.php',
+        ],
         // RemoveExpectAnyFromMockRector::class => [
         //     __DIR__.'/tests/Concerns/WithDumpableTest.php',
         // ],
