@@ -15,9 +15,6 @@ use Illuminate\Support\Collection;
 
 class NullOutput implements Output
 {
-    /**
-     * {@inheritdoc}
-     */
     public function output(Collection $scores, $event)
     {
         // noop

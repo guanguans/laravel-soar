@@ -25,9 +25,6 @@ class DebugBarOutput extends Output
      */
     private static $outputted = false;
 
-    /**
-     * {@inheritdoc}
-     */
     public function output(Collection $scores, $dispatcher)
     {
         if (! $this->shouldOutput($dispatcher)) {
@@ -51,18 +48,18 @@ class DebugBarOutput extends Output
 
     protected function shouldOutput($dispatcher): bool
     {
-        return $this->isHtmlResponse($dispatcher) &&
-               class_exists('\Barryvdh\Debugbar\LaravelDebugbar') &&
-               app(\Barryvdh\Debugbar\LaravelDebugbar::class)->isEnabled();
+        return $this->isHtmlResponse($dispatcher)
+               && class_exists('\Barryvdh\Debugbar\LaravelDebugbar')
+               && app(\Barryvdh\Debugbar\LaravelDebugbar::class)->isEnabled();
     }
 
     protected function createCollector(): MessagesCollector
     {
-        self::$collector instanceof MessagesCollector or
-        self::$collector = new MessagesCollector('Soar Scores');
+        self::$collector instanceof MessagesCollector
+        or self::$collector = new MessagesCollector('Soar Scores');
 
-        app(\Barryvdh\Debugbar\LaravelDebugbar::class)->hasCollector(self::$collector->getName()) or
-        app(\Barryvdh\Debugbar\LaravelDebugbar::class)->addCollector(self::$collector);
+        app(\Barryvdh\Debugbar\LaravelDebugbar::class)->hasCollector(self::$collector->getName())
+        or app(\Barryvdh\Debugbar\LaravelDebugbar::class)->addCollector(self::$collector);
 
         return self::$collector;
     }

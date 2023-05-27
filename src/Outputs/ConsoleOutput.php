@@ -14,9 +14,6 @@ use Illuminate\Support\Collection;
 
 class ConsoleOutput extends Output
 {
-    /**
-     * {@inheritdoc}
-     */
     public function output(Collection $scores, $dispatcher)
     {
         if (! $this->isHtmlResponse($dispatcher)) {

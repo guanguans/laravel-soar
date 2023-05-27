@@ -31,9 +31,6 @@ class LogOutput extends Output
         $this->channel = $channel;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function output(Collection $scores, $event)
     {
         $scores->each(function (array $score) {

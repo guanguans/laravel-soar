@@ -38,9 +38,6 @@ class OutputManager extends Fluent implements Output
         $this->attributes[$offset] = $value;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function output(Collection $scores, $dispatcher)
     {
         /* @var Output $output */

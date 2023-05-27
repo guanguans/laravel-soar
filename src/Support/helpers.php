@@ -85,7 +85,7 @@ if (! function_exists('normalize_sql')) {
 }
 
 if (! function_exists('is_lumen')) {
-    function is_lumen(?Container $app = null): bool
+    function is_lumen(Container $app = null): bool
     {
         $app = $app ?: app();
 

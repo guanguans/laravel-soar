@@ -38,9 +38,9 @@ trait OutputCondition
      */
     protected function isHtmlResponse($dispatcher): bool
     {
-        return $dispatcher instanceof Response &&
-               Str::contains($dispatcher->headers->get('Content-Type'), 'text/html') &&
-               ! $this->isJsonResponse($dispatcher);
+        return $dispatcher instanceof Response
+               && Str::contains($dispatcher->headers->get('Content-Type'), 'text/html')
+               && ! $this->isJsonResponse($dispatcher);
     }
 
     /**
@@ -48,9 +48,9 @@ trait OutputCondition
      */
     protected function isJsonResponse($dispatcher): bool
     {
-        return $dispatcher instanceof JsonResponse &&
-               Str::contains($dispatcher->headers->get('Content-Type'), 'application/json') &&
-               transform($dispatcher, function (JsonResponse $dispatcher) {
+        return $dispatcher instanceof JsonResponse
+               && Str::contains($dispatcher->headers->get('Content-Type'), 'application/json')
+               && transform($dispatcher, function (JsonResponse $dispatcher) {
                    if ('' === ($content = $dispatcher->getContent())) {
                        return false;
                    }

@@ -22,9 +22,6 @@ class JavascriptRenderer extends \DebugBar\JavascriptRenderer
 
     protected $ajaxHandlerBindToXHR = true;
 
-    /**
-     * {@inheritdoc}
-     */
     public function renderHead()
     {
         $cssRoute = route('soar.bar.assets.css', [

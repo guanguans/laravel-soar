@@ -24,9 +24,6 @@ class DumpOutput extends Output
         $this->exit = $exit;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function output(Collection $scores, $dispatcher)
     {
         $scores->map(function ($score) {

@@ -25,9 +25,6 @@ class JsonOutput extends Output
         $this->key = $key;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function output(Collection $scores, $dispatcher)
     {
         if (! $this->isJsonResponse($dispatcher)) {

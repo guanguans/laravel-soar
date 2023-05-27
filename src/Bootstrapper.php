@@ -41,9 +41,6 @@ class Bootstrapper
         $this->scores = collect();
     }
 
-    /**
-     * @param mixed $condition
-     */
     public function bootIf($condition, Container $app): void
     {
         value($condition) and $this->boot($app);
@@ -200,9 +197,9 @@ class Bootstrapper
         // 记录 SQL
         $dispatcher->listen(QueryExecuted::class, function (QueryExecuted $queryExecuted) {
             if (
-                isset($this->queries[$queryExecuted->sql]) ||
-                $this->isExcludedSql($queryExecuted->sql) ||
-                $this->isExcludedSql($sql = $this->transformToSql($queryExecuted))
+                isset($this->queries[$queryExecuted->sql])
+                || $this->isExcludedSql($queryExecuted->sql)
+                || $this->isExcludedSql($sql = $this->transformToSql($queryExecuted))
             ) {
                 return;
             }

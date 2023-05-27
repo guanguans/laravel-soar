@@ -25,14 +25,8 @@ class OutputtedEvent
      */
     public $scores;
 
-    /**
-     * @var mixed
-     */
     public $result;
 
-    /**
-     * @param mixed $result
-     */
     public function __construct(Output $output, Collection $scores, $result)
     {
         $this->output = $output;

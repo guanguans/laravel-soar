@@ -34,9 +34,6 @@ class SoarServiceProvider extends ServiceProvider
      */
     protected $defer = false;
 
-    /**
-     * {@inheritdoc}
-     */
     public function register()
     {
         $this->setupConfig();
@@ -123,9 +120,6 @@ class SoarServiceProvider extends ServiceProvider
         $this->loadRoutesFrom(realpath(__DIR__.'/Http/routes.php'));
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function provides()
     {
         return [

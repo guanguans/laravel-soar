@@ -14,9 +14,6 @@ use Illuminate\Support\Collection;
 
 class ClockworkOutput extends Output
 {
-    /**
-     * {@inheritdoc}
-     */
     public function output(Collection $scores, $dispatcher)
     {
         if (! function_exists('clock')) {

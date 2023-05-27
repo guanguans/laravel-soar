@@ -16,8 +16,6 @@ interface Output
 {
     /**
      * @param \Illuminate\Console\Events\CommandFinished|\Symfony\Component\HttpFoundation\Response $dispatcher
-     *
-     * @return mixed
      */
     public function output(Collection $scores, $dispatcher);
 }
