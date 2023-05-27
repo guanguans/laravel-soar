@@ -22,7 +22,11 @@ use Illuminate\Support\Fluent;
 class OutputManager extends Fluent implements Output
 {
     /**
-     * @param array<Output> $outputs
+     * @param array<\Guanguans\LaravelSoar\Contracts\Output> $outputs
+     *
+     * @noinspection MagicMethodsValidityInspection
+     * @noinspection MissingParentCallInspection
+     * @noinspection PhpMissingParentConstructorInspection
      */
     public function __construct(array $outputs = [])
     {
@@ -31,10 +35,16 @@ class OutputManager extends Fluent implements Output
         }
     }
 
+    /**
+     * @noinspection MissingParentCallInspection
+     *
+     * @param mixed $offset
+     * @param mixed $value
+     */
     public function offsetSet($offset, $value): void
     {
         if (! $value instanceof Output) {
-            throw new InvalidArgumentException(sprintf('The $value must be instance of %s', Output::class));
+            throw new InvalidArgumentException(sprintf("The $value must be instance of %s", Output::class));
         }
 
         $this->attributes[$offset] = $value;
@@ -42,7 +52,7 @@ class OutputManager extends Fluent implements Output
 
     public function output(Collection $scores, $dispatcher): void
     {
-        /** @var Output $output */
+        /** @var \Guanguans\LaravelSoar\Contracts\Output $output */
         foreach ($this->attributes as $output) {
             event(new OutputtingEvent($output, $scores, $dispatcher));
             $result = $output->output($scores, $dispatcher);

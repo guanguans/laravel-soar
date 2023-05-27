@@ -19,19 +19,23 @@ use Guanguans\LaravelSoar\Outputs\DebugBarOutput;
 use Guanguans\LaravelSoar\Outputs\DumpOutput;
 use Guanguans\LaravelSoar\Outputs\JsonOutput;
 use Guanguans\LaravelSoar\Outputs\LogOutput;
+use Guanguans\LaravelSoar\Outputs\NullOutput;
 use Guanguans\LaravelSoar\Outputs\SoarBarOutput;
 use Illuminate\Contracts\Container\Container;
+use Illuminate\Database\Connection;
 use Illuminate\Database\ConnectionInterface;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Relations\Relation as RelationBuilder;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Foundation\Application as LaravelApplication;
+use Illuminate\Support\Collection;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Str;
 use Laravel\Lumen\Application as LumenApplication;
 
 class SoarServiceProvider extends ServiceProvider
 {
-    protected bool $defer = false;
+    protected $defer = false;
 
     public function register(): void
     {
@@ -40,26 +44,33 @@ class SoarServiceProvider extends ServiceProvider
         $this->registerSingletons();
         $this->registerSoar();
         $this->registerOutputManager();
-        $this->registerRoutes();
+        $this->loadRoutes();
     }
 
     public function boot(): void
     {
-        /** @var \Guanguans\LaravelSoar\Bootstrapper $bootstrapper */
-        $bootstrapper = $this->app->make(Bootstrapper::class);
-        $bootstrapper->bootIf($bootstrapper->isEnabled(), $this->app);
+        if (config('soar.enabled', false)) {
+            $this->app->make(Bootstrapper::class)->boot();
+        }
     }
 
     public function provides()
     {
         return [
-            Soar::class, 'soar',
-            OutputManager::class, 'output_manager',
+            $this->toAlias(OutputManager::class),
+            $this->toAlias(Soar::class),
             Bootstrapper::class,
+            OutputManager::class,
+            Soar::class,
             SoarBar::class,
         ];
     }
 
+    /**
+     * @noinspection RealpathInStreamContextInspection
+     * @noinspection PhpUndefinedClassInspection
+     * @noinspection PhpUndefinedMethodInspection
+     */
     protected function setupConfig(): void
     {
         $source = realpath($raw = __DIR__.'/../config/soar.php') ?: $raw;
@@ -68,7 +79,10 @@ class SoarServiceProvider extends ServiceProvider
             $this->publishes([$source => config_path('soar.php')], 'laravel-soar');
         } elseif ($this->app instanceof LumenApplication) {
             $this->app->configure('soar');
-            $this->app->bindIf(ConnectionInterface::class, static fn ($app) => $app['db']->connection());
+            $this->app->bindIf(
+                ConnectionInterface::class,
+                static fn (Container $container): Connection => $container['db']->connection()
+            );
         }
 
         $this->mergeConfigFrom($source, 'soar');
@@ -76,52 +90,77 @@ class SoarServiceProvider extends ServiceProvider
 
     protected function registerMacros(): void
     {
-        QueryBuilder::mixin($queryBuilderMacro = $this->app->make(QueryBuilderMacro::class));
+        $queryBuilderMacro = $this->app->make(QueryBuilderMacro::class);
         EloquentBuilder::mixin($queryBuilderMacro);
+        QueryBuilder::mixin($queryBuilderMacro);
         RelationBuilder::mixin($queryBuilderMacro);
     }
 
     protected function registerSingletons(): void
     {
-        $this->app->singleton(Bootstrapper::class);
-        $this->app->singleton(SoarBar::class);
+        foreach (
+            [
+                Bootstrapper::class,
+                QueryBuilderMacro::class,
+                SoarBar::class,
 
-        $this->app->singleton(ClockworkOutput::class);
-        $this->app->singleton(ConsoleOutput::class);
-        $this->app->singleton(DebugBarOutput::class);
-        $this->app->singleton(DumpOutput::class);
-        $this->app->singleton(JsonOutput::class);
-        $this->app->singleton(LogOutput::class);
-        $this->app->singleton(SoarBarOutput::class);
+                ClockworkOutput::class,
+                ConsoleOutput::class,
+                DebugBarOutput::class,
+                DumpOutput::class,
+                JsonOutput::class,
+                LogOutput::class,
+                NullOutput::class,
+                SoarBarOutput::class,
+            ] as $class
+        ) {
+            $this->app->singleton($class);
+        }
     }
 
     protected function registerSoar(): void
     {
-        $this->app->singleton(Soar::class, static fn ($app): \Guanguans\SoarPHP\Soar => Soar::create(config('soar.options'), config('soar.path')));
+        $this->app->singleton(
+            Soar::class,
+            static fn (): Soar => Soar::create(config('soar.options', []), config('soar.path'))
+        );
 
-        $this->app->alias(Soar::class, 'soar');
+        $this->app->alias(Soar::class, $this->toAlias(Soar::class));
     }
 
     protected function registerOutputManager(): void
     {
         $this->app->singleton(OutputManager::class, static function (Container $container): OutputManager {
-            $outputs = collect(config('soar.output'))
+            return collect(config('soar.output'))
                 ->map(static function ($parameters, $class) use ($container) {
-                    ! \is_array($parameters) and [$parameters, $class] = [$class, $parameters];
+                    if (! \is_array($parameters)) {
+                        [$parameters, $class] = [$class, $parameters];
+                    }
 
                     return $container->make($class, (array) $parameters);
                 })
                 ->values()
-                ->all();
-
-            return new OutputManager($outputs);
+                ->pipe(static fn (Collection $outputs): OutputManager => new OutputManager($outputs->all()));
         });
 
-        $this->app->alias(OutputManager::class, 'output_manager');
+        $this->app->alias(OutputManager::class, $this->toAlias(OutputManager::class));
     }
 
-    protected function registerRoutes(): void
+    protected function loadRoutes(): void
     {
         $this->loadRoutesFrom(realpath(__DIR__.'/Http/routes.php'));
+    }
+
+    /**
+     * @param class-string $class
+     */
+    protected function toAlias(string $class, string $prefix = 'soar.'): string
+    {
+        $alias = Str::snake(class_basename($class), '.');
+        if (! Str::startsWith($alias, $prefix)) {
+            $alias = $prefix.$alias;
+        }
+
+        return $alias;
     }
 }

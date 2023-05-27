@@ -19,6 +19,9 @@ use DebugBar\DebugBar;
 
 class SoarBar extends DebugBar
 {
+    /**
+     * @throws \DebugBar\DebugBarException
+     */
     public function __construct()
     {
         $this->addCollector(new MessagesCollector('scores'))

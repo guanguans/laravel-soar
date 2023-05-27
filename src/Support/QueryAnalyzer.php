@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace Guanguans\LaravelSoar\Support;
 
-class QueryAnalysis
+class QueryAnalyzer
 {
     /**
      * KEYWORDS1.
