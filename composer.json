@@ -83,24 +83,16 @@
         }
     },
     "config": {
+        "allow-plugins": {
+            "phpstan/extension-installer": true
+        },
         "apcu-autoloader": true,
         "classmap-authoritative": false,
         "optimize-autoloader": true,
         "preferred-install": "dist",
-        "sort-packages": true,
-        "allow-plugins": {
-            "phpstan/extension-installer": true
-        }
+        "sort-packages": true
     },
     "extra": {
-        "laravel": {
-            "aliases": {
-                "Soar": "Guanguans\\LaravelSoar\\Facades\\Soar"
-            },
-            "providers": [
-                "Guanguans\\LaravelSoar\\SoarServiceProvider"
-            ]
-        },
         "branch-alias": {
             "dev-master": "3.x-dev"
         },
@@ -112,10 +104,16 @@
                 "composer checks"
             ]
         },
-        "phpstan": {
-            "includes": [
-                "extension.neon"
+        "laravel": {
+            "aliases": {
+                "Soar": "Guanguans\\LaravelSoar\\Facades\\Soar"
+            },
+            "providers": [
+                "Guanguans\\LaravelSoar\\SoarServiceProvider"
             ]
+        },
+        "phpstan": {
+            "includes": []
         }
     },
     "scripts": {

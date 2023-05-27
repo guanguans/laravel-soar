@@ -12,11 +12,13 @@ declare(strict_types=1);
 
 namespace Guanguans\LaravelSoar;
 
+use Illuminate\Support\Traits\Conditionable;
 use Illuminate\Support\Traits\Macroable;
 use Illuminate\Support\Traits\Tappable;
 
 class Soar extends \Guanguans\SoarPHP\Soar
 {
-    use Macroable;
+    // use Conditionable;
+    // use Macroable;
     use Tappable;
 }

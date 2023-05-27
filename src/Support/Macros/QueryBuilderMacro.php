@@ -46,7 +46,7 @@ class QueryBuilderMacro
     public function toSoarArrayScore()
     {
         return function (): array {
-            $arrayScore = app('soar')->arrayScore($this->toRawSql());
+            $arrayScore = app('soar')->arrayScores($this->toRawSql());
 
             return $arrayScore[0] ?? $arrayScore;
         };

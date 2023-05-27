@@ -24,7 +24,10 @@ class JavascriptRenderer extends \DebugBar\JavascriptRenderer
 
     protected $ajaxHandlerBindToXHR = true;
 
-    public function renderHead()
+    /**
+     * @noinspection MissingParentCallInspection
+     */
+    public function renderHead(): string
     {
         $cssRoute = route('soar.bar.assets.css', [
             'v' => $this->getModifiedTime('css'),
@@ -190,13 +193,9 @@ class JavascriptRenderer extends \DebugBar\JavascriptRenderer
     }
 
     /**
-     * Makes a URI relative to another.
-     *
-     * @param array<string>|string $uri
-     *
-     * @return array<string>|string
+     * {@inheritDoc}
      */
-    protected function makeUriRelativeTo($uri, string $root)
+    protected function makeUriRelativeTo($uri, $root)
     {
         if (! $root) {
             return $uri;

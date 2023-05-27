@@ -17,14 +17,15 @@ use Illuminate\Console\Events\CommandFinished;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Database\Events\QueryExecuted;
+use Illuminate\Events\Dispatcher;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
 class Bootstrapper
 {
-    protected \Illuminate\Support\Collection $queries;
+    protected Collection $queries;
 
-    protected \Illuminate\Support\Collection $scores;
+    protected Collection $scores;
 
     protected bool $booted = false;
 
@@ -158,6 +159,9 @@ class Bootstrapper
         return round($milliseconds / 1000, 2).'s';
     }
 
+    /**
+     * @noinspection DebugFunctionUsageInspection
+     */
     protected function getBacktraces(int $limit = 0, int $forgetLines = 0): array
     {
         return collect(debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, $limit))
@@ -173,11 +177,11 @@ class Bootstrapper
         return $queries->pipe(static function (Collection $queries) {
             $sql = $queries->reduce(static fn ($sql, $query) => $sql.$query['sql'].'; ', '');
 
-            return collect(app('soar')->arrayScore($sql));
+            return collect(app('soar')->arrayScores($sql));
         });
     }
 
-    protected function logQuery(\Illuminate\Events\Dispatcher $dispatcher): void
+    protected function logQuery(Dispatcher $dispatcher): void
     {
         // 记录 SQL
         $dispatcher->listen(QueryExecuted::class, function (QueryExecuted $queryExecuted): void {
