@@ -35,32 +35,39 @@
         }
     ],
     "require": {
-        "php": ">=7.3",
+        "php": ">=7.4",
         "ext-json": "*",
         "ext-pdo": "*",
-        "guanguans/soar-php": "^2.7",
-        "illuminate/contracts": "^6.10 || ^7.0 || ^8.0 || ^9.0 || ^10.0",
-        "illuminate/support": "^6.10 || ^7.0 || ^8.0 || ^9.0 || ^10.0",
+        "guanguans/soar-php": "^3.2",
+        "illuminate/contracts": "^7.0 || ^8.0 || ^9.0 || ^10.0",
+        "illuminate/support": "^7.0 || ^8.0 || ^9.0 || ^10.0",
         "maximebf/debugbar": "^1.18"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.7",
         "brainmaestro/composer-git-hooks": "^2.8 || ^3.0",
-        "friendsofphp/php-cs-fixer": "^3.4",
+        "friendsofphp/php-cs-fixer": "^3.14",
         "itsgoingd/clockwork": "^5.1",
+        "jetbrains/phpstorm-attributes": "^1.0",
+        "kubawerlos/php-cs-fixer-custom-fixers": "^3.13",
         "laravel/legacy-factories": "^1.3",
         "mockery/mockery": "^1.5",
         "nyholm/nsa": "^1.3",
         "orchestra/testbench": "^6.27 || ^7.0",
-        "phpbench/phpbench": "^1.2",
-        "phpunit/phpunit": "^9.6 || ^10.0",
-        "vimeo/psalm": "^4.30 || ^5.0"
+        "php-mock/php-mock-phpunit": "^2.7",
+        "phpstan/extension-installer": "^1.3",
+        "phpstan/phpstan-deprecation-rules": "^1.1",
+        "phpunit/phpunit": "^9.6",
+        "rector/rector": "^0.16",
+        "roave/security-advisories": "dev-latest",
+        "spatie/phpunit-snapshot-assertions": "^4.2",
+        "vimeo/psalm": "^5.12"
     },
     "suggest": {
         "barryvdh/laravel-debugbar": "Output SQL score to Laravel DebugBar.",
         "itsgoingd/clockwork": "Output SQL score to Clockwork."
     },
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "prefer-stable": true,
     "autoload": {
         "psr-4": {
@@ -80,19 +87,12 @@
         "classmap-authoritative": false,
         "optimize-autoloader": true,
         "preferred-install": "dist",
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "phpstan/extension-installer": true
+        }
     },
     "extra": {
-        "hooks": {
-            "post-merge": [
-                "composer style-lint",
-                "composer test"
-            ],
-            "pre-commit": [
-                "composer style-lint",
-                "composer test"
-            ]
-        },
         "laravel": {
             "aliases": {
                 "Soar": "Guanguans\\LaravelSoar\\Facades\\Soar"
@@ -100,25 +100,67 @@
             "providers": [
                 "Guanguans\\LaravelSoar\\SoarServiceProvider"
             ]
+        },
+        "branch-alias": {
+            "dev-master": "3.x-dev"
+        },
+        "hooks": {
+            "post-merge": [
+                "composer checks"
+            ],
+            "pre-commit": [
+                "composer checks"
+            ]
+        },
+        "phpstan": {
+            "includes": [
+                "extension.neon"
+            ]
         }
     },
     "scripts": {
         "post-install-cmd": [
-            "cghooks add --ignore-lock",
-            "cghooks update"
+            "@cghooks add --ignore-lock",
+            "@cghooks update"
         ],
         "post-update-cmd": [
-            "cghooks update"
+            "@cghooks update"
         ],
-        "bench": "./vendor/bin/phpbench run --retry-threshold=3 --iterations=3 --revs=10 --warmup=2",
-        "cghooks": "./vendor/bin/cghooks",
-        "md-fix": "lint-md --config .lintmdrc --fix *.md .github/*.md .github/ISSUE_TEMPLATE/*.md",
-        "md-lint": "lint-md --config .lintmdrc *.md .github/*.md .github/ISSUE_TEMPLATE/*.md",
-        "post-merge": "composer install",
-        "psalm": "./vendor/bin/psalm",
-        "style-fix": "./vendor/bin/php-cs-fixer fix --using-cache=no --config=.php-cs-fixer.php --ansi",
-        "style-lint": "./vendor/bin/php-cs-fixer fix --using-cache=no --diff --config=.php-cs-fixer.php --dry-run --ansi",
-        "test": "@php ./vendor/bin/phpunit --coverage-text --colors=always --verbose",
-        "test-coverage": "@php ./vendor/bin/phpunit --coverage-html=coverage/ --coverage-clover=clover.xml --color=always --verbose"
+        "benchmark": "@php ./vendor/bin/phpbench run --warmup=1 --retry-threshold=1 --iterations=3 --revs=5 --ansi -v",
+        "cghooks": "@php ./vendor/bin/cghooks --ansi -v",
+        "checks": [
+            "@mark-start",
+            "@composer-validate",
+            "@mark-separate",
+            "@md-lint",
+            "@mark-separate",
+            "@lint",
+            "@mark-finish"
+        ],
+        "composer-validate": "@composer validate --check-lock --strict --ansi -v",
+        "lint": [
+            "for DIR in .; do find $DIR -maxdepth 1 -type f -name '*.php' -type f ! -name 'xxx.php' -exec php -l {} \\; 2>&1 | (! grep -v '^No syntax errors detected'); done",
+            "for DIR in ./src ./tests; do find $DIR -type f -name '*.php' -type f ! -name 'xxx.php' -exec php -l {} \\; 2>&1 | (! grep -v '^No syntax errors detected'); done"
+        ],
+        "mark-finish": "printf '\\n!\\n!\\t\\033[0;32m%s\\033[0m\\n!\\n\\n' \"Finished\"",
+        "mark-separate": "printf '\\n!\\n!\\t\\033[0;33m%s\\033[0m\\n!\\n\\n' \"----------------\"",
+        "mark-start": "printf '\\n!\\n!\\t\\033[0;36m%s\\033[0m\\n!\\n\\n' \"Started\"",
+        "md-fix": "@md-lint --fix",
+        "md-lint": "lint-md --config .lintmdrc ./*.md ./.github/ ./docs/",
+        "pest": "@php ./vendor/bin/pest --cache-result-file=./build//phpunit/.phpunit.result.cache --ansi -v",
+        "pest-coverage": "@pest --coverage-html=./build/phpunit/ --coverage-clover=clover.xml --coverage",
+        "phpstan": "@php ./vendor/bin/phpstan analyse --ansi -v",
+        "phpstan-baseline": "@phpstan --generate-baseline --allow-empty-baseline",
+        "post-merge": [
+            "composer install --ansi -v"
+        ],
+        "psalm": "@php ./vendor/bin/psalm",
+        "psalm-baseline": "@psalm --update-baseline",
+        "rector": "@php ./vendor/bin/rector --clear-cache --ansi -v",
+        "rector-dry-run": "@rector --dry-run",
+        "style-fix": "@php ./vendor/bin/php-cs-fixer fix --using-cache=yes --config=.php-cs-fixer.php --ansi -v",
+        "style-lint": "@style-fix --diff --dry-run",
+        "test": "@php ./vendor/bin/phpunit --cache-result-file=./build/phpunit/.phpunit.result.cache --coverage-text -v",
+        "test-coverage": "@test --coverage-html=./build/phpunit/ --coverage-clover=clover.xml"
     }
 }

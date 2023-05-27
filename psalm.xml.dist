@@ -1,16 +1,32 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <psalm
-    errorLevel="4"
-    findUnusedVariablesAndParams="true"
-    resolveFromConfigFile="true"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns="https://getpsalm.org/schema/config"
-    xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
+  errorLevel="4"
+  findUnusedVariablesAndParams="true"
+  resolveFromConfigFile="true"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="https://getpsalm.org/schema/config"
+  xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
+  cacheDirectory="./build/psalm/"
+  errorBaseline="psalm-baseline.xml"
 >
-    <projectFiles>
-        <directory name="src"/>
-        <ignoreFiles>
-            <directory name="vendor"/>
-        </ignoreFiles>
-    </projectFiles>
+  <projectFiles>
+    <directory name="src"/>
+    <ignoreFiles allowMissingFiles="true">
+      <directory name="vendor"/>
+      <file name="src/UpdateHelper.php"/>
+    </ignoreFiles>
+  </projectFiles>
+
+  <issueHandlers>
+    <PropertyNotSetInConstructor errorLevel="info"/>
+    <UndefinedDocblockClass>
+      <errorLevel type="suppress">
+        <directory name="src/Concerns"/>
+        <file name="src/Soar.php"/>
+      </errorLevel>
+    </UndefinedDocblockClass>
+  </issueHandlers>
+  <plugins>
+    <!--<pluginClass class="Psalm\LaravelPlugin\Plugin"/>-->
+  </plugins>
 </psalm>
