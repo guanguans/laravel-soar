@@ -23,12 +23,14 @@ use PHPStan\PhpDocParser\Parser\TokenIterator;
 use PHPStan\PhpDocParser\Parser\TypeParser;
 use Symfony\Component\Finder\Finder;
 
-/*
+/**
  * Update the docblocks:
  * $ php -f ./bin/facades.php
  *
  * Lint the docblocks:
  * $ php -f ./bin/facades.php -- --lint
+ *
+ * @see https://github.com/laravel/framework/blob/10.x/bin/facades.php
  */
 
 $linting = in_array('--lint', $argv);
@@ -489,8 +491,7 @@ function resolveDocMixins($class)
  */
 function resolveDocParameters($method)
 {
-    return resolveDocTags($method->getDocComment() ?: '', '@param')
-        // ->map(fn($tag) => Str::squish($tag))
+    return resolveDocTags($method->getDocComment() ?: '', '@param')// ->map(fn($tag) => Str::squish($tag))
         ;
 }
 
