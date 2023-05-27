@@ -135,6 +135,8 @@
             "@md-lint",
             "@mark-separate",
             "@lint",
+            "@mark-separate",
+            "@style-lint",
             "@mark-finish"
         ],
         "composer-validate": "@composer validate --check-lock --strict --ansi -v",

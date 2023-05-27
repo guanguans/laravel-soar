@@ -22,7 +22,7 @@ use Illuminate\Support\Fluent;
 class OutputManager extends Fluent implements Output
 {
     /**
-     * @param Output[] $outputs
+     * @param array<Output> $outputs
      */
     public function __construct(array $outputs = [])
     {

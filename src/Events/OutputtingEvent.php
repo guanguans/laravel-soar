@@ -21,9 +21,7 @@ class OutputtingEvent
 
     public \Illuminate\Support\Collection $scores;
 
-    /**
-     * @var \Illuminate\Console\Events\CommandFinished|\Symfony\Component\HttpFoundation\Response
-     */
+    /** @var \Illuminate\Console\Events\CommandFinished|\Symfony\Component\HttpFoundation\Response */
     public $dispatcher;
 
     /**

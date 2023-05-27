@@ -192,9 +192,9 @@ class JavascriptRenderer extends \DebugBar\JavascriptRenderer
     /**
      * Makes a URI relative to another.
      *
-     * @param string|string[] $uri
+     * @param array<string>|string $uri
      *
-     * @return string|string[]
+     * @return array<string>|string
      */
     protected function makeUriRelativeTo($uri, string $root)
     {
