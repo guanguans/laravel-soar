@@ -13,6 +13,8 @@ declare(strict_types=1);
 use PhpCsFixer\Config;
 use PhpCsFixer\Finder;
 
+use function Webmozart\Assert\Tests\StaticAnalysis\false;
+
 $header = <<<'HEADER'
     This file is part of the guanguans/laravel-soar.
 
@@ -36,6 +38,7 @@ $finder = Finder::create()
     ])
     ->append([
         __FILE__,
+        // __DIR__.'/bin/facades.php',
         __DIR__.'/.phpstorm.meta.php',
         __DIR__.'/composer-unused.php',
         __DIR__.'/doctum.php',
@@ -225,6 +228,18 @@ return (new Config())
         'php_unit_test_class_requires_covers' => false,
 
         // phpdoc
+        'phpdoc_align' => [
+            'align' => 'left',
+            'tags' => [
+                'method',
+                'param',
+                'property',
+                'return',
+                'throws',
+                'type',
+                'var',
+            ],
+        ],
         'general_phpdoc_annotation_remove' => [
             'annotations' => [
                 'package',
