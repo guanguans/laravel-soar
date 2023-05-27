@@ -36,7 +36,7 @@ namespace Illuminate\Database\Query {
      * @method void   echoSoarHtmlExplain()
      * @method void   exitSoarHtmlExplain()
      *
-     * @see \Guanguans\LaravelSoar\Support\Macros\QueryBuilderMacro
+     * @see \Guanguans\LaravelSoar\Macros\QueryBuilderMacro
      * @see \Illuminate\Database\Query\Builder
      */
     class Builder
@@ -64,7 +64,7 @@ namespace Illuminate\Database\Eloquent {
      *
      * @mixin \Illuminate\Database\Query\Builder
      *
-     * @see \Guanguans\LaravelSoar\Support\Macros\QueryBuilderMacro
+     * @see \Guanguans\LaravelSoar\Macros\QueryBuilderMacro
      * @see \Illuminate\Database\Eloquent\Builder
      */
     class Builder
@@ -92,7 +92,7 @@ namespace Illuminate\Database\Eloquent\Relations {
      *
      * @mixin \Illuminate\Database\Eloquent\Builder
      *
-     * @see \Guanguans\LaravelSoar\Support\Macros\QueryBuilderMacro
+     * @see \Guanguans\LaravelSoar\Macros\QueryBuilderMacro
      * @see \Illuminate\Database\Eloquent\Relations\Relation
      */
     class Relation

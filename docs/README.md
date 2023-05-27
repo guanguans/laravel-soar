@@ -486,7 +486,7 @@ namespace Illuminate\Database\Eloquent {
      * @method void   echoSoarHtmlExplain()
      * @method void   exitSoarHtmlExplain()
      *
-     * @see \Guanguans\LaravelSoar\Support\Macros\QueryBuilderMacro
+     * @see \Guanguans\LaravelSoar\Macros\QueryBuilderMacro
      */
     class Builder
     {

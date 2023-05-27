@@ -25,12 +25,15 @@ class DumpOutput extends Output
 
     public function output(Collection $scores, $dispatcher): void
     {
-        $scores->map(static function ($score): string {
-            unset($score['Basic']);
+        $scores
+            ->map(static function ($score): string {
+                unset($score['Basic']);
 
-            return to_pretty_json($score);
-        })->when($this->exit, static function (Collection $scores): void {
-            $scores->dd();
-        })->dump();
+                return to_pretty_json($score);
+            })
+            ->when($this->exit, static function (Collection $scores): void {
+                $scores->dd();
+            })
+            ->dump();
     }
 }

@@ -44,6 +44,12 @@ use Illuminate\Support\Facades\Facade;
  */
 class Soar extends Facade
 {
+    /**
+     * @noinspection ReturnTypeCanBeDeclaredInspection
+     * @noinspection MissingParentCallInspection
+     *
+     * {@inheritDoc}
+     */
     protected static function getFacadeAccessor()
     {
         return 'soar';

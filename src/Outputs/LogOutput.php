@@ -27,7 +27,7 @@ class LogOutput extends Output
         $this->channel = $channel;
     }
 
-    public function output(Collection $scores, $event): void
+    public function output(Collection $scores, $dispatcher): void
     {
         $scores->each(function (array $score): void {
             unset($score['Basic']);

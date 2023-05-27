@@ -10,7 +10,9 @@ declare(strict_types=1);
  * This source file is subject to the MIT license that is bundled.
  */
 
-app('router')->group([
+use Illuminate\Support\Facades\Route;
+
+Route::group([
     'namespace' => 'Guanguans\LaravelSoar\Http\Controllers',
     'prefix' => app('config')->get('soar.route_prefix', 'soar-bar'),
     'domain' => app('config')->get('soar.route_domain', null),

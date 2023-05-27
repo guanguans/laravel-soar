@@ -28,12 +28,14 @@ class DebugBarOutput extends Output
             return;
         }
 
-        $scores->tap(function ($scores) use (&$collector): void {
-            $collector = $this->createCollector();
-        })->each(static function (array $score) use ($collector): void {
-            unset($score['Basic']);
-            $collector->addMessage($score['Summary'].PHP_EOL.to_pretty_json($score), 'warning', false);
-        });
+        $scores
+            ->tap(function () use (&$collector): void {
+                $collector = $this->createCollector();
+            })
+            ->each(static function (array $score) use ($collector): void {
+                unset($score['Basic']);
+                $collector->addMessage($score['Summary'].PHP_EOL.to_pretty_json($score), 'warning', false);
+            });
 
         self::$outputted = true;
     }

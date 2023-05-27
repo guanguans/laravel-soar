@@ -14,18 +14,13 @@ use Guanguans\LaravelSoar\Soar;
 use Illuminate\Contracts\Container\Container;
 use Laravel\Lumen\Application as LumenApplication;
 
-if (! function_exists('soar')) {
-    function soar(): Soar
-    {
-        return app('soar');
-    }
-}
-
 if (! function_exists('var_output')) {
     /**
      * @param mixed $expression
      *
-     * @return null|string|void
+     * @return string|void
+     *
+     * @noinspection DebugFunctionUsageInspection
      */
     function var_output($expression, bool $return = false)
     {
@@ -67,7 +62,7 @@ if (! function_exists('array_reduces')) {
 if (! function_exists('score_to_star')) {
     function score_to_star(int $score): string
     {
-        return str_repeat('★', $good = round($score / 100 * 5)).str_repeat('☆', 5 - $good);
+        return str_repeat('★', $good = (int) round($score / 100 * 5)).str_repeat('☆', 5 - $good);
     }
 }
 
@@ -81,19 +76,10 @@ if (! function_exists('to_pretty_json')) {
     }
 }
 
-if (! function_exists('normalize_sql')) {
-    function normalize_sql(string $sql): string
-    {
-        return str_replace(['`', '"'], ['\`', ''], $sql);
-    }
-}
-
 if (! function_exists('is_lumen')) {
     function is_lumen(?Container $app = null): bool
     {
-        $app = $app ?: app();
-
-        return $app instanceof LumenApplication;
+        return ($app ?? app()) instanceof LumenApplication;
     }
 }
 

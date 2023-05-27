@@ -35,8 +35,10 @@ class JsonOutput extends Output
 
             return $score;
         });
+
         $data = Arr::wrap($dispatcher->getData(true));
         $data[$this->key] = $scores;
+
         // Update the new content and reset the content length
         $dispatcher->setData($data);
         $dispatcher->headers->remove('Content-Length');

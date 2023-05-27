@@ -36,7 +36,7 @@ class ConsoleOutput extends Output
 
     protected function transformToJs(Collection $scores): string
     {
-        return $scores->pipe(static function ($scores) {
+        return $scores->pipe(static function ($scores): string {
             $js = $scores->reduce(static function ($js, $score): string {
                 unset($score['Basic']);
                 $score = str_replace('`', '\`', to_pretty_json($score));

@@ -17,7 +17,7 @@ use Illuminate\Support\Collection;
 
 class NullOutput implements Output
 {
-    public function output(Collection $scores, $event): void
+    public function output(Collection $scores, $dispatcher): void
     {
         // noop
     }

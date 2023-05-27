@@ -10,7 +10,9 @@ declare(strict_types=1);
  * This source file is subject to the MIT license that is bundled.
  */
 
-namespace Guanguans\LaravelSoar\Support\Macros;
+namespace Guanguans\LaravelSoar\Macros;
+
+use Guanguans\LaravelSoar\Soar;
 
 /**
  * @mixin \Illuminate\Database\Query\Builder
@@ -19,7 +21,7 @@ namespace Guanguans\LaravelSoar\Support\Macros;
  */
 class QueryBuilderMacro
 {
-    public function toRawSql()
+    public function toRawSql(): callable
     {
         return fn (): string => array_reduce(
             $this->getBindings(),
@@ -32,7 +34,7 @@ class QueryBuilderMacro
      * @noinspection DebugFunctionUsageInspection
      * @noinspection ForgottenDebugOutputInspection
      */
-    public function dumpRawSql()
+    public function dumpRawSql(): callable
     {
         return function (): void {
             dump($this->toRawSql());
@@ -43,26 +45,26 @@ class QueryBuilderMacro
      * @noinspection DebugFunctionUsageInspection
      * @noinspection ForgottenDebugOutputInspection
      */
-    public function ddRawSql()
+    public function ddRawSql(): callable
     {
         return function (): void {
             dd($this->toRawSql());
         };
     }
 
-    public function toSoarArrayScores()
+    public function toSoarArrayScores(): callable
     {
-        return fn (): array => app('soar')->arrayScores($this->toRawSql());
+        return fn (): array => app(Soar::class)->arrayScores($this->toRawSql());
     }
 
     /**
      * @noinspection DebugFunctionUsageInspection
      * @noinspection ForgottenDebugOutputInspection
      */
-    public function dumpSoarArrayScores()
+    public function dumpSoarArrayScores(): callable
     {
         return function (): void {
-            dump($this->toSoarArrayScores($this->toRawSql()));
+            dump($this->toSoarArrayScores());
         };
     }
 
@@ -70,25 +72,29 @@ class QueryBuilderMacro
      * @noinspection DebugFunctionUsageInspection
      * @noinspection ForgottenDebugOutputInspection
      */
-    public function ddSoarArrayScores()
+    public function ddSoarArrayScores(): callable
     {
         return function (): void {
-            dd($this->toSoarArrayScores($this->toRawSql()));
+            dd($this->toSoarArrayScores());
         };
     }
 
-    public function toSoarJsonScores()
+    public function toSoarJsonScores(): callable
     {
-        return fn ($options = 0, $depth = 128): string => json_encode($this->toSoarArrayScores($this->toRawSql()), $options | JSON_THROW_ON_ERROR, $depth);
+        return fn (int $options = 0, int $depth = 128): string => json_encode(
+            $this->toSoarArrayScores(),
+            $options | JSON_THROW_ON_ERROR,
+            $depth
+        );
     }
 
     /**
      * @noinspection DebugFunctionUsageInspection
      * @noinspection ForgottenDebugOutputInspection
      */
-    public function dumpSoarJsonScores()
+    public function dumpSoarJsonScores(): callable
     {
-        return function ($options = JSON_PRETTY_PRINT, $depth = 128): void {
+        return function (int $options = JSON_PRETTY_PRINT, int $depth = 128): void {
             dump($this->toSoarJsonScores($options, $depth));
         };
     }
@@ -97,32 +103,29 @@ class QueryBuilderMacro
      * @noinspection DebugFunctionUsageInspection
      * @noinspection ForgottenDebugOutputInspection
      */
-    public function ddSoarJsonScores()
+    public function ddSoarJsonScores(): callable
     {
-        return function ($options = JSON_PRETTY_PRINT, $depth = 128): void {
+        return function (int $options = JSON_PRETTY_PRINT, int $depth = 128): void {
             dd($this->toSoarJsonScores($options, $depth));
         };
     }
 
-    public function toSoarHtmlScores()
+    public function toSoarHtmlScores(): callable
     {
-        return fn (): string => app('soar')->htmlScores($this->toRawSql());
+        return fn (): string => app(Soar::class)->htmlScores($this->toRawSql());
     }
 
-    /**
-     * @noinspection PhpToStringImplementationInspection
-     */
-    public function echoSoarHtmlScores()
+    public function echoSoarHtmlScores(): callable
     {
         return function (): void {
-            echo $this->toSoarHtmlScores($this->toRawSql());
+            echo $this->toSoarHtmlScores();
         };
     }
 
-    public function exitSoarHtmlScores()
+    public function exitSoarHtmlScores(): callable
     {
         return function (): void {
-            exit($this->toSoarHtmlScores($this->toRawSql()));
+            exit($this->toSoarHtmlScores());
         };
     }
 }

@@ -14,7 +14,8 @@ namespace Guanguans\LaravelSoar\Http\Middleware;
 
 use Guanguans\LaravelSoar\Bootstrapper;
 use Guanguans\LaravelSoar\OutputManager;
-use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class OutputSoarScoreMiddleware
 {
@@ -31,13 +32,10 @@ class OutputSoarScoreMiddleware
     /**
      * Handle an incoming request.
      */
-    public function handle(Request $request, \Closure $next)
+    public function handle(Request $request, callable $next): Response
     {
-        /** @var \Illuminate\Http\Response $response */
-        $response = $next($request);
-
-        $this->outputManager->output($this->bootstrapper->getScores(), $response);
-
-        return $response;
+        return tap($next($request), function (Response $response): void {
+            $this->outputManager->output($this->bootstrapper->getScores(), $response);
+        });
     }
 }

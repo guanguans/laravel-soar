@@ -12,6 +12,7 @@ declare(strict_types=1);
 
 namespace Guanguans\LaravelSoar;
 
+use Guanguans\LaravelSoar\Macros\QueryBuilderMacro;
 use Guanguans\LaravelSoar\Outputs\ClockworkOutput;
 use Guanguans\LaravelSoar\Outputs\ConsoleOutput;
 use Guanguans\LaravelSoar\Outputs\DebugBarOutput;
@@ -19,7 +20,6 @@ use Guanguans\LaravelSoar\Outputs\DumpOutput;
 use Guanguans\LaravelSoar\Outputs\JsonOutput;
 use Guanguans\LaravelSoar\Outputs\LogOutput;
 use Guanguans\LaravelSoar\Outputs\SoarBarOutput;
-use Guanguans\LaravelSoar\Support\Macros\QueryBuilderMacro;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Database\ConnectionInterface;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;

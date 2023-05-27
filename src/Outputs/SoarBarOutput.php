@@ -22,10 +22,10 @@ class SoarBarOutput extends Output
 
     private JavascriptRenderer $javascriptRenderer;
 
-    public function __construct(SoarBar $debugBar)
+    public function __construct(SoarBar $soarBar)
     {
-        $this->soarBar = $debugBar;
-        $this->javascriptRenderer = $debugBar->getJavascriptRenderer();
+        $this->soarBar = $soarBar;
+        $this->javascriptRenderer = $soarBar->getJavascriptRenderer();
     }
 
     public function output(Collection $scores, $dispatcher): void

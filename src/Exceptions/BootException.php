@@ -12,6 +12,8 @@ declare(strict_types=1);
 
 namespace Guanguans\LaravelSoar\Exceptions;
 
-class BootException extends Exception
+use Guanguans\LaravelSoar\Contracts\Throwable;
+
+class BootException extends \RuntimeException implements Throwable
 {
 }

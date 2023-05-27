@@ -13,9 +13,9 @@ declare(strict_types=1);
 namespace Guanguans\LaravelSoar\Outputs\Concerns;
 
 use Illuminate\Console\Events\CommandFinished;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Response;
 use Illuminate\Support\Str;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 trait OutputCondition
 {

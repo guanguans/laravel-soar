@@ -38,23 +38,27 @@ class QueryAnalysis
 
         // syntax highlight
         $sql = htmlspecialchars($sql, ENT_IGNORE, 'UTF-8');
-        $sql = preg_replace_callback('#(/\\*.+?\\*/)|(\\*\\*.+?\\*\\*)|(?<=[\\s,(])('.static::KEYWORDS1.')(?=[\\s,)])|(?<=[\\s,(=])('.static::KEYWORDS2.')(?=[\\s,)=])#is', static function ($matches) {
-            if (! empty($matches[1])) { // comment
-                return '<em style="color:gray">'.$matches[1].'</em>';
-            }
+        $sql = preg_replace_callback(
+            '#(/\\*.+?\\*/)|(\\*\\*.+?\\*\\*)|(?<=[\\s,(])('.static::KEYWORDS1.')(?=[\\s,)])|(?<=[\\s,(=])('.static::KEYWORDS2.')(?=[\\s,)=])#is',
+            static function ($matches) {
+                if (! empty($matches[1])) { // comment
+                    return '<em style="color:gray">'.$matches[1].'</em>';
+                }
 
-            if (! empty($matches[2])) { // error
-                return '<strong style="color:red">'.$matches[2].'</strong>';
-            }
+                if (! empty($matches[2])) { // error
+                    return '<strong style="color:red">'.$matches[2].'</strong>';
+                }
 
-            if (! empty($matches[3])) { // most important keywords
-                return '<strong style="color:blue; text-transform: uppercase;">'.$matches[3].'</strong>';
-            }
+                if (! empty($matches[3])) { // most important keywords
+                    return '<strong style="color:blue; text-transform: uppercase;">'.$matches[3].'</strong>';
+                }
 
-            if (! empty($matches[4])) { // other keywords
-                return '<strong style="color:green">'.$matches[4].'</strong>';
-            }
-        }, $sql);
+                if (! empty($matches[4])) { // other keywords
+                    return '<strong style="color:green">'.$matches[4].'</strong>';
+                }
+            },
+            $sql
+        );
 
         $bindings = array_map(static function ($binding) use ($pdo): string {
             if (\is_array($binding)) {
@@ -90,6 +94,7 @@ class QueryAnalysis
 
             return htmlspecialchars($binding, ENT_NOQUOTES, 'UTF-8');
         }, $bindings);
+
         $sql = str_replace(['%', '?'], ['%%', '%s'], $sql);
 
         return '<div><code>'.nl2br(trim(vsprintf($sql, $bindings))).'</code></div>';
