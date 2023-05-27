@@ -42,7 +42,7 @@ class OutputManager extends Fluent implements Output
 
     public function output(Collection $scores, $dispatcher): void
     {
-        // @var Output $output
+        /** @var Output $output */
         foreach ($this->attributes as $output) {
             event(new OutputtingEvent($output, $scores, $dispatcher));
             $result = $output->output($scores, $dispatcher);

@@ -87,7 +87,7 @@ return (new Config())
 
         // '@DoctrineAnnotation' => true,
         '@PhpCsFixer' => true,
-        // '@PhpCsFixer:risky' => true,
+        '@PhpCsFixer:risky' => true,
 
         // alias
         // 'mb_str_functions' => true,

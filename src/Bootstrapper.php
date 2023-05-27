@@ -121,7 +121,7 @@ class Bootstrapper
 
     public function formatExplain(?array $explain): array
     {
-        if (\is_null($explain)) {
+        if (null === $explain) {
             return [];
         }
 

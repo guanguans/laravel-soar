@@ -39,7 +39,7 @@ class BootstrapperTest extends TestCase
 
     public function testIsEnabled(): void
     {
-        $this->assertEquals($this->app['config']['soar.enabled'], $this->bootstrapper->isEnabled());
+        $this->assertSame($this->app['config']['soar.enabled'], $this->bootstrapper->isEnabled());
     }
 
     public function testGetScores(): void
@@ -63,7 +63,7 @@ class BootstrapperTest extends TestCase
     {
         $humanTime = NSA::invokeMethod($this->bootstrapper, 'transformToHumanTime', 2345.43);
         $this->assertIsString($humanTime);
-        $this->assertEquals('2.35s', $humanTime);
+        $this->assertSame('2.35s', $humanTime);
     }
 
     public function testFormatExplain(): void

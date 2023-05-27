@@ -25,6 +25,6 @@ class QueryBuilderMacroTest extends TestCase
     public function testToRawSql(): void
     {
         $rawSql = User::query()->where('id', 1)->toRawSql();
-        $this->assertEquals('select * from "users" where "id" = 1', $rawSql);
+        $this->assertSame('select * from "users" where "id" = 1', $rawSql);
     }
 }
