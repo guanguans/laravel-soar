@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of the guanguans/laravel-soar.
  *
@@ -14,7 +16,7 @@ use Illuminate\Support\Collection;
 
 class ConsoleOutput extends Output
 {
-    public function output(Collection $scores, $dispatcher)
+    public function output(Collection $scores, $dispatcher): void
     {
         if (! $this->isHtmlResponse($dispatcher)) {
             return;
@@ -38,21 +40,21 @@ class ConsoleOutput extends Output
 
     protected function transformToJs(Collection $scores): string
     {
-        return $scores->pipe(function ($scores) {
-            $js = $scores->reduce(function ($js, $score) {
+        return $scores->pipe(static function ($scores) {
+            $js = $scores->reduce(static function ($js, $score) {
                 unset($score['Basic']);
                 $score = str_replace('`', '\`', to_pretty_json($score));
 
                 return $js.<<<JS
-console.warn(`
-$score
-`);
-JS;
+                    console.warn(`
+                    $score
+                    `);
+                    JS;
             }, '');
 
             return <<<JS
-<script type="text/javascript">$js</script>
-JS;
+                <script type="text/javascript">$js</script>
+                JS;
         });
     }
 }

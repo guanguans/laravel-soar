@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of the guanguans/laravel-soar.
  *
@@ -20,20 +22,11 @@ use Illuminate\Support\Str;
 
 class Bootstrapper
 {
-    /**
-     * @var \Illuminate\Support\Collection
-     */
-    protected $queries;
+    protected \Illuminate\Support\Collection $queries;
 
-    /**
-     * @var \Illuminate\Support\Collection
-     */
-    protected $scores;
+    protected \Illuminate\Support\Collection $scores;
 
-    /**
-     * @var bool
-     */
-    protected $booted = false;
+    protected bool $booted = false;
 
     public function __construct()
     {
@@ -101,6 +94,44 @@ class Bootstrapper
         return $this->scores;
     }
 
+    /**
+     * @return array{
+     *     sql: string,
+     *     time: string,
+     *     connection: string,
+     *     driver: string,
+     *     backtraces: array<string>
+     * }
+     */
+    public function matchQuery(Collection $queries, array $score): array
+    {
+        $query = (array) $queries->first(static fn ($query) => $score['Sample'] === $query['sql']);
+
+        $query or $query = $queries
+            ->map(static function ($query) use ($score) {
+                $query['similarity'] = similar_text($score['Sample'], $query['sql']);
+
+                return $query;
+            })
+            ->sortByDesc('similarity')
+            ->first();
+
+        return $query;
+    }
+
+    public function formatExplain(?array $explain): array
+    {
+        if (\is_null($explain)) {
+            return [];
+        }
+
+        $explain = $explain[0] ?? $explain;
+        $explain['Content'] = array_values(array_filter(explode("\n", $explain['Content'])));
+        $explain['Case'] = explode("\n", $explain['Case']);
+
+        return $explain;
+    }
+
     protected function transformToSql(QueryExecuted $queryExecutedEvent): string
     {
         if (empty($queryExecutedEvent->bindings)) {
@@ -131,71 +162,25 @@ class Bootstrapper
     {
         return collect(debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, $limit))
             ->forget($forgetLines)
-            ->filter(function ($trace) {
-                return isset($trace['file']) && isset($trace['line']) && ! Str::contains($trace['file'], 'vendor');
-            })
-            ->map(function ($trace, $index) {
-                return sprintf('#%s %s:%s', $index, str_replace(base_path(), '', $trace['file']), $trace['line']);
-            })
+            ->filter(static fn ($trace) => isset($trace['file']) && isset($trace['line']) && ! Str::contains($trace['file'], 'vendor'))
+            ->map(static fn ($trace, $index) => sprintf('#%s %s:%s', $index, str_replace(base_path(), '', $trace['file']), $trace['line']))
             ->values()
             ->all();
     }
 
-    /**
-     * @return array{
-     *     sql: string,
-     *     time: string,
-     *     connection: string,
-     *     driver: string,
-     *     backtraces: array<string>
-     * }
-     */
-    public function matchQuery(Collection $queries, array $score): array
-    {
-        $query = (array) $queries->first(function ($query) use ($score) {
-            return $score['Sample'] === $query['sql'];
-        });
-
-        $query or $query = $queries
-            ->map(function ($query) use ($score) {
-                $query['similarity'] = similar_text($score['Sample'], $query['sql']);
-
-                return $query;
-            })
-            ->sortByDesc('similarity')
-            ->first();
-
-        return $query;
-    }
-
     protected function transformToScores(Collection $queries): Collection
     {
-        return $queries->pipe(function (Collection $queries) {
-            $sql = $queries->reduce(function ($sql, $query) {
-                return $sql.$query['sql'].'; ';
-            }, '');
+        return $queries->pipe(static function (Collection $queries) {
+            $sql = $queries->reduce(static fn ($sql, $query) => $sql.$query['sql'].'; ', '');
 
             return collect(app('soar')->arrayScore($sql));
         });
     }
 
-    public function formatExplain(?array $explain): array
-    {
-        if (is_null($explain)) {
-            return [];
-        }
-
-        $explain = $explain[0] ?? $explain;
-        $explain['Content'] = array_values(array_filter(explode("\n", $explain['Content'])));
-        $explain['Case'] = explode("\n", $explain['Case']);
-
-        return $explain;
-    }
-
     protected function logQuery(\Illuminate\Events\Dispatcher $dispatcher): void
     {
         // 记录 SQL
-        $dispatcher->listen(QueryExecuted::class, function (QueryExecuted $queryExecuted) {
+        $dispatcher->listen(QueryExecuted::class, function (QueryExecuted $queryExecuted): void {
             if (
                 isset($this->queries[$queryExecuted->sql])
                 || $this->isExcludedSql($queryExecuted->sql)
@@ -220,7 +205,7 @@ class Bootstrapper
     protected function registerOutputMonitor(Container $app): void
     {
         // 注册输出监听
-        $app['events']->listen(CommandFinished::class, function (CommandFinished $commandFinished) use ($app) {
+        $app['events']->listen(CommandFinished::class, function (CommandFinished $commandFinished) use ($app): void {
             $app->make(OutputManager::class)->output($this->getScores(), $commandFinished);
         });
 

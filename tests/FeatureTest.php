@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of the guanguans/laravel-soar.
  *
@@ -10,9 +12,14 @@
 
 namespace Tests;
 
+/**
+ * @internal
+ *
+ * @small
+ */
 class FeatureTest extends TestCase
 {
-    public function testConsoleOutput()
+    public function testConsoleOutput(): void
     {
         $response = $this->get('/html');
 
@@ -24,7 +31,7 @@ class FeatureTest extends TestCase
         $response->assertSee('Backtraces');
     }
 
-    public function testJsonOutput()
+    public function testJsonOutput(): void
     {
         $response = $this->get('/json');
 
@@ -37,7 +44,7 @@ class FeatureTest extends TestCase
         $response->assertSee('Backtraces');
     }
 
-    public function testSoarBarOutput()
+    public function testSoarBarOutput(): void
     {
         $response = $this->get('/html');
 

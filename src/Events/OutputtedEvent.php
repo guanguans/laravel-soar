@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of the guanguans/laravel-soar.
  *
@@ -15,15 +17,9 @@ use Illuminate\Support\Collection;
 
 class OutputtedEvent
 {
-    /**
-     * @var \Guanguans\LaravelSoar\Contracts\Output
-     */
-    public $output;
+    public \Guanguans\LaravelSoar\Contracts\Output $output;
 
-    /**
-     * @var \Illuminate\Support\Collection
-     */
-    public $scores;
+    public \Illuminate\Support\Collection $scores;
 
     public $result;
 

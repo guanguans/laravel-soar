@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of the guanguans/laravel-soar.
  *
@@ -14,23 +16,20 @@ use Illuminate\Support\Collection;
 
 class DumpOutput extends Output
 {
-    /**
-     * @var bool
-     */
-    private $exit;
+    private bool $exit;
 
     public function __construct(bool $exit = false)
     {
         $this->exit = $exit;
     }
 
-    public function output(Collection $scores, $dispatcher)
+    public function output(Collection $scores, $dispatcher): void
     {
-        $scores->map(function ($score) {
+        $scores->map(static function ($score) {
             unset($score['Basic']);
 
             return to_pretty_json($score);
-        })->when($this->exit, function (Collection $scores) {
+        })->when($this->exit, static function (Collection $scores): void {
             $scores->dd();
         })->dump();
     }

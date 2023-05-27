@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of the guanguans/laravel-soar.
  *
@@ -15,25 +17,19 @@ use Illuminate\Support\Collection;
 
 class DebugBarOutput extends Output
 {
-    /**
-     * @var \DebugBar\DataCollector\MessagesCollector
-     */
-    protected static $collector;
+    protected static \DebugBar\DataCollector\MessagesCollector $collector;
 
-    /**
-     * @var bool
-     */
-    private static $outputted = false;
+    private static bool $outputted = false;
 
-    public function output(Collection $scores, $dispatcher)
+    public function output(Collection $scores, $dispatcher): void
     {
         if (! $this->shouldOutput($dispatcher)) {
             return;
         }
 
-        $scores->tap(function ($scores) use (&$collector) {
+        $scores->tap(function ($scores) use (&$collector): void {
             $collector = $this->createCollector();
-        })->each(function (array $score) use ($collector) {
+        })->each(static function (array $score) use ($collector): void {
             unset($score['Basic']);
             $collector->addMessage($score['Summary'].PHP_EOL.to_pretty_json($score), 'warning', false);
         });

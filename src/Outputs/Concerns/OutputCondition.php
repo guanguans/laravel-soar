@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of the guanguans/laravel-soar.
  *
@@ -50,17 +52,14 @@ trait OutputCondition
     {
         return $dispatcher instanceof JsonResponse
                && Str::contains($dispatcher->headers->get('Content-Type'), 'application/json')
-               && transform($dispatcher, function (JsonResponse $dispatcher) {
+               && transform($dispatcher, static function (JsonResponse $dispatcher) {
                    if ('' === ($content = $dispatcher->getContent())) {
                        return false;
                    }
 
                    json_decode($content);
-                   if (json_last_error()) {
-                       return false;
-                   }
 
-                   return true;
+                   return ! json_last_error();
                });
     }
 }

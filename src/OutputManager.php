@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of the guanguans/laravel-soar.
  *
@@ -22,7 +24,7 @@ class OutputManager extends Fluent implements Output
     /**
      * @param Output[] $outputs
      */
-    public function __construct($outputs = [])
+    public function __construct(array $outputs = [])
     {
         foreach ($outputs as $index => $output) {
             $this->offsetSet($index, $output);
@@ -38,9 +40,9 @@ class OutputManager extends Fluent implements Output
         $this->attributes[$offset] = $value;
     }
 
-    public function output(Collection $scores, $dispatcher)
+    public function output(Collection $scores, $dispatcher): void
     {
-        /* @var Output $output */
+        // @var Output $output
         foreach ($this->attributes as $output) {
             event(new OutputtingEvent($output, $scores, $dispatcher));
             $result = $output->output($scores, $dispatcher);

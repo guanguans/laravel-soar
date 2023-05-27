@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of the guanguans/laravel-soar.
  *
@@ -14,12 +16,14 @@ use Guanguans\LaravelSoar\Bootstrapper;
 use Illuminate\Support\Collection;
 use Nyholm\NSA;
 
+/**
+ * @internal
+ *
+ * @small
+ */
 class BootstrapperTest extends TestCase
 {
-    /**
-     * @var Bootstrapper
-     */
-    protected $bootstrapper;
+    protected Bootstrapper $bootstrapper;
 
     protected function setUp(): void
     {
@@ -27,24 +31,24 @@ class BootstrapperTest extends TestCase
         $this->bootstrapper = $this->app->make(Bootstrapper::class);
     }
 
-    public function testBoot()
+    public function testBoot(): void
     {
         $this->bootstrapper->boot($this->app);
         $this->assertTrue($this->bootstrapper->isBooted());
     }
 
-    public function testIsEnabled()
+    public function testIsEnabled(): void
     {
         $this->assertEquals($this->app['config']['soar.enabled'], $this->bootstrapper->isEnabled());
     }
 
-    public function testGetScores()
+    public function testGetScores(): void
     {
         $this->assertInstanceOf(Collection::class, $scores = $this->bootstrapper->getScores());
         $scores->dump();
         $this->assertTrue($scores->isNotEmpty());
 
-        $scores->each(function ($score) {
+        $scores->each(function ($score): void {
             $this->assertArrayHasKey('Summary', $score);
             $this->assertArrayHasKey('HeuristicRules', $score);
             $this->assertArrayHasKey('IndexRules', $score);
@@ -55,14 +59,14 @@ class BootstrapperTest extends TestCase
         });
     }
 
-    public function testTransformToHumanTime()
+    public function testTransformToHumanTime(): void
     {
         $humanTime = NSA::invokeMethod($this->bootstrapper, 'transformToHumanTime', 2345.43);
         $this->assertIsString($humanTime);
         $this->assertEquals('2.35s', $humanTime);
     }
 
-    public function testFormatExplain()
+    public function testFormatExplain(): void
     {
         $explain = [[
             'Item' => 'EXP.000',

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of the guanguans/laravel-soar.
  *
@@ -15,15 +17,9 @@ use Guanguans\LaravelSoar\OutputManager;
 
 class OutputSoarScoreMiddleware
 {
-    /**
-     * @var \Guanguans\LaravelSoar\Bootstrapper
-     */
-    protected $bootstrapper;
+    protected \Guanguans\LaravelSoar\Bootstrapper $bootstrapper;
 
-    /**
-     * @var \Guanguans\LaravelSoar\OutputManager
-     */
-    protected $outputManager;
+    protected \Guanguans\LaravelSoar\OutputManager $outputManager;
 
     public function __construct(Bootstrapper $bootstrapper, OutputManager $outputManager)
     {
@@ -33,10 +29,8 @@ class OutputSoarScoreMiddleware
 
     /**
      * Handle an incoming request.
-     *
-     * @param \Illuminate\Http\Request $request
      */
-    public function handle($request, \Closure $next)
+    public function handle(\Illuminate\Http\Request $request, \Closure $next)
     {
         /** @var \Illuminate\Http\Response $response */
         $response = $next($request);

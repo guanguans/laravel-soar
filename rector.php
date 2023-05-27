@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * This file is part of the guanguans/soar-php.
+ * This file is part of the guanguans/laravel-soar.
  *
  * (c) guanguans <ityaozm@gmail.com>
  *

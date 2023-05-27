@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of the guanguans/laravel-soar.
  *
@@ -15,15 +17,9 @@ use Illuminate\Support\Collection;
 
 class SoarBarOutput extends Output
 {
-    /**
-     * @var \Guanguans\LaravelSoar\SoarBar
-     */
-    private $debugBar;
+    private \Guanguans\LaravelSoar\SoarBar $debugBar;
 
-    /**
-     * @var \DebugBar\JavascriptRenderer
-     */
-    private $renderer;
+    private \DebugBar\JavascriptRenderer $renderer;
 
     public function __construct(SoarBar $debugBar)
     {
@@ -31,13 +27,13 @@ class SoarBarOutput extends Output
         $this->renderer = $debugBar->getJavascriptRenderer();
     }
 
-    public function output(Collection $scores, $dispatcher)
+    public function output(Collection $scores, $dispatcher): void
     {
         if (! $this->shouldOutput($dispatcher)) {
             return;
         }
 
-        $scores->each(function (array $score) {
+        $scores->each(function (array $score): void {
             unset($score['Basic']);
             // warning error info
             $this->debugBar['scores']->addMessage($score['Summary'].PHP_EOL.to_pretty_json($score), 'warning', false);

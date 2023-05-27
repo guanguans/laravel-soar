@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of the guanguans/laravel-soar.
  *
@@ -36,7 +38,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
         ];
     }
 
-    protected function getEnvironmentSetUp($app)
+    protected function getEnvironmentSetUp($app): void
     {
         $app['config']->set('soar', require __DIR__.'/../config/soar.php');
         $app['config']->set('soar.enabled', true);
@@ -62,9 +64,9 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
         $app['config']->set('app.key', 'base64:6Cu/ozj4gPtIjmXjr8EdVnGFNsdRqZfHfVjQkmTlg4Y=');
     }
 
-    protected function setUpDatabase()
+    protected function setUpDatabase(): void
     {
-        $this->app['db']->connection()->getSchemaBuilder()->create('users', function (Blueprint $table) {
+        $this->app['db']->connection()->getSchemaBuilder()->create('users', static function (Blueprint $table): void {
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('email')->unique();
@@ -77,7 +79,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
 
     protected function setUpApplicationRoutes(): void
     {
-        Route::get('/json', function () {
+        Route::get('/json', static function () {
             DB::select('create table "user" ("id" integer not null primary key autoincrement, "name" varchar not null, "email" varchar not null, "email_verifie_at" datetime, "password" varchar not null, "remember_token" varchar, "created_at" datetime, "updated_at" datetime)');
 
             User::query()->insert([
@@ -101,7 +103,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
             return response()->json('This is a json response.');
         });
 
-        Route::get('/html', function () {
+        Route::get('/html', static function () {
             DB::select('create table "user" ("id" integer not null primary key autoincrement, "name" varchar not null, "email" varchar not null, "email_verifie_at" datetime, "password" varchar not null, "remember_token" varchar, "created_at" datetime, "updated_at" datetime)');
 
             User::query()->insert([

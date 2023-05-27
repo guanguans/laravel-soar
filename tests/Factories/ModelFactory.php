@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of the guanguans/laravel-soar.
  *
@@ -13,8 +15,8 @@ namespace Tests\Factories;
 use Illuminate\Support\Str;
 use Tests\Models\User;
 
-/* @var \Illuminate\Database\Eloquent\Factory $factory */
-$factory->define(User::class, function ($faker) {
+// @var \Illuminate\Database\Eloquent\Factory $factory
+$factory->define(User::class, static function ($faker) {
     return [
         'name' => $faker->name,
         'email' => $faker->unique()->safeEmail,

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of the guanguans/laravel-soar.
  *
@@ -16,7 +18,7 @@ use Tests\Models\User;
 
 class TestSeeder extends Seeder
 {
-    public function run()
+    public function run(): void
     {
         factory(User::class, 5)->create();
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of the guanguans/laravel-soar.
  *
@@ -13,9 +15,14 @@ namespace Tests\Macros;
 use Tests\Models\User;
 use Tests\TestCase;
 
+/**
+ * @internal
+ *
+ * @small
+ */
 class QueryBuilderMacroTest extends TestCase
 {
-    public function testToRawSql()
+    public function testToRawSql(): void
     {
         $rawSql = User::query()->where('id', 1)->toRawSql();
         $this->assertEquals('select * from "users" where "id" = 1', $rawSql);

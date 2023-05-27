@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of the guanguans/laravel-soar.
  *
@@ -14,13 +16,13 @@ use Illuminate\Support\Collection;
 
 class ClockworkOutput extends Output
 {
-    public function output(Collection $scores, $dispatcher)
+    public function output(Collection $scores, $dispatcher): void
     {
-        if (! function_exists('clock')) {
+        if (! \function_exists('clock')) {
             return;
         }
 
-        $scores->each(function (array $score) {
+        $scores->each(static function (array $score): void {
             unset($score['Basic']);
             clock()->warning($score['Summary'], $score);
         });

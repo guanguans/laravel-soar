@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of the guanguans/laravel-soar.
  *
@@ -29,12 +31,9 @@ use Laravel\Lumen\Application as LumenApplication;
 
 class SoarServiceProvider extends ServiceProvider
 {
-    /**
-     * @var bool
-     */
-    protected $defer = false;
+    protected bool $defer = false;
 
-    public function register()
+    public function register(): void
     {
         $this->setupConfig();
         $this->registerMacros();
@@ -44,11 +43,21 @@ class SoarServiceProvider extends ServiceProvider
         $this->registerRoutes();
     }
 
-    public function boot()
+    public function boot(): void
     {
-        /* @var \Guanguans\LaravelSoar\Bootstrapper $bootstrapper */
+        // @var \Guanguans\LaravelSoar\Bootstrapper $bootstrapper
         $bootstrapper = $this->app->make(Bootstrapper::class);
         $bootstrapper->bootIf($bootstrapper->isEnabled(), $this->app);
+    }
+
+    public function provides()
+    {
+        return [
+            Soar::class, 'soar',
+            OutputManager::class, 'output_manager',
+            Bootstrapper::class,
+            SoarBar::class,
+        ];
     }
 
     protected function setupConfig(): void
@@ -59,9 +68,7 @@ class SoarServiceProvider extends ServiceProvider
             $this->publishes([$source => config_path('soar.php')], 'laravel-soar');
         } elseif ($this->app instanceof LumenApplication) {
             $this->app->configure('soar');
-            $this->app->bindIf(ConnectionInterface::class, function ($app) {
-                return $app['db']->connection();
-            });
+            $this->app->bindIf(ConnectionInterface::class, static fn ($app) => $app['db']->connection());
         }
 
         $this->mergeConfigFrom($source, 'soar');
@@ -90,19 +97,17 @@ class SoarServiceProvider extends ServiceProvider
 
     protected function registerSoar(): void
     {
-        $this->app->singleton(Soar::class, function ($app) {
-            return Soar::create(config('soar.options'), config('soar.path'));
-        });
+        $this->app->singleton(Soar::class, static fn ($app) => Soar::create(config('soar.options'), config('soar.path')));
 
         $this->app->alias(Soar::class, 'soar');
     }
 
     protected function registerOutputManager(): void
     {
-        $this->app->singleton(OutputManager::class, function (Container $app) {
+        $this->app->singleton(OutputManager::class, static function (Container $app) {
             $outputs = collect(config('soar.output'))
-                ->map(function ($parameters, $class) use ($app) {
-                    ! is_array($parameters) and [$parameters, $class] = [$class, $parameters];
+                ->map(static function ($parameters, $class) use ($app) {
+                    ! \is_array($parameters) and [$parameters, $class] = [$class, $parameters];
 
                     return $app->make($class, (array) $parameters);
                 })
@@ -118,15 +123,5 @@ class SoarServiceProvider extends ServiceProvider
     protected function registerRoutes(): void
     {
         $this->loadRoutesFrom(realpath(__DIR__.'/Http/routes.php'));
-    }
-
-    public function provides()
-    {
-        return [
-            Soar::class, 'soar',
-            OutputManager::class, 'output_manager',
-            Bootstrapper::class,
-            SoarBar::class,
-        ];
     }
 }

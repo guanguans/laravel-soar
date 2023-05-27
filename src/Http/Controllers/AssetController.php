@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of the guanguans/laravel-soar.
  *
@@ -20,10 +22,7 @@ use Illuminate\Http\Response;
  */
 class AssetController
 {
-    /**
-     * @var \DebugBar\JavascriptRenderer
-     */
-    private $renderer;
+    private \DebugBar\JavascriptRenderer $renderer;
 
     public function __construct(SoarBar $debugBar)
     {
@@ -81,7 +80,7 @@ class AssetController
     {
         $response->setSharedMaxAge(31536000);
         $response->setMaxAge(31536000);
-        $response->setExpires(new \DateTime('+1 year'));
+        $response->setExpires(new \DateTimeImmutable('+1 year'));
 
         return $response;
     }

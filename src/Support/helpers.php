@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of the guanguans/laravel-soar.
  *
@@ -15,7 +17,7 @@ if (! function_exists('soar')) {
     /**
      * @return \Guanguans\LaravelSoar\Soar
      */
-    function soar()
+    function soar(): Guanguans\LaravelSoar\Soar
     {
         return app('soar');
     }
@@ -23,17 +25,19 @@ if (! function_exists('soar')) {
 
 if (! function_exists('var_output')) {
     /**
-     * @return string|void|null
+     * @param mixed $expression
+     *
+     * @return null|string|void
      */
     function var_output($expression, bool $return = false)
     {
         $patterns = [
-            "/array \(\n\)/" => '[]',
-            "/array \(\n\s+\)/" => '[]',
-            "/array \(/" => '[',
-            "/^([ ]*)\)(,?)$/m" => '$1]$2',
-            "/=>[ ]?\n[ ]+\[/" => '=> [',
-            "/([ ]*)(\'[^\']+\') => ([\[\'])/" => '$1$2 => $3',
+            "/array \\(\n\\)/" => '[]',
+            "/array \\(\n\\s+\\)/" => '[]',
+            '/array \\(/' => '[',
+            '/^([ ]*)\\)(,?)$/m' => '$1]$2',
+            "/=>[ ]?\n[ ]+\\[/" => '=> [',
+            "/([ ]*)(\\'[^\\']+\\') => ([\\[\\'])/" => '$1$2 => $3',
         ];
 
         $export = var_export($expression, true);
@@ -48,12 +52,14 @@ if (! function_exists('var_output')) {
 
 if (! function_exists('array_reduces')) {
     /**
-     * @return mixed|null
+     * @param null|mixed $carry
+     *
+     * @return null|mixed
      */
     function array_reduces(array $array, callable $callback, $carry = null)
     {
         foreach ($array as $key => $value) {
-            $carry = call_user_func($callback, $carry, $value, $key);
+            $carry = $callback($carry, $value, $key);
         }
 
         return $carry;
@@ -85,7 +91,7 @@ if (! function_exists('normalize_sql')) {
 }
 
 if (! function_exists('is_lumen')) {
-    function is_lumen(Container $app = null): bool
+    function is_lumen(?Container $app = null): bool
     {
         $app = $app ?: app();
 

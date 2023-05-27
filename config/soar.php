@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of the guanguans/laravel-soar.
  *
@@ -55,9 +57,7 @@ return [
     |--------------------------------------------------------------------------
     */
     'options' => [
-        /*
-         * 测试环境配置
-         */
+        // 测试环境配置
         '-test-dsn' => [
             'host' => env('SOAR_TEST_DB_HOST', config('database.connections.mysql.host', 'you_host')),
             'port' => env('SOAR_TEST_DB_PORT', config('database.connections.mysql.port', 'you_port')),
@@ -67,9 +67,7 @@ return [
             'disable' => env('SOAR_TEST_DB_DISABLE', false),
         ],
 
-        /*
-         * 线上环境配置(线上数据库用户只需 select 权限)
-         */
+        // 线上环境配置(线上数据库用户只需 select 权限)
         '-online-dsn' => [
             'host' => env('SOAR_ONLINE_DB_HOST', config('database.connections.mysql.host', 'you_host')),
             'port' => env('SOAR_ONLINE_DB_PORT', config('database.connections.mysql.port', 'you_port')),
@@ -79,19 +77,13 @@ return [
             'disable' => env('SOAR_ONLINE_DB_DISABLE', true),
         ],
 
-        /*
-         * 日志输出文件
-         */
+        // 日志输出文件
         '-log-output' => env('SOAR_LOG_PATH', storage_path('logs/soar.log')),
 
-        /*
-         * 黑名单中的 SQL 将不会给评审意见。一行一条 SQL，可以是正则也可以是指纹，填写指纹时注意问号需要加反斜线转义。
-         */
+        // 黑名单中的 SQL 将不会给评审意见。一行一条 SQL，可以是正则也可以是指纹，填写指纹时注意问号需要加反斜线转义。
         '-blacklist' => env('SOAR_BLACKLIST_PATH', base_path('vendor/guanguans/soar-php/soar.blacklist.example')),
 
-        /*
-         * 忽略规则
-         */
+        // 忽略规则
         '-ignore-rules' => [],
 
         /*
@@ -111,19 +103,13 @@ return [
          */
         '-log-level' => 3,
 
-        /*
-         * 是否允许测试环境与线上环境配置相同
-         */
+        // 是否允许测试环境与线上环境配置相同
         '-allow-online-as-test' => true,
 
-        /*
-         * 是否清理测试时产生的临时文件
-         */
+        // 是否清理测试时产生的临时文件
         '-drop-test-temporary' => true,
 
-        /*
-         * 启发式算法相关配置
-         */
+        // 启发式算法相关配置
         '-max-join-table-count' => 5,
         '-max-group-by-cols-count' => 5,
         '-max-distinct-count' => 5,
@@ -132,9 +118,7 @@ return [
         '-spaghetti-query-length' => 2048,
         // '-allow-drop-index' => false,
 
-        /*
-         * EXPLAIN 相关配置
-         */
+        // EXPLAIN 相关配置
         '-explain-sql-report-type' => 'pretty',
         '-explain-type' => 'extended',
         '-explain-format' => 'traditional',
