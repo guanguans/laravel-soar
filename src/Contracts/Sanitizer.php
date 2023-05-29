@@ -10,10 +10,11 @@ declare(strict_types=1);
  * This source file is subject to the MIT license that is bundled.
  */
 
-namespace Guanguans\LaravelSoar\Exceptions;
+namespace Guanguans\LaravelSoar\Contracts;
 
-use Guanguans\LaravelSoar\Contracts\Throwable;
+use Illuminate\Support\Collection;
 
-class BootException extends \RuntimeException implements Throwable
+interface Sanitizer
 {
+    public function sanitize(Collection $collection): Collection;
 }

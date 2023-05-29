@@ -6,8 +6,8 @@
 
 [简体中文](README.md) | [ENGLISH](README-EN.md)
 
-[![Tests](https://github.com/guanguans/laravel-soar/workflows/Tests/badge.svg)](https://github.com/guanguans/laravel-soar/actions)
-[![Check & fix styling](https://github.com/guanguans/laravel-soar/workflows/Check%20&%20fix%20styling/badge.svg)](https://github.com/guanguans/laravel-soar/actions)
+[![tests](https://github.com/guanguans/laravel-soar/workflows/tests/badge.svg)](https://github.com/guanguans/laravel-soar/actions)
+[![check & fix styling](https://github.com/guanguans/laravel-soar/workflows/check%20&%20fix%20styling/badge.svg)](https://github.com/guanguans/laravel-soar/actions)
 [![codecov](https://codecov.io/gh/guanguans/laravel-soar/branch/master/graph/badge.svg?token=EWBG8GV4JD)](https://codecov.io/gh/guanguans/laravel-soar)
 [![Latest Stable Version](https://poser.pugx.org/guanguans/laravel-soar/v)](//packagist.org/packages/guanguans/laravel-soar)
 [![Total Downloads](https://poser.pugx.org/guanguans/laravel-soar/downloads)](//packagist.org/packages/guanguans/laravel-soar)
@@ -489,7 +489,6 @@ return [
 <summary><b>详情</b></summary>
 
 ```php
-soar();      // 获取 Soar 实例
 app('soar'); // 获取 Soar 实例
 
 /**
@@ -546,7 +545,7 @@ namespace Illuminate\Database\Eloquent {
      * @method void   echoSoarHtmlExplain()
      * @method void   exitSoarHtmlExplain()
      *
-     * @see \Guanguans\LaravelSoar\Support\Macros\QueryBuilderMacro
+     * @see \Guanguans\LaravelSoar\Macros\QueryBuilderMacro
      */
     class Builder
     {

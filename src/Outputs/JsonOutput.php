@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of the guanguans/laravel-soar.
  *
@@ -15,29 +17,22 @@ use Illuminate\Support\Collection;
 
 class JsonOutput extends Output
 {
-    /**
-     * @var string
-     */
-    protected $key;
+    protected string $key;
 
     public function __construct(string $key = 'soar_scores')
     {
         $this->key = $key;
     }
 
-    public function output(Collection $scores, $dispatcher)
+    public function output(Collection $scores, $dispatcher): void
     {
         if (! $this->isJsonResponse($dispatcher)) {
             return;
         }
 
-        $scores = $scores->map(function ($score) {
-            unset($score['Basic']);
+        $data = Arr::wrap($dispatcher->getData(true));
+        $data[$this->key] = $scores;
 
-            return $score;
-        });
-
-        $data = Arr::wrap($dispatcher->getData(true)) and $data[$this->key] = $scores;
         // Update the new content and reset the content length
         $dispatcher->setData($data);
         $dispatcher->headers->remove('Content-Length');

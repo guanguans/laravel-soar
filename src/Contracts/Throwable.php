@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of the guanguans/laravel-soar.
  *
@@ -8,8 +10,8 @@
  * This source file is subject to the MIT license that is bundled.
  */
 
-namespace Guanguans\LaravelSoar\Exceptions;
+namespace Guanguans\LaravelSoar\Contracts;
 
-class Exception extends \Exception
+interface Throwable extends \Throwable
 {
 }

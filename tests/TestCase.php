@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of the guanguans/laravel-soar.
  *
@@ -10,8 +12,15 @@
 
 namespace Tests;
 
+use Guanguans\LaravelSoar\Outputs\ClockworkOutput;
+use Guanguans\LaravelSoar\Outputs\ConsoleOutput;
+use Guanguans\LaravelSoar\Outputs\DebugBarOutput;
+use Guanguans\LaravelSoar\Outputs\JsonOutput;
+use Guanguans\LaravelSoar\Outputs\LogOutput;
+use Guanguans\LaravelSoar\Outputs\SoarBarOutput;
 use Guanguans\LaravelSoar\SoarServiceProvider;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
@@ -36,18 +45,18 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
         ];
     }
 
-    protected function getEnvironmentSetUp($app)
+    protected function getEnvironmentSetUp($app): void
     {
         $app['config']->set('soar', require __DIR__.'/../config/soar.php');
         $app['config']->set('soar.enabled', true);
         $app['config']->set('soar.output', [
-            \Guanguans\LaravelSoar\Outputs\ClockworkOutput::class,
-            \Guanguans\LaravelSoar\Outputs\ConsoleOutput::class,
+            ClockworkOutput::class,
+            ConsoleOutput::class,
             // \Guanguans\LaravelSoar\Outputs\DumpOutput::class => ['exit' => false],
-            \Guanguans\LaravelSoar\Outputs\JsonOutput::class,
-            \Guanguans\LaravelSoar\Outputs\LogOutput::class => ['channel' => 'stack'],
-            \Guanguans\LaravelSoar\Outputs\DebugBarOutput::class,
-            \Guanguans\LaravelSoar\Outputs\SoarBarOutput::class,
+            JsonOutput::class,
+            LogOutput::class => ['channel' => 'stack'],
+            DebugBarOutput::class,
+            SoarBarOutput::class,
         ]);
         $app['config']->set('soar.options.-test-dsn.disable', true);
         $app['config']->set('soar.options.-online-dsn.disable', true);
@@ -62,22 +71,22 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
         $app['config']->set('app.key', 'base64:6Cu/ozj4gPtIjmXjr8EdVnGFNsdRqZfHfVjQkmTlg4Y=');
     }
 
-    protected function setUpDatabase()
+    protected function setUpDatabase(): void
     {
-        $this->app['db']->connection()->getSchemaBuilder()->create('users', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
-            $table->timestamps();
+        $this->app['db']->connection()->getSchemaBuilder()->create('users', static function (Blueprint $blueprint): void {
+            $blueprint->bigIncrements('id');
+            $blueprint->string('name');
+            $blueprint->string('email')->unique();
+            $blueprint->timestamp('email_verified_at')->nullable();
+            $blueprint->string('password');
+            $blueprint->rememberToken();
+            $blueprint->timestamps();
         });
     }
 
     protected function setUpApplicationRoutes(): void
     {
-        Route::get('/json', function () {
+        Route::get('/json', static function (): JsonResponse {
             DB::select('create table "user" ("id" integer not null primary key autoincrement, "name" varchar not null, "email" varchar not null, "email_verifie_at" datetime, "password" varchar not null, "remember_token" varchar, "created_at" datetime, "updated_at" datetime)');
 
             User::query()->insert([
@@ -101,7 +110,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
             return response()->json('This is a json response.');
         });
 
-        Route::get('/html', function () {
+        Route::get('/html', static function () {
             DB::select('create table "user" ("id" integer not null primary key autoincrement, "name" varchar not null, "email" varchar not null, "email_verifie_at" datetime, "password" varchar not null, "remember_token" varchar, "created_at" datetime, "updated_at" datetime)');
 
             User::query()->insert([

@@ -1,38 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit backupGlobals="false"
-     backupStaticAttributes="false"
-     bootstrap="vendor/autoload.php"
-     colors="true"
-     convertErrorsToExceptions="true"
-     convertNoticesToExceptions="true"
-     convertWarningsToExceptions="true"
-     processIsolation="false"
-     stopOnFailure="false"
-     verbose="true"
+<phpunit
+  backupGlobals="false"
+  backupStaticAttributes="false"
+  bootstrap="vendor/autoload.php"
+  colors="true"
+  convertErrorsToExceptions="true"
+  convertNoticesToExceptions="true"
+  convertWarningsToExceptions="true"
+  processIsolation="false"
+  stopOnFailure="false"
+  verbose="true"
 >
-    <testsuites>
-        <testsuite name="Guanguans Test Suite">
-            <directory>tests/</directory>
-            <exclude>vendor/</exclude>
-        </testsuite>
-    </testsuites>
-    <filter>
-        <whitelist>
-            <directory suffix=".php">src/</directory>
-            <exclude>
-                <directory>src/Contracts/</directory>
-                <directory>src/Events/</directory>
-                <directory>src/Exceptions/</directory>
-                <directory>src/Facades/</directory>
-                <directory>src/Http/</directory>
-                <directory>src/Outputs/</directory>
-                <directory>src/Support/</directory>
-                <file>src/JavascriptRenderer.php</file>
-                <file>src/OutputManager.php</file>
-                <file>src/Soar.php</file>
-                <file>src/SoarBar.php</file>
-                <file>src/SoarServiceProvider.php</file>
-            </exclude>
-        </whitelist>
-    </filter>
+  <testsuites>
+    <testsuite name="Guanguans Test Suite">
+      <directory>tests/</directory>
+      <exclude>vendor/</exclude>
+    </testsuite>
+  </testsuites>
+  <filter>
+    <whitelist>
+      <directory suffix=".php">src/</directory>
+      <exclude>
+        <directory>src/Contracts/</directory>
+        <directory>src/Events/</directory>
+        <directory>src/Exceptions/</directory>
+        <directory>src/Facades/</directory>
+        <directory>src/Http/</directory>
+        <directory>src/Outputs/</directory>
+        <directory>src/Support/</directory>
+        <file>src/JavascriptRenderer.php</file>
+        <file>src/OutputManager.php</file>
+        <file>src/Soar.php</file>
+        <file>src/SoarBar.php</file>
+        <file>src/SoarServiceProvider.php</file>
+      </exclude>
+    </whitelist>
+  </filter>
 </phpunit>

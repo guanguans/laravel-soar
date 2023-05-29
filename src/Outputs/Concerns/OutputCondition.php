@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of the guanguans/laravel-soar.
  *
@@ -11,9 +13,9 @@
 namespace Guanguans\LaravelSoar\Outputs\Concerns;
 
 use Illuminate\Console\Events\CommandFinished;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Response;
 use Illuminate\Support\Str;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 trait OutputCondition
 {
@@ -50,13 +52,14 @@ trait OutputCondition
     {
         return $dispatcher instanceof JsonResponse
                && Str::contains($dispatcher->headers->get('Content-Type'), 'application/json')
-               && transform($dispatcher, function (JsonResponse $dispatcher) {
+               && transform($dispatcher, static function (JsonResponse $dispatcher): bool {
                    if ('' === ($content = $dispatcher->getContent())) {
                        return false;
                    }
 
-                   json_decode($content);
-                   if (json_last_error()) {
+                   try {
+                       json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                   } catch (\JsonException $jsonException) {
                        return false;
                    }
 

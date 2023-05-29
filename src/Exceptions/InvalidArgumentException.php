@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of the guanguans/laravel-soar.
  *
@@ -10,6 +12,8 @@
 
 namespace Guanguans\LaravelSoar\Exceptions;
 
-class InvalidArgumentException extends Exception
+use Guanguans\LaravelSoar\Contracts\Throwable;
+
+class InvalidArgumentException extends \InvalidArgumentException implements Throwable
 {
 }

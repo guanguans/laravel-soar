@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of the guanguans/laravel-soar.
  *
@@ -15,26 +17,19 @@ use Psr\Log\LoggerInterface;
 
 class LogOutput extends Output
 {
-    /**
-     * @var \Psr\Log\LoggerInterface
-     */
-    protected $logger;
+    protected LoggerInterface $logger;
 
-    /**
-     * @var string
-     */
-    protected $channel;
+    protected string $channel;
 
-    public function __construct(LoggerInterface $logger, $channel = 'daily')
+    public function __construct(LoggerInterface $logger, string $channel = 'daily')
     {
         $this->logger = $logger;
         $this->channel = $channel;
     }
 
-    public function output(Collection $scores, $event)
+    public function output(Collection $scores, $dispatcher): void
     {
-        $scores->each(function (array $score) {
-            unset($score['Basic']);
+        $scores->each(function (array $score): void {
             $this->logger->channel($this->channel)->warning($score['Summary'].PHP_EOL.to_pretty_json($score));
         });
     }

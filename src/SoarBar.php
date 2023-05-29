@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of the guanguans/laravel-soar.
  *
@@ -17,6 +19,9 @@ use DebugBar\DebugBar;
 
 class SoarBar extends DebugBar
 {
+    /**
+     * @throws \DebugBar\DebugBarException
+     */
     public function __construct()
     {
         $this->addCollector(new MessagesCollector('scores'))

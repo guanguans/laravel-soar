@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of the guanguans/laravel-soar.
  *
@@ -15,7 +17,7 @@ use Illuminate\Support\Collection;
 
 class NullOutput implements Output
 {
-    public function output(Collection $scores, $event)
+    public function output(Collection $scores, $dispatcher): void
     {
         // noop
     }

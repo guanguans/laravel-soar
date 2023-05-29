@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of the guanguans/laravel-soar.
  *
@@ -10,35 +12,32 @@
 
 namespace Guanguans\LaravelSoar\Outputs;
 
+use Barryvdh\Debugbar\LaravelDebugbar;
 use DebugBar\DataCollector\MessagesCollector;
 use Illuminate\Support\Collection;
 
 class DebugBarOutput extends Output
 {
-    /**
-     * @var \DebugBar\DataCollector\MessagesCollector
-     */
-    protected static $collector;
+    protected static ?MessagesCollector $collector = null;
 
-    /**
-     * @var bool
-     */
-    private static $outputted = false;
+    private static bool $outputted = false;
 
-    public function output(Collection $scores, $dispatcher)
+    public function output(Collection $scores, $dispatcher): void
     {
         if (! $this->shouldOutput($dispatcher)) {
             return;
         }
 
-        $scores->tap(function ($scores) use (&$collector) {
-            $collector = $this->createCollector();
-        })->each(function (array $score) use ($collector) {
-            unset($score['Basic']);
-            $collector->addMessage($score['Summary'].PHP_EOL.to_pretty_json($score), 'warning', false);
-        });
-
-        self::$outputted = true;
+        $scores
+            ->tap(function () use (&$collector): void {
+                $collector = $this->createCollector();
+            })
+            ->each(static function (array $score) use ($collector): void {
+                $collector->addMessage($score['Summary'].PHP_EOL.to_pretty_json($score), 'warning', false);
+            })
+            ->tap(static function (): void {
+                self::$outputted = true;
+            });
     }
 
     public static function isOutputted(): bool
@@ -49,17 +48,19 @@ class DebugBarOutput extends Output
     protected function shouldOutput($dispatcher): bool
     {
         return $this->isHtmlResponse($dispatcher)
-               && class_exists('\Barryvdh\Debugbar\LaravelDebugbar')
-               && app(\Barryvdh\Debugbar\LaravelDebugbar::class)->isEnabled();
+               && class_exists(LaravelDebugbar::class)
+               && app(LaravelDebugbar::class)->isEnabled();
     }
 
     protected function createCollector(): MessagesCollector
     {
-        self::$collector instanceof MessagesCollector
-        or self::$collector = new MessagesCollector('Soar Scores');
+        if (! self::$collector instanceof MessagesCollector) {
+            self::$collector = new MessagesCollector('Soar Scores');
+        }
 
-        app(\Barryvdh\Debugbar\LaravelDebugbar::class)->hasCollector(self::$collector->getName())
-        or app(\Barryvdh\Debugbar\LaravelDebugbar::class)->addCollector(self::$collector);
+        if (! app(LaravelDebugbar::class)->hasCollector(self::$collector->getName())) {
+            app(LaravelDebugbar::class)->addCollector(self::$collector);
+        }
 
         return self::$collector;
     }
