@@ -34,9 +34,10 @@ class DebugBarOutput extends Output
             })
             ->each(static function (array $score) use ($collector): void {
                 $collector->addMessage($score['Summary'].PHP_EOL.to_pretty_json($score), 'warning', false);
+            })
+            ->tap(static function (): void {
+                self::$outputted = true;
             });
-
-        self::$outputted = true;
     }
 
     public static function isOutputted(): bool
@@ -53,11 +54,13 @@ class DebugBarOutput extends Output
 
     protected function createCollector(): MessagesCollector
     {
-        self::$collector instanceof MessagesCollector
-        or self::$collector = new MessagesCollector('Soar Scores');
+        if (! self::$collector instanceof MessagesCollector) {
+            self::$collector = new MessagesCollector('Soar Scores');
+        }
 
-        app(LaravelDebugbar::class)->hasCollector(self::$collector->getName())
-        or app(LaravelDebugbar::class)->addCollector(self::$collector);
+        if (! app(LaravelDebugbar::class)->hasCollector(self::$collector->getName())) {
+            app(LaravelDebugbar::class)->addCollector(self::$collector);
+        }
 
         return self::$collector;
     }

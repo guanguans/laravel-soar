@@ -81,7 +81,7 @@ class Bootstrapper
                         ],
                         'HeuristicRules' => (array) $score['HeuristicRules'],
                         'IndexRules' => (array) $score['IndexRules'],
-                        'Explain' => $this->formatExplain($score['Explain']),
+                        'Explain' => $this->sanitizeExplain((array) $score['Explain']),
                         'Backtraces' => $query['backtraces'],
                     ];
                 })
@@ -107,30 +107,25 @@ class Bootstrapper
      */
     protected function matchQuery(Collection $queries, array $score): array
     {
-        $query = (array) $queries->first(static fn ($query): bool => $score['Sample'] === $query['sql']);
-
-        if ([] === $query) {
-            $query = $queries
-                ->map(static function (array $query) use ($score): array {
-                    $query['similarity'] = similar_text($score['Sample'], $query['sql']);
-
-                    return $query;
-                })
-                ->sortByDesc('similarity')
-                ->first();
+        $query = $queries->first(static fn ($query): bool => $score['Sample'] === $query['sql']);
+        if ($query) {
+            return $query;
         }
 
-        return $query;
+        return $queries
+            ->map(static function (array $query) use ($score): array {
+                $query['similarity'] = similar_text($score['Sample'], $query['sql']);
+
+                return $query;
+            })
+            ->sortByDesc('similarity')
+            ->first();
     }
 
-    protected function formatExplain(?array $explain): array
+    protected function sanitizeExplain(array $explain): array
     {
-        if (null === $explain) {
-            return [];
-        }
-
         return collect($explain)
-            ->map(static function (array $explain) {
+            ->map(static function (array $explain): array {
                 $explain['Content'] = collect(explode(PHP_EOL, $explain['Content']))->filter()->values()->all();
                 $explain['Case'] = collect(explode(PHP_EOL, $explain['Case']))->filter()->values()->all();
 

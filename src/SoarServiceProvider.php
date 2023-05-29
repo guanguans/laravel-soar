@@ -130,8 +130,9 @@ class SoarServiceProvider extends ServiceProvider
 
     protected function registerOutputManager(): void
     {
-        $this->app->singleton(OutputManager::class, static function (Container $container): OutputManager {
-            return collect(config('soar.output'))
+        $this->app->singleton(
+            OutputManager::class,
+            static fn (Container $container): OutputManager => collect(config('soar.output'))
                 ->map(static function ($parameters, $class) use ($container) {
                     if (! \is_array($parameters)) {
                         [$parameters, $class] = [$class, $parameters];
@@ -140,8 +141,8 @@ class SoarServiceProvider extends ServiceProvider
                     return $container->make($class, (array) $parameters);
                 })
                 ->values()
-                ->pipe(static fn (Collection $outputs): OutputManager => new OutputManager($outputs->all()));
-        });
+                ->pipe(static fn (Collection $collection): OutputManager => new OutputManager($collection->all()))
+        );
 
         $this->app->alias(OutputManager::class, $this->toAlias(OutputManager::class));
     }
@@ -157,10 +158,10 @@ class SoarServiceProvider extends ServiceProvider
     protected function toAlias(string $class, string $prefix = 'soar.'): string
     {
         $alias = Str::snake(class_basename($class), '.');
-        if (! Str::startsWith($alias, $prefix)) {
-            $alias = $prefix.$alias;
+        if (Str::startsWith($alias, $prefix)) {
+            return $alias;
         }
 
-        return $alias;
+        return $prefix.$alias;
     }
 }

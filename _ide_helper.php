@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of the guanguans/laravel-soar.
  *
@@ -9,10 +11,6 @@
  */
 
 namespace {
-    class DB extends \Illuminate\Support\Facades\DB
-    {
-    }
-
     class Soar extends \Guanguans\LaravelSoar\Facades\Soar
     {
     }
@@ -21,20 +19,17 @@ namespace {
 namespace Illuminate\Database\Query {
     /**
      * @method string toRawSql()
-     * @method void   dumpRawSql()
-     * @method void   ddRawSql()
-     * @method array  toSoarArrayScore()
-     * @method void   dumpSoarArrayScore()
-     * @method void   ddSoarArrayScore()
+     * @method void dumpRawSql()
+     * @method void ddRawSql()
+     * @method array toSoarArrayScore()
+     * @method void dumpSoarArrayScore()
+     * @method void ddSoarArrayScore()
      * @method string toSoarJsonScore()
-     * @method void   dumpSoarJsonScore()
-     * @method void   ddSoarJsonScore()
+     * @method void dumpSoarJsonScore()
+     * @method void ddSoarJsonScore()
      * @method string toSoarHtmlScore()
-     * @method void   echoSoarHtmlScore()
-     * @method void   exitSoarHtmlScore()
-     * @method string toSoarHtmlExplain()
-     * @method void   echoSoarHtmlExplain()
-     * @method void   exitSoarHtmlExplain()
+     * @method void echoSoarHtmlScore()
+     * @method void exitSoarHtmlScore()
      *
      * @see \Guanguans\LaravelSoar\Macros\QueryBuilderMacro
      * @see \Illuminate\Database\Query\Builder
@@ -47,20 +42,17 @@ namespace Illuminate\Database\Query {
 namespace Illuminate\Database\Eloquent {
     /**
      * @method string toRawSql()
-     * @method void   dumpRawSql()
-     * @method void   ddRawSql()
-     * @method array  toSoarArrayScore()
-     * @method void   dumpSoarArrayScore()
-     * @method void   ddSoarArrayScore()
+     * @method void dumpRawSql()
+     * @method void ddRawSql()
+     * @method array toSoarArrayScore()
+     * @method void dumpSoarArrayScore()
+     * @method void ddSoarArrayScore()
      * @method string toSoarJsonScore()
-     * @method void   dumpSoarJsonScore()
-     * @method void   ddSoarJsonScore()
+     * @method void dumpSoarJsonScore()
+     * @method void ddSoarJsonScore()
      * @method string toSoarHtmlScore()
-     * @method void   echoSoarHtmlScore()
-     * @method void   exitSoarHtmlScore()
-     * @method string toSoarHtmlExplain()
-     * @method void   echoSoarHtmlExplain()
-     * @method void   exitSoarHtmlExplain()
+     * @method void echoSoarHtmlScore()
+     * @method void exitSoarHtmlScore()
      *
      * @mixin \Illuminate\Database\Query\Builder
      *
@@ -75,20 +67,17 @@ namespace Illuminate\Database\Eloquent {
 namespace Illuminate\Database\Eloquent\Relations {
     /**
      * @method string toRawSql()
-     * @method void   dumpRawSql()
-     * @method void   ddRawSql()
-     * @method array  toSoarArrayScore()
-     * @method void   dumpSoarArrayScore()
-     * @method void   ddSoarArrayScore()
+     * @method void dumpRawSql()
+     * @method void ddRawSql()
+     * @method array toSoarArrayScore()
+     * @method void dumpSoarArrayScore()
+     * @method void ddSoarArrayScore()
      * @method string toSoarJsonScore()
-     * @method void   dumpSoarJsonScore()
-     * @method void   ddSoarJsonScore()
+     * @method void dumpSoarJsonScore()
+     * @method void ddSoarJsonScore()
      * @method string toSoarHtmlScore()
-     * @method void   echoSoarHtmlScore()
-     * @method void   exitSoarHtmlScore()
-     * @method string toSoarHtmlExplain()
-     * @method void   echoSoarHtmlExplain()
-     * @method void   exitSoarHtmlExplain()
+     * @method void echoSoarHtmlScore()
+     * @method void exitSoarHtmlScore()
      *
      * @mixin \Illuminate\Database\Eloquent\Builder
      *

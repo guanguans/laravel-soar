@@ -20,6 +20,7 @@ use Rector\CodeQuality\Rector\If_\ExplicitBoolCompareRector;
 use Rector\CodeQuality\Rector\LogicalAnd\LogicalToBooleanRector;
 use Rector\CodingStyle\Enum\PreferenceSelfThis;
 use Rector\CodingStyle\Rector\Class_\AddArrayDefaultToArrayPropertyRector;
+use Rector\CodingStyle\Rector\ClassConst\VarConstantCommentRector;
 use Rector\CodingStyle\Rector\ClassMethod\UnSpreadOperatorRector;
 use Rector\CodingStyle\Rector\Closure\StaticClosureRector;
 use Rector\CodingStyle\Rector\Encapsed\EncapsedStringsToSprintfRector;
@@ -103,13 +104,14 @@ return static function (RectorConfig $rectorConfig): void {
 
         ConsistentPregDelimiterRector::class,
         EncapsedStringsToSprintfRector::class,
-        InlineIfToExplicitIfRector::class,
+        // InlineIfToExplicitIfRector::class,
         LogicalToBooleanRector::class,
         ReturnBinaryAndToEarlyReturnRector::class,
         WrapEncapsedVariableInCurlyBracesRector::class,
+        VarConstantCommentRector::class,
 
         RemoveExtraParametersRector::class => [
-            __DIR__.'/src/Support/Macros/QueryBuilderMacro.php',
+            __DIR__.'/src/Macros/QueryBuilderMacro.php',
         ],
         ChangeOrIfReturnToEarlyReturnRector::class => [
             __DIR__.'/src/Bootstrapper.php',

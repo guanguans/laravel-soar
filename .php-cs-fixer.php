@@ -59,7 +59,7 @@ $finder = Finder::create()
     ->name('*.php')
     ->notName([
         '*.blade.php',
-        '_ide_helper.php',
+        // '_ide_helper.php',
     ])
     ->ignoreDotFiles(true)
     ->ignoreVCS(true);

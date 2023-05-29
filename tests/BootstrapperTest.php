@@ -76,7 +76,7 @@ class BootstrapperTest extends TestCase
             'Case' => '### Explain信息解读 #### SelectType信息解读 * **SIMPLE**: 简单SELECT(不使用UNION或子查询等). #### Type信息解读 * **ALL**: 最坏的情况, 从头到尾全表扫描. ',
             'Position' => 0,
         ]];
-        $formattedExplain = $this->bootstrapper->formatExplain($explain);
+        $formattedExplain = $this->bootstrapper->sanitizeExplain($explain);
         $this->assertIsArray($formattedExplain);
         $this->assertIsArray($formattedExplain['Content']);
         $this->assertIsArray($formattedExplain['Case']);
