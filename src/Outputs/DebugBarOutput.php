@@ -18,7 +18,7 @@ use Illuminate\Support\Collection;
 
 class DebugBarOutput extends Output
 {
-    protected static MessagesCollector $collector;
+    protected static ?MessagesCollector $collector = null;
 
     private static bool $outputted = false;
 

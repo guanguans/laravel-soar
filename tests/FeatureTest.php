@@ -12,47 +12,36 @@ declare(strict_types=1);
 
 namespace Tests;
 
-/**
- * @internal
- *
- * @small
- */
-class FeatureTest extends TestCase
-{
-    public function testConsoleOutput(): void
-    {
-        $response = $this->get('/html');
+it('console output', function (): void {
+    $response = $this->get('/html');
 
-        $response->assertSee('console.warn(');
-        $response->assertSee('Summary');
-        $response->assertSee('HeuristicRules');
-        $response->assertSee('IndexRules');
-        $response->assertSee('Explain');
-        $response->assertSee('Backtraces');
-    }
+    $response->assertSee('console.warn(');
+    $response->assertSee('Summary');
+    $response->assertSee('HeuristicRules');
+    $response->assertSee('IndexRules');
+    $response->assertSee('Explain');
+    $response->assertSee('Backtraces');
+});
 
-    public function testJsonOutput(): void
-    {
-        $response = $this->get('/json');
+it('json output', function (): void {
+    $response = $this->get('/json');
 
-        $this->assertJson($json = $response->getContent());
-        $response->assertSee('soar_scores');
-        $response->assertSee('Summary');
-        $response->assertSee('HeuristicRules');
-        $response->assertSee('IndexRules');
-        $response->assertSee('Explain');
-        $response->assertSee('Backtraces');
-    }
+    expect($json = $response->getContent())->toBeJson();
+    $response->assertSee('soar_scores');
+    $response->assertSee('Summary');
+    $response->assertSee('HeuristicRules');
+    $response->assertSee('IndexRules');
+    $response->assertSee('Explain');
+    $response->assertSee('Backtraces');
+});
 
-    public function testSoarBarOutput(): void
-    {
-        $response = $this->get('/html');
+it('soar bar output', function (): void {
+    $response = $this->get('/html');
 
-        $response->assertSee('background: #efefef url(data:image/svg+xml;base64,');
-        $response->assertSee('Summary');
-        $response->assertSee('HeuristicRules');
-        $response->assertSee('IndexRules');
-        $response->assertSee('Explain');
-        $response->assertSee('Backtraces');
-    }
-}
+    $response->assertSee('background: #efefef url(data:image/svg+xml;base64,');
+    $response->assertSee('Summary');
+    $response->assertSee('HeuristicRules');
+    $response->assertSee('IndexRules');
+    $response->assertSee('Explain');
+    $response->assertSee('Backtraces');
+});

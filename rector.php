@@ -47,6 +47,7 @@ use Rector\PHPUnit\Rector\MethodCall\RemoveExpectAnyFromMockRector;
 use Rector\PHPUnit\Set\PHPUnitLevelSetList;
 use Rector\PHPUnit\Set\PHPUnitSetList;
 use Rector\PSR4\Rector\FileWithoutNamespace\NormalizeNamespaceByPSR4ComposerAutoloadRector;
+use Rector\Renaming\Rector\FuncCall\RenameFunctionRector;
 use Rector\Set\ValueObject\LevelSetList;
 use Rector\Set\ValueObject\SetList;
 
@@ -80,7 +81,7 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->paths([
         // __DIR__.'/config',
         __DIR__.'/src',
-        // __DIR__.'/tests',
+        __DIR__.'/tests',
         // __DIR__.'/.php-cs-fixer.php',
         __DIR__.'/rector.php',
         __DIR__.'/examples/soar.options.example.php',
@@ -134,6 +135,10 @@ return static function (RectorConfig $rectorConfig): void {
         NormalizeNamespaceByPSR4ComposerAutoloadRector::class => [
             __DIR__.'/src/Support/helpers.php',
             __DIR__.'/src/Http/routes.php',
+            __DIR__.'/src/tests',
+        ],
+        StaticClosureRector::class => [
+            __DIR__.'/tests',
         ],
         // RemoveExpectAnyFromMockRector::class => [
         //     __DIR__.'/tests/Concerns/WithDumpableTest.php',
@@ -143,9 +148,6 @@ return static function (RectorConfig $rectorConfig): void {
         // ],
         // UnSpreadOperatorRector::class => [
         //     __DIR__.'/src/Concerns/WithDumpable.php',
-        // ],
-        // StaticClosureRector::class => [
-        //     __DIR__.'/tests/Concerns/WithRunableTest.php',
         // ],
 
         // paths
@@ -195,10 +197,11 @@ return static function (RectorConfig $rectorConfig): void {
         InlineConstructorDefaultToPropertyRector::class,
     ]);
 
-    $rectorConfig->ruleWithConfiguration(
-        PreferThisOrSelfMethodCallRector::class,
-        [
-            TestCase::class => PreferenceSelfThis::PREFER_THIS,
-        ]
-    );
+    $rectorConfig->ruleWithConfiguration(PreferThisOrSelfMethodCallRector::class, [
+        TestCase::class => PreferenceSelfThis::PREFER_THIS,
+    ]);
+
+    $rectorConfig->ruleWithConfiguration(RenameFunctionRector::class, [
+        'test' => 'it',
+    ]);
 };
