@@ -2,6 +2,14 @@
 
 All notable changes to `guanguans/laravel-soar` will be documented in this file.
 
+## v3.0.0-BETA1 - 2023-05-29
+
+### What's Changed
+
+- Wip 3.x by @guanguans in https://github.com/guanguans/laravel-soar/pull/35
+
+**Full Changelog**: https://github.com/guanguans/laravel-soar/compare/v2.3.1...v3.0.0-BETA1
+
 ## v2.3.1 - 2023-05-27
 
 **Full Changelog**: https://github.com/guanguans/laravel-soar/compare/v2.3.0...v2.3.1
@@ -128,7 +136,6 @@ All notable changes to `guanguans/laravel-soar` will be documented in this file.
 - Fix the directory separator of windows system configuration files.
 ## 1.1.1 - 2021-06-17
 - Remove service delay loading.
-
 ## 1.1.0 - 2021-06-14
 
 - Add database query builder soar methods.
