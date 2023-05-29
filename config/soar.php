@@ -35,9 +35,9 @@ return [
 
     // soar 评分输出器
     'output' => [
-        Guanguans\LaravelSoar\Outputs\ClockworkOutput::class,
-        Guanguans\LaravelSoar\Outputs\ConsoleOutput::class,
-        Guanguans\LaravelSoar\Outputs\DumpOutput::class => ['exit' => false],
+        // Guanguans\LaravelSoar\Outputs\ClockworkOutput::class,
+        // Guanguans\LaravelSoar\Outputs\ConsoleOutput::class,
+        // Guanguans\LaravelSoar\Outputs\DumpOutput::class => ['exit' => false],
         Guanguans\LaravelSoar\Outputs\JsonOutput::class,
         Guanguans\LaravelSoar\Outputs\LogOutput::class => ['channel' => 'daily'],
         Guanguans\LaravelSoar\Outputs\DebugBarOutput::class,
