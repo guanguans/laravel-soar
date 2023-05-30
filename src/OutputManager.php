@@ -16,7 +16,7 @@ use Guanguans\LaravelSoar\Contracts\Output;
 use Guanguans\LaravelSoar\Contracts\Sanitizer;
 use Guanguans\LaravelSoar\Events\OutputtedEvent;
 use Guanguans\LaravelSoar\Events\OutputtingEvent;
-use Guanguans\SoarPHP\Exceptions\InvalidArgumentException;
+use Guanguans\LaravelSoar\Exceptions\InvalidArgumentException;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Fluent;
 
@@ -45,7 +45,7 @@ class OutputManager extends Fluent implements Output
     public function offsetSet($offset, $value): void
     {
         if (! $value instanceof Output) {
-            throw new InvalidArgumentException(sprintf("The $value must be instance of %s", Output::class));
+            throw new InvalidArgumentException(sprintf('The value must be instance of %s', Output::class));
         }
 
         $this->attributes[$offset] = $value;

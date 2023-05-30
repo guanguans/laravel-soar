@@ -65,7 +65,7 @@ class Bootstrapper
                     return [
                         'Summary' => sprintf(
                             '[%s|%d分|%s|%s]',
-                            $star = score_to_star($score['Score']),
+                            $star = to_star($score['Score']),
                             $score['Score'],
                             $query['time'],
                             $query['sql']

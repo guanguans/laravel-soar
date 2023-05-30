@@ -44,6 +44,8 @@ class QueryBuilderMacro
     /**
      * @noinspection DebugFunctionUsageInspection
      * @noinspection ForgottenDebugOutputInspection
+     *
+     * @codeCoverageIgnore
      */
     public function ddRawSql(): callable
     {
@@ -71,6 +73,8 @@ class QueryBuilderMacro
     /**
      * @noinspection DebugFunctionUsageInspection
      * @noinspection ForgottenDebugOutputInspection
+     *
+     * @codeCoverageIgnore
      */
     public function ddSoarArrayScores(): callable
     {
@@ -102,6 +106,8 @@ class QueryBuilderMacro
     /**
      * @noinspection DebugFunctionUsageInspection
      * @noinspection ForgottenDebugOutputInspection
+     *
+     * @codeCoverageIgnore
      */
     public function ddSoarJsonScores(): callable
     {
@@ -122,6 +128,9 @@ class QueryBuilderMacro
         };
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function exitSoarHtmlScores(): callable
     {
         return function (): void {
