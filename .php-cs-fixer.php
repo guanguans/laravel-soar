@@ -13,7 +13,8 @@ declare(strict_types=1);
 use PhpCsFixer\Config;
 use PhpCsFixer\Finder;
 
-use function Webmozart\Assert\Tests\StaticAnalysis\false;
+// oskarstark/php-cs-fixer-ga
+require_once __DIR__.'/vendor/autoload.php';
 
 $header = <<<'HEADER'
     This file is part of the guanguans/laravel-soar.
