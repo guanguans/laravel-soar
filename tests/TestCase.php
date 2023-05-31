@@ -12,12 +12,8 @@ declare(strict_types=1);
 
 namespace Tests;
 
-use Guanguans\LaravelSoar\Outputs\ClockworkOutput;
-use Guanguans\LaravelSoar\Outputs\ConsoleOutput;
-use Guanguans\LaravelSoar\Outputs\DebugBarOutput;
-use Guanguans\LaravelSoar\Outputs\JsonOutput;
-use Guanguans\LaravelSoar\Outputs\LogOutput;
-use Guanguans\LaravelSoar\Outputs\SoarBarOutput;
+use Barryvdh\Debugbar\ServiceProvider;
+use Clockwork\Support\Laravel\ClockworkServiceProvider;
 use Guanguans\LaravelSoar\SoarServiceProvider;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Http\JsonResponse;
@@ -42,33 +38,38 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
     {
         return [
             SoarServiceProvider::class,
+            ClockworkServiceProvider::class,
+            ServiceProvider::class,
         ];
     }
 
+    /**
+     * {@inheritDoc}
+     */
     protected function getEnvironmentSetUp($app): void
     {
-        $app['config']->set('soar', require __DIR__.'/../config/soar.php');
-        $app['config']->set('soar.enabled', true);
-        $app['config']->set('soar.output', [
-            ClockworkOutput::class,
-            ConsoleOutput::class,
-            // \Guanguans\LaravelSoar\Outputs\DumpOutput::class => ['exit' => false],
-            JsonOutput::class,
-            LogOutput::class => ['channel' => 'stack'],
-            DebugBarOutput::class,
-            SoarBarOutput::class,
+        config()->set('soar', require __DIR__.'/../config/soar.php');
+        config()->set('soar.enabled', true);
+        config()->set('soar.output', [
+            \Guanguans\LaravelSoar\Outputs\ClockworkOutput::class,
+            \Guanguans\LaravelSoar\Outputs\ConsoleOutput::class,
+            \Guanguans\LaravelSoar\Outputs\DumpOutput::class => ['exit' => false],
+            \Guanguans\LaravelSoar\Outputs\JsonOutput::class,
+            \Guanguans\LaravelSoar\Outputs\LogOutput::class => ['channel' => 'daily'],
+            \Guanguans\LaravelSoar\Outputs\DebugBarOutput::class,
+            \Guanguans\LaravelSoar\Outputs\SoarBarOutput::class,
         ]);
-        $app['config']->set('soar.options.-test-dsn.disable', true);
-        $app['config']->set('soar.options.-online-dsn.disable', true);
+        config()->set('soar.options.-test-dsn.disable', true);
+        config()->set('soar.options.-online-dsn.disable', true);
 
-        $app['config']->set('database.default', 'sqlite');
-        $app['config']->set('database.connections.sqlite', [
+        config()->set('database.default', 'sqlite');
+        config()->set('database.connections.sqlite', [
             'driver' => 'sqlite',
             'database' => ':memory:',
             'prefix' => '',
         ]);
 
-        $app['config']->set('app.key', 'base64:6Cu/ozj4gPtIjmXjr8EdVnGFNsdRqZfHfVjQkmTlg4Y=');
+        config()->set('app.key', 'base64:6Cu/ozj4gPtIjmXjr8EdVnGFNsdRqZfHfVjQkmTlg4Y=');
     }
 
     protected function setUpDatabase(): void
@@ -84,7 +85,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
         });
     }
 
-    protected function setUpApplicationRoutes(): void
+    protected function defineRoutes($router): void
     {
         Route::get('/json', static function (): JsonResponse {
             DB::select('create table "user" ("id" integer not null primary key autoincrement, "name" varchar not null, "email" varchar not null, "email_verifie_at" datetime, "password" varchar not null, "remember_token" varchar, "created_at" datetime, "updated_at" datetime)');
