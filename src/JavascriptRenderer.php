@@ -140,9 +140,9 @@ class JavascriptRenderer extends \DebugBar\JavascriptRenderer
     /**
      * Return assets as a string.
      *
-     * @param null|string $type 'js' or 'css'
+     * @param string $type 'js' or 'css'
      */
-    public function dumpAssetsToString(?string $type): string
+    public function dumpAssetsToString(string $type): string
     {
         return array_reduce(
             $this->getAssets($type),
