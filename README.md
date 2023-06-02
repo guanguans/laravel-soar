@@ -32,7 +32,9 @@
 
 ## 环境要求
 
-* laravel >= 6.10
+* PHP >= 7.4
+* ext-json
+* ext-pdo
 
 ## 安装
 

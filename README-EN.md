@@ -30,7 +30,9 @@
 
 ## Requirement
 
-* laravel >= 5.5
+* PHP >= 7.4
+* ext-json
+* ext-pdo
 
 ## Installation
 
