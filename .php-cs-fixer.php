@@ -121,7 +121,7 @@ return (new Config())
         // class_notation
         'final_class' => false,
         'final_internal_class' => false,
-        'final_public_method_for_abstract_class' => true,
+        'final_public_method_for_abstract_class' => false,
         'ordered_class_elements' => [
             'order' => [
                 'use_trait',

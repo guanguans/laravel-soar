@@ -14,7 +14,7 @@ use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
 
 Route::group(
-    ['namespace' => 'Guanguans\LaravelSoar\Http\Controllers'] + config('soar.route', []),
+    ['namespace' => 'Guanguans\LaravelSoar\Http\Controllers'] + config('soar.route'),
     static function (Router $router): void {
         $router->get('assets/stylesheets', 'AssetController@css')->name('assets.css');
         $router->get('assets/javascript', 'AssetController@js')->name('assets.js');

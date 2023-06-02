@@ -16,5 +16,5 @@ use Illuminate\Support\Collection;
 
 interface Sanitizer
 {
-    public function sanitize(Collection $collection): Collection;
+    public function sanitize(Collection $scores): Collection;
 }

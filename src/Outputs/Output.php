@@ -23,8 +23,8 @@ abstract class Output implements \Guanguans\LaravelSoar\Contracts\Output, Saniti
 
     protected array $except = [];
 
-    final public function sanitize(Collection $collection): Collection
+    public function sanitize(Collection $scores): Collection
     {
-        return $collection->map(fn (array $score): array => Arr::except($score, $this->except));
+        return $scores->map(fn (array $score): array => Arr::except($score, $this->except));
     }
 }
