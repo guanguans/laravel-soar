@@ -80,6 +80,7 @@ return static function (RectorConfig $rectorConfig): void {
 
     $rectorConfig->paths([
         // __DIR__.'/config',
+        __DIR__.'/routes',
         __DIR__.'/src',
         __DIR__.'/tests',
         // __DIR__.'/.php-cs-fixer.php',
@@ -134,7 +135,7 @@ return static function (RectorConfig $rectorConfig): void {
         ],
         NormalizeNamespaceByPSR4ComposerAutoloadRector::class => [
             __DIR__.'/src/Support/helpers.php',
-            __DIR__.'/src/Http/routes.php',
+            __DIR__.'/routes',
             __DIR__.'/src/tests',
         ],
         StaticClosureRector::class => [

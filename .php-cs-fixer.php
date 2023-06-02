@@ -27,6 +27,7 @@ $header = <<<'HEADER'
 $finder = Finder::create()
     ->in([
         __DIR__.'/config',
+        __DIR__.'/routes',
         __DIR__.'/src',
         __DIR__.'/tests',
     ])

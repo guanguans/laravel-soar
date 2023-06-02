@@ -149,7 +149,7 @@ class SoarServiceProvider extends ServiceProvider
 
     protected function loadRoutes(): void
     {
-        $this->loadRoutesFrom(realpath(__DIR__.'/Http/routes.php'));
+        $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
     }
 
     /**
