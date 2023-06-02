@@ -14,14 +14,20 @@ namespace Tests;
 
 use Barryvdh\Debugbar\ServiceProvider;
 use Clockwork\Support\Laravel\ClockworkServiceProvider;
+use Guanguans\LaravelSoar\Outputs\ClockworkOutput;
+use Guanguans\LaravelSoar\Outputs\ConsoleOutput;
+use Guanguans\LaravelSoar\Outputs\DebugBarOutput;
+use Guanguans\LaravelSoar\Outputs\DumpOutput;
+use Guanguans\LaravelSoar\Outputs\JsonOutput;
+use Guanguans\LaravelSoar\Outputs\LogOutput;
+use Guanguans\LaravelSoar\Outputs\NullOutput;
+use Guanguans\LaravelSoar\Outputs\SoarBarOutput;
 use Guanguans\LaravelSoar\SoarServiceProvider;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 use Tests\Models\User;
-use Tests\Seeder\TestSeeder;
+use Tests\Seeder\UserSeeder;
 
 abstract class TestCase extends \Orchestra\Testbench\TestCase
 {
@@ -30,8 +36,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
         parent::setUp();
         $this->setUpDatabase();
         $this->withFactories(__DIR__.'/Factories/');
-        $this->seed(TestSeeder::class);
-        $this->setUpApplicationRoutes();
+        $this->seed(UserSeeder::class);
     }
 
     protected function getPackageProviders($app)
@@ -51,13 +56,14 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
         config()->set('soar', require __DIR__.'/../config/soar.php');
         config()->set('soar.enabled', true);
         config()->set('soar.outputs', [
-            \Guanguans\LaravelSoar\Outputs\ClockworkOutput::class,
-            \Guanguans\LaravelSoar\Outputs\ConsoleOutput::class,
-            \Guanguans\LaravelSoar\Outputs\DumpOutput::class => ['exit' => false],
-            \Guanguans\LaravelSoar\Outputs\JsonOutput::class,
-            \Guanguans\LaravelSoar\Outputs\LogOutput::class => ['channel' => 'daily'],
-            \Guanguans\LaravelSoar\Outputs\DebugBarOutput::class,
-            \Guanguans\LaravelSoar\Outputs\SoarBarOutput::class,
+            // \Guanguans\LaravelSoar\Outputs\ClockworkOutput::class,
+            // \Guanguans\LaravelSoar\Outputs\ConsoleOutput::class,
+            // \Guanguans\LaravelSoar\Outputs\DebugBarOutput::class,
+            // \Guanguans\LaravelSoar\Outputs\DumpOutput::class => ['exit' => false],
+            // \Guanguans\LaravelSoar\Outputs\JsonOutput::class,
+            // \Guanguans\LaravelSoar\Outputs\LogOutput::class => ['channel' => 'daily'],
+            // \Guanguans\LaravelSoar\Outputs\NullOutput::class,
+            // \Guanguans\LaravelSoar\Outputs\SoarBarOutput::class,
         ]);
         config()->set('soar.options.-test-dsn.disable', true);
         config()->set('soar.options.-online-dsn.disable', true);
@@ -87,52 +93,92 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
 
     protected function defineRoutes($router): void
     {
-        Route::get('/json', static function (): JsonResponse {
-            DB::select('create table "user" ("id" integer not null primary key autoincrement, "name" varchar not null, "email" varchar not null, "email_verifie_at" datetime, "password" varchar not null, "remember_token" varchar, "created_at" datetime, "updated_at" datetime)');
-
-            User::query()->insert([
+        $query = static function (): void {
+            User::query()->create([
                 'name' => 'soar',
                 'email' => 'soar@soar.com',
                 'email_verified_at' => now(),
                 'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
                 'remember_token' => Str::random(10),
             ]);
+        };
 
-            User::query()->where('id', 1)->delete();
-
-            User::query()->where('id', 2)->update([
-                'email_verified_at' => now(),
-                'password' => Str::random(32),
-                'remember_token' => Str::random(10),
-            ]);
-
-            User::query()->where('name', 'soar')->groupBy('name')->orderBy('name')->first();
-
-            return response()->json('This is a json response.');
+        Route::get('clockwork', static function () use ($query) {
+            return tap(response(ClockworkOutput::class), function () use ($query): void {
+                config()->set('soar.outputs', [
+                    \Guanguans\LaravelSoar\Outputs\ClockworkOutput::class,
+                    // \Guanguans\LaravelSoar\Outputs\ConsoleOutput::class,
+                    // \Guanguans\LaravelSoar\Outputs\DebugBarOutput::class,
+                    // \Guanguans\LaravelSoar\Outputs\DumpOutput::class => ['exit' => false],
+                    // \Guanguans\LaravelSoar\Outputs\JsonOutput::class,
+                    // \Guanguans\LaravelSoar\Outputs\LogOutput::class => ['channel' => 'daily'],
+                    // \Guanguans\LaravelSoar\Outputs\NullOutput::class,
+                    // \Guanguans\LaravelSoar\Outputs\SoarBarOutput::class,
+                ]);
+                $query();
+            });
         });
 
-        Route::get('/html', static function () {
-            DB::select('create table "user" ("id" integer not null primary key autoincrement, "name" varchar not null, "email" varchar not null, "email_verifie_at" datetime, "password" varchar not null, "remember_token" varchar, "created_at" datetime, "updated_at" datetime)');
+        Route::get('console', static function () use ($query) {
+            return tap(response(ConsoleOutput::class), function () use ($query): void {
+                config()->set('soar.outputs', [
+                    // \Guanguans\LaravelSoar\Outputs\ClockworkOutput::class,
+                    \Guanguans\LaravelSoar\Outputs\ConsoleOutput::class,
+                    // \Guanguans\LaravelSoar\Outputs\DebugBarOutput::class,
+                    // \Guanguans\LaravelSoar\Outputs\DumpOutput::class => ['exit' => false],
+                    // \Guanguans\LaravelSoar\Outputs\JsonOutput::class,
+                    // \Guanguans\LaravelSoar\Outputs\LogOutput::class => ['channel' => 'daily'],
+                    // \Guanguans\LaravelSoar\Outputs\NullOutput::class,
+                    // \Guanguans\LaravelSoar\Outputs\SoarBarOutput::class,
+                ]);
+                $query();
+            });
+        });
 
-            User::query()->insert([
-                'name' => 'soar',
-                'email' => 'soar@soar.com',
-                'email_verified_at' => now(),
-                'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-                'remember_token' => Str::random(10),
-            ]);
+        Route::get('debug-bar', static function () use ($query) {
+            return tap(response(DebugBarOutput::class), function () use ($query): void {
+                $query();
+            });
+        });
 
-            User::query()->where('id', 1)->delete();
+        Route::get('dump', static function () use ($query) {
+            return tap(response(DumpOutput::class), function () use ($query): void {
+                $query();
+            });
+        });
 
-            User::query()->where('id', 2)->update([
-                'email_verified_at' => now(),
-                'password' => Str::random(32),
-                'remember_token' => Str::random(10),
-            ]);
+        Route::get('json', static function () use ($query) {
+            return tap(response()->json(JsonOutput::class), function () use ($query): void {
+                config()->set('soar.outputs', [
+                    // \Guanguans\LaravelSoar\Outputs\ClockworkOutput::class,
+                    // \Guanguans\LaravelSoar\Outputs\ConsoleOutput::class,
+                    // \Guanguans\LaravelSoar\Outputs\DebugBarOutput::class,
+                    // \Guanguans\LaravelSoar\Outputs\DumpOutput::class => ['exit' => false],
+                    \Guanguans\LaravelSoar\Outputs\JsonOutput::class,
+                    // \Guanguans\LaravelSoar\Outputs\LogOutput::class => ['channel' => 'daily'],
+                    // \Guanguans\LaravelSoar\Outputs\NullOutput::class,
+                    // \Guanguans\LaravelSoar\Outputs\SoarBarOutput::class,
+                ]);
+                $query();
+            });
+        });
 
-            User::query()->where('name', 'soar')->groupBy('name')->orderBy('name')->first();
+        Route::get('log', static function () use ($query) {
+            return tap(response(LogOutput::class), function () use ($query): void {
+                $query();
+            });
+        });
 
-            return response('This is a html response.');
+        Route::get('null', static function () use ($query) {
+            return tap(response(NullOutput::class), function () use ($query): void {
+                $query();
+            });
+        });
+
+        Route::get('soar-bar', static function () use ($query) {
+            return tap(response(SoarBarOutput::class), function () use ($query): void {
+                $query();
+            });
         });
     }
 }

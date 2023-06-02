@@ -19,7 +19,7 @@ class ClockworkOutput extends Output
     public function output(Collection $scores, $dispatcher): void
     {
         if (! \function_exists('clock')) {
-            return;
+            return; // @codeCoverageIgnore
         }
 
         $scores->each(static function (array $score): void {
