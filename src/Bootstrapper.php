@@ -216,7 +216,7 @@ class Bootstrapper
 
         // 注册输出中间件
         is_lumen()
-            ? $app->middleware(OutputSoarScoreMiddleware::class)
+            ? $app->middleware(OutputSoarScoreMiddleware::class) // @codeCoverageIgnore
             : $app->make(Kernel::class)->pushMiddleware(OutputSoarScoreMiddleware::class);
     }
 }

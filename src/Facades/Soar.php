@@ -57,6 +57,6 @@ class Soar extends Facade
      */
     protected static function getFacadeAccessor()
     {
-        return 'soar';
+        return \Guanguans\LaravelSoar\Soar::class;
     }
 }

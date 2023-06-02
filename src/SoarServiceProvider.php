@@ -158,7 +158,7 @@ class SoarServiceProvider extends ServiceProvider
     protected function toAlias(string $class, string $prefix = 'soar.'): string
     {
         $alias = Str::snake(class_basename($class), '.');
-        if (Str::startsWith($alias, $prefix)) {
+        if (Str::startsWith($alias, Str::replaceLast('.', '', $prefix))) {
             return $alias;
         }
 

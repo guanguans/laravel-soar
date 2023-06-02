@@ -14,6 +14,6 @@ namespace Tests;
 
 use Guanguans\LaravelSoar\OutputManager;
 
-it('will throw `InvalidArgumentException` for `offsetSet`', function (): void {
+it('can throw `InvalidArgumentException` for `offsetSet`', function (): void {
     new OutputManager([new \stdClass()]);
 })->group(__DIR__, __FILE__)->throws(\Guanguans\LaravelSoar\Exceptions\InvalidArgumentException::class);

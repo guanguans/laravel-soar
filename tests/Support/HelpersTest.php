@@ -12,39 +12,44 @@ declare(strict_types=1);
 
 namespace Tests\Support;
 
-it('echo variable code string for `var_output`', function (): void {
+it('can echo variable for `var_output`', function (): void {
     expect(var_output([['arr']]))->toBeNull();
 })->group(__DIR__, __FILE__);
 
-it('return variable code string for `var_output`', function (): void {
+it('can return variable for `var_output`', function (): void {
     expect(var_output([['arr'], new \stdClass()], true))->toMatchTextSnapshot();
 })->group(__DIR__, __FILE__);
 
-it('reduce array with key for `array_reduce_with_key`', function (): void {
+it('can reduce array with key for `array_reduce_with_key`', function (): void {
     expect(
         array_reduce_with_key(
             ['a' => 1, 'b' => 2, 'c' => 3],
             static fn ($carry, $val, $key): string => $carry.$key,
             ''
         )
-    )
-        ->toBe('abc');
+    )->toBe('abc');
 })->group(__DIR__, __FILE__);
 
-it('return star for `to_star`', function (): void {
-    expect(to_star(100))->toBe('★★★★★')
-        ->and(to_star(50))->toBe('★★★☆☆')
-        ->and(to_star(0))->toBe('☆☆☆☆☆');
+it('can return star for `to_star`', function (): void {
+    expect([
+        to_star(0),
+        to_star(50),
+        to_star(100),
+    ])->sequence(
+        '☆☆☆☆☆',
+        '★★★☆☆',
+        '★★★★★'
+    );
 })->group(__DIR__, __FILE__);
 
-it('return pretty json for `to_pretty_json`', function (): void {
+it('can return pretty json for `to_pretty_json`', function (): void {
     expect(to_pretty_json([1, 2, 3]))->toMatchJsonSnapshot();
 })->group(__DIR__, __FILE__);
 
-it('check is lumen environment for `is_lumen`', function (): void {
+it('can check is lumen environment for `is_lumen`', function (): void {
     expect(is_lumen())->toBeFalse();
 })->group(__DIR__, __FILE__);
 
-it('base64 encode file for `base64_encode_file`', function (): void {
+it('can base64 encode file for `base64_encode_file`', function (): void {
     expect(base64_decode(base64_encode_file(__FILE__), true))->toBe(file_get_contents(__FILE__));
 })->group(__DIR__, __FILE__);

@@ -15,7 +15,7 @@ namespace Tests;
 use Guanguans\LaravelSoar\JavascriptRenderer;
 use Pest\Expectation;
 
-it('will dump `AssetsToString` for `dumpAssetsToString`', function (): void {
+it('can dump `AssetsToString` for `dumpAssetsToString`', function (): void {
     expect(['css', 'js'])
         ->each(
             fn (Expectation $item) => expect((fn () => $this->dumpAssetsToString($item->value))->call($this->app->make(JavascriptRenderer::class)))
@@ -23,7 +23,7 @@ it('will dump `AssetsToString` for `dumpAssetsToString`', function (): void {
         );
 })->group(__DIR__, __FILE__);
 
-it('will make `UriRelativeTo` for `makeUriRelativeTo`', function (): void {
+it('can make `UriRelativeTo` for `makeUriRelativeTo`', function (): void {
     expect(['css', 'js'])
         ->each(
             fn (Expectation $item) => expect(
