@@ -40,7 +40,7 @@ trait OutputCondition
      */
     protected function isHtmlResponse($dispatcher): bool
     {
-        return $dispatcher instanceof Response
+        return $this->isResponse($dispatcher)
                && Str::contains($dispatcher->headers->get('Content-Type'), 'text/html')
                && ! $this->isJsonResponse($dispatcher);
     }
