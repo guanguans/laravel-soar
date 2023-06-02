@@ -34,7 +34,7 @@ return [
     ],
 
     // soar 评分输出器
-    'output' => [
+    'outputs' => [
         // Guanguans\LaravelSoar\Outputs\ClockworkOutput::class,
         // Guanguans\LaravelSoar\Outputs\ConsoleOutput::class,
         // Guanguans\LaravelSoar\Outputs\DumpOutput::class => ['exit' => false],
@@ -42,6 +42,14 @@ return [
         Guanguans\LaravelSoar\Outputs\LogOutput::class => ['channel' => 'daily'],
         Guanguans\LaravelSoar\Outputs\DebugBarOutput::class,
         Guanguans\LaravelSoar\Outputs\SoarBarOutput::class,
+    ],
+
+    // soar bar 路由配置
+    'route' => [
+        'prefix' => env('SOAR_ROUTE_PREFIX', 'soar-bar'),
+        'domain' => env('SOAR_ROUTE_DOMAIN'),
+        'as' => env('SOAR_ROUTE_AS', 'soar.bar.'),
+        'middleware' => env('SOAR_ROUTE_MIDDLEWARE', []),
     ],
 
     // +----------------------------------------------------------------------+//

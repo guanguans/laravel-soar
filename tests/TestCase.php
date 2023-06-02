@@ -50,7 +50,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
     {
         config()->set('soar', require __DIR__.'/../config/soar.php');
         config()->set('soar.enabled', true);
-        config()->set('soar.output', [
+        config()->set('soar.outputs', [
             \Guanguans\LaravelSoar\Outputs\ClockworkOutput::class,
             \Guanguans\LaravelSoar\Outputs\ConsoleOutput::class,
             \Guanguans\LaravelSoar\Outputs\DumpOutput::class => ['exit' => false],
