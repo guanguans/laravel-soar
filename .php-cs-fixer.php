@@ -65,6 +65,10 @@ $finder = Finder::create()
     ->ignoreDotFiles(true)
     ->ignoreVCS(true);
 
+if (! is_dir($dir = __DIR__.'/build') && ! mkdir($dir) && ! is_dir($dir)) {
+    throw new RuntimeException(sprintf('Directory "%s" was not created', $dir));
+}
+
 return (new Config())
     ->setFinder($finder)
     ->setRiskyAllowed(true)
