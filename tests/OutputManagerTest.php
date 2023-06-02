@@ -12,8 +12,10 @@ declare(strict_types=1);
 
 namespace Tests;
 
+use Guanguans\LaravelSoar\Exceptions\InvalidArgumentException;
 use Guanguans\LaravelSoar\OutputManager;
 
 it('can throw `InvalidArgumentException` for `offsetSet`', function (): void {
+    /** @noinspection PhpParamsInspection */
     new OutputManager([new \stdClass()]);
-})->group(__DIR__, __FILE__)->throws(\Guanguans\LaravelSoar\Exceptions\InvalidArgumentException::class);
+})->group(__DIR__, __FILE__)->throws(InvalidArgumentException::class);

@@ -154,7 +154,7 @@
         "md-fix": "@md-lint --fix",
         "md-lint": "lint-md --config .lintmdrc ./*.md ./.github/ ./docs/",
         "pest": "@php ./vendor/bin/pest --cache-result-file=./build/phpunit/.phpunit.result.cache -v",
-        "pest-coverage": "@pest --coverage-html=./build/phpunit/ --coverage-clover=./build/phpunit/clover.xml --coverage",
+        "pest-coverage": "@pest --coverage-html=./build/phpunit/ --coverage-clover=./clover.xml --coverage",
         "phpstan": "@php ./vendor/bin/phpstan analyse --ansi -v",
         "phpstan-baseline": "@phpstan --generate-baseline --allow-empty-baseline",
         "post-merge": [

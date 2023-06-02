@@ -266,7 +266,9 @@ return (new Config())
             ],
         ],
         'phpdoc_to_comment' => [
-            'ignored_tags' => [],
+            'ignored_tags' => [
+                'noinspection',
+            ],
         ],
 
         // return_notation

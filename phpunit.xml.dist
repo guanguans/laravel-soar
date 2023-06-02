@@ -23,6 +23,7 @@
       <directory suffix=".php">src/</directory>
       <exclude>
         <!--<directory>src/Contracts/</directory>-->
+        <file>src/Support/QueryAnalyzer.php</file>
         <file>src/SoarServiceProvider.php</file>
       </exclude>
     </whitelist>
