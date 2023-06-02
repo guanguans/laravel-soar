@@ -18,7 +18,7 @@ Route::group(
     static function (Router $router): void {
         $router->get('assets/stylesheets', 'AssetController@css')->name('assets.css');
         $router->get('assets/javascript', 'AssetController@js')->name('assets.js');
-        $router->get('fonts/FontAwesome.otf', 'AssetController@js')->name('assets.font');
         $router->get('fonts/fontawesome-webfont.{suffix}', 'AssetController@font')->name('assets.webfont');
+        $router->get('fonts/FontAwesome.otf', 'AssetController@fontAwesome')->name('assets.font');
     }
 );

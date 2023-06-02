@@ -57,7 +57,8 @@ class AssetController
      */
     public function font(string $suffix): Response
     {
-        $file = base_path("vendor/maximebf/debugbar/src/DebugBar/Resources/vendor/font-awesome/fonts/fontawesome-webfont.$suffix");
+        // $file = base_path("vendor/maximebf/debugbar/src/DebugBar/Resources/vendor/font-awesome/fonts/fontawesome-webfont.$suffix");
+        $file = __DIR__."/../../../vendor/maximebf/debugbar/src/DebugBar/Resources/vendor/font-awesome/fonts/fontawesome-webfont.$suffix";
         $response = new Response(file_get_contents($file), 200, ['Content-Type' => 'text/font']);
 
         return $this->cacheResponse($response);
@@ -68,7 +69,8 @@ class AssetController
      */
     public function fontAwesome(): Response
     {
-        $file = base_path('vendor/maximebf/debugbar/src/DebugBar/Resources/vendor/font-awesome/fonts/FontAwesome.otf');
+        // $file = base_path('vendor/maximebf/debugbar/src/DebugBar/Resources/vendor/font-awesome/fonts/FontAwesome.otf');
+        $file = __DIR__.'/../../../vendor/maximebf/debugbar/src/DebugBar/Resources/vendor/font-awesome/fonts/FontAwesome.otf';
         $response = new Response(file_get_contents($file), 200, ['Content-Type' => 'text/font']);
 
         return $this->cacheResponse($response);

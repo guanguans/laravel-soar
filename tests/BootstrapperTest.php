@@ -20,15 +20,15 @@ beforeEach(function (): void {
 
 it('can return `bool` for `isBooted`', function (): void {
     expect($this->bootstrapper)->isBooted()->toBeBool();
-});
+})->group(__DIR__, __FILE__);
 
 it('can boot `soar score` for `boot`', function (): void {
     expect($this->bootstrapper)->boot()->toBeNull();
-});
+})->group(__DIR__, __FILE__);
 
 it('can get `scores` for `getScores`', function (): void {
     expect($this->bootstrapper->getScores())->toBeCollection();
-});
+})->group(__DIR__, __FILE__);
 
 it('can sanitize `explain` for `sanitizeExplain`', function (): void {
     $explain = [
@@ -44,7 +44,7 @@ it('can sanitize `explain` for `sanitizeExplain`', function (): void {
     $sanitizeExplain = fn (array $explain): array => $this->sanitizeExplain($explain);
 
     expect($sanitizeExplain->call($this->bootstrapper, $explain))->toBeArray();
-});
+})->group(__DIR__, __FILE__);
 
 it('can to `human time` for `toHumanTime`', function (): void {
     $toHumanTime = fn (float $milliseconds): string => $this->toHumanTime($milliseconds);
@@ -54,4 +54,4 @@ it('can to `human time` for `toHumanTime`', function (): void {
         $toHumanTime->call($this->bootstrapper, 100),
         $toHumanTime->call($this->bootstrapper, 10000),
     ])->each->toBeString()->toEndWith('s');
-});
+})->group(__DIR__, __FILE__);
