@@ -33,16 +33,22 @@ class JavascriptRenderer extends \DebugBar\JavascriptRenderer
      */
     public function renderHead(): string
     {
-        $cssRoute = route('soar.bar.assets.css', ['v' => $this->getModifiedTime('css')]);
-        $jsRoute = route('soar.bar.assets.js', ['v' => $this->getModifiedTime('js')]);
-
-        $cssRoute = preg_replace('/\Ahttps?:/', '', $cssRoute);
-        $jsRoute = preg_replace('/\Ahttps?:/', '', $jsRoute);
-
-        $html = "<link rel='stylesheet' type='text/css' property='stylesheet' href='$cssRoute'>";
+        $cssRoute = preg_replace(
+            '/\Ahttps?:/',
+            '',
+            route(config('soar.route.as').'assets.css', ['v' => $this->getModifiedTime('css')])
+        );
+        $jsRoute = preg_replace(
+            '/\Ahttps?:/',
+            '',
+            route(config('soar.route.as').'assets.js', ['v' => $this->getModifiedTime('js')])
+        );
         $base64Logo = base64_encode_file(__DIR__.'/../art/logo.svg');
-        $html .= // @lang CSS
-            <<<css
+
+        $html =
+            // @lang HTML
+            <<<HTML
+                <link rel="stylesheet" type="text/css" property="stylesheet" href="$cssRoute">
                 <style>
                     div.phpdebugbar-header, a.phpdebugbar-restore-btn {
                         background: #efefef url(data:image/svg+xml;base64,$base64Logo)  no-repeat 5px 4px / 20px 20px;
@@ -126,9 +132,8 @@ class JavascriptRenderer extends \DebugBar\JavascriptRenderer
                         text-align: center;
                     }
                 </style>
-                css;
-
-        $html .= "<script src='$jsRoute'></script>";
+                <script src="$jsRoute"></script>
+                HTML;
 
         if ($this->isJqueryNoConflictEnabled()) {
             $html .= "<script>jQuery.noConflict(true);</script>\n";
