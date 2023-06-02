@@ -65,15 +65,15 @@ $finder = Finder::create()
     ->ignoreDotFiles(true)
     ->ignoreVCS(true);
 
-if (! is_dir($dir = __DIR__.'/build') && ! mkdir($dir) && ! is_dir($dir)) {
-    throw new RuntimeException(sprintf('Directory "%s" was not created', $dir));
+if (! is_dir($dir = __DIR__.'/build/php-cs-fixer') && ! mkdir($dir, 0777, true) && ! is_dir($dir)) {
+    throw new RuntimeException("The directory [$dir] was not created.");
 }
 
 return (new Config())
     ->setFinder($finder)
     ->setRiskyAllowed(true)
     ->setUsingCache(false)
-    ->setCacheFile(__DIR__.'/build/.php-cs-fixer.cache')
+    ->setCacheFile(__DIR__.'/build/php-cs-fixer/.php-cs-fixer.cache')
     ->registerCustomFixers(new PhpCsFixerCustomFixers\Fixers())
     // ->registerCustomFixers(new PedroTroller\CS\Fixer\Fixers())
     ->setRules([
