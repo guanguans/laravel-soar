@@ -2,6 +2,14 @@
 
 All notable changes to `guanguans/laravel-soar` will be documented in this file.
 
+## v3.0.0-RC1 - 2023-06-03
+
+### What's Changed
+
+- Update rector/rector requirement from ^0.16 to ^0.17 by @dependabot in https://github.com/guanguans/laravel-soar/pull/36
+
+**Full Changelog**: https://github.com/guanguans/laravel-soar/compare/v3.0.0-BETA1...v3.0.0-RC1
+
 ## v3.0.0-BETA1 - 2023-05-29
 
 ### What's Changed
@@ -137,7 +145,6 @@ All notable changes to `guanguans/laravel-soar` will be documented in this file.
 ## 1.1.1 - 2021-06-17
 - Remove service delay loading.
 ## 1.1.0 - 2021-06-14
-
 - Add database query builder soar methods.
 - Add IDE helper file.
 - Add `guanguans/laravel-dump-sql` Dependent package.
