@@ -38,7 +38,7 @@ class DumpOutput extends Output
             })
             ->tap(function (): void {
                 if ($this->exit) {
-                    exit(1);
+                    exit(1); // @codeCoverageIgnore
                 }
             });
     }

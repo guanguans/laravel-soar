@@ -13,17 +13,17 @@ declare(strict_types=1);
 namespace Tests\Feature;
 
 it('can request `assets/javascript`', function (): void {
-    $this->get('soar-bar/assets/javascript')->assertSuccessful();
+    $this->get('soar-bar/assets/javascript')->assertOk();
 })->group(__DIR__, __FILE__);
 
 it('can request `assets/stylesheets`', function (): void {
-    $this->get('soar-bar/assets/stylesheets')->assertSuccessful();
+    $this->get('soar-bar/assets/stylesheets')->assertOk();
 })->group(__DIR__, __FILE__);
 
 it('can request `fonts/fontawesome-webfont.{suffix}`', function (): void {
-    $this->get('soar-bar/fonts/fontawesome-webfont.svg')->assertSuccessful();
+    $this->get('soar-bar/fonts/fontawesome-webfont.svg')->assertOk();
 })->group(__DIR__, __FILE__);
 
 it('can request `fonts/FontAwesome.otf`', function (): void {
-    $this->get('soar-bar/fonts/FontAwesome.otf')->assertSuccessful();
+    $this->get('soar-bar/fonts/FontAwesome.otf')->assertOk();
 })->group(__DIR__, __FILE__);

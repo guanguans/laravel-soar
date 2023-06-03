@@ -47,9 +47,8 @@ class DebugBarOutput extends Output
 
     protected function shouldOutput($dispatcher): bool
     {
-        return $this->isHtmlResponse($dispatcher)
-               && class_exists(LaravelDebugbar::class)
-               && app(LaravelDebugbar::class)->isEnabled();
+        // app(LaravelDebugbar::class)->isEnabled()
+        return $this->isHtmlResponse($dispatcher) && class_exists(LaravelDebugbar::class);
     }
 
     protected function createCollector(): MessagesCollector

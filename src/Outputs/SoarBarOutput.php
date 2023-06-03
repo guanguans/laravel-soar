@@ -46,7 +46,7 @@ class SoarBarOutput extends Output
         // Try to put the js/css directly before the </head>
         $pos = strripos($content, '</head>');
         if (false !== $pos) {
-            $content = substr($content, 0, $pos).$head.substr($content, $pos);
+            $content = substr($content, 0, $pos).$head.substr($content, $pos); // @codeCoverageIgnore
         } else {
             // Append the head before the widget
             $widget = $head.$widget;

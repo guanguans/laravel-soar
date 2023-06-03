@@ -14,6 +14,7 @@ namespace Tests;
 
 use Barryvdh\Debugbar\ServiceProvider;
 use Clockwork\Support\Laravel\ClockworkServiceProvider;
+use Guanguans\LaravelSoar\OutputManager;
 use Guanguans\LaravelSoar\Outputs\ClockworkOutput;
 use Guanguans\LaravelSoar\Outputs\ConsoleOutput;
 use Guanguans\LaravelSoar\Outputs\DebugBarOutput;
@@ -24,6 +25,7 @@ use Guanguans\LaravelSoar\Outputs\NullOutput;
 use Guanguans\LaravelSoar\Outputs\SoarBarOutput;
 use Guanguans\LaravelSoar\SoarServiceProvider;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 use Tests\Models\User;
@@ -56,14 +58,14 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
         config()->set('soar', require __DIR__.'/../config/soar.php');
         config()->set('soar.enabled', true);
         config()->set('soar.outputs', [
-            // \Guanguans\LaravelSoar\Outputs\ClockworkOutput::class,
-            // \Guanguans\LaravelSoar\Outputs\ConsoleOutput::class,
+            \Guanguans\LaravelSoar\Outputs\ClockworkOutput::class,
+            \Guanguans\LaravelSoar\Outputs\ConsoleOutput::class,
             // \Guanguans\LaravelSoar\Outputs\DebugBarOutput::class,
-            // \Guanguans\LaravelSoar\Outputs\DumpOutput::class => ['exit' => false],
-            // \Guanguans\LaravelSoar\Outputs\JsonOutput::class,
-            // \Guanguans\LaravelSoar\Outputs\LogOutput::class => ['channel' => 'daily'],
-            // \Guanguans\LaravelSoar\Outputs\NullOutput::class,
-            // \Guanguans\LaravelSoar\Outputs\SoarBarOutput::class,
+            \Guanguans\LaravelSoar\Outputs\DumpOutput::class => ['exit' => false],
+            \Guanguans\LaravelSoar\Outputs\JsonOutput::class,
+            \Guanguans\LaravelSoar\Outputs\LogOutput::class => ['channel' => 'daily'],
+            \Guanguans\LaravelSoar\Outputs\NullOutput::class,
+            \Guanguans\LaravelSoar\Outputs\SoarBarOutput::class,
         ]);
         config()->set('soar.options.-test-dsn.disable', true);
         config()->set('soar.options.-online-dsn.disable', true);
@@ -91,6 +93,12 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
         });
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @noinspection PhpUndefinedMethodInspection
+     * @noinspection PhpUndefinedFieldInspection
+     */
     protected function defineRoutes($router): void
     {
         $query = static function (): void {
@@ -103,80 +111,127 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
             ]);
         };
 
-        Route::get('clockwork', static function () use ($query) {
+        Artisan::command('outputs', function () use ($query): void {
+            $this->laravel->extend(OutputManager::class, function (OutputManager $outputManager): OutputManager {
+                $outputManager[] = $this->laravel->make(ClockworkOutput::class);
+                $outputManager[] = $this->laravel->make(ConsoleOutput::class);
+                $outputManager[] = $this->laravel->make(DebugBarOutput::class);
+                $outputManager[] = $this->laravel->make(DumpOutput::class);
+                $outputManager[] = $this->laravel->make(JsonOutput::class);
+                $outputManager[] = $this->laravel->make(LogOutput::class);
+                $outputManager[] = $this->laravel->make(NullOutput::class);
+                $outputManager[] = $this->laravel->make(SoarBarOutput::class);
+
+                return $outputManager;
+            });
+            $query();
+
+            $this->info(OutputManager::class);
+        });
+
+        Route::get('outputs', function () use ($query) {
+            return tap(response(OutputManager::class), function () use ($query): void {
+                $this->app->extend(OutputManager::class, function (OutputManager $outputManager): OutputManager {
+                    $outputManager[] = $this->app->make(ClockworkOutput::class);
+                    $outputManager[] = $this->app->make(ConsoleOutput::class);
+                    $outputManager[] = $this->app->make(DebugBarOutput::class);
+                    $outputManager[] = $this->app->make(DumpOutput::class);
+                    $outputManager[] = $this->app->make(JsonOutput::class);
+                    $outputManager[] = $this->app->make(LogOutput::class);
+                    $outputManager[] = $this->app->make(NullOutput::class);
+                    $outputManager[] = $this->app->make(SoarBarOutput::class);
+
+                    return $outputManager;
+                });
+                $query();
+            });
+        });
+
+        Route::get('clockwork', function () use ($query) {
             return tap(response(ClockworkOutput::class), function () use ($query): void {
-                config()->set('soar.outputs', [
-                    \Guanguans\LaravelSoar\Outputs\ClockworkOutput::class,
-                    // \Guanguans\LaravelSoar\Outputs\ConsoleOutput::class,
-                    // \Guanguans\LaravelSoar\Outputs\DebugBarOutput::class,
-                    // \Guanguans\LaravelSoar\Outputs\DumpOutput::class => ['exit' => false],
-                    // \Guanguans\LaravelSoar\Outputs\JsonOutput::class,
-                    // \Guanguans\LaravelSoar\Outputs\LogOutput::class => ['channel' => 'daily'],
-                    // \Guanguans\LaravelSoar\Outputs\NullOutput::class,
-                    // \Guanguans\LaravelSoar\Outputs\SoarBarOutput::class,
-                ]);
+                $this->app->extend(OutputManager::class, function (OutputManager $outputManager): OutputManager {
+                    $outputManager[] = $this->app->make(ClockworkOutput::class);
+
+                    return $outputManager;
+                });
                 $query();
             });
         });
 
-        Route::get('console', static function () use ($query) {
+        Route::get('console', function () use ($query) {
             return tap(response(ConsoleOutput::class), function () use ($query): void {
-                config()->set('soar.outputs', [
-                    // \Guanguans\LaravelSoar\Outputs\ClockworkOutput::class,
-                    \Guanguans\LaravelSoar\Outputs\ConsoleOutput::class,
-                    // \Guanguans\LaravelSoar\Outputs\DebugBarOutput::class,
-                    // \Guanguans\LaravelSoar\Outputs\DumpOutput::class => ['exit' => false],
-                    // \Guanguans\LaravelSoar\Outputs\JsonOutput::class,
-                    // \Guanguans\LaravelSoar\Outputs\LogOutput::class => ['channel' => 'daily'],
-                    // \Guanguans\LaravelSoar\Outputs\NullOutput::class,
-                    // \Guanguans\LaravelSoar\Outputs\SoarBarOutput::class,
-                ]);
+                $this->app->extend(OutputManager::class, function (OutputManager $outputManager): OutputManager {
+                    $outputManager[] = $this->app->make(ConsoleOutput::class);
+
+                    return $outputManager;
+                });
                 $query();
             });
         });
 
-        Route::get('debug-bar', static function () use ($query) {
+        Route::get('debug-bar', function () use ($query) {
             return tap(response(DebugBarOutput::class), function () use ($query): void {
+                $this->app->extend(OutputManager::class, function (OutputManager $outputManager): OutputManager {
+                    $outputManager[] = $this->app->make(DebugBarOutput::class);
+
+                    return $outputManager;
+                });
                 $query();
             });
         });
 
-        Route::get('dump', static function () use ($query) {
+        Route::get('dump', function () use ($query) {
             return tap(response(DumpOutput::class), function () use ($query): void {
+                $this->app->extend(OutputManager::class, function (OutputManager $outputManager): OutputManager {
+                    $outputManager[] = $this->app->make(DumpOutput::class);
+
+                    return $outputManager;
+                });
                 $query();
             });
         });
 
-        Route::get('json', static function () use ($query) {
+        Route::get('json', function () use ($query) {
             return tap(response()->json(JsonOutput::class), function () use ($query): void {
-                config()->set('soar.outputs', [
-                    // \Guanguans\LaravelSoar\Outputs\ClockworkOutput::class,
-                    // \Guanguans\LaravelSoar\Outputs\ConsoleOutput::class,
-                    // \Guanguans\LaravelSoar\Outputs\DebugBarOutput::class,
-                    // \Guanguans\LaravelSoar\Outputs\DumpOutput::class => ['exit' => false],
-                    \Guanguans\LaravelSoar\Outputs\JsonOutput::class,
-                    // \Guanguans\LaravelSoar\Outputs\LogOutput::class => ['channel' => 'daily'],
-                    // \Guanguans\LaravelSoar\Outputs\NullOutput::class,
-                    // \Guanguans\LaravelSoar\Outputs\SoarBarOutput::class,
-                ]);
+                $this->app->extend(OutputManager::class, function (OutputManager $outputManager): OutputManager {
+                    $outputManager[] = $this->app->make(JsonOutput::class);
+                    $outputManager[] = $this->app->make(DebugBarOutput::class);
+
+                    return $outputManager;
+                });
                 $query();
             });
         });
 
-        Route::get('log', static function () use ($query) {
+        Route::get('log', function () use ($query) {
             return tap(response(LogOutput::class), function () use ($query): void {
+                $this->app->extend(OutputManager::class, function (OutputManager $outputManager): OutputManager {
+                    $outputManager[] = $this->app->make(LogOutput::class);
+
+                    return $outputManager;
+                });
                 $query();
             });
         });
 
-        Route::get('null', static function () use ($query) {
+        Route::get('null', function () use ($query) {
             return tap(response(NullOutput::class), function () use ($query): void {
+                $this->app->extend(OutputManager::class, function (OutputManager $outputManager): OutputManager {
+                    $outputManager[] = $this->app->make(NullOutput::class);
+
+                    return $outputManager;
+                });
                 $query();
             });
         });
 
-        Route::get('soar-bar', static function () use ($query) {
+        Route::get('soar-bar', function () use ($query) {
             return tap(response(SoarBarOutput::class), function () use ($query): void {
+                $this->app->extend(OutputManager::class, function (OutputManager $outputManager): OutputManager {
+                    $outputManager[] = $this->app->make(SoarBarOutput::class);
+
+                    return $outputManager;
+                });
                 $query();
             });
         });
