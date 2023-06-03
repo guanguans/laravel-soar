@@ -495,28 +495,37 @@ app('soar'); // 获取 Soar 实例
 
 /**
  * Soar 门面.
+ * 
+ * @method static \self create(array $options = [], null|string $soarPath = null)
+ * @method static string help()
+ * @method static string version()
+ * @method static \self clone()
+ * @method static array arrayScores(array|string $sqls, int $depth = 512, int $options = 0)
+ * @method static string jsonScores(array|string $sqls)
+ * @method static string htmlScores(array|string $sqls)
+ * @method static string markdownScores(array|string $sqls)
+ * @method static string scores(array|string $sqls)
+ * @method static \self addOptions(array $options)
+ * @method static \self addOption(string $key, void $value)
+ * @method static \self removeOptions(array $keys)
+ * @method static \self removeOption(string $key)
+ * @method static \self onlyOptions(array $keys = ['-test-dsn','-online-dsn'])
+ * @method static \self onlyOption(string $key)
+ * @method static \self setOptions(array $options)
+ * @method static \self setOption(string $key, void $value)
+ * @method static \self mergeOptions(array $options)
+ * @method static \self mergeOption(string $key, void $value)
+ * @method static array getOptions()
+ * @method static void getOption(string $key, void $default = null)
+ * @method static string getSerializedNormalizedOptions()
+ * @method static array getNormalizedOptions()
+ * @method static string getSoarPath()
+ * @method static \self setSoarPath(string $soarPath)
+ * @method static void dd(void ...$args)
+ * @method static \self dump(void ...$args)
+ * @method static string run(array|string $withOptions = [], null|callable $processTapper = null, null|callable $callback = null)
+ * @method static \Guanguans\LaravelSoar\Soar|\Illuminate\Support\HigherOrderTapProxy tap(null|callable $callback = null)
  *
- * @method static string score(string $sql)            // SQL 评分
- * @method static array arrayScore(string $sql)        // SQL 数组格式评分
- * @method static string jsonScore(string $sql)        // SQL json 格式评分
- * @method static string htmlScore(string $sql)        // SQL html 格式评分
- * @method static string mdScore(string $sql)          // SQL markdown 格式评分
- * @method static string explain(string $sql)          // explain 解读信息
- * @method static string mdExplain(string $sql)        // markdown 格式 explain 解读信息
- * @method static string htmlExplain(string $sql)      // html 格式 explain 解读信息
- * @method static null|string syntaxCheck(string $sql) // 语法检查
- * @method static string fingerPrint(string $sql)      // SQL 指纹
- * @method static string pretty(string $sql)           // 格式化 SQL
- * @method static string md2html(string $sql)          // markdown 转 html
- * @method static string help()                        // Soar 帮助
- * @method static null|string exec(string $command)    // 执行任意 Soar 命令
- * @method static string getSoarPath()                 // 获取 Soar 路径
- * @method static array getOptions()                   // 获取 Soar 配置选项
- * @method static Soar setSoarPath(string $soarPath)   // 设置 Soar 路径
- * @method static Soar setOption(string $key, $value)  // 设置 Soar 配置选项
- * @method static Soar setOptions(array $options)      // 批量设置 Soar 配置选项
- *
- * @see \Guanguans\SoarPHP\Soar
  * @see \Guanguans\LaravelSoar\Soar
  */
 class Soar{}
@@ -532,22 +541,22 @@ class Soar{}
 namespace Illuminate\Database\Eloquent {
     /**
      * @method string toRawSql()
-     * @method void   dumpRawSql()
-     * @method void   ddRawSql()
-     * @method array  toSoarArrayScore()
-     * @method void   dumpSoarArrayScore()
-     * @method void   ddSoarArrayScore()
-     * @method string toSoarJsonScore()
-     * @method void   dumpSoarJsonScore()
-     * @method void   ddSoarJsonScore()
-     * @method string toSoarHtmlScore()
-     * @method void   echoSoarHtmlScore()
-     * @method void   exitSoarHtmlScore()
-     * @method string toSoarHtmlExplain()
-     * @method void   echoSoarHtmlExplain()
-     * @method void   exitSoarHtmlExplain()
+     * @method void dumpRawSql()
+     * @method void ddRawSql()
+     * @method array toSoarArrayScores()
+     * @method void dumpSoarArrayScores()
+     * @method void ddSoarArrayScores()
+     * @method string toSoarJsonScores()
+     * @method void dumpSoarJsonScores()
+     * @method void ddSoarJsonScores()
+     * @method string toSoarHtmlScores()
+     * @method void echoSoarHtmlScores()
+     * @method void exitSoarHtmlScores()
+     *
+     * @mixin \Illuminate\Database\Query\Builder
      *
      * @see \Guanguans\LaravelSoar\Macros\QueryBuilderMacro
+     * @see \Illuminate\Database\Eloquent\Builder
      */
     class Builder
     {
