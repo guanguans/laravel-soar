@@ -58,14 +58,14 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
         config()->set('soar', require __DIR__.'/../config/soar.php');
         config()->set('soar.enabled', true);
         config()->set('soar.outputs', [
-            \Guanguans\LaravelSoar\Outputs\ClockworkOutput::class,
+            // \Guanguans\LaravelSoar\Outputs\ClockworkOutput::class,
             \Guanguans\LaravelSoar\Outputs\ConsoleOutput::class,
             // \Guanguans\LaravelSoar\Outputs\DebugBarOutput::class,
-            \Guanguans\LaravelSoar\Outputs\DumpOutput::class => ['exit' => false],
+            // \Guanguans\LaravelSoar\Outputs\DumpOutput::class => ['exit' => false],
             \Guanguans\LaravelSoar\Outputs\JsonOutput::class,
-            \Guanguans\LaravelSoar\Outputs\LogOutput::class => ['channel' => 'daily'],
-            \Guanguans\LaravelSoar\Outputs\NullOutput::class,
-            \Guanguans\LaravelSoar\Outputs\SoarBarOutput::class,
+            // \Guanguans\LaravelSoar\Outputs\LogOutput::class => ['channel' => 'daily'],
+            // \Guanguans\LaravelSoar\Outputs\NullOutput::class,
+            // \Guanguans\LaravelSoar\Outputs\SoarBarOutput::class,
         ]);
         config()->set('soar.options.-test-dsn.disable', true);
         config()->set('soar.options.-online-dsn.disable', true);

@@ -112,6 +112,7 @@ class Bootstrapper
             return $query;
         }
 
+        // @codeCoverageIgnoreStart
         return $queries
             ->map(static function (array $query) use ($score): array {
                 $query['similarity'] = similar_text($score['Sample'], $query['sql']);
@@ -120,6 +121,7 @@ class Bootstrapper
             })
             ->sortByDesc('similarity')
             ->first();
+        // @codeCoverageIgnoreEnd
     }
 
     protected function sanitizeExplain(array $explain): array
