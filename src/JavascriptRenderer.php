@@ -36,12 +36,12 @@ class JavascriptRenderer extends \DebugBar\JavascriptRenderer
         $cssRoute = preg_replace(
             '/\Ahttps?:/',
             '',
-            route(config('soar.route.as').'assets.css', ['v' => $this->getModifiedTime('css')])
+            route(config('soar.route.as', 'soar.bar.').'assets.css', ['v' => $this->getModifiedTime('css')])
         );
         $jsRoute = preg_replace(
             '/\Ahttps?:/',
             '',
-            route(config('soar.route.as').'assets.js', ['v' => $this->getModifiedTime('js')])
+            route(config('soar.route.as', 'soar.bar.').'assets.js', ['v' => $this->getModifiedTime('js')])
         );
         $base64Logo = base64_encode_file(__DIR__.'/../art/logo.svg');
 

@@ -35,13 +35,27 @@ use Laravel\Lumen\Application as LumenApplication;
 
 class SoarServiceProvider extends ServiceProvider
 {
+    public array $singletons = [
+        Bootstrapper::class => Bootstrapper::class,
+        QueryBuilderMacro::class => QueryBuilderMacro::class,
+        SoarBar::class => SoarBar::class,
+
+        ClockworkOutput::class => ClockworkOutput::class,
+        ConsoleOutput::class => ConsoleOutput::class,
+        DebugBarOutput::class => DebugBarOutput::class,
+        DumpOutput::class => DumpOutput::class,
+        JsonOutput::class => JsonOutput::class,
+        LogOutput::class => LogOutput::class,
+        NullOutput::class => NullOutput::class,
+        SoarBarOutput::class => SoarBarOutput::class,
+    ];
+
     protected $defer = false;
 
     public function register(): void
     {
         $this->setupConfig();
         $this->registerMacros();
-        $this->registerSingletons();
         $this->registerSoar();
         $this->registerOutputManager();
         $this->loadRoutes();
@@ -94,28 +108,6 @@ class SoarServiceProvider extends ServiceProvider
         EloquentBuilder::mixin($queryBuilderMacro);
         QueryBuilder::mixin($queryBuilderMacro);
         RelationBuilder::mixin($queryBuilderMacro);
-    }
-
-    protected function registerSingletons(): void
-    {
-        foreach (
-            [
-                Bootstrapper::class,
-                QueryBuilderMacro::class,
-                SoarBar::class,
-
-                ClockworkOutput::class,
-                ConsoleOutput::class,
-                DebugBarOutput::class,
-                DumpOutput::class,
-                JsonOutput::class,
-                LogOutput::class,
-                NullOutput::class,
-                SoarBarOutput::class,
-            ] as $class
-        ) {
-            $this->app->singleton($class);
-        }
     }
 
     protected function registerSoar(): void

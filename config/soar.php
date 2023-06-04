@@ -44,14 +44,6 @@ return [
         Guanguans\LaravelSoar\Outputs\SoarBarOutput::class,
     ],
 
-    // soar bar 路由配置
-    'route' => [
-        'prefix' => env('SOAR_ROUTE_PREFIX', 'soar-bar'),
-        'domain' => env('SOAR_ROUTE_DOMAIN'),
-        'as' => env('SOAR_ROUTE_AS', 'soar.bar.'),
-        'middleware' => env('SOAR_ROUTE_MIDDLEWARE', []),
-    ],
-
     // +----------------------------------------------------------------------+//
     // |              请参考 @see https://github.com/XiaoMi/soar               |//
     // +----------------------------------------------------------------------+//

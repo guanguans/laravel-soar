@@ -34,10 +34,11 @@ class SoarBarOutput extends Output
             return;
         }
 
-        $scores->each(function (array $score): void {
-            // warning error info
-            $this->soarBar['scores']->addMessage($score['Summary'].PHP_EOL.to_pretty_json($score), 'warning', false);
-        });
+        $scores->each(fn (array $score) => $this->soarBar['scores']->addMessage(
+            $score['Summary'].PHP_EOL.to_pretty_json($score),
+            'warning',
+            false
+        ));
 
         $content = $dispatcher->getContent();
         $head = $this->javascriptRenderer->renderHead();

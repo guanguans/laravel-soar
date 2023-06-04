@@ -29,15 +29,12 @@ class DebugBarOutput extends Output
         }
 
         $scores
-            ->tap(function () use (&$collector): void {
-                $collector = $this->createCollector();
-            })
-            ->each(static function (array $score) use ($collector): void {
-                $collector->addMessage($score['Summary'].PHP_EOL.to_pretty_json($score), 'warning', false);
-            })
-            ->tap(static function (): void {
-                self::$outputted = true;
-            });
+            ->each(fn (array $score) => $this->createCollector()->addMessage(
+                $score['Summary'].PHP_EOL.to_pretty_json($score),
+                'warning',
+                false
+            ))
+            ->tap(static fn () => self::$outputted = true);
     }
 
     public static function isOutputted(): bool

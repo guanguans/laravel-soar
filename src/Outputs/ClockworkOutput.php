@@ -22,8 +22,6 @@ class ClockworkOutput extends Output
             return; // @codeCoverageIgnore
         }
 
-        $scores->each(static function (array $score): void {
-            clock()->warning($score['Summary'], $score);
-        });
+        $scores->each(static fn (array $score) => clock()->warning($score['Summary'], $score));
     }
 }
