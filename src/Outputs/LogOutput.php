@@ -12,22 +12,24 @@ declare(strict_types=1);
 
 namespace Guanguans\LaravelSoar\Outputs;
 
+use Illuminate\Log\LogManager;
 use Illuminate\Support\Collection;
-use Psr\Log\LoggerInterface;
 
 class LogOutput extends Output
 {
-    protected LoggerInterface $logger;
+    protected LogManager $logger;
 
     protected string $channel;
 
-    public function __construct(LoggerInterface $logger, string $channel = 'daily')
+    public function __construct(LogManager $logger, string $channel = 'daily')
     {
         $this->logger = $logger;
         $this->channel = $channel;
     }
 
     /**
+     * {@inheritDoc}
+     *
      * @throws \JsonException
      */
     public function output(Collection $scores, $dispatcher): void

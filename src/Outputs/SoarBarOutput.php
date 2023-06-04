@@ -29,6 +29,8 @@ class SoarBarOutput extends Output
     }
 
     /**
+     * {@inheritDoc}
+     *
      * @throws \JsonException
      */
     public function output(Collection $scores, $dispatcher): void

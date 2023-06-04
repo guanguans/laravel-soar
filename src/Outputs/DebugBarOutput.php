@@ -23,7 +23,7 @@ class DebugBarOutput extends Output
     private static bool $outputted = false;
 
     /**
-     * @param mixed $dispatcher
+     * {@inheritDoc}
      *
      * @throws \JsonException
      */

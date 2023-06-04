@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <psalm
-  errorLevel="4"
+  errorLevel="5"
   findUnusedVariablesAndParams="true"
   findUnusedBaselineEntry="true"
   findUnusedCode="true"
@@ -11,6 +11,8 @@
   errorBaseline="psalm-baseline.xml"
 >
   <projectFiles>
+    <directory name="config"/>
+    <directory name="routes"/>
     <directory name="src"/>
     <ignoreFiles allowMissingFiles="true">
       <directory name="vendor"/>
@@ -20,12 +22,18 @@
 
   <issueHandlers>
     <PropertyNotSetInConstructor errorLevel="info"/>
-    <!--<UndefinedDocblockClass>
+    <PossiblyUnusedMethod>
       <errorLevel type="suppress">
-        <directory name="src/Concerns"/>
-        <file name="src/Soar.php"/>
+        <directory name="src/Macros"/>
+        <file name="src/Macros/QueryBuilderMacro.php"/>
       </errorLevel>
-    </UndefinedDocblockClass>-->
+    </PossiblyUnusedMethod>
+    <InvalidArgument>
+      <errorLevel type="suppress">
+        <directory name="src/Macros"/>
+        <file name="src/Macros/QueryBuilderMacro.php"/>
+      </errorLevel>
+    </InvalidArgument>
   </issueHandlers>
   <plugins>
     <!--<pluginClass class="Psalm\LaravelPlugin\Plugin"/>-->

@@ -1,2 +1,138 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="4.30.0@d0bc6e25d89f649e4f36a534f330f8bb4643dd69"/>
+<files psalm-version="5.12.0@f90118cdeacd0088e7215e64c0c99ceca819e176">
+  <file src="src/Bootstrapper.php">
+    <PossiblyUnusedMethod>
+      <code>__construct</code>
+      <code>boot</code>
+      <code>isBooted</code>
+    </PossiblyUnusedMethod>
+    <UndefinedInterfaceMethod>
+      <code>$app</code>
+      <code><![CDATA[$this->container]]></code>
+      <code>middleware</code>
+    </UndefinedInterfaceMethod>
+  </file>
+  <file src="src/Events/OutputtedEvent.php">
+    <PossiblyUnusedProperty>
+      <code>$output</code>
+      <code>$result</code>
+      <code>$scores</code>
+    </PossiblyUnusedProperty>
+  </file>
+  <file src="src/Events/OutputtingEvent.php">
+    <PossiblyUnusedProperty>
+      <code>$dispatcher</code>
+      <code>$output</code>
+      <code>$scores</code>
+    </PossiblyUnusedProperty>
+  </file>
+  <file src="src/Facades/Soar.php">
+    <UnusedClass>
+      <code>Soar</code>
+    </UnusedClass>
+  </file>
+  <file src="src/Http/Controllers/AssetController.php">
+    <UnusedClass>
+      <code>AssetController</code>
+    </UnusedClass>
+    <UndefinedMethod>
+      <code>dumpAssetsToString</code>
+      <code>dumpAssetsToString</code>
+    </UndefinedMethod>
+  </file>
+  <file src="src/Http/Middleware/OutputSoarScoreMiddleware.php">
+    <PossiblyUnusedMethod>
+      <code>__construct</code>
+      <code>handle</code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="src/JavascriptRenderer.php">
+    <PossiblyUnusedMethod>
+      <code>dumpAssetsToString</code>
+    </PossiblyUnusedMethod>
+    <UnusedVariable>
+      <code>$contents</code>
+    </UnusedVariable>
+    <InvalidReturnType>
+      <code>makeUriRelativeTo</code>
+    </InvalidReturnType>
+    <InvalidReturnStatement>
+      <code>$uri</code>
+      <code>$uris</code>
+    </InvalidReturnStatement>
+  </file>
+  <file src="src/Outputs/ClockworkOutput.php">
+    <UndefinedFunction>
+      <code>clock()</code>
+    </UndefinedFunction>
+  </file>
+  <file src="src/Outputs/Concerns/OutputCondition.php">
+    <PossiblyUnusedMethod>
+      <code>isCommandFinished</code>
+    </PossiblyUnusedMethod>
+    <UndefinedPropertyFetch>
+      <code><![CDATA[$dispatcher->headers]]></code>
+    </UndefinedPropertyFetch>
+    <UnusedFunctionCall>
+      <code>json_decode</code>
+    </UnusedFunctionCall>
+  </file>
+  <file src="src/Outputs/ConsoleOutput.php">
+    <UndefinedPropertyFetch>
+      <code><![CDATA[$dispatcher->headers]]></code>
+    </UndefinedPropertyFetch>
+  </file>
+  <file src="src/Outputs/DumpOutput.php">
+    <PossiblyUnusedMethod>
+      <code>__construct</code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="src/Outputs/JsonOutput.php">
+    <PossiblyUnusedMethod>
+      <code>__construct</code>
+    </PossiblyUnusedMethod>
+    <UndefinedMethod>
+      <code>getData</code>
+      <code>setData</code>
+    </UndefinedMethod>
+    <UndefinedPropertyFetch>
+      <code><![CDATA[$dispatcher->headers]]></code>
+    </UndefinedPropertyFetch>
+  </file>
+  <file src="src/Outputs/LogOutput.php">
+    <PossiblyUnusedMethod>
+      <code>__construct</code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="src/Outputs/SoarBarOutput.php">
+    <PossiblyUnusedMethod>
+      <code>__construct</code>
+    </PossiblyUnusedMethod>
+    <UndefinedPropertyFetch>
+      <code><![CDATA[$dispatcher->headers]]></code>
+    </UndefinedPropertyFetch>
+  </file>
+  <file src="src/SoarBar.php">
+    <PossiblyUnusedMethod>
+      <code>__construct</code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="src/SoarServiceProvider.php">
+    <UnusedClass>
+      <code>SoarServiceProvider</code>
+    </UnusedClass>
+    <UndefinedClass>
+      <code>LumenApplication</code>
+    </UndefinedClass>
+  </file>
+  <file src="src/Support/QueryAnalyzer.php">
+    <UnusedClass>
+      <code>QueryAnalyzer</code>
+    </UnusedClass>
+  </file>
+  <file src="src/Support/helpers.php">
+    <UndefinedClass>
+      <code>LumenApplication</code>
+    </UndefinedClass>
+  </file>
+</files>
