@@ -42,6 +42,7 @@ $finder = Finder::create()
         __FILE__,
         // __DIR__.'/bin/facades.php',
         __DIR__.'/.phpstorm.meta.php',
+        __DIR__.'/_ide_helper.php',
         __DIR__.'/composer-unused.php',
         __DIR__.'/doctum.php',
         __DIR__.'/rector.php',
