@@ -39,7 +39,7 @@ class DebugBarOutput extends Output
                 'warning',
                 false
             ))
-            ->tap(static fn () => self::$outputted = true);
+            ->tap(static fn (): bool => self::$outputted = true);
     }
 
     public static function isOutputted(): bool

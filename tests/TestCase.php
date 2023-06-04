@@ -58,14 +58,14 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
         config()->set('soar', require __DIR__.'/../config/soar.php');
         config()->set('soar.enabled', true);
         config()->set('soar.outputs', [
-            \Guanguans\LaravelSoar\Outputs\ClockworkOutput::class,
-            \Guanguans\LaravelSoar\Outputs\ConsoleOutput::class,
+            ClockworkOutput::class,
+            ConsoleOutput::class,
             // \Guanguans\LaravelSoar\Outputs\DebugBarOutput::class,
             // \Guanguans\LaravelSoar\Outputs\DumpOutput::class => ['exit' => false],
-            \Guanguans\LaravelSoar\Outputs\JsonOutput::class,
-            \Guanguans\LaravelSoar\Outputs\LogOutput::class => ['channel' => 'daily'],
-            \Guanguans\LaravelSoar\Outputs\NullOutput::class,
-            \Guanguans\LaravelSoar\Outputs\SoarBarOutput::class,
+            JsonOutput::class,
+            LogOutput::class => ['channel' => 'daily'],
+            NullOutput::class,
+            SoarBarOutput::class,
         ]);
         config()->set('soar.options.-test-dsn.disable', true);
         config()->set('soar.options.-online-dsn.disable', true);
@@ -129,111 +129,93 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
             $this->info(OutputManager::class);
         });
 
-        Route::get('outputs', function () use ($query) {
-            return tap(response(OutputManager::class), function () use ($query): void {
-                $this->app->extend(OutputManager::class, function (OutputManager $outputManager): OutputManager {
-                    $outputManager[] = $this->app->make(ClockworkOutput::class);
-                    $outputManager[] = $this->app->make(ConsoleOutput::class);
-                    $outputManager[] = $this->app->make(DebugBarOutput::class);
-                    $outputManager[] = $this->app->make(DumpOutput::class);
-                    $outputManager[] = $this->app->make(JsonOutput::class);
-                    $outputManager[] = $this->app->make(LogOutput::class);
-                    $outputManager[] = $this->app->make(NullOutput::class);
-                    $outputManager[] = $this->app->make(SoarBarOutput::class);
+        Route::get('outputs', fn () => tap(response(OutputManager::class), function () use ($query): void {
+            $this->app->extend(OutputManager::class, function (OutputManager $outputManager): OutputManager {
+                $outputManager[] = $this->app->make(ClockworkOutput::class);
+                $outputManager[] = $this->app->make(ConsoleOutput::class);
+                $outputManager[] = $this->app->make(DebugBarOutput::class);
+                $outputManager[] = $this->app->make(DumpOutput::class);
+                $outputManager[] = $this->app->make(JsonOutput::class);
+                $outputManager[] = $this->app->make(LogOutput::class);
+                $outputManager[] = $this->app->make(NullOutput::class);
+                $outputManager[] = $this->app->make(SoarBarOutput::class);
 
-                    return $outputManager;
-                });
-                $query();
+                return $outputManager;
             });
-        });
+            $query();
+        }));
 
-        Route::get('clockwork', function () use ($query) {
-            return tap(response(ClockworkOutput::class), function () use ($query): void {
-                $this->app->extend(OutputManager::class, function (OutputManager $outputManager): OutputManager {
-                    $outputManager[] = $this->app->make(ClockworkOutput::class);
+        Route::get('clockwork', fn () => tap(response(ClockworkOutput::class), function () use ($query): void {
+            $this->app->extend(OutputManager::class, function (OutputManager $outputManager): OutputManager {
+                $outputManager[] = $this->app->make(ClockworkOutput::class);
 
-                    return $outputManager;
-                });
-                $query();
+                return $outputManager;
             });
-        });
+            $query();
+        }));
 
-        Route::get('console', function () use ($query) {
-            return tap(response(ConsoleOutput::class), function () use ($query): void {
-                $this->app->extend(OutputManager::class, function (OutputManager $outputManager): OutputManager {
-                    $outputManager[] = $this->app->make(ConsoleOutput::class);
+        Route::get('console', fn () => tap(response(ConsoleOutput::class), function () use ($query): void {
+            $this->app->extend(OutputManager::class, function (OutputManager $outputManager): OutputManager {
+                $outputManager[] = $this->app->make(ConsoleOutput::class);
 
-                    return $outputManager;
-                });
-                $query();
+                return $outputManager;
             });
-        });
+            $query();
+        }));
 
-        Route::get('debug-bar', function () use ($query) {
-            return tap(response(DebugBarOutput::class), function () use ($query): void {
-                $this->app->extend(OutputManager::class, function (OutputManager $outputManager): OutputManager {
-                    $outputManager[] = $this->app->make(DebugBarOutput::class);
+        Route::get('debug-bar', fn () => tap(response(DebugBarOutput::class), function () use ($query): void {
+            $this->app->extend(OutputManager::class, function (OutputManager $outputManager): OutputManager {
+                $outputManager[] = $this->app->make(DebugBarOutput::class);
 
-                    return $outputManager;
-                });
-                $query();
+                return $outputManager;
             });
-        });
+            $query();
+        }));
 
-        Route::get('dump', function () use ($query) {
-            return tap(response(DumpOutput::class), function () use ($query): void {
-                $this->app->extend(OutputManager::class, function (OutputManager $outputManager): OutputManager {
-                    $outputManager[] = $this->app->make(DumpOutput::class);
+        Route::get('dump', fn () => tap(response(DumpOutput::class), function () use ($query): void {
+            $this->app->extend(OutputManager::class, function (OutputManager $outputManager): OutputManager {
+                $outputManager[] = $this->app->make(DumpOutput::class);
 
-                    return $outputManager;
-                });
-                $query();
+                return $outputManager;
             });
-        });
+            $query();
+        }));
 
-        Route::get('json', function () use ($query) {
-            return tap(response()->json(JsonOutput::class), function () use ($query): void {
-                $this->app->extend(OutputManager::class, function (OutputManager $outputManager): OutputManager {
-                    $outputManager[] = $this->app->make(JsonOutput::class);
-                    $outputManager[] = $this->app->make(DebugBarOutput::class);
+        Route::get('json', fn () => tap(response()->json(JsonOutput::class), function () use ($query): void {
+            $this->app->extend(OutputManager::class, function (OutputManager $outputManager): OutputManager {
+                $outputManager[] = $this->app->make(JsonOutput::class);
+                $outputManager[] = $this->app->make(DebugBarOutput::class);
 
-                    return $outputManager;
-                });
-                $query();
+                return $outputManager;
             });
-        });
+            $query();
+        }));
 
-        Route::get('log', function () use ($query) {
-            return tap(response(LogOutput::class), function () use ($query): void {
-                $this->app->extend(OutputManager::class, function (OutputManager $outputManager): OutputManager {
-                    $outputManager[] = $this->app->make(LogOutput::class);
+        Route::get('log', fn () => tap(response(LogOutput::class), function () use ($query): void {
+            $this->app->extend(OutputManager::class, function (OutputManager $outputManager): OutputManager {
+                $outputManager[] = $this->app->make(LogOutput::class);
 
-                    return $outputManager;
-                });
-                $query();
+                return $outputManager;
             });
-        });
+            $query();
+        }));
 
-        Route::get('null', function () use ($query) {
-            return tap(response(NullOutput::class), function () use ($query): void {
-                $this->app->extend(OutputManager::class, function (OutputManager $outputManager): OutputManager {
-                    $outputManager[] = $this->app->make(NullOutput::class);
+        Route::get('null', fn () => tap(response(NullOutput::class), function () use ($query): void {
+            $this->app->extend(OutputManager::class, function (OutputManager $outputManager): OutputManager {
+                $outputManager[] = $this->app->make(NullOutput::class);
 
-                    return $outputManager;
-                });
-                $query();
+                return $outputManager;
             });
-        });
+            $query();
+        }));
 
-        Route::get('soar-bar', function () use ($query) {
-            return tap(response(SoarBarOutput::class), function () use ($query): void {
-                $this->app->extend(OutputManager::class, function (OutputManager $outputManager): OutputManager {
-                    $outputManager[] = $this->app->make(SoarBarOutput::class);
+        Route::get('soar-bar', fn () => tap(response(SoarBarOutput::class), function () use ($query): void {
+            $this->app->extend(OutputManager::class, function (OutputManager $outputManager): OutputManager {
+                $outputManager[] = $this->app->make(SoarBarOutput::class);
 
-                    return $outputManager;
-                });
-                $query();
+                return $outputManager;
             });
-        });
+            $query();
+        }));
     }
 }

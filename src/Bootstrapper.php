@@ -142,7 +142,7 @@ class Bootstrapper
 
     protected function toSql(QueryExecuted $queryExecuted): string
     {
-        if (empty($queryExecuted->bindings)) {
+        if ([] === $queryExecuted->bindings) {
             return $queryExecuted->sql;
         }
 
