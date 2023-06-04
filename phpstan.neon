@@ -8,6 +8,8 @@ includes:
 parameters:
     level: 5
     paths:
+        - config
+        - routes
         - src
     tmpDir: build/phpstan
 #    checkOctaneCompatibility: true

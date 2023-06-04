@@ -1,11 +1,76 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Result of && is always false\\.$#"
-			count: 2
-			path: src/Soar.php
+			message: "#^Call to an undefined method Illuminate\\\\Contracts\\\\Container\\\\Container\\:\\:middleware\\(\\)\\.$#"
+			count: 1
+			path: src/Bootstrapper.php
 
 		-
-			message: "#^Unsafe usage of new static\\(\\)\\.$#"
+			message: "#^Call to an undefined method DebugBar\\\\JavascriptRenderer\\:\\:dumpAssetsToString\\(\\)\\.$#"
 			count: 2
-			path: src/Soar.php
+			path: src/Http/Controllers/AssetController.php
+
+		-
+			message: "#^Method Guanguans\\\\LaravelSoar\\\\JavascriptRenderer\\:\\:makeUriRelativeTo\\(\\) should return string but returns array\\<int\\<0, max\\>, string\\>\\.$#"
+			count: 1
+			path: src/JavascriptRenderer.php
+
+		-
+			message: "#^Variable \\$uri on left side of \\?\\? always exists and is not nullable\\.$#"
+			count: 2
+			path: src/JavascriptRenderer.php
+
+		-
+			message: "#^Method Guanguans\\\\LaravelSoar\\\\Macros\\\\QueryBuilderMacro\\:\\:toSoarJsonScores\\(\\) invoked with 2 parameters, 0 required\\.$#"
+			count: 2
+			path: src/Macros/QueryBuilderMacro.php
+
+		-
+			message: "#^Parameter \\#1 \\(callable\\(\\)\\: mixed\\) of echo cannot be converted to string\\.$#"
+			count: 1
+			path: src/Macros/QueryBuilderMacro.php
+
+		-
+			message: "#^Call to an undefined method Illuminate\\\\Console\\\\Events\\\\CommandFinished\\|Symfony\\\\Component\\\\HttpFoundation\\\\Response\\:\\:getData\\(\\)\\.$#"
+			count: 1
+			path: src/Outputs/JsonOutput.php
+
+		-
+			message: "#^Call to an undefined method Illuminate\\\\Console\\\\Events\\\\CommandFinished\\|Symfony\\\\Component\\\\HttpFoundation\\\\Response\\:\\:setData\\(\\)\\.$#"
+			count: 1
+			path: src/Outputs/JsonOutput.php
+
+		-
+			message: "#^Anonymous function should return Guanguans\\\\LaravelSoar\\\\Soar but returns Guanguans\\\\SoarPHP\\\\Soar\\.$#"
+			count: 1
+			path: src/SoarServiceProvider.php
+
+		-
+			message: "#^Call to method bindIf\\(\\) on an unknown class Laravel\\\\Lumen\\\\Application\\.$#"
+			count: 1
+			path: src/SoarServiceProvider.php
+
+		-
+			message: "#^Call to method configure\\(\\) on an unknown class Laravel\\\\Lumen\\\\Application\\.$#"
+			count: 1
+			path: src/SoarServiceProvider.php
+
+		-
+			message: "#^Class Laravel\\\\Lumen\\\\Application not found\\.$#"
+			count: 1
+			path: src/SoarServiceProvider.php
+
+		-
+			message: "#^Parameter \\#1 \\$string of function htmlspecialchars expects string, mixed given\\.$#"
+			count: 1
+			path: src/Support/QueryAnalyzer.php
+
+		-
+			message: "#^Class Laravel\\\\Lumen\\\\Application not found\\.$#"
+			count: 1
+			path: src/Support/helpers.php
+
+		-
+			message: "#^Function var_output\\(\\) never returns void so it can be removed from the return type\\.$#"
+			count: 1
+			path: src/Support/helpers.php
