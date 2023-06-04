@@ -46,7 +46,7 @@ class JavascriptRenderer extends \DebugBar\JavascriptRenderer
         $base64Logo = base64_encode_file(__DIR__.'/../art/logo.svg');
 
         $html =
-            // @lang HTML
+            /** @lang HTML */
             <<<HTML
                 <link rel="stylesheet" type="text/css" property="stylesheet" href="$cssRoute">
                 <style>

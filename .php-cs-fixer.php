@@ -267,7 +267,9 @@ return (new Config())
         ],
         'phpdoc_to_comment' => [
             'ignored_tags' => [
+                'lang',
                 'noinspection',
+                'var',
             ],
         ],
 

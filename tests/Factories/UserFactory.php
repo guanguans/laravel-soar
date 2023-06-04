@@ -15,7 +15,7 @@ namespace Tests\Factories;
 use Illuminate\Support\Str;
 use Tests\Models\User;
 
-// @var \Illuminate\Database\Eloquent\Factory $factory
+/** @var \Illuminate\Database\Eloquent\Factory $factory $factory */
 $factory->define(User::class, static fn ($faker): array => [
     'name' => $faker->name,
     'email' => $faker->unique()->safeEmail,
