@@ -28,6 +28,9 @@ class SoarBarOutput extends Output
         $this->javascriptRenderer = $soarBar->getJavascriptRenderer();
     }
 
+    /**
+     * @throws \JsonException
+     */
     public function output(Collection $scores, $dispatcher): void
     {
         if (! $this->shouldOutput($dispatcher)) {

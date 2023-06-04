@@ -211,7 +211,7 @@ class JavascriptRenderer extends \DebugBar\JavascriptRenderer
             return $uris;
         }
 
-        if ('/' === substr($uri ?? '', 0, 1) || preg_match('/^([a-zA-Z]+:\/\/|[a-zA-Z]:\/|[a-zA-Z]:\\\)/', $uri ?? '')) {
+        if (0 === strpos($uri ?? '', '/') || preg_match('/^([a-zA-Z]+:\/\/|[a-zA-Z]:\/|[a-zA-Z]:\\\)/', $uri ?? '')) {
             return $uri;
         }
 

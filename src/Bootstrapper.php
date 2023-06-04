@@ -14,6 +14,7 @@ namespace Guanguans\LaravelSoar;
 
 use Guanguans\LaravelSoar\Http\Middleware\OutputSoarScoreMiddleware;
 use Illuminate\Console\Events\CommandFinished;
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Database\Events\QueryExecuted;
@@ -43,6 +44,9 @@ class Bootstrapper
         return $this->booted;
     }
 
+    /**
+     * @throws BindingResolutionException
+     */
     public function boot(): void
     {
         if ($this->booted) {

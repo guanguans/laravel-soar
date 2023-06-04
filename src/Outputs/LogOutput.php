@@ -27,6 +27,9 @@ class LogOutput extends Output
         $this->channel = $channel;
     }
 
+    /**
+     * @throws \JsonException
+     */
     public function output(Collection $scores, $dispatcher): void
     {
         $scores->each(fn (array $score) => $this->logger->channel($this->channel)->warning(

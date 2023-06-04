@@ -50,7 +50,7 @@ class SoarServiceProvider extends ServiceProvider
         SoarBarOutput::class => SoarBarOutput::class,
     ];
 
-    protected $defer = false;
+    protected bool $defer = false;
 
     public function register(): void
     {
@@ -61,6 +61,9 @@ class SoarServiceProvider extends ServiceProvider
         $this->loadRoutes();
     }
 
+    /**
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
     public function boot(): void
     {
         if (config('soar.enabled', false)) {
@@ -68,7 +71,7 @@ class SoarServiceProvider extends ServiceProvider
         }
     }
 
-    public function provides()
+    public function provides(): array
     {
         return [
             $this->toAlias(OutputManager::class),
@@ -102,6 +105,10 @@ class SoarServiceProvider extends ServiceProvider
         $this->mergeConfigFrom($source, 'soar');
     }
 
+    /**
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     * @throws \ReflectionException
+     */
     protected function registerMacros(): void
     {
         $queryBuilderMacro = $this->app->make(QueryBuilderMacro::class);

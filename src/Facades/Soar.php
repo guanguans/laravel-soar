@@ -50,12 +50,11 @@ use Illuminate\Support\Facades\Facade;
 class Soar extends Facade
 {
     /**
-     * @noinspection ReturnTypeCanBeDeclaredInspection
      * @noinspection MissingParentCallInspection
      *
      * {@inheritDoc}
      */
-    protected static function getFacadeAccessor()
+    protected static function getFacadeAccessor(): string
     {
         return \Guanguans\LaravelSoar\Soar::class;
     }

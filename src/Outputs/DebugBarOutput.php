@@ -18,10 +18,15 @@ use Illuminate\Support\Collection;
 
 class DebugBarOutput extends Output
 {
-    protected static ?MessagesCollector $collector = null;
+    protected static ?MessagesCollector $messagesCollector = null;
 
     private static bool $outputted = false;
 
+    /**
+     * @param mixed $dispatcher
+     *
+     * @throws \JsonException
+     */
     public function output(Collection $scores, $dispatcher): void
     {
         if (! $this->shouldOutput($dispatcher)) {
@@ -29,7 +34,7 @@ class DebugBarOutput extends Output
         }
 
         $scores
-            ->each(fn (array $score) => $this->createCollector()->addMessage(
+            ->each(fn (array $score) => $this->getMessagesCollector()->addMessage(
                 $score['Summary'].PHP_EOL.to_pretty_json($score),
                 'warning',
                 false
@@ -48,16 +53,17 @@ class DebugBarOutput extends Output
         return $this->isHtmlResponse($dispatcher) && class_exists(LaravelDebugbar::class);
     }
 
-    protected function createCollector(): MessagesCollector
+    protected function getMessagesCollector(): MessagesCollector
     {
-        if (! self::$collector instanceof MessagesCollector) {
-            self::$collector = new MessagesCollector('Soar Scores');
+        if (self::$messagesCollector instanceof MessagesCollector) {
+            return self::$messagesCollector;
         }
 
-        if (! app(LaravelDebugbar::class)->hasCollector(self::$collector->getName())) {
-            app(LaravelDebugbar::class)->addCollector(self::$collector);
+        $messagesCollector = new MessagesCollector('Soar Scores');
+        if (! app(LaravelDebugbar::class)->hasCollector($messagesCollector->getName())) {
+            app(LaravelDebugbar::class)->addCollector($messagesCollector);
         }
 
-        return self::$collector;
+        return self::$messagesCollector = $messagesCollector;
     }
 }

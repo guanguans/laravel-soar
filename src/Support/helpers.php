@@ -67,6 +67,9 @@ if (! function_exists('to_star')) {
 }
 
 if (! function_exists('to_pretty_json')) {
+    /**
+     * @throws JsonException
+     */
     function to_pretty_json(
         array $score,
         int $options = JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES,

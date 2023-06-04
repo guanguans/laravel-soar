@@ -37,7 +37,7 @@ class QueryAnalyzer
         $sql = preg_replace('#[ \t]{2,}#', ' ', $sql);
 
         // syntax highlight
-        $sql = htmlspecialchars($sql, ENT_IGNORE, 'UTF-8');
+        $sql = htmlspecialchars($sql, ENT_IGNORE);
         $sql = preg_replace_callback(
             '#(/\\*.+?\\*/)|(\\*\\*.+?\\*\\*)|(?<=[\\s,(])('.static::KEYWORDS1.')(?=[\\s,)])|(?<=[\\s,(=])('.static::KEYWORDS2.')(?=[\\s,)=])#is',
             static function ($matches) {
@@ -62,9 +62,9 @@ class QueryAnalyzer
 
         $bindings = array_map(static function ($binding) use ($pdo): string {
             if (\is_array($binding)) {
-                $binding = implode(', ', array_map(static fn ($value) => \is_string($value) ? htmlspecialchars("'".$value."'", ENT_NOQUOTES, 'UTF-8') : $value, $binding));
+                $binding = implode(', ', array_map(static fn ($value) => \is_string($value) ? htmlspecialchars("'".$value."'", ENT_NOQUOTES) : $value, $binding));
 
-                return htmlspecialchars('('.$binding.')', ENT_NOQUOTES, 'UTF-8');
+                return htmlspecialchars('('.$binding.')', ENT_NOQUOTES);
             }
 
             if (\is_string($binding) && (preg_match('#[^\x09\x0A\x0D\x20-\x7E\xA0-\x{10FFFF}]#u', $binding) || preg_last_error())) {
@@ -72,7 +72,7 @@ class QueryAnalyzer
             }
 
             if (\is_string($binding)) {
-                $text = htmlspecialchars($pdo instanceof \PDO ? $pdo->quote($binding) : "'".$binding."'", ENT_NOQUOTES, 'UTF-8');
+                $text = htmlspecialchars($pdo instanceof \PDO ? $pdo->quote($binding) : "'".$binding."'", ENT_NOQUOTES);
 
                 return '<span title="Length '.\strlen($text).' characters">'.$text.'</span>';
             }
@@ -84,15 +84,15 @@ class QueryAnalyzer
                     $info = stream_get_meta_data($binding);
                 }
 
-                return '<i'.(isset($info['uri']) ? ' title="'.htmlspecialchars($info['uri'], ENT_NOQUOTES, 'UTF-8').'"' : null)
-                       .'>&lt;'.htmlspecialchars($type, ENT_NOQUOTES, 'UTF-8').' resource&gt;</i>';
+                return '<i'.(isset($info['uri']) ? ' title="'.htmlspecialchars($info['uri'], ENT_NOQUOTES).'"' : null)
+                       .'>&lt;'.htmlspecialchars($type, ENT_NOQUOTES).' resource&gt;</i>';
             }
 
             if ($binding instanceof \DateTimeImmutable) {
-                return htmlspecialchars("'".$binding->format('Y-m-d H:i:s')."'", ENT_NOQUOTES, 'UTF-8');
+                return htmlspecialchars("'".$binding->format('Y-m-d H:i:s')."'", ENT_NOQUOTES);
             }
 
-            return htmlspecialchars($binding, ENT_NOQUOTES, 'UTF-8');
+            return htmlspecialchars($binding, ENT_NOQUOTES);
         }, $bindings);
 
         $sql = str_replace(['%', '?'], ['%%', '%s'], $sql);
