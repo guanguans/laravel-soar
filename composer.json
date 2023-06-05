@@ -69,12 +69,14 @@
         "rector/rector": "^0.17",
         "roave/security-advisories": "dev-latest",
         "spatie/pest-plugin-snapshots": "^1.1 || ^2.0",
+        "spatie/ray": "^1.37",
         "symfony/thanks": "^1.2",
         "vimeo/psalm": "^5.12"
     },
     "suggest": {
-        "barryvdh/laravel-debugbar": "Output SQL score to Laravel DebugBar.",
-        "itsgoingd/clockwork": "Output SQL score to Clockwork."
+        "barryvdh/laravel-debugbar": "Output SQL scores to Laravel DebugBar.",
+        "itsgoingd/clockwork": "Output SQL scores to Clockwork.",
+        "spatie/ray": "Output SQL scores to Spatie Ray."
     },
     "minimum-stability": "stable",
     "prefer-stable": true,

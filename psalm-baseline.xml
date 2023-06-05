@@ -104,6 +104,14 @@
       <code>__construct</code>
     </PossiblyUnusedMethod>
   </file>
+  <file src="src/Outputs/RayOutput.php">
+    <UnusedClass>
+      <code>RayOutput</code>
+    </UnusedClass>
+    <InvalidArgument>
+      <code>$scores</code>
+    </InvalidArgument>
+  </file>
   <file src="src/Outputs/SoarBarOutput.php">
     <PossiblyUnusedMethod>
       <code>__construct</code>
