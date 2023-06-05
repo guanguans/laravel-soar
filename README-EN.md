@@ -17,7 +17,7 @@
 * Supports rich interpretation of EXPLAIN information
 * Automatically monitor output SQL optimization recommendations
 * Debug bar、Soar bar、JSON、Clockwork、Console、Dump、Log、Custom output(Multiple scene output)
-* [Debug bar](https://github.com/barryvdh/laravel-debugbar)、[Soar bar](https://github.com/maximebf/php-debugbar)、JSON、[Clockwork](https://github.com/itsgoingd/clockwork)、Console、Dump、Log、自定义输出器(Multiple scene output)
+* [Soar bar](https://github.com/maximebf/php-debugbar)、[Debug bar](https://github.com/barryvdh/laravel-debugbar)、[Clockwork](https://github.com/itsgoingd/clockwork)、[Ray](https://github.com/spatie/ray)、JSON、Console、Dump、Log、Custom output(Multiple scene output)
 * Support query builder to generate SQL optimization suggestions
 
 ## Related Links
@@ -38,7 +38,7 @@
 ## Installation
 
 ```shell
-$ composer require guanguans/laravel-soar --dev -vvv
+$ composer require guanguans/laravel-soar --dev -v
 ```
 
 ## Configuration
@@ -130,6 +130,30 @@ SQL
 </details>
 
 ### Automatically monitor output SQL optimization recommendations
+
+<details>
+<summary><b>Soar bar</b></summary>
+
+![Soar bar](docs/soar-bar.png)
+</details>
+
+<details>
+<summary><b>Debug bar</b></summary>
+
+![Debug bar](docs/debug-bar.png)
+</details>
+
+<details>
+<summary><b>Clockwork</b></summary>
+
+![Clockwork](docs/clockwork.png)
+</details>
+
+<details>
+<summary><b>Ray</b></summary>
+
+![Ray](docs/ray.png)
+</details>
 
 <details>
 <summary><b>Json response</b></summary>
@@ -443,24 +467,6 @@ SQL
     ]
 }
 ```
-</details>
-
-<details>
-<summary><b>Soar bar</b></summary>
-
-![Soar bar](docs/soar-bar.png)
-</details>
-
-<details>
-<summary><b>Debug bar</b></summary>
-
-![Debug bar](docs/debug-bar.png)
-</details>
-
-<details>
-<summary><b>Clockwork</b></summary>
-
-![Clockwork](docs/clockwork.png)
 </details>
 
 <details>

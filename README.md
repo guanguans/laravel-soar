@@ -18,7 +18,7 @@
 * 支持启发式算法语句优化建议、索引优化建议
 * 支持 EXPLAIN 信息丰富解读
 * 自动监控输出 SQL 优化建议
-* [Debug bar](https://github.com/barryvdh/laravel-debugbar)、[Soar bar](https://github.com/maximebf/php-debugbar)、JSON、[Clockwork](https://github.com/itsgoingd/clockwork)、Console、Dump、Log、自定义输出器(多种场景输出)
+* [Soar bar](https://github.com/maximebf/php-debugbar)、[Debug bar](https://github.com/barryvdh/laravel-debugbar)、[Clockwork](https://github.com/itsgoingd/clockwork)、[Ray](https://github.com/spatie/ray)、JSON、Console、Dump、Log、自定义输出器(多种场景输出)
 * 支持查询构建器生成 SQL 优化建议
 
 ## 相关项目
@@ -39,7 +39,7 @@
 ## 安装
 
 ```shell
-$ composer require guanguans/laravel-soar --dev -vvv
+$ composer require guanguans/laravel-soar --dev -v
 ```
 
 ## 配置
@@ -131,6 +131,30 @@ SQL
 </details>
 
 ### 自动监控输出 SQL 优化建议
+
+<details>
+<summary><b>Soar bar</b></summary>
+
+![Soar bar](docs/soar-bar.png)    
+</details>
+
+<details>
+<summary><b>Debug bar</b></summary>
+
+![Debug bar](docs/debug-bar.png)
+</details>
+
+<details>
+<summary><b>Clockwork</b></summary>
+
+![Clockwork](docs/clockwork.png)
+</details>
+
+<details>
+<summary><b>Ray</b></summary>
+
+![Ray](docs/ray.png)
+</details>
 
 <details>
 <summary><b>Json 响应</b></summary> 
@@ -444,24 +468,6 @@ SQL
     ]
 }
 ```
-</details>
-
-<details>
-<summary><b>Soar bar</b></summary>
-
-![Soar bar](docs/soar-bar.png)    
-</details>
-
-<details>
-<summary><b>Debug bar</b></summary>
-
-![Debug bar](docs/debug-bar.png)
-</details>
-
-<details>
-<summary><b>Clockwork</b></summary>
-
-![Clockwork](docs/clockwork.png)
 </details>
 
 <details>
