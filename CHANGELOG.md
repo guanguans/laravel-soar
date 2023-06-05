@@ -2,6 +2,10 @@
 
 All notable changes to `guanguans/laravel-soar` will be documented in this file.
 
+## v3.1.0 - 2023-06-05
+
+**Full Changelog**: https://github.com/guanguans/laravel-soar/compare/v3.0.2...v3.1.0
+
 ## v3.0.2 - 2023-06-05
 
 **Full Changelog**: https://github.com/guanguans/laravel-soar/compare/v3.0.1...v3.0.2
@@ -161,7 +165,6 @@ All notable changes to `guanguans/laravel-soar` will be documented in this file.
 - Optimize soar config.
 - Add some CI config files.
 - Add comment docs for facade.
-
 ## 1.0.2 - 2021-04-25
 
 - Optimize soar config.
