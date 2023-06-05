@@ -10,7 +10,6 @@ declare(strict_types=1);
  * This source file is subject to the MIT license that is bundled.
  */
 
-use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
 
 Route::group(
@@ -20,10 +19,25 @@ Route::group(
         'as' => 'soar.bar.',
         'middleware' => [],
     ]),
-    static function (Router $router): void {
-        $router->get('assets/stylesheets', 'AssetController@css')->name('assets.css');
-        $router->get('assets/javascript', 'AssetController@js')->name('assets.js');
-        $router->get('fonts/fontawesome-webfont.{suffix}', 'AssetController@font')->name('assets.webfont');
-        $router->get('fonts/FontAwesome.otf', 'AssetController@fontAwesome')->name('assets.font');
+    static function ($router): void {
+        $router->get('assets/stylesheets', [
+            'uses' => 'AssetController@css',
+            'as' => 'assets.css',
+        ]);
+
+        $router->get('assets/javascript', [
+            'uses' => 'AssetController@js',
+            'as' => 'assets.js',
+        ]);
+
+        $router->get('fonts/fontawesome-webfont.{suffix}', [
+            'uses' => 'AssetController@font',
+            'as' => 'assets.webfont',
+        ]);
+
+        $router->get('fonts/FontAwesome.otf', [
+            'uses' => 'AssetController@fontAwesome',
+            'as' => 'assets.font',
+        ]);
     }
 );
