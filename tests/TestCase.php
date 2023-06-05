@@ -22,6 +22,7 @@ use Guanguans\LaravelSoar\Outputs\DumpOutput;
 use Guanguans\LaravelSoar\Outputs\JsonOutput;
 use Guanguans\LaravelSoar\Outputs\LogOutput;
 use Guanguans\LaravelSoar\Outputs\NullOutput;
+use Guanguans\LaravelSoar\Outputs\RayOutput;
 use Guanguans\LaravelSoar\Outputs\SoarBarOutput;
 use Guanguans\LaravelSoar\SoarServiceProvider;
 use Illuminate\Database\Schema\Blueprint;
@@ -203,6 +204,15 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
         Route::get('null', fn () => tap(response(NullOutput::class), function () use ($query): void {
             $this->app->extend(OutputManager::class, function (OutputManager $outputManager): OutputManager {
                 $outputManager[] = $this->app->make(NullOutput::class);
+
+                return $outputManager;
+            });
+            $query();
+        }));
+
+        Route::get('ray', fn () => tap(response(RayOutput::class), function () use ($query): void {
+            $this->app->extend(OutputManager::class, function (OutputManager $outputManager): OutputManager {
+                $outputManager[] = $this->app->make(RayOutput::class);
 
                 return $outputManager;
             });

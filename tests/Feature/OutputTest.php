@@ -20,6 +20,7 @@ use Guanguans\LaravelSoar\Outputs\DumpOutput;
 use Guanguans\LaravelSoar\Outputs\JsonOutput;
 use Guanguans\LaravelSoar\Outputs\LogOutput;
 use Guanguans\LaravelSoar\Outputs\NullOutput;
+use Guanguans\LaravelSoar\Outputs\RayOutput;
 use Guanguans\LaravelSoar\Outputs\SoarBarOutput;
 
 beforeEach(function (): void {
@@ -91,6 +92,13 @@ it('can output to null', function (): void {
         ->assertOk()
         // ->assertSee($this->see)
         ->assertSee(NullOutput::class);
+})->group(__DIR__, __FILE__);
+
+it('can output to ray', function (): void {
+    $this->get('ray')
+        ->assertOk()
+        // ->assertSee($this->see)
+        ->assertSee(RayOutput::class);
 })->group(__DIR__, __FILE__);
 
 it('can output to SoarBar', function (): void {
