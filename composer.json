@@ -16,7 +16,13 @@
         "rewriter",
         "optimizer",
         "optimize",
-        "rewrite"
+        "rewrite",
+        "clockwork",
+        "console",
+        "debugbar",
+        "dump",
+        "log",
+        "ray"
     ],
     "authors": [
         {

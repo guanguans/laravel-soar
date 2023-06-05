@@ -17,6 +17,7 @@
 * Supports rich interpretation of EXPLAIN information
 * Automatically monitor output SQL optimization recommendations
 * Debug bar、Soar bar、JSON、Clockwork、Console、Dump、Log、Custom output(Multiple scene output)
+* [Debug bar](https://github.com/barryvdh/laravel-debugbar)、[Soar bar](https://github.com/maximebf/php-debugbar)、JSON、[Clockwork](https://github.com/itsgoingd/clockwork)、Console、Dump、Log、自定义输出器(Multiple scene output)
 * Support query builder to generate SQL optimization suggestions
 
 ## Related Links
@@ -133,14 +134,23 @@ SQL
 <details>
 <summary><b>Json response</b></summary>
 
-[Json response](docs/json.json)
-
 ```json
 {
     "message": "ok",
     "soar_scores": [
         {
-            "Summary": "[☆☆☆☆☆|0分|3.56ms|select * from `users` where `name` = 'soar' group by `name` having `created_at` > '2022-04-19 18:24:33']",
+            "Summary": "[☆☆☆☆☆|0分|9.17ms|select * from `users` where `name` = 'soar' group by `name` having `created_at` > '2023-06-05 03:19:30']",
+            "Basic": {
+                "Sample": "select * from `users` where `name` = 'soar' group by `name` having `created_at` > '2023-06-05 03:19:30'",
+                "Score": 0,
+                "Star": "☆☆☆☆☆",
+                "Time": "9.17ms",
+                "Connection": "mysql",
+                "Driver": "mysql",
+                "Tables": [
+                    "`laravel`.`users`"
+                ]
+            },
             "HeuristicRules": [
                 {
                     "Item": "CLA.008",
@@ -170,7 +180,7 @@ SQL
                     "Item": "ERR.002",
                     "Severity": "L8",
                     "Summary": "MySQL execute failed",
-                    "Content": "Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'optimizer_220419182434_gwyshx8la4boulhu.users.id' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by",
+                    "Content": "Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'optimizer_230605111934_bbpxve0adj2dgrcs.users.id' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by",
                     "Case": "",
                     "Position": 0
                 },
@@ -203,14 +213,25 @@ SQL
             ],
             "Explain": [],
             "Backtraces": [
-                "#13 /app/Admin/Controllers/HomeController.php:74",
-                "#55 /Users/yaozm/Documents/develop/laravel-soar/src/Http/Middleware/OutputSoarScoreMiddleware.php:45",
-                "#76 /public/index.php:55",
-                "#77 /server.php:21"
+                "#13 /routes/web.php:53",
+                "#38 /Users/yaozm/Documents/develop/laravel-soar/src/Http/Middleware/OutputSoarScoreMiddleware.php:37",
+                "#59 /public/index.php:55",
+                "#60 /server.php:21"
             ]
         },
         {
-            "Summary": "[★★★★☆|75分|64.5ms|CREATE TABLE `users` (\n  `id` bigint unsigned NOT NULL AUTO_INCREMENT,\n  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `email_verified_at` timestamp NULL DEFAULT NULL,\n  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,\n  `created_at` timestamp NULL DEFAULT NULL,\n  `updated_at` timestamp NULL DEFAULT NULL,\n  PRIMARY KEY (`id`),\n  UNIQUE KEY `users_email_unique` (`email`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;]",
+            "Summary": "[★★★★☆|75分|205.25ms|CREATE TABLE `users` (\n  `id` bigint unsigned NOT NULL AUTO_INCREMENT,\n  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `email_verified_at` timestamp NULL DEFAULT NULL,\n  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,\n  `created_at` timestamp NULL DEFAULT NULL,\n  `updated_at` timestamp NULL DEFAULT NULL,\n  PRIMARY KEY (`id`),\n  UNIQUE KEY `users_email_unique` (`email`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;]",
+            "Basic": {
+                "Sample": "CREATE TABLE `users` (\n  `id` bigint unsigned NOT NULL AUTO_INCREMENT,\n  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `email_verified_at` timestamp NULL DEFAULT NULL,\n  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,\n  `created_at` timestamp NULL DEFAULT NULL,\n  `updated_at` timestamp NULL DEFAULT NULL,\n  PRIMARY KEY (`id`),\n  UNIQUE KEY `users_email_unique` (`email`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;",
+                "Score": 75,
+                "Star": "★★★★☆",
+                "Time": "205.25ms",
+                "Connection": "mysql",
+                "Driver": "mysql",
+                "Tables": [
+                    "`laravel`.`users`"
+                ]
+            },
             "HeuristicRules": [
                 {
                     "Item": "CLA.011",
@@ -235,14 +256,6 @@ SQL
                     "Content": "建议对表中每个列添加注释，来明确每个列在表中的含义及作用。",
                     "Case": "CREATE TABLE tbl (col int) ENGINE=InnoDB;",
                     "Position": 0
-                },
-                {
-                    "Item": "COL.011",
-                    "Severity": "L0",
-                    "Summary": "当需要唯一约束时才使用 NULL，仅当列不能有缺失值时才使用 NOT NULL",
-                    "Content": "NULL 和0是不同的，10乘以 NULL 还是 NULL。NULL 和空字符串是不一样的。将一个字符串和标准 SQL 中的 NULL 联合起来的结果还是 NULL。NULL 和 FALSE 也是不同的。AND、OR 和 NOT 这三个布尔操作如果涉及 NULL，其结果也让很多人感到困惑。当您将一列声明为 NOT NULL 时，也就是说这列中的每一个值都必须存在且是有意义的。使用 NULL 来表示任意类型不存在的空值。 当您将一列声明为 NOT NULL 时，也就是说这列中的每一个值都必须存在且是有意义的。",
-                    "Case": "select c1,c2,c3 from tbl where c4 is null or c4 <> 1",
-                    "Position": 49
                 },
                 {
                     "Item": "KWR.003",
@@ -272,14 +285,25 @@ SQL
             "IndexRules": [],
             "Explain": [],
             "Backtraces": [
-                "#9 /app/Admin/Controllers/HomeController.php:46",
-                "#51 /Users/yaozm/Documents/develop/laravel-soar/src/Http/Middleware/OutputSoarScoreMiddleware.php:45",
-                "#72 /public/index.php:55",
-                "#73 /server.php:21"
+                "#9 /routes/web.php:22",
+                "#34 /Users/yaozm/Documents/develop/laravel-soar/src/Http/Middleware/OutputSoarScoreMiddleware.php:37",
+                "#55 /public/index.php:55",
+                "#56 /server.php:21"
             ]
         },
         {
-            "Summary": "[★★★★☆|80分|21.9ms|update `users` set `name` = 'name', `password` = 'password', `users`.`updated_at` = '2022-04-19 18:24:33']",
+            "Summary": "[★★★★☆|80分|1.72ms|update `users` set `name` = 'name', `password` = 'password', `users`.`updated_at` = '2023-06-05 03:19:30']",
+            "Basic": {
+                "Sample": "update `users` set `name` = 'name', `password` = 'password', `users`.`updated_at` = '2023-06-05 03:19:30'",
+                "Score": 80,
+                "Star": "★★★★☆",
+                "Time": "1.72ms",
+                "Connection": "mysql",
+                "Driver": "mysql",
+                "Tables": [
+                    "`laravel`.`users`"
+                ]
+            },
             "HeuristicRules": [
                 {
                     "Item": "CLA.015",
@@ -291,36 +315,44 @@ SQL
                 }
             ],
             "IndexRules": [],
-            "Explain": {
-                "Item": "EXP.000",
-                "Severity": "L0",
-                "Summary": "Explain信息",
-                "Content": [
-                    "| id | select\\_type | table | partitions | type | possible_keys | key | key\\_len | ref | rows | filtered | scalability | Extra |",
-                    "|---|---|---|---|---|---|---|---|---|---|---|---|---|",
-                    "| 1  | UPDATE | *users* | NULL | index | NULL | PRIMARY | 8 | NULL | 1 | ☠️ **100.00%** | O(n) | NULL |",
-                    "",
-                    ""
-                ],
-                "Case": [
-                    "### Explain信息解读",
-                    "",
-                    "#### Type信息解读",
-                    "",
-                    "* **index**: 全表扫描, 只是扫描表的时候按照索引次序进行而不是行. 主要优点就是避免了排序, 但是开销仍然非常大.",
-                    ""
-                ],
-                "Position": 0
-            },
+            "Explain": [
+                {
+                    "Item": "EXP.000",
+                    "Severity": "L0",
+                    "Summary": "Explain信息",
+                    "Content": [
+                        "| id | select\\_type | table | partitions | type | possible_keys | key | key\\_len | ref | rows | filtered | scalability | Extra |",
+                        "|---|---|---|---|---|---|---|---|---|---|---|---|---|",
+                        "| 1  | UPDATE | *users* | NULL | index | NULL | PRIMARY | 8 | NULL | 1 | ☠️ **100.00%** | ☠️ **O(n)** | NULL |"
+                    ],
+                    "Case": [
+                        "### Explain信息解读",
+                        "#### Type信息解读",
+                        "* **index**: 全表扫描, 只是扫描表的时候按照索引次序进行而不是行. 主要优点就是避免了排序, 但是开销仍然非常大."
+                    ],
+                    "Position": 0
+                }
+            ],
             "Backtraces": [
-                "#10 /app/Admin/Controllers/HomeController.php:70",
-                "#52 /Users/yaozm/Documents/develop/laravel-soar/src/Http/Middleware/OutputSoarScoreMiddleware.php:45",
-                "#73 /public/index.php:55",
-                "#74 /server.php:21"
+                "#10 /routes/web.php:48",
+                "#35 /Users/yaozm/Documents/develop/laravel-soar/src/Http/Middleware/OutputSoarScoreMiddleware.php:37",
+                "#56 /public/index.php:55",
+                "#57 /server.php:21"
             ]
         },
         {
-            "Summary": "[★★★★★|90分|4.5ms|delete from `users` where `name` = 'soar']",
+            "Summary": "[★★★★★|90分|940μs|delete from `users` where `name` = 'soar']",
+            "Basic": {
+                "Sample": "delete from `users` where `name` = 'soar'",
+                "Score": 90,
+                "Star": "★★★★★",
+                "Time": "940μs",
+                "Connection": "mysql",
+                "Driver": "mysql",
+                "Tables": [
+                    "`laravel`.`users`"
+                ]
+            },
             "HeuristicRules": [
                 {
                     "Item": "SEC.003",
@@ -341,68 +373,71 @@ SQL
                     "Position": 0
                 }
             ],
-            "Explain": {
-                "Item": "EXP.000",
-                "Severity": "L0",
-                "Summary": "Explain信息",
-                "Content": [
-                    "| id | select\\_type | table | partitions | type | possible_keys | key | key\\_len | ref | rows | filtered | scalability | Extra |",
-                    "|---|---|---|---|---|---|---|---|---|---|---|---|---|",
-                    "| 1  | DELETE | *users* | NULL | ALL | NULL | NULL | NULL | NULL | 1 | ☠️ **100.00%** | O(n) | Using where |",
-                    "",
-                    ""
-                ],
-                "Case": [
-                    "### Explain信息解读",
-                    "",
-                    "#### Type信息解读",
-                    "",
-                    "* **ALL**: 最坏的情况, 从头到尾全表扫描.",
-                    "",
-                    "#### Extra信息解读",
-                    "",
-                    "* **Using where**: WHERE条件用于筛选出与下一个表匹配的数据然后返回给客户端. 除非故意做的全表扫描, 否则连接类型是ALL或者是index, 且在Extra列的值中没有Using Where, 则该查询可能是有问题的.",
-                    ""
-                ],
-                "Position": 0
-            },
+            "Explain": [
+                {
+                    "Item": "EXP.000",
+                    "Severity": "L0",
+                    "Summary": "Explain信息",
+                    "Content": [
+                        "| id | select\\_type | table | partitions | type | possible_keys | key | key\\_len | ref | rows | filtered | scalability | Extra |",
+                        "|---|---|---|---|---|---|---|---|---|---|---|---|---|",
+                        "| 1  | DELETE | *users* | NULL | ALL | NULL | NULL | NULL | NULL | 1 | ☠️ **100.00%** | ☠️ **O(n)** | Using where |"
+                    ],
+                    "Case": [
+                        "### Explain信息解读",
+                        "#### Type信息解读",
+                        "* ☠️ **ALL**: 最坏的情况, 从头到尾全表扫描.",
+                        "#### Extra信息解读",
+                        "* **Using where**: WHERE条件用于筛选出与下一个表匹配的数据然后返回给客户端. 除非故意做的全表扫描, 否则连接类型是ALL或者是index, 且在Extra列的值中没有Using Where, 则该查询可能是有问题的."
+                    ],
+                    "Position": 0
+                }
+            ],
             "Backtraces": [
-                "#10 /app/Admin/Controllers/HomeController.php:76",
-                "#52 /Users/yaozm/Documents/develop/laravel-soar/src/Http/Middleware/OutputSoarScoreMiddleware.php:45",
-                "#73 /public/index.php:55",
-                "#74 /server.php:21"
+                "#10 /routes/web.php:56",
+                "#35 /Users/yaozm/Documents/develop/laravel-soar/src/Http/Middleware/OutputSoarScoreMiddleware.php:37",
+                "#56 /public/index.php:55",
+                "#57 /server.php:21"
             ]
         },
         {
-            "Summary": "[★★★★★|100分|15.57ms|insert into `users` (`name`, `email`, `email_verified_at`, `password`, `remember_token`) values ('soar', 'soar@soar.com', '2022-04-19 18:24:33', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'HecXUdevky')]",
+            "Summary": "[★★★★★|100分|9.59ms|insert into `users` (`name`, `email`, `email_verified_at`, `password`, `remember_token`) values ('soar', 'soar@soar.com', '2023-06-05 03:19:30', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'lEtsoV3wHW')]",
+            "Basic": {
+                "Sample": "insert into `users` (`name`, `email`, `email_verified_at`, `password`, `remember_token`) values ('soar', 'soar@soar.com', '2023-06-05 03:19:30', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'lEtsoV3wHW')",
+                "Score": 100,
+                "Star": "★★★★★",
+                "Time": "9.59ms",
+                "Connection": "mysql",
+                "Driver": "mysql",
+                "Tables": [
+                    "`laravel`.`users`"
+                ]
+            },
             "HeuristicRules": [],
             "IndexRules": [],
-            "Explain": {
-                "Item": "EXP.000",
-                "Severity": "L0",
-                "Summary": "Explain信息",
-                "Content": [
-                    "| id | select\\_type | table | partitions | type | possible_keys | key | key\\_len | ref | rows | filtered | scalability | Extra |",
-                    "|---|---|---|---|---|---|---|---|---|---|---|---|---|",
-                    "| 1  | INSERT | *users* | NULL | ALL | NULL | NULL | NULL | NULL | 0 | 0.00% | O(n) | NULL |",
-                    "",
-                    ""
-                ],
-                "Case": [
-                    "### Explain信息解读",
-                    "",
-                    "#### Type信息解读",
-                    "",
-                    "* **ALL**: 最坏的情况, 从头到尾全表扫描.",
-                    ""
-                ],
-                "Position": 0
-            },
+            "Explain": [
+                {
+                    "Item": "EXP.000",
+                    "Severity": "L0",
+                    "Summary": "Explain信息",
+                    "Content": [
+                        "| id | select\\_type | table | partitions | type | possible_keys | key | key\\_len | ref | rows | filtered | scalability | Extra |",
+                        "|---|---|---|---|---|---|---|---|---|---|---|---|---|",
+                        "| 1  | INSERT | *users* | NULL | ALL | NULL | NULL | NULL | NULL | 0 | 0.00% | ☠️ **O(n)** | NULL |"
+                    ],
+                    "Case": [
+                        "### Explain信息解读",
+                        "#### Type信息解读",
+                        "* ☠️ **ALL**: 最坏的情况, 从头到尾全表扫描."
+                    ],
+                    "Position": 0
+                }
+            ],
             "Backtraces": [
-                "#10 /app/Admin/Controllers/HomeController.php:66",
-                "#52 /Users/yaozm/Documents/develop/laravel-soar/src/Http/Middleware/OutputSoarScoreMiddleware.php:45",
-                "#73 /public/index.php:55",
-                "#74 /server.php:21"
+                "#10 /routes/web.php:43",
+                "#35 /Users/yaozm/Documents/develop/laravel-soar/src/Http/Middleware/OutputSoarScoreMiddleware.php:37",
+                "#56 /public/index.php:55",
+                "#57 /server.php:21"
             ]
         }
     ]
