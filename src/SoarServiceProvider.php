@@ -132,14 +132,13 @@ class SoarServiceProvider extends ServiceProvider
         $this->app->singleton(
             OutputManager::class,
             static fn (Container $container): OutputManager => collect(config('soar.outputs'))
-                ->map(static function ($parameters, $class) use ($container) {
+                ->mapWithKeys(static function ($parameters, $class) use ($container) {
                     if (! \is_array($parameters)) {
                         [$parameters, $class] = [$class, $parameters];
                     }
 
-                    return $container->make($class, (array) $parameters);
+                    return [$class => $container->make($class, (array) $parameters)];
                 })
-                ->values()
                 ->pipe(static fn (Collection $collection): OutputManager => new OutputManager($collection->all()))
         );
 

@@ -60,40 +60,52 @@ class QueryAnalyzer
             $sql
         );
 
-        $bindings = array_map(static function ($binding) use ($pdo): string {
-            if (\is_array($binding)) {
-                $binding = implode(', ', array_map(static fn ($value) => \is_string($value) ? htmlspecialchars("'".$value."'", ENT_NOQUOTES) : $value, $binding));
+        $bindings = array_map(
+            static function ($binding) use ($pdo): string {
+                if (\is_array($binding)) {
+                    $binding = implode(', ', array_map(
+                        static fn ($value) => \is_string($value) ? htmlspecialchars("'".$value."'", ENT_NOQUOTES) : $value,
+                        $binding
+                    ));
 
-                return htmlspecialchars('('.$binding.')', ENT_NOQUOTES);
-            }
-
-            if (\is_string($binding) && (preg_match('#[^\x09\x0A\x0D\x20-\x7E\xA0-\x{10FFFF}]#u', $binding) || preg_last_error())) {
-                return '<i title="Length '.\strlen($binding).' bytes">&lt;binary&gt;</i>';
-            }
-
-            if (\is_string($binding)) {
-                $text = htmlspecialchars($pdo instanceof \PDO ? $pdo->quote($binding) : "'".$binding."'", ENT_NOQUOTES);
-
-                return '<span title="Length '.\strlen($text).' characters">'.$text.'</span>';
-            }
-
-            $info = [];
-            if (\is_resource($binding)) {
-                $type = get_resource_type($binding);
-                if ('stream' === $type) {
-                    $info = stream_get_meta_data($binding);
+                    return htmlspecialchars('('.$binding.')', ENT_NOQUOTES);
                 }
 
-                return '<i'.(isset($info['uri']) ? ' title="'.htmlspecialchars($info['uri'], ENT_NOQUOTES).'"' : null)
-                       .'>&lt;'.htmlspecialchars($type, ENT_NOQUOTES).' resource&gt;</i>';
-            }
+                if (
+                    \is_string($binding)
+                    && (preg_match('#[^\x09\x0A\x0D\x20-\x7E\xA0-\x{10FFFF}]#u', $binding) || preg_last_error())
+                ) {
+                    return '<i title="Length '.\strlen($binding).' bytes">&lt;binary&gt;</i>';
+                }
 
-            if ($binding instanceof \DateTimeImmutable) {
-                return htmlspecialchars("'".$binding->format('Y-m-d H:i:s')."'", ENT_NOQUOTES);
-            }
+                if (\is_string($binding)) {
+                    $text = htmlspecialchars(
+                        $pdo instanceof \PDO ? $pdo->quote($binding) : "'".$binding."'",
+                        ENT_NOQUOTES
+                    );
 
-            return htmlspecialchars($binding, ENT_NOQUOTES);
-        }, $bindings);
+                    return '<span title="Length '.\strlen($text).' characters">'.$text.'</span>';
+                }
+
+                $info = [];
+                if (\is_resource($binding)) {
+                    $type = get_resource_type($binding);
+                    if ('stream' === $type) {
+                        $info = stream_get_meta_data($binding);
+                    }
+
+                    return '<i'.(isset($info['uri']) ? ' title="'.htmlspecialchars($info['uri'], ENT_NOQUOTES).'"' : null)
+                           .'>&lt;'.htmlspecialchars($type, ENT_NOQUOTES).' resource&gt;</i>';
+                }
+
+                if ($binding instanceof \DateTimeImmutable) {
+                    return htmlspecialchars("'".$binding->format('Y-m-d H:i:s')."'", ENT_NOQUOTES);
+                }
+
+                return htmlspecialchars($binding, ENT_NOQUOTES);
+            },
+            $bindings
+        );
 
         $sql = str_replace(['%', '?'], ['%%', '%s'], $sql);
 

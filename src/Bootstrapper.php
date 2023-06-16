@@ -25,12 +25,10 @@ use Illuminate\Support\Str;
 class Bootstrapper
 {
     protected Container $container;
+    protected bool $booted = false;
 
     protected static Collection $queries;
-
     protected static Collection $scores;
-
-    protected bool $booted = false;
 
     public function __construct(Container $container)
     {
@@ -173,8 +171,16 @@ class Bootstrapper
     {
         return collect(debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, $limit))
             ->forget($forgetLines)
-            ->filter(static fn ($trace): bool => isset($trace['file'], $trace['line']) && ! Str::contains($trace['file'], 'vendor'))
-            ->map(static fn ($trace, $index): string => sprintf('#%s %s:%s', $index, str_replace(base_path(), '', $trace['file']), $trace['line']))
+            ->filter(
+                static fn ($trace): bool => isset($trace['file'], $trace['line'])
+                    && ! Str::contains($trace['file'], 'vendor')
+            )
+            ->map(static fn ($trace, $index): string => sprintf(
+                '#%s %s:%s',
+                $index,
+                str_replace(base_path(), '', $trace['file']),
+                $trace['line']
+            ))
             ->values()
             ->all();
     }
