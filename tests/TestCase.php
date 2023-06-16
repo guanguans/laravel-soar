@@ -19,11 +19,13 @@ use Guanguans\LaravelSoar\Outputs\ClockworkOutput;
 use Guanguans\LaravelSoar\Outputs\ConsoleOutput;
 use Guanguans\LaravelSoar\Outputs\DebugBarOutput;
 use Guanguans\LaravelSoar\Outputs\DumpOutput;
+use Guanguans\LaravelSoar\Outputs\ErrorLogOutput;
 use Guanguans\LaravelSoar\Outputs\JsonOutput;
 use Guanguans\LaravelSoar\Outputs\LogOutput;
 use Guanguans\LaravelSoar\Outputs\NullOutput;
 use Guanguans\LaravelSoar\Outputs\RayOutput;
 use Guanguans\LaravelSoar\Outputs\SoarBarOutput;
+use Guanguans\LaravelSoar\Outputs\SyslogOutput;
 use Guanguans\LaravelSoar\SoarServiceProvider;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Artisan;
@@ -70,7 +72,8 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
             ConsoleOutput::class,
             // \Guanguans\LaravelSoar\Outputs\DebugBarOutput::class,
             // \Guanguans\LaravelSoar\Outputs\DumpOutput::class => ['exit' => false],
-            \Guanguans\LaravelSoar\Outputs\SyslogOutput::class,
+            SyslogOutput::class,
+            ErrorLogOutput::class,
             JsonOutput::class,
             LogOutput::class => ['channel' => 'daily'],
             NullOutput::class,

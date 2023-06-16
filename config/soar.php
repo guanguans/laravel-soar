@@ -38,6 +38,7 @@ return [
         // Guanguans\LaravelSoar\Outputs\ClockworkOutput::class,
         // Guanguans\LaravelSoar\Outputs\ConsoleOutput::class,
         // Guanguans\LaravelSoar\Outputs\DumpOutput::class => ['exit' => false],
+        // Guanguans\LaravelSoar\Outputs\ErrorLogOutput::class => ['messageType' => 0, 'destination' => '', 'extraHeaders' => ''],
         // Guanguans\LaravelSoar\Outputs\RayOutput::class => ['label' => 'Soar Scores'],
         // Guanguans\LaravelSoar\Outputs\SyslogOutput::class,
         Guanguans\LaravelSoar\Outputs\JsonOutput::class => ['key' => 'soar_scores'],
