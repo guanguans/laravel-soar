@@ -2,6 +2,10 @@
 
 All notable changes to `guanguans/laravel-soar` will be documented in this file.
 
+## v3.2.0 - 2023-06-16
+
+**Full Changelog**: https://github.com/guanguans/laravel-soar/compare/v3.1.1...v3.2.0
+
 ## v3.1.1 - 2023-06-16
 
 ### What's Changed
@@ -176,7 +180,6 @@ All notable changes to `guanguans/laravel-soar` will be documented in this file.
 ## 1.0.2 - 2021-04-25
 - Optimize soar config.
 - Update some CI config files.
-
 ## 1.0.1 - 2020-10-19
 
 - Support for Laravel 8.
