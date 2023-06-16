@@ -29,11 +29,18 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
+use phpmock\phpunit\PHPMock;
+use Spatie\Snapshots\MatchesSnapshots;
+use Symfony\Component\VarDumper\Test\VarDumperTestTrait;
 use Tests\Models\User;
 use Tests\Seeder\UserSeeder;
 
 abstract class TestCase extends \Orchestra\Testbench\TestCase
 {
+    use MatchesSnapshots;
+    use PHPMock;
+    use VarDumperTestTrait;
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -54,7 +61,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
     /**
      * {@inheritDoc}
      */
-    protected function getEnvironmentSetUp($app): void
+    protected function defineEnvironment($app): void
     {
         config()->set('soar', require __DIR__.'/../config/soar.php');
         config()->set('soar.enabled', true);
