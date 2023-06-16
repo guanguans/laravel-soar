@@ -22,6 +22,8 @@
         "debugbar",
         "dump",
         "log",
+        "errorlog",
+        "syslog",
         "ray"
     ],
     "authors": [

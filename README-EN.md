@@ -17,7 +17,7 @@
 * Supports rich interpretation of EXPLAIN information
 * Automatically monitor output SQL optimization recommendations
 * Debug bar、Soar bar、JSON、Clockwork、Console、Dump、Log、Custom output(Multiple scene output)
-* [Soar bar](https://github.com/maximebf/php-debugbar)、[Debug bar](https://github.com/barryvdh/laravel-debugbar)、[Clockwork](https://github.com/itsgoingd/clockwork)、[Ray](https://github.com/spatie/ray)、JSON、Console、Dump、Log、Custom output(Multiple scene output)
+* [Soar bar](https://github.com/maximebf/php-debugbar)、[Debug bar](https://github.com/barryvdh/laravel-debugbar)、[Clockwork](https://github.com/itsgoingd/clockwork)、[Ray](https://github.com/spatie/ray)、JSON、Console、Dump、Log、Error log、Syslog、Custom output(Multiple scene output)
 * Support query builder to generate SQL optimization suggestions
 
 ## Related Links
@@ -485,6 +485,16 @@ SQL
 <summary><b>Log</b></summary>
 
 ![Log](docs/log.png)
+</details>
+
+<details>
+<summary><b>Error log</b></summary>
+
+</details>
+
+<details>
+<summary><b>Syslog</b></summary>
+
 </details>
 
 <details>
