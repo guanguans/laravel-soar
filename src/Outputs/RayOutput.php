@@ -16,12 +16,24 @@ use Illuminate\Support\Collection;
 
 class RayOutput extends Output
 {
+    protected string $label;
+
+    public function __construct(string $label = 'Soar Scores')
+    {
+        $this->label = $label;
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @psalm-suppress UndefinedDocblockClass
+     */
     public function output(Collection $scores, $dispatcher): void
     {
         if (! \function_exists('ray')) {
             return; // @codeCoverageIgnore
         }
 
-        ray(...$scores);
+        ray(...$scores)->label($this->label);
     }
 }
