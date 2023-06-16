@@ -105,9 +105,6 @@
     </PossiblyUnusedMethod>
   </file>
   <file src="src/Outputs/RayOutput.php">
-    <UnusedClass>
-      <code>RayOutput</code>
-    </UnusedClass>
     <InvalidArgument>
       <code>$scores</code>
     </InvalidArgument>

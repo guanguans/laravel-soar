@@ -39,6 +39,7 @@ return [
         // Guanguans\LaravelSoar\Outputs\ConsoleOutput::class,
         // Guanguans\LaravelSoar\Outputs\DumpOutput::class => ['exit' => false],
         // Guanguans\LaravelSoar\Outputs\RayOutput::class => ['label' => 'Soar Scores'],
+        // Guanguans\LaravelSoar\Outputs\SyslogOutput::class,
         Guanguans\LaravelSoar\Outputs\JsonOutput::class => ['key' => 'soar_scores'],
         Guanguans\LaravelSoar\Outputs\LogOutput::class => ['channel' => 'daily'],
         Guanguans\LaravelSoar\Outputs\DebugBarOutput::class,

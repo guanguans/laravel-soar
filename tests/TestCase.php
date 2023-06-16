@@ -70,6 +70,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
             ConsoleOutput::class,
             // \Guanguans\LaravelSoar\Outputs\DebugBarOutput::class,
             // \Guanguans\LaravelSoar\Outputs\DumpOutput::class => ['exit' => false],
+            \Guanguans\LaravelSoar\Outputs\SyslogOutput::class,
             JsonOutput::class,
             LogOutput::class => ['channel' => 'daily'],
             NullOutput::class,

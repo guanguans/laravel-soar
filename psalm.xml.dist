@@ -34,6 +34,11 @@
         <file name="src/Macros/QueryBuilderMacro.php"/>
       </errorLevel>
     </InvalidArgument>
+    <UnusedClass>
+      <errorLevel type="suppress">
+        <directory name="src/Outputs"/>
+      </errorLevel>
+    </UnusedClass>
   </issueHandlers>
   <plugins>
     <!--<pluginClass class="Psalm\LaravelPlugin\Plugin"/>-->
