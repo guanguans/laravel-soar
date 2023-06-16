@@ -10,7 +10,6 @@ declare(strict_types=1);
  * This source file is subject to the MIT license that is bundled.
  */
 
-use PHPUnit\Framework\TestCase;
 use Rector\Caching\ValueObject\Storage\FileCacheStorage;
 use Rector\CodeQuality\Rector\Array_\CallableThisArrayToAnonymousFunctionRector;
 use Rector\CodeQuality\Rector\Class_\InlineConstructorDefaultToPropertyRector;
@@ -18,20 +17,17 @@ use Rector\CodeQuality\Rector\Expression\InlineIfToExplicitIfRector;
 use Rector\CodeQuality\Rector\Identical\SimplifyBoolIdenticalTrueRector;
 use Rector\CodeQuality\Rector\If_\ExplicitBoolCompareRector;
 use Rector\CodeQuality\Rector\LogicalAnd\LogicalToBooleanRector;
-use Rector\CodingStyle\Enum\PreferenceSelfThis;
 use Rector\CodingStyle\Rector\Class_\AddArrayDefaultToArrayPropertyRector;
 use Rector\CodingStyle\Rector\ClassConst\VarConstantCommentRector;
 use Rector\CodingStyle\Rector\ClassMethod\UnSpreadOperatorRector;
 use Rector\CodingStyle\Rector\Closure\StaticClosureRector;
 use Rector\CodingStyle\Rector\Encapsed\EncapsedStringsToSprintfRector;
 use Rector\CodingStyle\Rector\Encapsed\WrapEncapsedVariableInCurlyBracesRector;
-use Rector\CodingStyle\Rector\MethodCall\PreferThisOrSelfMethodCallRector;
 use Rector\Config\RectorConfig;
 use Rector\Core\Configuration\Option;
 use Rector\Core\ValueObject\PhpVersion;
 use Rector\DeadCode\Rector\Assign\RemoveUnusedVariableAssignRector;
 use Rector\DeadCode\Rector\ClassMethod\RemoveEmptyClassMethodRector;
-use Rector\DeadCode\Rector\MethodCall\RemoveEmptyMethodCallRector;
 use Rector\EarlyReturn\Rector\If_\ChangeAndIfToEarlyReturnRector;
 use Rector\EarlyReturn\Rector\Return_\ReturnBinaryAndToEarlyReturnRector;
 use Rector\EarlyReturn\Rector\Return_\ReturnBinaryOrToEarlyReturnRector;
@@ -44,10 +40,10 @@ use Rector\PHPUnit\Rector\Class_\AddSeeTestAnnotationRector;
 use Rector\PHPUnit\Rector\MethodCall\RemoveExpectAnyFromMockRector;
 use Rector\PHPUnit\Set\PHPUnitLevelSetList;
 use Rector\PHPUnit\Set\PHPUnitSetList;
-use Rector\PSR4\Rector\FileWithoutNamespace\NormalizeNamespaceByPSR4ComposerAutoloadRector;
 use Rector\Renaming\Rector\FuncCall\RenameFunctionRector;
 use Rector\Set\ValueObject\LevelSetList;
 use Rector\Set\ValueObject\SetList;
+use Rector\Strict\Rector\BooleanNot\BooleanInBooleanNotRuleFixerRector;
 use Rector\Strict\Rector\Empty_\DisallowedEmptyRuleFixerRector;
 
 return static function (RectorConfig $rectorConfig): void {
@@ -96,7 +92,6 @@ return static function (RectorConfig $rectorConfig): void {
         // ChangeAndIfToEarlyReturnRector::class,
         // ExplicitBoolCompareRector::class,
         // RemoveEmptyClassMethodRector::class,
-        // RemoveEmptyMethodCallRector::class,
         // RemoveUnusedVariableAssignRector::class,
         // ReturnBinaryOrToEarlyReturnRector::class,
         // SimplifyBoolIdenticalTrueRector::class,
@@ -110,6 +105,9 @@ return static function (RectorConfig $rectorConfig): void {
         WrapEncapsedVariableInCurlyBracesRector::class,
         VarConstantCommentRector::class,
 
+        BooleanInBooleanNotRuleFixerRector::class => [
+            __DIR__.'/src/JavascriptRenderer.php',
+        ],
         DisallowedEmptyRuleFixerRector::class => [
             __DIR__.'/src/Support/QueryAnalyzer.php',
         ],
@@ -130,11 +128,6 @@ return static function (RectorConfig $rectorConfig): void {
             __DIR__.'/src/OutputManager.php',
             __DIR__.'/src/Outputs',
             __DIR__.'/src/Support/helpers.php',
-        ],
-        NormalizeNamespaceByPSR4ComposerAutoloadRector::class => [
-            __DIR__.'/src/Support/helpers.php',
-            __DIR__.'/routes',
-            __DIR__.'/src/tests',
         ],
         StaticClosureRector::class => [
             __DIR__.'/tests',
@@ -169,35 +162,32 @@ return static function (RectorConfig $rectorConfig): void {
 
     $rectorConfig->sets([
         LevelSetList::UP_TO_PHP_74,
-        SetList::ACTION_INJECTION_TO_CONSTRUCTOR_INJECTION,
+        SetList::PHP_74,
         SetList::CODE_QUALITY,
         SetList::CODING_STYLE,
         SetList::DEAD_CODE,
+        SetList::STRICT_BOOLEANS,
         // SetList::GMAGICK_TO_IMAGICK,
         // SetList::MYSQL_TO_MYSQLI,
         SetList::NAMING,
         // SetList::PRIVATIZATION,
-        SetList::PSR_4,
         SetList::TYPE_DECLARATION,
         SetList::EARLY_RETURN,
         SetList::INSTANCEOF,
 
         PHPUnitLevelSetList::UP_TO_PHPUNIT_90,
+        PHPUnitSetList::PHPUNIT_90,
+        PHPUnitSetList::PHPUNIT_91,
         // PHPUnitSetList::PHPUNIT80_DMS,
         PHPUnitSetList::PHPUNIT_CODE_QUALITY,
         PHPUnitSetList::PHPUNIT_EXCEPTION,
         PHPUnitSetList::REMOVE_MOCKS,
         PHPUnitSetList::PHPUNIT_SPECIFIC_METHOD,
-        PHPUnitSetList::PHPUNIT_YIELD_DATA_PROVIDER,
         PHPUnitSetList::ANNOTATIONS_TO_ATTRIBUTES,
     ]);
 
     $rectorConfig->rules([
         InlineConstructorDefaultToPropertyRector::class,
-    ]);
-
-    $rectorConfig->ruleWithConfiguration(PreferThisOrSelfMethodCallRector::class, [
-        TestCase::class => PreferenceSelfThis::PREFER_THIS,
     ]);
 
     $rectorConfig->ruleWithConfiguration(RenameFunctionRector::class, [
