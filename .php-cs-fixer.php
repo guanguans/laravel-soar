@@ -71,6 +71,9 @@ if (! is_dir($dir = __DIR__.'/build/php-cs-fixer') && ! mkdir($dir, 0777, true) 
     throw new RuntimeException("The directory [$dir] was not created.");
 }
 
+// @see https://github.com/PHP-CS-Fixer/PHP-CS-Fixer
+// @see https://cs.symfony.com
+// @see https://mlocati.github.io/php-cs-fixer-configurator
 return (new Config())
     ->setFinder($finder)
     ->setRiskyAllowed(true)
@@ -151,6 +154,7 @@ return (new Config())
             'order' => 'alpha',
             'direction' => 'ascend',
         ],
+        'self_accessor' => false,
         'self_static_accessor' => true,
 
         // class_usage

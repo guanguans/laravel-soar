@@ -43,12 +43,43 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
     use PHPMock;
     use VarDumperTestTrait;
 
+    public const OUTPUTS = [
+        ClockworkOutput::class,
+        ConsoleOutput::class => ['method' => 'warn'],
+        DebugBarOutput::class => ['name' => 'Soar Scores', 'label' => 'warning'],
+        DumpOutput::class => ['exit' => false],
+        ErrorLogOutput::class => ['messageType' => 0, 'destination' => '', 'extraHeaders' => ''],
+        JsonOutput::class => ['key' => 'soar_scores'],
+        LogOutput::class => ['channel' => 'daily', 'level' => 'warning'],
+        NullOutput::class,
+        RayOutput::class => ['label' => 'Soar Scores'],
+        SoarBarOutput::class => ['name' => 'Scores', 'label' => 'warning'],
+        SyslogOutput::class => ['priority' => LOG_WARNING],
+    ];
+
     protected function setUp(): void
     {
         parent::setUp();
         $this->setUpDatabase();
         $this->withFactories(__DIR__.'/Factories/');
         $this->seed(UserSeeder::class);
+    }
+
+    /**
+     * @param array<class-string, array<string, mixed>>|array<class-string>|class-string $outputs
+     */
+    public static function extendOutputManagerWithOutputs(OutputManager $outputManager, $outputs): OutputManager
+    {
+        collect((array) $outputs)
+            ->each(static function ($parameters, $class) use ($outputManager): void {
+                if (! \is_array($parameters)) {
+                    [$parameters, $class] = [$class, $parameters];
+                }
+
+                $outputManager[$class] = app($class, (array) $parameters);
+            });
+
+        return $outputManager;
     }
 
     protected function getPackageProviders($app)
@@ -65,23 +96,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
      */
     protected function defineEnvironment($app): void
     {
-        config()->set('soar', require __DIR__.'/../config/soar.php');
-        config()->set('soar.enabled', true);
-        config()->set('soar.outputs', [
-            // ClockworkOutput::class,
-            // ConsoleOutput::class => ['method' => 'warn'],
-            // DebugBarOutput::class => ['name' => 'Soar Scores', 'label' => 'warning'],
-            // DumpOutput::class => ['exit' => false],
-            // ErrorLogOutput::class => ['messageType' => 0, 'destination' => '', 'extraHeaders' => ''],
-            // JsonOutput::class => ['key' => 'soar_scores'],
-            // LogOutput::class => ['channel' => 'daily', 'level' => 'warning'],
-            // NullOutput::class,
-            // RayOutput::class => ['label' => 'Soar Scores'],
-            // SoarBarOutput::class => ['name' => 'Scores', 'label' => 'warning'],
-            // SyslogOutput::class => ['priority' => LOG_WARNING],
-        ]);
-        config()->set('soar.options.-test-dsn.disable', true);
-        config()->set('soar.options.-online-dsn.disable', true);
+        config()->set('app.key', 'base64:6Cu/ozj4gPtIjmXjr8EdVnGFNsdRqZfHfVjQkmTlg4Y=');
 
         config()->set('database.default', 'sqlite');
         config()->set('database.connections.sqlite', [
@@ -90,20 +105,26 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
             'prefix' => '',
         ]);
 
-        config()->set('app.key', 'base64:6Cu/ozj4gPtIjmXjr8EdVnGFNsdRqZfHfVjQkmTlg4Y=');
+        config()->set('soar.enabled', true);
+        config()->set('soar.outputs', []);
+        config()->set('soar.options.-test-dsn.disable', true);
+        config()->set('soar.options.-online-dsn.disable', true);
     }
 
     protected function setUpDatabase(): void
     {
-        $this->app['db']->connection()->getSchemaBuilder()->create('users', static function (Blueprint $blueprint): void {
-            $blueprint->bigIncrements('id');
-            $blueprint->string('name');
-            $blueprint->string('email')->unique();
-            $blueprint->timestamp('email_verified_at')->nullable();
-            $blueprint->string('password');
-            $blueprint->rememberToken();
-            $blueprint->timestamps();
-        });
+        $this->app['db']
+            ->connection()
+            ->getSchemaBuilder()
+            ->create('users', static function (Blueprint $blueprint): void {
+                $blueprint->bigIncrements('id');
+                $blueprint->string('name');
+                $blueprint->string('email')->unique();
+                $blueprint->timestamp('email_verified_at')->nullable();
+                $blueprint->string('password');
+                $blueprint->rememberToken();
+                $blueprint->timestamps();
+            });
     }
 
     /**
@@ -125,81 +146,54 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
         };
 
         Artisan::command('outputs', function () use ($query): void {
-            $this->laravel->extend(OutputManager::class, function (OutputManager $outputManager): OutputManager {
-                foreach (
-                    [
-                        ClockworkOutput::class,
-                        ConsoleOutput::class => ['method' => 'warn'],
-                        DebugBarOutput::class => ['name' => 'Soar Scores', 'label' => 'warning'],
-                        DumpOutput::class => ['exit' => false],
-                        ErrorLogOutput::class => ['messageType' => 0, 'destination' => '', 'extraHeaders' => ''],
-                        JsonOutput::class => ['key' => 'soar_scores'],
-                        LogOutput::class => ['channel' => 'daily', 'level' => 'warning'],
-                        NullOutput::class,
-                        RayOutput::class => ['label' => 'Soar Scores'],
-                        SoarBarOutput::class => ['name' => 'Scores', 'label' => 'warning'],
-                        SyslogOutput::class => ['priority' => LOG_WARNING],
-                    ] as $class => $parameters
-                ) {
-                    if (! \is_array($parameters)) {
-                        [$parameters, $class] = [$class, $parameters];
-                    }
+            $this->laravel->extend(
+                OutputManager::class,
+                fn (OutputManager $outputManager): OutputManager => TestCase::extendOutputManagerWithOutputs(
+                    $outputManager,
+                    TestCase::OUTPUTS
+                )
+            );
 
-                    $outputManager[$class] = $this->laravel->make($class, (array) $parameters);
-                }
-
-                return $outputManager;
-            });
             $query();
 
             $this->info(OutputManager::class);
         });
 
         Route::get('outputs', fn () => tap(response(OutputManager::class), function () use ($query): void {
-            $this->app->extend(OutputManager::class, function (OutputManager $outputManager): OutputManager {
-                foreach (
-                    [
-                        ClockworkOutput::class,
-                        ConsoleOutput::class => ['method' => 'warn'],
-                        DebugBarOutput::class => ['name' => 'Soar Scores', 'label' => 'warning'],
-                        DumpOutput::class => ['exit' => false],
-                        ErrorLogOutput::class => ['messageType' => 0, 'destination' => '', 'extraHeaders' => ''],
-                        JsonOutput::class => ['key' => 'soar_scores'],
-                        LogOutput::class => ['channel' => 'daily', 'level' => 'warning'],
-                        NullOutput::class,
-                        RayOutput::class => ['label' => 'Soar Scores'],
-                        SoarBarOutput::class => ['name' => 'Scores', 'label' => 'warning'],
-                        SyslogOutput::class => ['priority' => LOG_WARNING],
-                    ] as $class => $parameters
-                ) {
-                    if (! \is_array($parameters)) {
-                        [$parameters, $class] = [$class, $parameters];
-                    }
+            $this->app->extend(
+                OutputManager::class,
+                fn (OutputManager $outputManager): OutputManager => self::extendOutputManagerWithOutputs(
+                    $outputManager,
+                    self::OUTPUTS
+                )
+            );
 
-                    $outputManager[$class] = $this->app->make($class, (array) $parameters);
-                }
-
-                return $outputManager;
-            });
             $query();
         }));
 
         Route::get('json', fn () => tap(response()->json(JsonOutput::class), function () use ($query): void {
-            $this->app->extend(OutputManager::class, function (OutputManager $outputManager): OutputManager {
-                $outputManager[JsonOutput::class] = $this->app->make(JsonOutput::class);
+            $this->app->extend(
+                OutputManager::class,
+                fn (OutputManager $outputManager): OutputManager => self::extendOutputManagerWithOutputs(
+                    $outputManager,
+                    JsonOutput::class
+                )
+            );
 
-                return $outputManager;
-            });
             $query();
         }));
 
         Route::get('soar-bar', fn () => tap(response(SoarBarOutput::class), function () use ($query): void {
-            $this->app->extend(OutputManager::class, function (OutputManager $outputManager): OutputManager {
-                $outputManager[SoarBarOutput::class] = $this->app->make(SoarBarOutput::class);
+            $this->app->extend(
+                OutputManager::class,
+                fn (OutputManager $outputManager): OutputManager => self::extendOutputManagerWithOutputs(
+                    $outputManager,
+                    SoarBarOutput::class
+                )
+            );
 
-                return $outputManager;
-            });
             $query();
+
             (function (): void {
                 $this::$outputted = false;
             })->call($this->app->make(DebugBarOutput::class));

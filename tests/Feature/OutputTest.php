@@ -50,7 +50,6 @@ it('can output to json', function (): void {
 it('can output to SoarBar', function (): void {
     $this->get('soar-bar')
         ->assertOk()
-        ->dump()
         ->assertSee($this->see)
         ->assertSee(SoarBarOutput::class);
 })->group(__DIR__, __FILE__);
