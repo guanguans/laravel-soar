@@ -148,7 +148,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
         Artisan::command('outputs', function () use ($query): void {
             $this->laravel->extend(
                 OutputManager::class,
-                fn (OutputManager $outputManager): OutputManager => TestCase::extendOutputManagerWithOutputs(
+                static fn (OutputManager $outputManager): OutputManager => TestCase::extendOutputManagerWithOutputs(
                     $outputManager,
                     TestCase::OUTPUTS
                 )
@@ -162,7 +162,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
         Route::get('outputs', fn () => tap(response(OutputManager::class), function () use ($query): void {
             $this->app->extend(
                 OutputManager::class,
-                fn (OutputManager $outputManager): OutputManager => self::extendOutputManagerWithOutputs(
+                static fn (OutputManager $outputManager): OutputManager => self::extendOutputManagerWithOutputs(
                     $outputManager,
                     self::OUTPUTS
                 )
@@ -174,7 +174,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
         Route::get('json', fn () => tap(response()->json(JsonOutput::class), function () use ($query): void {
             $this->app->extend(
                 OutputManager::class,
-                fn (OutputManager $outputManager): OutputManager => self::extendOutputManagerWithOutputs(
+                static fn (OutputManager $outputManager): OutputManager => self::extendOutputManagerWithOutputs(
                     $outputManager,
                     JsonOutput::class
                 )
@@ -186,7 +186,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
         Route::get('soar-bar', fn () => tap(response(SoarBarOutput::class), function () use ($query): void {
             $this->app->extend(
                 OutputManager::class,
-                fn (OutputManager $outputManager): OutputManager => self::extendOutputManagerWithOutputs(
+                static fn (OutputManager $outputManager): OutputManager => self::extendOutputManagerWithOutputs(
                     $outputManager,
                     SoarBarOutput::class
                 )

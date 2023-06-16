@@ -30,6 +30,6 @@ class SyslogOutput extends Output
      */
     public function output(Collection $scores, $dispatcher): void
     {
-        $scores->each(fn (array $score) => syslog($this->priority, $score['Summary'].PHP_EOL.to_pretty_json($score)));
+        $scores->each(fn (array $score): bool => syslog($this->priority, $score['Summary'].PHP_EOL.to_pretty_json($score)));
     }
 }

@@ -23,6 +23,7 @@ use Rector\CodingStyle\Rector\ClassMethod\UnSpreadOperatorRector;
 use Rector\CodingStyle\Rector\Closure\StaticClosureRector;
 use Rector\CodingStyle\Rector\Encapsed\EncapsedStringsToSprintfRector;
 use Rector\CodingStyle\Rector\Encapsed\WrapEncapsedVariableInCurlyBracesRector;
+use Rector\CodingStyle\Rector\Stmt\NewlineAfterStatementRector;
 use Rector\Config\RectorConfig;
 use Rector\Core\Configuration\Option;
 use Rector\Core\ValueObject\PhpVersion;
@@ -101,9 +102,10 @@ return static function (RectorConfig $rectorConfig): void {
         EncapsedStringsToSprintfRector::class,
         // InlineIfToExplicitIfRector::class,
         LogicalToBooleanRector::class,
+        NewlineAfterStatementRector::class,
         ReturnBinaryAndToEarlyReturnRector::class,
-        WrapEncapsedVariableInCurlyBracesRector::class,
         VarConstantCommentRector::class,
+        WrapEncapsedVariableInCurlyBracesRector::class,
 
         BooleanInBooleanNotRuleFixerRector::class => [
             __DIR__.'/src/JavascriptRenderer.php',
