@@ -36,15 +36,15 @@ return [
     // soar 评分输出器
     'outputs' => [
         // Guanguans\LaravelSoar\Outputs\ClockworkOutput::class,
-        // Guanguans\LaravelSoar\Outputs\ConsoleOutput::class,
+        // Guanguans\LaravelSoar\Outputs\ConsoleOutput::class => ['method' => 'warn'],
+        // Guanguans\LaravelSoar\Outputs\DebugBarOutput::class => ['name' => 'Soar Scores', 'label' => 'warning'],
         // Guanguans\LaravelSoar\Outputs\DumpOutput::class => ['exit' => false],
         // Guanguans\LaravelSoar\Outputs\ErrorLogOutput::class => ['messageType' => 0, 'destination' => '', 'extraHeaders' => ''],
         // Guanguans\LaravelSoar\Outputs\RayOutput::class => ['label' => 'Soar Scores'],
-        // Guanguans\LaravelSoar\Outputs\SyslogOutput::class,
+        // Guanguans\LaravelSoar\Outputs\SyslogOutput::class => ['priority' => LOG_WARNING],
         Guanguans\LaravelSoar\Outputs\JsonOutput::class => ['key' => 'soar_scores'],
-        Guanguans\LaravelSoar\Outputs\LogOutput::class => ['channel' => 'daily'],
-        Guanguans\LaravelSoar\Outputs\DebugBarOutput::class,
-        Guanguans\LaravelSoar\Outputs\SoarBarOutput::class,
+        Guanguans\LaravelSoar\Outputs\LogOutput::class => ['channel' => 'daily', 'level' => 'warning'],
+        Guanguans\LaravelSoar\Outputs\SoarBarOutput::class => ['name' => 'Scores', 'label' => 'warning'],
     ],
 
     // +----------------------------------------------------------------------+//

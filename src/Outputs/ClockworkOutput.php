@@ -22,6 +22,6 @@ class ClockworkOutput extends Output
             return; // @codeCoverageIgnore
         }
 
-        $scores->each(static fn (array $score) => clock()->warning($score));
+        clock(...$scores);
     }
 }

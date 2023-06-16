@@ -61,15 +61,7 @@
       <code>$uris</code>
     </InvalidReturnStatement>
   </file>
-  <file src="src/Outputs/ClockworkOutput.php">
-    <UndefinedFunction>
-      <code>clock()</code>
-    </UndefinedFunction>
-  </file>
   <file src="src/Outputs/Concerns/OutputCondition.php">
-    <PossiblyUnusedMethod>
-      <code>isCommandFinished</code>
-    </PossiblyUnusedMethod>
     <UndefinedPropertyFetch>
       <code><![CDATA[$dispatcher->headers]]></code>
     </UndefinedPropertyFetch>
@@ -82,15 +74,7 @@
       <code><![CDATA[$dispatcher->headers]]></code>
     </UndefinedPropertyFetch>
   </file>
-  <file src="src/Outputs/DumpOutput.php">
-    <PossiblyUnusedMethod>
-      <code>__construct</code>
-    </PossiblyUnusedMethod>
-  </file>
   <file src="src/Outputs/JsonOutput.php">
-    <PossiblyUnusedMethod>
-      <code>__construct</code>
-    </PossiblyUnusedMethod>
     <UndefinedMethod>
       <code>getData</code>
       <code>setData</code>
@@ -99,23 +83,10 @@
       <code><![CDATA[$dispatcher->headers]]></code>
     </UndefinedPropertyFetch>
   </file>
-  <file src="src/Outputs/LogOutput.php">
-    <PossiblyUnusedMethod>
-      <code>__construct</code>
-    </PossiblyUnusedMethod>
-  </file>
   <file src="src/Outputs/RayOutput.php">
     <InvalidArgument>
       <code>$scores</code>
     </InvalidArgument>
-  </file>
-  <file src="src/Outputs/SoarBarOutput.php">
-    <PossiblyUnusedMethod>
-      <code>__construct</code>
-    </PossiblyUnusedMethod>
-    <UndefinedPropertyFetch>
-      <code><![CDATA[$dispatcher->headers]]></code>
-    </UndefinedPropertyFetch>
   </file>
   <file src="src/SoarBar.php">
     <PossiblyUnusedMethod>

@@ -39,6 +39,12 @@
         <directory name="src/Outputs"/>
       </errorLevel>
     </UnusedClass>
+    <PossiblyUnusedMethod>
+      <errorLevel type="suppress">
+        <directory name="src/Macros"/>
+        <directory name="src/Outputs"/>
+      </errorLevel>
+    </PossiblyUnusedMethod>
   </issueHandlers>
   <plugins>
     <!--<pluginClass class="Psalm\LaravelPlugin\Plugin"/>-->

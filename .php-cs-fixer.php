@@ -350,7 +350,7 @@ return (new Config())
         PhpCsFixerCustomFixers\Fixer\PhpUnitDedicatedAssertFixer::name() => true,
         PhpCsFixerCustomFixers\Fixer\PhpUnitNoUselessReturnFixer::name() => true,
         PhpCsFixerCustomFixers\Fixer\PhpdocArrayStyleFixer::name() => true,
-        PhpCsFixerCustomFixers\Fixer\PhpdocNoIncorrectVarAnnotationFixer::name() => true,
+        // PhpCsFixerCustomFixers\Fixer\PhpdocNoIncorrectVarAnnotationFixer::name() => true,
         PhpCsFixerCustomFixers\Fixer\PhpdocNoSuperfluousParamFixer::name() => true,
         // PhpCsFixerCustomFixers\Fixer\PhpdocOnlyAllowedAnnotationsFixer::name() => [
         //     'elements' => [

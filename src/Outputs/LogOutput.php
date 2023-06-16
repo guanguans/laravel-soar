@@ -18,10 +18,12 @@ use Illuminate\Support\Facades\Log;
 class LogOutput extends Output
 {
     protected string $channel;
+    protected string $level;
 
-    public function __construct(string $channel = 'daily')
+    public function __construct(string $channel = 'daily', string $level = 'warning')
     {
         $this->channel = $channel;
+        $this->level = $level;
     }
 
     /**
@@ -31,7 +33,8 @@ class LogOutput extends Output
      */
     public function output(Collection $scores, $dispatcher): void
     {
-        $scores->each(fn (array $score) => Log::channel($this->channel)->warning(
+        $scores->each(fn (array $score) => Log::channel($this->channel)->log(
+            $this->level,
             $score['Summary'].PHP_EOL.to_pretty_json($score)
         ));
     }

@@ -18,9 +18,16 @@ use Illuminate\Support\Collection;
 
 class DebugBarOutput extends Output
 {
-    protected static ?MessagesCollector $messagesCollector = null;
+    protected string $name;
+    protected string $label;
 
     private static bool $outputted = false;
+
+    public function __construct(string $name = 'Soar Scores', string $label = 'warning')
+    {
+        $this->name = $name;
+        $this->label = $label;
+    }
 
     /**
      * {@inheritDoc}
@@ -33,10 +40,15 @@ class DebugBarOutput extends Output
             return;
         }
 
+        $laravelDebugbar = app(LaravelDebugbar::class);
+        if (! $laravelDebugbar->hasCollector($this->name)) {
+            $laravelDebugbar->addCollector(new MessagesCollector($this->name));
+        }
+
         $scores
-            ->each(fn (array $score) => $this->getMessagesCollector()->addMessage(
+            ->each(fn (array $score) => $laravelDebugbar[$this->name]->addMessage(
                 $score['Summary'].PHP_EOL.to_pretty_json($score),
-                'warning',
+                $this->label,
                 false
             ))
             ->tap(static fn (): bool => self::$outputted = true);
@@ -50,20 +62,8 @@ class DebugBarOutput extends Output
     protected function shouldOutput($dispatcher): bool
     {
         // app(LaravelDebugbar::class)->isEnabled()
-        return $this->isHtmlResponse($dispatcher) && class_exists(LaravelDebugbar::class);
-    }
-
-    protected function getMessagesCollector(): MessagesCollector
-    {
-        if (self::$messagesCollector instanceof MessagesCollector) {
-            return self::$messagesCollector;
-        }
-
-        $messagesCollector = new MessagesCollector('Soar Scores');
-        if (! app(LaravelDebugbar::class)->hasCollector($messagesCollector->getName())) {
-            app(LaravelDebugbar::class)->addCollector($messagesCollector);
-        }
-
-        return self::$messagesCollector = $messagesCollector;
+        return app()->has(LaravelDebugbar::class)
+            && class_exists(LaravelDebugbar::class)
+            && $this->isHtmlResponse($dispatcher);
     }
 }

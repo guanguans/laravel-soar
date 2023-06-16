@@ -12,20 +12,19 @@ declare(strict_types=1);
 
 namespace Guanguans\LaravelSoar\Outputs;
 
-use DebugBar\JavascriptRenderer;
+use DebugBar\DataCollector\MessagesCollector;
 use Guanguans\LaravelSoar\SoarBar;
 use Illuminate\Support\Collection;
 
 class SoarBarOutput extends Output
 {
-    private SoarBar $soarBar;
+    protected string $name;
+    protected string $label;
 
-    private JavascriptRenderer $javascriptRenderer;
-
-    public function __construct(SoarBar $soarBar)
+    public function __construct(string $name = 'Scores', string $label = 'warning')
     {
-        $this->soarBar = $soarBar;
-        $this->javascriptRenderer = $soarBar->getJavascriptRenderer();
+        $this->name = $name;
+        $this->label = $label;
     }
 
     /**
@@ -39,24 +38,27 @@ class SoarBarOutput extends Output
             return;
         }
 
-        $scores->each(fn (array $score) => $this->soarBar['scores']->addMessage(
+        $soarBar = app(SoarBar::class);
+        if (! $soarBar->hasCollector($this->name)) {
+            $soarBar->addCollector(new MessagesCollector($this->name));
+        }
+
+        $scores->each(fn (array $score) => $soarBar[$this->name]->addMessage(
             $score['Summary'].PHP_EOL.to_pretty_json($score),
-            'warning',
+            $this->label,
             false
         ));
 
+        /** @var \Symfony\Component\HttpFoundation\Response $dispatcher */
         $content = $dispatcher->getContent();
-        $head = $this->javascriptRenderer->renderHead();
-        $widget = $this->javascriptRenderer->render();
+        $head = $soarBar->getJavascriptRenderer()->renderHead();
+        $widget = $soarBar->getJavascriptRenderer()->render();
 
         // Try to put the js/css directly before the </head>
         $pos = strripos($content, '</head>');
-        if (false !== $pos) {
-            $content = substr($content, 0, $pos).$head.substr($content, $pos); // @codeCoverageIgnore
-        } else {
-            // Append the head before the widget
-            $widget = $head.$widget;
-        }
+        false !== $pos
+            ? $content = substr($content, 0, $pos).$head.substr($content, $pos) // @codeCoverageIgnore
+            : $widget = $head.$widget; // Append the head before the widget
 
         // Try to put the widget at the end, directly before the </body>
         $pos = strripos($content, '</body>');

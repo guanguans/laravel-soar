@@ -16,6 +16,13 @@ use Illuminate\Support\Collection;
 
 class ConsoleOutput extends Output
 {
+    protected string $method;
+
+    public function __construct(string $method = 'warn')
+    {
+        $this->method = $method;
+    }
+
     public function output(Collection $scores, $dispatcher): void
     {
         if (! $this->isHtmlResponse($dispatcher)) {
@@ -37,8 +44,8 @@ class ConsoleOutput extends Output
     protected function toJs(Collection $scores): string
     {
         $js = $scores
-            ->map(static fn ($score): string => sprintf(
-                'console.warn(`%s`);',
+            ->map(fn ($score): string => sprintf(
+                "console.{$this->method}(`%s`);",
                 str_replace('`', '\`', to_pretty_json($score))
             ))
             ->join(PHP_EOL);

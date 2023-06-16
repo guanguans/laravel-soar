@@ -16,6 +16,13 @@ use Illuminate\Support\Collection;
 
 class SyslogOutput extends Output
 {
+    protected int $priority;
+
+    public function __construct(int $priority = LOG_WARNING)
+    {
+        $this->priority = $priority;
+    }
+
     /**
      * {@inheritDoc}
      *
@@ -23,6 +30,6 @@ class SyslogOutput extends Output
      */
     public function output(Collection $scores, $dispatcher): void
     {
-        $scores->each(fn (array $score) => syslog(LOG_WARNING, $score['Summary'].PHP_EOL.to_pretty_json($score)));
+        $scores->each(fn (array $score) => syslog($this->priority, $score['Summary'].PHP_EOL.to_pretty_json($score)));
     }
 }
