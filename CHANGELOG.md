@@ -2,6 +2,14 @@
 
 All notable changes to `guanguans/laravel-soar` will be documented in this file.
 
+## v3.1.1 - 2023-06-16
+
+### What's Changed
+
+- [ImgBot] Optimize images by @imgbot in https://github.com/guanguans/laravel-soar/pull/37
+
+**Full Changelog**: https://github.com/guanguans/laravel-soar/compare/v3.1.0...v3.1.1
+
 ## v3.1.0 - 2023-06-05
 
 **Full Changelog**: https://github.com/guanguans/laravel-soar/compare/v3.0.2...v3.1.0
@@ -166,7 +174,6 @@ All notable changes to `guanguans/laravel-soar` will be documented in this file.
 - Add some CI config files.
 - Add comment docs for facade.
 ## 1.0.2 - 2021-04-25
-
 - Optimize soar config.
 - Update some CI config files.
 
