@@ -38,7 +38,7 @@ class ErrorLogOutput extends Output
     public function output(Collection $scores, $dispatcher): void
     {
         $scores->each(fn (array $score): bool => error_log(
-            $score['Summary'].PHP_EOL.to_pretty_json($score),
+            $score['Summary'].PHP_EOL.to_pretty_json($score).PHP_EOL.PHP_EOL,
             $this->messageType,
             $this->destination,
             $this->extraHeaders,
