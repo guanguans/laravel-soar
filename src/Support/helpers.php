@@ -10,7 +10,6 @@ declare(strict_types=1);
  * This source file is subject to the MIT license that is bundled.
  */
 
-use Guanguans\LaravelSoar\Soar;
 use Illuminate\Contracts\Container\Container;
 use Laravel\Lumen\Application as LumenApplication;
 
@@ -43,13 +42,13 @@ if (! function_exists('var_output')) {
     }
 }
 
-if (! function_exists('array_reduce_with_key')) {
+if (! function_exists('array_reduce_with_keys')) {
     /**
      * @param null|mixed $carry
      *
      * @return null|mixed
      */
-    function array_reduce_with_key(array $array, callable $callback, $carry = null)
+    function array_reduce_with_keys(array $array, callable $callback, $carry = null)
     {
         foreach ($array as $key => $value) {
             $carry = $callback($carry, $value, $key);
@@ -66,16 +65,32 @@ if (! function_exists('to_star')) {
     }
 }
 
+if (! function_exists('to_human_time')) {
+    function to_human_time(float $milliseconds): string
+    {
+        if ($milliseconds < 1) {
+            return round($milliseconds * 1000).'μs';
+        }
+
+        if ($milliseconds < 1000) {
+            return round($milliseconds, 2).'ms';
+        }
+
+        return round($milliseconds / 1000, 2).'s';
+    }
+}
+
 if (! function_exists('to_pretty_json')) {
     /**
      * @throws JsonException
      */
-    function to_pretty_json(
-        array $score,
-        int $options = JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES,
-        int $depth = 512
-    ): string {
-        return json_encode($score, $options | JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR, $depth);
+    function to_pretty_json(array $score, int $options = 0, int $depth = 512): string
+    {
+        return json_encode(
+            $score,
+            JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR | $options,
+            $depth
+        );
     }
 }
 

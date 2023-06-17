@@ -45,13 +45,3 @@ it('can sanitize `explain` for `sanitizeExplain`', function (): void {
 
     expect($sanitizeExplain->call($this->bootstrapper, $explain))->toBeArray();
 })->group(__DIR__, __FILE__);
-
-it('can to `human time` for `toHumanTime`', function (): void {
-    $toHumanTime = fn (float $milliseconds): string => $this->toHumanTime($milliseconds);
-
-    expect([
-        $toHumanTime->call($this->bootstrapper, 0.1),
-        $toHumanTime->call($this->bootstrapper, 100),
-        $toHumanTime->call($this->bootstrapper, 10000),
-    ])->each->toBeString()->toEndWith('s');
-})->group(__DIR__, __FILE__);

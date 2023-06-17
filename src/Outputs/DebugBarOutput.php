@@ -62,8 +62,8 @@ class DebugBarOutput extends Output
     protected function shouldOutput($dispatcher): bool
     {
         // app(LaravelDebugbar::class)->isEnabled()
-        return app()->has(LaravelDebugbar::class)
-            && class_exists(LaravelDebugbar::class)
+        return class_exists(LaravelDebugbar::class)
+            && app()->has(LaravelDebugbar::class)
             && $this->isHtmlResponse($dispatcher);
     }
 }

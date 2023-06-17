@@ -22,7 +22,7 @@ it('can return variable for `var_output`', function (): void {
 
 it('can reduce array with key for `array_reduce_with_key`', function (): void {
     expect(
-        array_reduce_with_key(
+        array_reduce_with_keys(
             ['a' => 1, 'b' => 2, 'c' => 3],
             static fn ($carry, $val, $key): string => $carry.$key,
             ''
@@ -40,6 +40,14 @@ it('can return star for `to_star`', function (): void {
         '★★★☆☆',
         '★★★★★'
     );
+})->group(__DIR__, __FILE__);
+
+it('can to `human time` for `to_human_time`', function (): void {
+    expect([
+        to_human_time(0.1),
+        to_human_time(100),
+        to_human_time(10000),
+    ])->each->toBeString()->toEndWith('s');
 })->group(__DIR__, __FILE__);
 
 it('can return pretty json for `to_pretty_json`', function (): void {

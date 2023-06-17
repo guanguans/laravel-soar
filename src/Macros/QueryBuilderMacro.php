@@ -36,9 +36,7 @@ class QueryBuilderMacro
      */
     public function dumpRawSql(): callable
     {
-        return function (): void {
-            dump($this->toRawSql());
-        };
+        return fn (): string => dump($this->toRawSql());
     }
 
     /**
@@ -49,14 +47,16 @@ class QueryBuilderMacro
      */
     public function ddRawSql(): callable
     {
-        return function (): void {
-            dd($this->toRawSql());
-        };
+        return fn () => dd($this->toRawSql());
     }
 
     public function toSoarArrayScores(): callable
     {
-        return fn (): array => app(Soar::class)->arrayScores($this->toRawSql());
+        return fn (int $depth = 512, int $options = 0): array => app(Soar::class)->arrayScores(
+            $this->toRawSql(),
+            $depth,
+            $options
+        );
     }
 
     /**
@@ -65,9 +65,7 @@ class QueryBuilderMacro
      */
     public function dumpSoarArrayScores(): callable
     {
-        return function (): void {
-            dump($this->toSoarArrayScores());
-        };
+        return fn (int $depth = 512, int $options = 0): array => dump($this->toSoarArrayScores($depth, $options));
     }
 
     /**
@@ -78,18 +76,12 @@ class QueryBuilderMacro
      */
     public function ddSoarArrayScores(): callable
     {
-        return function (): void {
-            dd($this->toSoarArrayScores());
-        };
+        return fn (int $depth = 512, int $options = 0) => dd($this->toSoarArrayScores($depth, $options));
     }
 
     public function toSoarJsonScores(): callable
     {
-        return fn (int $options = 0, int $depth = 128): string => json_encode(
-            $this->toSoarArrayScores(),
-            $options | JSON_THROW_ON_ERROR,
-            $depth
-        );
+        return fn (): string => app(Soar::class)->jsonScores($this->toRawSql());
     }
 
     /**
@@ -98,9 +90,7 @@ class QueryBuilderMacro
      */
     public function dumpSoarJsonScores(): callable
     {
-        return function (int $options = JSON_PRETTY_PRINT, int $depth = 128): void {
-            dump($this->toSoarJsonScores($options, $depth));
-        };
+        return fn (): string => dump($this->toSoarJsonScores());
     }
 
     /**
@@ -111,9 +101,7 @@ class QueryBuilderMacro
      */
     public function ddSoarJsonScores(): callable
     {
-        return function (int $options = JSON_PRETTY_PRINT, int $depth = 128): void {
-            dd($this->toSoarJsonScores($options, $depth));
-        };
+        return fn () => dd($this->toSoarJsonScores());
     }
 
     public function toSoarHtmlScores(): callable
@@ -121,6 +109,9 @@ class QueryBuilderMacro
         return fn (): string => app(Soar::class)->htmlScores($this->toRawSql());
     }
 
+    /**
+     * @noinspection ToStringCallInspection
+     */
     public function echoSoarHtmlScores(): callable
     {
         return function (): void {

@@ -93,9 +93,90 @@ class Bootstrapper
         return self::$scores;
     }
 
+    protected function logQuery(Dispatcher $dispatcher): void
+    {
+        // 记录 SQL
+        $dispatcher->listen(QueryExecuted::class, function (QueryExecuted $queryExecuted): void {
+            if (
+                isset(self::$queries[$queryExecuted->sql])
+                || $this->isExceptSql($queryExecuted->sql)
+                || $this->isExceptSql($sql = $this->toSql($queryExecuted))
+            ) {
+                return;
+            }
+
+            self::$queries[$queryExecuted->sql] = [
+                'sql' => $sql,
+                'time' => to_human_time($queryExecuted->time),
+                'connection' => $queryExecuted->connectionName,
+                'driver' => $queryExecuted->connection->getDriverName(),
+                'backtraces' => $this->getBacktraces(),
+            ];
+        });
+    }
+
     protected function isExceptSql(string $sql): bool
     {
         return Str::is(config('soar.except', []), $sql);
+    }
+
+    protected function toSql(QueryExecuted $queryExecuted): string
+    {
+        if ([] === $queryExecuted->bindings) {
+            return $queryExecuted->sql;
+        }
+
+        $sqlWithPlaceholders = str_replace(['%', '?', '%s%s'], ['%%', '%s', '?'], $queryExecuted->sql);
+        $bindings = $queryExecuted->connection->prepareBindings($queryExecuted->bindings);
+        $pdo = $queryExecuted->connection->getPdo();
+
+        return vsprintf($sqlWithPlaceholders, array_map([$pdo, 'quote'], $bindings));
+    }
+
+    /**
+     * @noinspection DebugFunctionUsageInspection
+     */
+    protected function getBacktraces(int $limit = 0, int $forgetLines = 0): array
+    {
+        return collect(debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, $limit))
+            ->forget($forgetLines)
+            ->filter(
+                static fn ($trace): bool => isset($trace['file'], $trace['line'])
+                    && ! Str::contains($trace['file'], 'vendor')
+            )
+            ->map(static fn ($trace, $index): string => sprintf(
+                '#%s %s:%s',
+                $index,
+                str_replace(base_path(), '', $trace['file']),
+                $trace['line']
+            ))
+            ->values()
+            ->all();
+    }
+
+    /**
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     *
+     * @noinspection PhpUndefinedMethodInspection
+     */
+    protected function registerOutputMonitor(Container $app): void
+    {
+        // 注册输出监听
+        $app['events']->listen(CommandFinished::class, function (CommandFinished $commandFinished) use ($app): void {
+            $app->make(OutputManager::class)->output($this->getScores(), $commandFinished);
+        });
+
+        // 注册输出中间件
+        is_lumen()
+            ? $app->middleware(OutputSoarScoreMiddleware::class) // @codeCoverageIgnore
+            : $app->make(Kernel::class)->pushMiddleware(OutputSoarScoreMiddleware::class);
+    }
+
+    protected function toScores(Collection $queries): Collection
+    {
+        return $queries
+            ->map(static fn (array $query): string => $query['sql'])
+            ->pipe(static fn (Collection $sqls): Collection => collect(app(Soar::class)->arrayScores($sqls->all())));
     }
 
     /**
@@ -136,99 +217,5 @@ class Bootstrapper
                 return $explain;
             })
             ->all();
-    }
-
-    protected function toSql(QueryExecuted $queryExecuted): string
-    {
-        if ([] === $queryExecuted->bindings) {
-            return $queryExecuted->sql;
-        }
-
-        $sqlWithPlaceholders = str_replace(['%', '?', '%s%s'], ['%%', '%s', '?'], $queryExecuted->sql);
-        $bindings = $queryExecuted->connection->prepareBindings($queryExecuted->bindings);
-        $pdo = $queryExecuted->connection->getPdo();
-
-        return vsprintf($sqlWithPlaceholders, array_map([$pdo, 'quote'], $bindings));
-    }
-
-    protected function toHumanTime(float $milliseconds): string
-    {
-        if ($milliseconds < 1) {
-            return round($milliseconds * 1000).'μs';
-        }
-
-        if ($milliseconds < 1000) {
-            return round($milliseconds, 2).'ms';
-        }
-
-        return round($milliseconds / 1000, 2).'s';
-    }
-
-    /**
-     * @noinspection DebugFunctionUsageInspection
-     */
-    protected function getBacktraces(int $limit = 0, int $forgetLines = 0): array
-    {
-        return collect(debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, $limit))
-            ->forget($forgetLines)
-            ->filter(
-                static fn ($trace): bool => isset($trace['file'], $trace['line'])
-                    && ! Str::contains($trace['file'], 'vendor')
-            )
-            ->map(static fn ($trace, $index): string => sprintf(
-                '#%s %s:%s',
-                $index,
-                str_replace(base_path(), '', $trace['file']),
-                $trace['line']
-            ))
-            ->values()
-            ->all();
-    }
-
-    protected function toScores(Collection $queries): Collection
-    {
-        return $queries
-            ->map(static fn (array $query): string => $query['sql'])
-            ->pipe(static fn (Collection $sqls): Collection => collect(app(Soar::class)->arrayScores($sqls->all())));
-    }
-
-    protected function logQuery(Dispatcher $dispatcher): void
-    {
-        // 记录 SQL
-        $dispatcher->listen(QueryExecuted::class, function (QueryExecuted $queryExecuted): void {
-            if (
-                isset(self::$queries[$queryExecuted->sql])
-                || $this->isExceptSql($queryExecuted->sql)
-                || $this->isExceptSql($sql = $this->toSql($queryExecuted))
-            ) {
-                return;
-            }
-
-            self::$queries[$queryExecuted->sql] = [
-                'sql' => $sql,
-                'time' => $this->toHumanTime($queryExecuted->time),
-                'connection' => $queryExecuted->connectionName,
-                'driver' => $queryExecuted->connection->getDriverName(),
-                'backtraces' => $this->getBacktraces(),
-            ];
-        });
-    }
-
-    /**
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     *
-     * @noinspection PhpUndefinedMethodInspection
-     */
-    protected function registerOutputMonitor(Container $app): void
-    {
-        // 注册输出监听
-        $app['events']->listen(CommandFinished::class, function (CommandFinished $commandFinished) use ($app): void {
-            $app->make(OutputManager::class)->output($this->getScores(), $commandFinished);
-        });
-
-        // 注册输出中间件
-        is_lumen()
-            ? $app->middleware(OutputSoarScoreMiddleware::class) // @codeCoverageIgnore
-            : $app->make(Kernel::class)->pushMiddleware(OutputSoarScoreMiddleware::class);
     }
 }

@@ -20,7 +20,7 @@ it('can return raw sql for `toRawSql`', function (): void {
 })->group(__DIR__, __FILE__);
 
 it('can dump raw sql for `dumpRawSql`', function (): void {
-    expect(User::query()->where('id', 1)->dumpRawSql())->toBeNull();
+    expect(User::query()->where('id', 1)->dumpRawSql())->toBeString();
 })->group(__DIR__, __FILE__);
 
 it('can return soar array scores for `toSoarArrayScores`', function (): void {
@@ -28,7 +28,7 @@ it('can return soar array scores for `toSoarArrayScores`', function (): void {
 })->group(__DIR__, __FILE__);
 
 it('can dump soar array scores for `dumpSoarArrayScore`', function (): void {
-    expect(User::query()->where('id', 1)->dumpSoarArrayScores())->toBeNull();
+    expect(User::query()->where('id', 1)->dumpSoarArrayScores())->toBeArray();
 })->group(__DIR__, __FILE__);
 
 it('can return soar json scores for `toSoarJsonScore`', function (): void {
@@ -36,7 +36,7 @@ it('can return soar json scores for `toSoarJsonScore`', function (): void {
 })->group(__DIR__, __FILE__);
 
 it('can dump soar json scores for `dumpSoarJsonScores`', function (): void {
-    expect(User::query()->where('id', 1)->dumpSoarJsonScores())->toBeNull();
+    expect(User::query()->where('id', 1)->dumpSoarJsonScores())->toBeJson();
 })->group(__DIR__, __FILE__);
 
 it('can return soar html scores for `toSoarHtmlScores`', function (): void {

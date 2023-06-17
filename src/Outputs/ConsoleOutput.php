@@ -45,7 +45,7 @@ class ConsoleOutput extends Output
     {
         $js = $scores
             ->map(fn ($score): string => sprintf(
-                "console.{$this->method}(`%s`);",
+                "console.$this->method(`%s`);",
                 str_replace('`', '\`', to_pretty_json($score))
             ))
             ->join(PHP_EOL);

@@ -30,6 +30,7 @@ class JsonOutput extends Output
             return;
         }
 
+        /** @var \Symfony\Component\HttpFoundation\JsonResponse $dispatcher */
         $data = Arr::wrap($dispatcher->getData(true));
         $data[$this->key] = $scores;
 

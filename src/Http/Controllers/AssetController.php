@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace Guanguans\LaravelSoar\Http\Controllers;
 
-use DebugBar\JavascriptRenderer;
+use Guanguans\LaravelSoar\JavascriptRenderer;
 use Guanguans\LaravelSoar\SoarBar;
 use Illuminate\Http\Response;
 
@@ -25,6 +25,9 @@ class AssetController
 {
     private JavascriptRenderer $javascriptRenderer;
 
+    /**
+     * @noinspection PhpFieldAssignmentTypeMismatchInspection
+     */
     public function __construct(SoarBar $soarBar)
     {
         $this->javascriptRenderer = $soarBar->getJavascriptRenderer();

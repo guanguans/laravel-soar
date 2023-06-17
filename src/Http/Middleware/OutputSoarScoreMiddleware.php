@@ -19,9 +19,9 @@ use Symfony\Component\HttpFoundation\Response;
 
 class OutputSoarScoreMiddleware
 {
-    protected Bootstrapper $bootstrapper;
+    private Bootstrapper $bootstrapper;
 
-    protected OutputManager $outputManager;
+    private OutputManager $outputManager;
 
     public function __construct(Bootstrapper $bootstrapper, OutputManager $outputManager)
     {

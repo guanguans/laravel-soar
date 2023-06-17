@@ -26,7 +26,7 @@ class SoarBar extends DebugBar
     {
         $this->addCollector(new MemoryCollector())
             ->addCollector(new PhpInfoCollector())
-            // ->addCollector(new MessagesCollector('scores'))
+            // ->addCollector(new MessagesCollector('Scores'))
             ->jsRenderer = new JavascriptRenderer($this);
     }
 }

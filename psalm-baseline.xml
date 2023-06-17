@@ -35,10 +35,6 @@
     <UnusedClass>
       <code>AssetController</code>
     </UnusedClass>
-    <UndefinedMethod>
-      <code>dumpAssetsToString</code>
-      <code>dumpAssetsToString</code>
-    </UndefinedMethod>
   </file>
   <file src="src/Http/Middleware/OutputSoarScoreMiddleware.php">
     <PossiblyUnusedMethod>
@@ -47,9 +43,6 @@
     </PossiblyUnusedMethod>
   </file>
   <file src="src/JavascriptRenderer.php">
-    <PossiblyUnusedMethod>
-      <code>dumpAssetsToString</code>
-    </PossiblyUnusedMethod>
     <UnusedVariable>
       <code>$contents</code>
     </UnusedVariable>
@@ -77,11 +70,7 @@
   <file src="src/Outputs/JsonOutput.php">
     <UndefinedMethod>
       <code>getData</code>
-      <code>setData</code>
     </UndefinedMethod>
-    <UndefinedPropertyFetch>
-      <code><![CDATA[$dispatcher->headers]]></code>
-    </UndefinedPropertyFetch>
   </file>
   <file src="src/Outputs/RayOutput.php">
     <InvalidArgument>
