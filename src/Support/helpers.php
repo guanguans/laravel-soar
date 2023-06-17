@@ -47,6 +47,8 @@ if (! function_exists('array_reduce_with_keys')) {
      * @param null|mixed $carry
      *
      * @return null|mixed
+     *
+     * @codeCoverageIgnore
      */
     function array_reduce_with_keys(array $array, callable $callback, $carry = null)
     {

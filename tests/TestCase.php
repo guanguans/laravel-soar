@@ -70,7 +70,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
      */
     public static function extendOutputManagerWithOutputs($outputs): void
     {
-        app()->extend(OutputManager::class, static function (OutputManager $outputManager) use ($outputs) {
+        app()->extend(OutputManager::class, static function (OutputManager $outputManager) use ($outputs): OutputManager {
             foreach ((array) $outputs as $class => $parameters) {
                 if (! \is_array($parameters)) {
                     [$parameters, $class] = [(array) $class, $parameters];
@@ -154,13 +154,13 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
             $this->info(OutputManager::class);
         });
 
-        Route::get('outputs', fn () => tap(response(OutputManager::class), function () use ($query): void {
+        Route::get('outputs', static fn () => tap(response(OutputManager::class), function () use ($query): void {
             self::extendOutputManagerWithOutputs(self::OUTPUTS);
 
             $query();
         }));
 
-        Route::get('json', fn () => tap(response()->json(JsonOutput::class), function () use ($query): void {
+        Route::get('json', static fn () => tap(response()->json(JsonOutput::class), function () use ($query): void {
             self::extendOutputManagerWithOutputs(JsonOutput::class);
 
             $query();
