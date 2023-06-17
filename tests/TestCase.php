@@ -68,18 +68,19 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
     /**
      * @param array<class-string, array<string, mixed>>|array<class-string>|class-string $outputs
      */
-    public static function extendOutputManagerWithOutputs(OutputManager $outputManager, $outputs): OutputManager
+    public static function extendOutputManagerWithOutputs($outputs): void
     {
-        collect((array) $outputs)
-            ->each(static function ($parameters, $class) use ($outputManager): void {
+        app()->extend(OutputManager::class, static function (OutputManager $outputManager) use ($outputs) {
+            foreach ((array) $outputs as $class => $parameters) {
                 if (! \is_array($parameters)) {
-                    [$parameters, $class] = [$class, $parameters];
+                    [$parameters, $class] = [(array) $class, $parameters];
                 }
 
-                $outputManager[$class] = app($class, (array) $parameters);
-            });
+                $outputManager[$class] = app($class, $parameters);
+            }
 
-        return $outputManager;
+            return $outputManager;
+        });
     }
 
     protected function getPackageProviders($app)
@@ -146,13 +147,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
         };
 
         Artisan::command('outputs', function () use ($query): void {
-            $this->laravel->extend(
-                OutputManager::class,
-                static fn (OutputManager $outputManager): OutputManager => TestCase::extendOutputManagerWithOutputs(
-                    $outputManager,
-                    TestCase::OUTPUTS
-                )
-            );
+            TestCase::extendOutputManagerWithOutputs(TestCase::OUTPUTS);
 
             $query();
 
@@ -160,37 +155,19 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
         });
 
         Route::get('outputs', fn () => tap(response(OutputManager::class), function () use ($query): void {
-            $this->app->extend(
-                OutputManager::class,
-                static fn (OutputManager $outputManager): OutputManager => self::extendOutputManagerWithOutputs(
-                    $outputManager,
-                    self::OUTPUTS
-                )
-            );
+            self::extendOutputManagerWithOutputs(self::OUTPUTS);
 
             $query();
         }));
 
         Route::get('json', fn () => tap(response()->json(JsonOutput::class), function () use ($query): void {
-            $this->app->extend(
-                OutputManager::class,
-                static fn (OutputManager $outputManager): OutputManager => self::extendOutputManagerWithOutputs(
-                    $outputManager,
-                    JsonOutput::class
-                )
-            );
+            self::extendOutputManagerWithOutputs(JsonOutput::class);
 
             $query();
         }));
 
         Route::get('soar-bar', fn () => tap(response(SoarBarOutput::class), function () use ($query): void {
-            $this->app->extend(
-                OutputManager::class,
-                static fn (OutputManager $outputManager): OutputManager => self::extendOutputManagerWithOutputs(
-                    $outputManager,
-                    SoarBarOutput::class
-                )
-            );
+            self::extendOutputManagerWithOutputs(SoarBarOutput::class);
 
             $query();
 
