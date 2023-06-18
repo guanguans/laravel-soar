@@ -44,7 +44,7 @@ class SoarBarOutput extends Output
         }
 
         $scores->each(fn (array $score) => $soarBar[$this->name]->addMessage(
-            $score['Summary'].PHP_EOL.to_pretty_json($score),
+            $this->hydrateScore($score),
             $this->label,
             false
         ));

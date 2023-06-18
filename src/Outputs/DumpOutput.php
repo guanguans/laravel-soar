@@ -32,12 +32,6 @@ class DumpOutput extends Output
      */
     public function output(Collection $scores, $dispatcher): void
     {
-        $scores
-            ->each(static fn (array $score): array => dump($score))
-            ->tap(function (): void {
-                if ($this->exit) {
-                    exit(1); // @codeCoverageIgnore
-                }
-            });
+        $this->exit ? dd(...$scores) : dump(...$scores);
     }
 }

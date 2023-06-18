@@ -45,13 +45,11 @@ class DebugBarOutput extends Output
             $laravelDebugbar->addCollector(new MessagesCollector($this->name));
         }
 
-        $scores
-            ->each(fn (array $score) => $laravelDebugbar[$this->name]->addMessage(
-                $score['Summary'].PHP_EOL.to_pretty_json($score),
-                $this->label,
-                false
-            ))
-            ->tap(static fn (): bool => self::$outputted = true);
+        $scores->each(fn (array $score) => $laravelDebugbar[$this->name]->addMessage(
+            $this->hydrateScore($score),
+            $this->label,
+            false
+        ))->tap(static fn (): bool => self::$outputted = true);
     }
 
     public static function isOutputted(): bool

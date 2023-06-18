@@ -35,7 +35,7 @@ class LogOutput extends Output
     {
         $scores->each(fn (array $score) => Log::channel($this->channel)->log(
             $this->level,
-            $score['Summary'].PHP_EOL.to_pretty_json($score)
+            $this->hydrateScore($score)
         ));
     }
 }

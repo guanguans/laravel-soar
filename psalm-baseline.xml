@@ -67,6 +67,12 @@
       <code><![CDATA[$dispatcher->headers]]></code>
     </UndefinedPropertyFetch>
   </file>
+  <file src="src/Outputs/DumpOutput.php">
+    <InvalidArgument>
+      <code>$scores</code>
+      <code>$scores</code>
+    </InvalidArgument>
+  </file>
   <file src="src/Outputs/JsonOutput.php">
     <UndefinedMethod>
       <code>getData</code>
