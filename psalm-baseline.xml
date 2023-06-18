@@ -54,7 +54,7 @@
       <code>$uris</code>
     </InvalidReturnStatement>
   </file>
-  <file src="src/Outputs/Concerns/OutputCondition.php">
+  <file src="src/Outputs/Concerns/OutputConditions.php">
     <UndefinedPropertyFetch>
       <code><![CDATA[$dispatcher->headers]]></code>
     </UndefinedPropertyFetch>

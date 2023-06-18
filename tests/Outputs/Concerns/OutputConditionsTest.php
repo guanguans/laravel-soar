@@ -12,11 +12,11 @@ declare(strict_types=1);
 
 namespace Tests\Outputs\Concerns;
 
-use Guanguans\LaravelSoar\Outputs\Concerns\OutputCondition;
+use Guanguans\LaravelSoar\Outputs\Concerns\OutputConditions;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
-uses(OutputCondition::class);
+uses(OutputConditions::class);
 
 it('can check is command finished for `isCommandFinished`', function (): void {
     expect($this->isCommandFinished(new Response()))->toBeFalse();
