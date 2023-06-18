@@ -32,6 +32,6 @@ trait ScoresHydrator
      */
     protected function hydrateScore(array $score): string
     {
-        return $score['Summary'].PHP_EOL.to_pretty_json($score);
+        return ($score['Summary'] ?? '').PHP_EOL.to_pretty_json($score);
     }
 }
