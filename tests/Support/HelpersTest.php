@@ -20,7 +20,7 @@ it('can return variable for `var_output`', function (): void {
     expect(var_output([['arr'], new \stdClass()], true))->toMatchTextSnapshot();
 })->group(__DIR__, __FILE__);
 
-it('can reduce array with key for `array_reduce_with_key`', function (): void {
+it('can reduce array with key for `array_reduce_with_keys`', function (): void {
     expect(
         array_reduce_with_keys(
             ['a' => 1, 'b' => 2, 'c' => 3],
