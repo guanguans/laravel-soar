@@ -15,18 +15,11 @@ namespace Guanguans\LaravelSoar\Outputs;
 use Guanguans\LaravelSoar\Contracts\Sanitizer;
 use Guanguans\LaravelSoar\Outputs\Concerns\OutputConditions;
 use Guanguans\LaravelSoar\Outputs\Concerns\ScoresHydrator;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Collection;
+use Guanguans\LaravelSoar\Outputs\Concerns\ScoresSanitizer;
 
 abstract class Output implements \Guanguans\LaravelSoar\Contracts\Output, Sanitizer
 {
     use OutputConditions;
     use ScoresHydrator;
-
-    protected array $except = [];
-
-    public function sanitize(Collection $scores): Collection
-    {
-        return $scores->map(fn (array $score): array => Arr::except($score, $this->except));
-    }
+    use ScoresSanitizer;
 }
