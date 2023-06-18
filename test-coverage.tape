@@ -58,5 +58,5 @@ Set Height 927
 Set TypingSpeed 100ms
 Set PlaybackSpeed 0.2
 
-Type "composer test-coverage" Sleep 100ms
+Type "composer test-coverage" Sleep 20ms
 Enter 1 Sleep 100s
