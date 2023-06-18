@@ -6,8 +6,8 @@ parameters:
 			path: src/Bootstrapper.php
 
 		-
-			message: "#^Call to an undefined method DebugBar\\\\JavascriptRenderer\\:\\:dumpAssetsToString\\(\\)\\.$#"
-			count: 2
+			message: "#^Property Guanguans\\\\LaravelSoar\\\\Http\\\\Controllers\\\\AssetController\\:\\:\\$javascriptRenderer \\(Guanguans\\\\LaravelSoar\\\\JavascriptRenderer\\) does not accept DebugBar\\\\JavascriptRenderer\\.$#"
+			count: 1
 			path: src/Http/Controllers/AssetController.php
 
 		-
@@ -21,7 +21,7 @@ parameters:
 			path: src/JavascriptRenderer.php
 
 		-
-			message: "#^Method Guanguans\\\\LaravelSoar\\\\Macros\\\\QueryBuilderMacro\\:\\:toSoarJsonScores\\(\\) invoked with 2 parameters, 0 required\\.$#"
+			message: "#^Method Guanguans\\\\LaravelSoar\\\\Macros\\\\QueryBuilderMacro\\:\\:toSoarArrayScores\\(\\) invoked with 2 parameters, 0 required\\.$#"
 			count: 2
 			path: src/Macros/QueryBuilderMacro.php
 
@@ -31,12 +31,7 @@ parameters:
 			path: src/Macros/QueryBuilderMacro.php
 
 		-
-			message: "#^Call to an undefined method Illuminate\\\\Console\\\\Events\\\\CommandFinished\\|Symfony\\\\Component\\\\HttpFoundation\\\\Response\\:\\:getData\\(\\)\\.$#"
-			count: 1
-			path: src/Outputs/JsonOutput.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Console\\\\Events\\\\CommandFinished\\|Symfony\\\\Component\\\\HttpFoundation\\\\Response\\:\\:setData\\(\\)\\.$#"
+			message: "#^Call to an undefined method Symfony\\\\Component\\\\HttpFoundation\\\\JsonResponse\\:\\:getData\\(\\)\\.$#"
 			count: 1
 			path: src/Outputs/JsonOutput.php
 
