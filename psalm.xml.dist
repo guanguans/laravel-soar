@@ -22,12 +22,6 @@
 
   <issueHandlers>
     <PropertyNotSetInConstructor errorLevel="info"/>
-    <PossiblyUnusedMethod>
-      <errorLevel type="suppress">
-        <directory name="src/Macros"/>
-        <file name="src/Macros/QueryBuilderMacro.php"/>
-      </errorLevel>
-    </PossiblyUnusedMethod>
     <InvalidArgument>
       <errorLevel type="suppress">
         <directory name="src/Macros"/>
@@ -43,6 +37,7 @@
       <errorLevel type="suppress">
         <directory name="src/Macros"/>
         <directory name="src/Outputs"/>
+        <file name="src/Http/Middleware/OutputSoarScoresMiddleware.php"/>
       </errorLevel>
     </PossiblyUnusedMethod>
   </issueHandlers>

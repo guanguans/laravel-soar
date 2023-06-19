@@ -36,12 +36,6 @@
       <code>AssetController</code>
     </UnusedClass>
   </file>
-  <file src="src/Http/Middleware/OutputSoarScoreMiddleware.php">
-    <PossiblyUnusedMethod>
-      <code>__construct</code>
-      <code>handle</code>
-    </PossiblyUnusedMethod>
-  </file>
   <file src="src/JavascriptRenderer.php">
     <UnusedVariable>
       <code>$contents</code>

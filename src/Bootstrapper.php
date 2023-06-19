@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace Guanguans\LaravelSoar;
 
-use Guanguans\LaravelSoar\Http\Middleware\OutputSoarScoreMiddleware;
+use Guanguans\LaravelSoar\Http\Middleware\OutputSoarScoresMiddleware;
 use Illuminate\Console\Events\CommandFinished;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\Container\Container;
@@ -168,8 +168,8 @@ class Bootstrapper
 
         // 注册输出中间件
         is_lumen()
-            ? $app->middleware(OutputSoarScoreMiddleware::class) // @codeCoverageIgnore
-            : $app->make(Kernel::class)->pushMiddleware(OutputSoarScoreMiddleware::class);
+            ? $app->middleware(OutputSoarScoresMiddleware::class) // @codeCoverageIgnore
+            : $app->make(Kernel::class)->pushMiddleware(OutputSoarScoresMiddleware::class);
     }
 
     protected function toScores(Collection $queries): Collection
