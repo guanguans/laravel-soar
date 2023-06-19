@@ -44,6 +44,8 @@ class Bootstrapper
 
     /**
      * @throws BindingResolutionException
+     *
+     * @noinspection OffsetOperationsInspection
      */
     public function boot(): void
     {
@@ -158,13 +160,18 @@ class Bootstrapper
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      *
      * @noinspection PhpUndefinedMethodInspection
+     * @noinspection OffsetOperationsInspection
      */
     protected function registerOutputMonitor(Container $app): void
     {
         // 注册输出监听
-        $app['events']->listen(CommandFinished::class, function (CommandFinished $commandFinished) use ($app): void {
-            $app->make(OutputManager::class)->output($this->getScores(), $commandFinished);
-        });
+        $app['events']->listen(
+            CommandFinished::class,
+            fn (CommandFinished $commandFinished) => $app->make(OutputManager::class)->output(
+                $this->getScores(),
+                $commandFinished
+            )
+        );
 
         // 注册输出中间件
         is_lumen()
