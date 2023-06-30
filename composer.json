@@ -55,6 +55,7 @@
         "barryvdh/laravel-debugbar": "^3.7",
         "brainmaestro/composer-git-hooks": "^2.8 || ^3.0",
         "friendsofphp/php-cs-fixer": "^3.14",
+        "guanguans/ai-commit": "^1.6",
         "itsgoingd/clockwork": "^5.1",
         "jetbrains/phpstorm-attributes": "^1.0",
         "kubawerlos/php-cs-fixer-custom-fixers": "^3.13",
@@ -73,7 +74,8 @@
         "spatie/pest-plugin-snapshots": "^1.1 || ^2.0",
         "spatie/ray": "^1.37",
         "symfony/thanks": "^1.2",
-        "vimeo/psalm": "^5.12"
+        "veewee/composer-run-parallel": "^1.2",
+        "vimeo/psalm": "^5.13"
     },
     "suggest": {
         "barryvdh/laravel-debugbar": "Output SQL scores to Laravel DebugBar.",
@@ -99,7 +101,8 @@
         "allow-plugins": {
             "pestphp/pest-plugin": true,
             "phpstan/extension-installer": true,
-            "symfony/thanks": true
+            "symfony/thanks": true,
+            "veewee/composer-run-parallel": true
         },
         "apcu-autoloader": true,
         "classmap-authoritative": false,
@@ -139,6 +142,7 @@
         "post-update-cmd": [
             "@cghooks update"
         ],
+        "ai-commit": "@php ./vendor/bin/ai-commit commit --generator=bito_cli --ansi",
         "benchmark": "@php ./vendor/bin/phpbench run --warmup=1 --retry-threshold=1 --iterations=3 --revs=5 --ansi -v",
         "cghooks": "@php ./vendor/bin/cghooks --ansi -v",
         "checks": [
@@ -156,6 +160,8 @@
             "@psalm",
             "@mark-finish"
         ],
+        "checks-parallel": "@composer-parallel composer-validate md-lint lint style-lint test psalm",
+        "composer-parallel": "@composer parallel --ansi -v",
         "composer-validate": "@composer validate --check-lock --strict --ansi -v",
         "lint": [
             "for DIR in .; do find $DIR -maxdepth 1 -type f -name '*.php' -type f ! -name 'xxx.php' -exec php -l {} \\; 2>&1 | (! grep -v '^No syntax errors detected'); done",
