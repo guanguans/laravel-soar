@@ -32,7 +32,7 @@ class JsonOutput extends Output
 
         /** @var \Symfony\Component\HttpFoundation\JsonResponse $dispatcher */
         $data = Arr::wrap($dispatcher->getData(true));
-        $data[$this->key] = $scores;
+        Arr::set($data, $this->key, $scores);
 
         // Update the new content and reset the content length
         $dispatcher->setData($data);
