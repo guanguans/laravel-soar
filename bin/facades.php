@@ -1,6 +1,6 @@
 <?php
 
-require __DIR__ . '/../vendor/autoload.php';
+require __DIR__.'/../vendor/autoload.php';
 
 use Illuminate\Cache\Repository;
 use Illuminate\Http\Request;
@@ -24,19 +24,29 @@ use PHPStan\PhpDocParser\Parser\TypeParser;
 use Symfony\Component\Finder\Finder;
 
 /**
+ * @fixme 适配 Laravel 10 以下版本
+ */
+(function():void{
+    \Illuminate\Support\Stringable::macro('toString', fn () => $this->value);
+    \Illuminate\Support\Str::macro('squish', static fn ($value): string => preg_replace(
+        '~(\s|\x{3164}|\x{1160})+~u',
+        ' ',
+        preg_replace('~^[\s\x{FEFF}]+|[\s\x{FEFF}]+$~u', '', $value)
+    ));
+})();
+
+/*
  * Update the docblocks:
  * $ php -f ./bin/facades.php
  *
  * Lint the docblocks:
  * $ php -f ./bin/facades.php -- --lint
- *
- * @see https://github.com/laravel/framework/blob/10.x/bin/facades.php
  */
 
 $linting = in_array('--lint', $argv);
 
 $finder = (new Finder)
-    ->in(__DIR__ . '/../src/Facades')
+    ->in(__DIR__.'/../src/Facades')
     ->notName('Facade.php');
 
 resolveFacades($finder)->each(function ($facade) use ($linting) {
@@ -44,14 +54,14 @@ resolveFacades($finder)->each(function ($facade) use ($linting) {
 
     // Build a list of methods that are available on the Facade...
 
-    $resolvedMethods = $proxies->map(fn($fqcn) => new ReflectionClass($fqcn))
-        ->flatMap(fn($class) => [$class, ...resolveDocMixins($class)])
+    $resolvedMethods = $proxies->map(fn ($fqcn) => new ReflectionClass($fqcn))
+        ->flatMap(fn ($class) => [$class, ...resolveDocMixins($class)])
         ->flatMap(resolveMethods(...))
         ->reject(isMagic(...))
         ->reject(isInternal(...))
         ->reject(isDeprecated(...))
         ->reject(fulfillsBuiltinInterface(...))
-        ->reject(fn($method) => conflictsWithFacade($facade, $method))
+        ->reject(fn ($method) => conflictsWithFacade($facade, $method))
         ->unique(resolveName(...))
         ->map(normaliseDetails(...));
 
@@ -65,7 +75,7 @@ resolveFacades($finder)->each(function ($facade) use ($linting) {
         $parameters = $method['parameters']->map(function ($parameter) {
             $rest = $parameter['variadic'] ? '...' : '';
 
-            $default = $parameter['optional'] ? ' = ' . resolveDefaultValue($parameter) : '';
+            $default = $parameter['optional'] ? ' = '.resolveDefaultValue($parameter) : '';
 
             return "{$parameter['type']} {$rest}{$parameter['name']}{$default}";
         });
@@ -91,7 +101,7 @@ resolveFacades($finder)->each(function ($facade) use ($linting) {
     /**
     {$methods->join(PHP_EOL)}
      *
-    {$proxies->map(fn($class) => " * @see {$class}")->merge($proxies->isNotEmpty() && $directMixins->isNotEmpty() ? [' *'] : [])->merge($directMixins->map(fn($class) => " * @mixin {$class}"))->join(PHP_EOL)}
+    {$proxies->map(fn ($class) => " * @see {$class}")->merge($proxies->isNotEmpty() && $directMixins->isNotEmpty() ? [' *'] : [])->merge($directMixins->map(fn ($class) => " * @mixin {$class}"))->join(PHP_EOL)}
      */
     PHP;
 
@@ -100,15 +110,15 @@ resolveFacades($finder)->each(function ($facade) use ($linting) {
     }
 
     if ($linting) {
-        echo "Did not find expected docblock for [{$facade->getName()}]." . PHP_EOL . PHP_EOL;
-        echo $docblock . PHP_EOL . PHP_EOL;
-        echo 'Run the following command to update your docblocks locally:' . PHP_EOL . 'php -f bin/facades.php';
+        echo "Did not find expected docblock for [{$facade->getName()}].".PHP_EOL.PHP_EOL;
+        echo $docblock.PHP_EOL.PHP_EOL;
+        echo 'Run the following command to update your docblocks locally:'.PHP_EOL.'php -f bin/facades.php';
         exit(1);
     }
 
     // Update the facade docblock...
 
-    echo "Updating docblock for [{$facade->getName()}]." . PHP_EOL;
+    echo "Updating docblock for [{$facade->getName()}].".PHP_EOL;
     $contents = file_get_contents($facade->getFileName());
     $contents = Str::replace($facade->getDocComment(), $docblock, $contents);
     file_put_contents($facade->getFileName(), $contents);
@@ -120,53 +130,53 @@ exit(0);
 /**
  * Resolve the facades from the given directory.
  *
- * @param \Symfony\Component\Finder\Finder $finder
+ * @param  \Symfony\Component\Finder\Finder  $finder
  * @return \Illuminate\Support\Collection<\ReflectionClass>
  */
 function resolveFacades($finder)
 {
     return collect($finder)
-        ->map(fn($file) => $file->getBaseName('.php'))
-        ->map(fn($name) => "\\Guanguans\\LaravelSoar\\Facades\\{$name}")
-        ->map(fn($class) => new ReflectionClass($class));
+        ->map(fn ($file) => $file->getBaseName('.php'))
+        ->map(fn ($name) => "\\Guanguans\\LaravelSoar\\Facades\\{$name}")
+        ->map(fn ($class) => new ReflectionClass($class));
 }
 
 /**
- * Resolve the classes referenced in the @param \ReflectionClass $class
- * @return \Illuminate\Support\Collection<class-string>
- * @see docblocks.
+ * Resolve the classes referenced in the @see docblocks.
  *
+ * @param  \ReflectionClass  $class
+ * @return \Illuminate\Support\Collection<class-string>
  */
 function resolveDocSees($class)
 {
     return resolveDocTags($class->getDocComment() ?: '', '@see')
-        ->reject(fn($tag) => Str::startsWith($tag, 'https://'));
+        ->reject(fn ($tag) => Str::startsWith($tag, 'https://'));
 }
 
 /**
  * Resolve the classes referenced methods in the @methods docblocks.
  *
- * @param \ReflectionClass $class
+ * @param  \ReflectionClass  $class
  * @return \Illuminate\Support\Collection<string>
  */
 function resolveDocMethods($class)
 {
     return resolveDocTags($class->getDocComment() ?: '', '@method')
-        // ->map(fn($tag) => Str::squish($tag))
-        ->map(fn($tag) => Str::before($tag, ')') . ')');
+        ->map(fn ($tag) => Str::squish($tag))
+        ->map(fn ($tag) => Str::before($tag, ')').')');
 }
 
 /**
  * Resolve the parameters type from the @param docblocks.
  *
- * @param \ReflectionMethodDecorator $method
- * @param \ReflectionParameter $parameter
+ * @param  \ReflectionMethodDecorator  $method
+ * @param  \ReflectionParameter  $parameter
  * @return string|null
  */
 function resolveDocParamType($method, $parameter)
 {
     $paramTypeNode = collect(parseDocblock($method->getDocComment())->getParamTagValues())
-        ->firstWhere('parameterName', '$' . $parameter->getName());
+        ->firstWhere('parameterName', '$'.$parameter->getName());
 
     // As we didn't find a param type, we will now recursively check if the prototype has a value specified...
 
@@ -186,9 +196,9 @@ function resolveDocParamType($method, $parameter)
 }
 
 /**
- * Resolve the return type from the @param \ReflectionMethodDecorator $method
- * @return docblock.
+ * Resolve the return type from the @return docblock.
  *
+ * @param  \ReflectionMethodDecorator  $method
  * @return string|null
  */
 function resolveReturnDocType($method)
@@ -207,7 +217,7 @@ function resolveReturnDocType($method)
 /**
  * Parse the given docblock.
  *
- * @param string $docblock
+ * @param  string  $docblock
  * @return \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode
  */
 function parseDocblock($docblock)
@@ -220,24 +230,24 @@ function parseDocblock($docblock)
 /**
  * Resolve the types from the docblock.
  *
- * @param \ReflectionMethodDecorator $method
- * @param \PHPStan\PhpDocParser\Ast\Type\TypeNode $typeNode
+ * @param  \ReflectionMethodDecorator  $method
+ * @param  \PHPStan\PhpDocParser\Ast\Type\TypeNode  $typeNode
  * @return string
  */
 function resolveDocblockTypes($method, $typeNode)
 {
     if ($typeNode instanceof UnionTypeNode) {
-        return '(' . collect($typeNode->types)
-                ->map(fn($node) => resolveDocblockTypes($method, $node))
+        return '('.collect($typeNode->types)
+                ->map(fn ($node) => resolveDocblockTypes($method, $node))
                 ->unique()
-                ->implode('|') . ')';
+                ->implode('|').')';
     }
 
     if ($typeNode instanceof IntersectionTypeNode) {
-        return '(' . collect($typeNode->types)
-                ->map(fn($node) => resolveDocblockTypes($method, $node))
+        return '('.collect($typeNode->types)
+                ->map(fn ($node) => resolveDocblockTypes($method, $node))
                 ->unique()
-                ->implode('&') . ')';
+                ->implode('&').')';
     }
 
     if ($typeNode instanceof GenericTypeNode) {
@@ -245,47 +255,47 @@ function resolveDocblockTypes($method, $typeNode)
     }
 
     if ($typeNode instanceof ThisTypeNode) {
-        return '\\' . $method->sourceClass()->getName();
+        return '\\'.$method->sourceClass()->getName();
     }
 
     if ($typeNode instanceof ArrayTypeNode) {
-        return resolveDocblockTypes($method, $typeNode->type) . '[]';
+        return resolveDocblockTypes($method, $typeNode->type).'[]';
     }
 
     if ($typeNode instanceof IdentifierTypeNode) {
         if ($typeNode->name === 'static') {
-            return '\\' . $method->sourceClass()->getName();
+            return '\\'.$method->sourceClass()->getName();
         }
 
         if ($typeNode->name === 'self') {
-            return '\\' . $method->getDeclaringClass()->getName();
+            return '\\'.$method->getDeclaringClass()->getName();
         }
 
         if (isBuiltIn($typeNode->name)) {
-            return (string)$typeNode;
+            return (string) $typeNode;
         }
 
         if ($typeNode->name === 'class-string') {
             return 'string';
         }
 
-        $guessedFqcn = resolveClassImports($method->getDeclaringClass())->get($typeNode->name) ?? '\\' . $method->getDeclaringClass()->getNamespaceName() . '\\' . $typeNode->name;
+        $guessedFqcn = resolveClassImports($method->getDeclaringClass())->get($typeNode->name) ?? '\\'.$method->getDeclaringClass()->getNamespaceName().'\\'.$typeNode->name;
 
         foreach ([$typeNode->name, $guessedFqcn] as $name) {
             if (class_exists($name)) {
-                return (string)$name;
+                return (string) $name;
             }
 
             if (interface_exists($name)) {
-                return (string)$name;
+                return (string) $name;
             }
 
             if (enum_exists($name)) {
-                return (string)$name;
+                return (string) $name;
             }
 
             if (isKnownOptionalDependency($name)) {
-                return (string)$name;
+                return (string) $name;
             }
         }
 
@@ -297,14 +307,14 @@ function resolveDocblockTypes($method, $typeNode)
     }
 
     if ($typeNode instanceof NullableTypeNode) {
-        return '?' . resolveDocblockTypes($method, $typeNode->type);
+        return '?'.resolveDocblockTypes($method, $typeNode->type);
     }
 
     if ($typeNode instanceof CallableTypeNode) {
         return resolveDocblockTypes($method, $typeNode->identifier);
     }
 
-    echo 'Unhandled type: ' . $typeNode::class;
+    echo 'Unhandled type: '.$typeNode::class;
     echo PHP_EOL;
     echo 'You may need to update the `resolveDocblockTypes` to handle this type.';
     echo PHP_EOL;
@@ -313,8 +323,8 @@ function resolveDocblockTypes($method, $typeNode)
 /**
  * Handle conditional types.
  *
- * @param \ReflectionMethodDecorator $method
- * @param \PHPStan\PhpDocParser\Ast\Type\ConditionalTypeNode $typeNode
+ * @param  \ReflectionMethodDecorator  $method
+ * @param  \PHPStan\PhpDocParser\Ast\Type\ConditionalTypeNode  $typeNode
  * @return string
  */
 function handleConditionalType($method, $typeNode)
@@ -333,8 +343,8 @@ function handleConditionalType($method, $typeNode)
 /**
  * Handle unknown identifier types.
  *
- * @param \ReflectionMethodDecorator $method
- * @param \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode $typeNode
+ * @param  \ReflectionMethodDecorator  $method
+ * @param  \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode  $typeNode
  * @return string
  */
 function handleUnknownIdentifierType($method, $typeNode)
@@ -381,7 +391,7 @@ function handleUnknownIdentifierType($method, $typeNode)
         return 'object';
     }
 
-    echo 'Found unknown type: ' . $typeNode->name;
+    echo 'Found unknown type: '.$typeNode->name;
     echo PHP_EOL;
     echo 'You may need to update the `handleUnknownIdentifierType` to handle this new type / generic.';
     echo PHP_EOL;
@@ -390,7 +400,7 @@ function handleUnknownIdentifierType($method, $typeNode)
 /**
  * Determine if the type is a built-in.
  *
- * @param string $type
+ * @param  string  $type
  * @return bool
  */
 function isBuiltIn($type)
@@ -405,7 +415,7 @@ function isBuiltIn($type)
 /**
  * Determine if the type is known optional dependency.
  *
- * @param string $type
+ * @param  string  $type
  * @return bool
  */
 function isKnownOptionalDependency($type)
@@ -419,7 +429,7 @@ function isKnownOptionalDependency($type)
 /**
  * Resolve the declared type.
  *
- * @param \ReflectionType|null $type
+ * @param  \ReflectionType|null  $type
  * @return string|null
  */
 function resolveType($type)
@@ -439,11 +449,11 @@ function resolveType($type)
     }
 
     if ($type instanceof ReflectionNamedType && $type->getName() === 'null') {
-        return ($type->isBuiltin() ? '' : '\\') . $type->getName();
+        return ($type->isBuiltin() ? '' : '\\').$type->getName();
     }
 
     if ($type instanceof ReflectionNamedType && $type->getName() !== 'null') {
-        return ($type->isBuiltin() ? '' : '\\') . $type->getName() . ($type->allowsNull() ? '|null' : '');
+        return ($type->isBuiltin() ? '' : '\\').$type->getName().($type->allowsNull() ? '|null' : '');
     }
 
     return null;
@@ -452,8 +462,8 @@ function resolveType($type)
 /**
  * Resolve the docblock tags.
  *
- * @param string $docblock
- * @param string $tag
+ * @param  string  $docblock
+ * @param  string  $tag
  * @return \Illuminate\Support\Collection<string>
  */
 function resolveDocTags($docblock, $tag)
@@ -464,41 +474,41 @@ function resolveDocTags($docblock, $tag)
         ->reverse()
         ->skip(1)
         ->reverse()
-        ->map(fn($line) => ltrim($line, ' \*'))
-        ->filter(fn($line) => Str::startsWith($line, $tag))
-        ->map(fn($line) => Str::of($line)->after($tag)->trim()->__toString())
+        ->map(fn ($line) => ltrim($line, ' \*'))
+        ->filter(fn ($line) => Str::startsWith($line, $tag))
+        ->map(fn ($line) => Str::of($line)->after($tag)->trim()->toString())
         ->values();
 }
 
 /**
  * Recursivly resolve docblock mixins.
  *
- * @param \ReflectionClass $class
+ * @param  \ReflectionClass  $class
  * @return \Illuminate\Support\Collection<\ReflectionClass>
  */
 function resolveDocMixins($class)
 {
     return resolveDocTags($class->getDocComment() ?: '', '@mixin')
-        ->map(fn($mixin) => new ReflectionClass($mixin))
-        ->flatMap(fn($mixin) => [$mixin, ...resolveDocMixins($mixin)]);
+        ->map(fn ($mixin) => new ReflectionClass($mixin))
+        ->flatMap(fn ($mixin) => [$mixin, ...resolveDocMixins($mixin)]);
 }
 
 /**
  * Resolve the classes referenced methods in the @methods docblocks.
  *
- * @param \ReflectionMethodDecorator $method
+ * @param  \ReflectionMethodDecorator  $method
  * @return \Illuminate\Support\Collection<int, string>
  */
 function resolveDocParameters($method)
 {
-    return resolveDocTags($method->getDocComment() ?: '', '@param')// ->map(fn($tag) => Str::squish($tag))
-        ;
+    return resolveDocTags($method->getDocComment() ?: '', '@param')
+        ->map(fn ($tag) => Str::squish($tag));
 }
 
 /**
  * Determine if the method is magic.
  *
- * @param \ReflectionMethod|string $method
+ * @param  \ReflectionMethod|string  $method
  * @return bool
  */
 function isMagic($method)
@@ -507,10 +517,10 @@ function isMagic($method)
 }
 
 /**
- * Determine if the method is marked as @param \ReflectionMethod|string $method
- * @return bool
- * @internal.
+ * Determine if the method is marked as @internal.
  *
+ * @param  \ReflectionMethod|string  $method
+ * @return bool
  */
 function isInternal($method)
 {
@@ -524,7 +534,7 @@ function isInternal($method)
 /**
  * Determine if the method is deprecated.
  *
- * @param \ReflectionMethod|string $method
+ * @param  \ReflectionMethod|string  $method
  * @return bool
  */
 function isDeprecated($method)
@@ -539,7 +549,7 @@ function isDeprecated($method)
 /**
  * Determine if the method is for a builtin contract.
  *
- * @param \ReflectionMethodDecorator|string $method
+ * @param  \ReflectionMethodDecorator|string  $method
  * @return bool
  */
 function fulfillsBuiltinInterface($method)
@@ -558,47 +568,47 @@ function fulfillsBuiltinInterface($method)
 /**
  * Resolve the methods name.
  *
- * @param \ReflectionMethod|string $method
+ * @param  \ReflectionMethod|string  $method
  * @return string
  */
 function resolveName($method)
 {
     return is_string($method)
-        ? Str::of($method)->after(' ')->before('(')->__toString()
+        ? Str::of($method)->after(' ')->before('(')->toString()
         : $method->getName();
 }
 
 /**
  * Resolve the classes methods.
  *
- * @param \ReflectionClass $class
+ * @param  \ReflectionClass  $class
  * @return \Illuminate\Support\Collection<\ReflectionMethodDecorator|string>
  */
 function resolveMethods($class)
 {
     return collect($class->getMethods(ReflectionMethod::IS_PUBLIC))
-        ->map(fn($method) => new ReflectionMethodDecorator($method, $class->getName()))
+        ->map(fn ($method) => new ReflectionMethodDecorator($method, $class->getName()))
         ->merge(resolveDocMethods($class));
 }
 
 /**
  * Determine if the given method conflicts with a Facade method.
  *
- * @param \ReflectionClass $facade
- * @param \ReflectionMethod|string $method
+ * @param  \ReflectionClass  $facade
+ * @param  \ReflectionMethod|string  $method
  * @return bool
  */
 function conflictsWithFacade($facade, $method)
 {
     return collect($facade->getMethods(ReflectionMethod::IS_PUBLIC | ReflectionMethod::IS_STATIC))
-        ->map(fn($method) => $method->getName())
+        ->map(fn ($method) => $method->getName())
         ->contains(is_string($method) ? $method : $method->getName());
 }
 
 /**
  * Normalise the method details into a easier format to work with.
  *
- * @param \ReflectionMethodDecorator|string $method
+ * @param  \ReflectionMethodDecorator|string  $method
  * @return array|string
  */
 function normaliseDetails($method)
@@ -606,9 +616,9 @@ function normaliseDetails($method)
     return is_string($method) ? $method : [
         'name' => $method->getName(),
         'parameters' => resolveParameters($method)
-            ->map(fn($parameter) => [
-                'name' => '$' . $parameter->getName(),
-                'optional' => $parameter->isOptional() && !$parameter->isVariadic(),
+            ->map(fn ($parameter) => [
+                'name' => '$'.$parameter->getName(),
+                'optional' => $parameter->isOptional() && ! $parameter->isVariadic(),
                 'default' => $parameter->isDefaultValueAvailable()
                     ? $parameter->getDefaultValue()
                     : "❌ Unknown default for [{$parameter->getName()}] in [{$parameter->getDeclaringClass()?->getName()}::{$parameter->getDeclaringFunction()->getName()}] ❌",
@@ -622,7 +632,7 @@ function normaliseDetails($method)
 /**
  * Resolve the parameters for the method.
  *
- * @param \ReflectionMethodDecorator $method
+ * @param  \ReflectionMethodDecorator  $method
  * @return \Illuminate\Support\Collection<int, \ReflectionParameter|\DynamicParameter>
  */
 function resolveParameters($method)
@@ -637,7 +647,7 @@ function resolveParameters($method)
 /**
  * Resolve the classes imports.
  *
- * @param \ReflectionClass $class
+ * @param  \ReflectionClass  $class
  * @return \Illuminate\Support\Collection<string, class-string>
  */
 function resolveClassImports($class)
@@ -645,17 +655,17 @@ function resolveClassImports($class)
     return Str::of(file_get_contents($class->getFileName()))
         ->explode(PHP_EOL)
         ->take($class->getStartLine() - 1)
-        ->filter(fn($line) => preg_match('/^use [A-Za-z0-9\\\\]+( as [A-Za-z0-9]+)?;$/', $line) === 1)
-        ->map(fn($line) => Str::of($line)->after('use ')->before(';'))
-        ->mapWithKeys(fn($class) => [
-            ($class->contains(' as ') ? $class->after(' as ') : $class->classBasename())->__toString() => $class->start('\\')->before(' as ')->__toString(),
+        ->filter(fn ($line) => preg_match('/^use [A-Za-z0-9\\\\]+( as [A-Za-z0-9]+)?;$/', $line) === 1)
+        ->map(fn ($line) => Str::of($line)->after('use ')->before(';'))
+        ->mapWithKeys(fn ($class) => [
+            ($class->contains(' as ') ? $class->after(' as ') : $class->classBasename())->toString() => $class->start('\\')->before(' as ')->toString(),
         ]);
 }
 
 /**
  * Resolve the default value for the parameter.
  *
- * @param array $parameter
+ * @param  array  $parameter
  * @return string
  */
 function resolveDefaultValue($parameter)
@@ -672,7 +682,7 @@ function resolveDefaultValue($parameter)
     return Str::of($default === false ? 'unknown' : $default)
         ->replace('"', "'")
         ->replace('\\/', '/')
-        ->__toString();
+        ->toString();
 }
 
 /**
@@ -681,8 +691,8 @@ function resolveDefaultValue($parameter)
 class ReflectionMethodDecorator
 {
     /**
-     * @param \ReflectionMethod $method
-     * @param class-string $sourceClass
+     * @param  \ReflectionMethod  $method
+     * @param  class-string  $sourceClass
      */
     public function __construct(private $method, private $sourceClass)
     {
@@ -690,8 +700,8 @@ class ReflectionMethodDecorator
     }
 
     /**
-     * @param string $name
-     * @param array $arguments
+     * @param  string  $name
+     * @param  array  $arguments
      * @return mixed
      */
     public function __call($name, $arguments)
@@ -719,7 +729,7 @@ class ReflectionMethodDecorator
 class DynamicParameter
 {
     /**
-     * @param string $definition
+     * @param  string  $definition
      */
     public function __construct(private $definition)
     {
@@ -734,7 +744,7 @@ class DynamicParameter
         return Str::of($this->definition)
             ->after('$')
             ->before(' ')
-            ->__toString();
+            ->toString();
     }
 
     /**
