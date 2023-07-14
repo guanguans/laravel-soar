@@ -48,9 +48,4 @@
       <code>$scores</code>
     </InvalidArgument>
   </file>
-  <file src="src/SoarServiceProvider.php">
-    <UndefinedInterfaceMethod>
-      <code>$container</code>
-    </UndefinedInterfaceMethod>
-  </file>
 </files>

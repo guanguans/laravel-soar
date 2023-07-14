@@ -98,7 +98,7 @@ class SoarServiceProvider extends ServiceProvider
             $this->app->configure('soar');
             $this->app->bindIf(
                 ConnectionInterface::class,
-                static fn (Container $container): Connection => $container['db']->connection()
+                static fn (Container $container): Connection => $container->make('db')->connection()
             );
         }
 
