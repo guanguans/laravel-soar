@@ -1,40 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="5.12.0@f90118cdeacd0088e7215e64c0c99ceca819e176">
+<files psalm-version="5.13.1@086b94371304750d1c673315321a55d15fc59015">
   <file src="src/Bootstrapper.php">
-    <PossiblyUnusedMethod>
-      <code>__construct</code>
-      <code>boot</code>
-      <code>isBooted</code>
-    </PossiblyUnusedMethod>
     <UndefinedInterfaceMethod>
       <code>$app</code>
       <code><![CDATA[$this->container]]></code>
       <code>middleware</code>
     </UndefinedInterfaceMethod>
-  </file>
-  <file src="src/Events/OutputtedEvent.php">
-    <PossiblyUnusedProperty>
-      <code>$output</code>
-      <code>$result</code>
-      <code>$scores</code>
-    </PossiblyUnusedProperty>
-  </file>
-  <file src="src/Events/OutputtingEvent.php">
-    <PossiblyUnusedProperty>
-      <code>$dispatcher</code>
-      <code>$output</code>
-      <code>$scores</code>
-    </PossiblyUnusedProperty>
-  </file>
-  <file src="src/Facades/Soar.php">
-    <UnusedClass>
-      <code>Soar</code>
-    </UnusedClass>
-  </file>
-  <file src="src/Http/Controllers/AssetController.php">
-    <UnusedClass>
-      <code>AssetController</code>
-    </UnusedClass>
   </file>
   <file src="src/JavascriptRenderer.php">
     <UnusedVariable>
@@ -77,27 +48,9 @@
       <code>$scores</code>
     </InvalidArgument>
   </file>
-  <file src="src/SoarBar.php">
-    <PossiblyUnusedMethod>
-      <code>__construct</code>
-    </PossiblyUnusedMethod>
-  </file>
   <file src="src/SoarServiceProvider.php">
-    <UnusedClass>
-      <code>SoarServiceProvider</code>
-    </UnusedClass>
-    <UndefinedClass>
-      <code>LumenApplication</code>
-    </UndefinedClass>
-  </file>
-  <file src="src/Support/QueryAnalyzer.php">
-    <UnusedClass>
-      <code>QueryAnalyzer</code>
-    </UnusedClass>
-  </file>
-  <file src="src/Support/helpers.php">
-    <UndefinedClass>
-      <code>LumenApplication</code>
-    </UndefinedClass>
+    <UndefinedInterfaceMethod>
+      <code>$container</code>
+    </UndefinedInterfaceMethod>
   </file>
 </files>

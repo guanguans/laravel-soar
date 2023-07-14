@@ -38,21 +38,7 @@ $finder = Finder::create()
         'vendor/',
         '__snapshots__/',
     ])
-    ->append([
-        __FILE__,
-        // __DIR__.'/bin/facades.php',
-        __DIR__.'/.phpstorm.meta.php',
-        __DIR__.'/_ide_helper.php',
-        __DIR__.'/composer-unused.php',
-        __DIR__.'/doctum.php',
-        __DIR__.'/rector.php',
-        __DIR__.'/rector-laravel.php',
-        __DIR__.'/monorepo-builder.php',
-        __DIR__.'/phparkitect.php',
-        // __DIR__.'/examples/soar.options.docblock.php',
-        __DIR__.'/examples/soar.options.example.php',
-        __DIR__.'/examples/soar.options.full.php',
-    ])
+    ->append(glob(__DIR__.'/{*,.*}.php', GLOB_BRACE))
     ->notPath([
         'bootstrap/*',
         'storage/*',
@@ -62,14 +48,10 @@ $finder = Finder::create()
     ->name('*.php')
     ->notName([
         '*.blade.php',
-        // '_ide_helper.php',
+        '_ide_helper.php',
     ])
     ->ignoreDotFiles(true)
     ->ignoreVCS(true);
-
-if (! is_dir($dir = __DIR__.'/build/php-cs-fixer') && ! mkdir($dir, 0777, true) && ! is_dir($dir)) {
-    throw new RuntimeException("The directory [$dir] was not created.");
-}
 
 // @see https://github.com/PHP-CS-Fixer/PHP-CS-Fixer
 // @see https://cs.symfony.com
@@ -78,7 +60,7 @@ return (new Config())
     ->setFinder($finder)
     ->setRiskyAllowed(true)
     ->setUsingCache(false)
-    ->setCacheFile(__DIR__.'/build/php-cs-fixer/.php-cs-fixer.cache')
+    ->setCacheFile(__DIR__.'/.php-cs-fixer.cache')
     ->registerCustomFixers(new PhpCsFixerCustomFixers\Fixers())
     // ->registerCustomFixers(new PedroTroller\CS\Fixer\Fixers())
     ->setRules([

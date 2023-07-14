@@ -56,31 +56,6 @@ parameters:
 			path: src/SoarServiceProvider.php
 
 		-
-			message: "#^Call to method bindIf\\(\\) on an unknown class Laravel\\\\Lumen\\\\Application\\.$#"
-			count: 1
-			path: src/SoarServiceProvider.php
-
-		-
-			message: "#^Call to method configure\\(\\) on an unknown class Laravel\\\\Lumen\\\\Application\\.$#"
-			count: 1
-			path: src/SoarServiceProvider.php
-
-		-
-			message: "#^Class Laravel\\\\Lumen\\\\Application not found\\.$#"
-			count: 1
-			path: src/SoarServiceProvider.php
-
-		-
-			message: "#^Parameter \\#1 \\$string of function htmlspecialchars expects string, mixed given\\.$#"
-			count: 1
-			path: src/Support/QueryAnalyzer.php
-
-		-
-			message: "#^Class Laravel\\\\Lumen\\\\Application not found\\.$#"
-			count: 1
-			path: src/Support/helpers.php
-
-		-
 			message: "#^Function var_output\\(\\) never returns void so it can be removed from the return type\\.$#"
 			count: 1
 			path: src/Support/helpers.php

@@ -18,7 +18,6 @@ use Rector\CodeQuality\Rector\Identical\SimplifyBoolIdenticalTrueRector;
 use Rector\CodeQuality\Rector\If_\ExplicitBoolCompareRector;
 use Rector\CodeQuality\Rector\LogicalAnd\LogicalToBooleanRector;
 use Rector\CodingStyle\Rector\Class_\AddArrayDefaultToArrayPropertyRector;
-use Rector\CodingStyle\Rector\ClassConst\VarConstantCommentRector;
 use Rector\CodingStyle\Rector\ClassMethod\UnSpreadOperatorRector;
 use Rector\CodingStyle\Rector\Closure\StaticClosureRector;
 use Rector\CodingStyle\Rector\Encapsed\EncapsedStringsToSprintfRector;
@@ -48,7 +47,7 @@ use Rector\Strict\Rector\BooleanNot\BooleanInBooleanNotRuleFixerRector;
 use Rector\Strict\Rector\Empty_\DisallowedEmptyRuleFixerRector;
 
 return static function (RectorConfig $rectorConfig): void {
-    $rectorConfig->importNames(true, false);
+    $rectorConfig->importNames(false, false);
     $rectorConfig->importShortClasses(false);
     // $rectorConfig->disableParallel();
     $rectorConfig->parallel(300);
@@ -79,9 +78,8 @@ return static function (RectorConfig $rectorConfig): void {
         __DIR__.'/routes',
         __DIR__.'/src',
         __DIR__.'/tests',
-        // __DIR__.'/.php-cs-fixer.php',
-        __DIR__.'/_ide_helper.php',
-        __FILE__,
+        __DIR__.'/.*.php',
+        __DIR__.'/*.php',
     ]);
 
     $rectorConfig->skip([
@@ -104,7 +102,6 @@ return static function (RectorConfig $rectorConfig): void {
         LogicalToBooleanRector::class,
         NewlineAfterStatementRector::class,
         ReturnBinaryAndToEarlyReturnRector::class,
-        VarConstantCommentRector::class,
         WrapEncapsedVariableInCurlyBracesRector::class,
 
         BooleanInBooleanNotRuleFixerRector::class => [
@@ -168,18 +165,16 @@ return static function (RectorConfig $rectorConfig): void {
         SetList::CODE_QUALITY,
         SetList::CODING_STYLE,
         SetList::DEAD_CODE,
-        SetList::STRICT_BOOLEANS,
+        // SetList::STRICT_BOOLEANS,
         // SetList::GMAGICK_TO_IMAGICK,
         // SetList::MYSQL_TO_MYSQLI,
         SetList::NAMING,
         // SetList::PRIVATIZATION,
         SetList::TYPE_DECLARATION,
         SetList::EARLY_RETURN,
-        SetList::INSTANCEOF,
 
         PHPUnitLevelSetList::UP_TO_PHPUNIT_90,
         PHPUnitSetList::PHPUNIT_90,
-        PHPUnitSetList::PHPUNIT_91,
         // PHPUnitSetList::PHPUNIT80_DMS,
         PHPUnitSetList::PHPUNIT_CODE_QUALITY,
         PHPUnitSetList::PHPUNIT_EXCEPTION,
