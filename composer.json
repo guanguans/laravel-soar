@@ -165,6 +165,8 @@
         "composer-parallel": "@composer parallel --ansi -v",
         "composer-unused": "@php ./vendor/bin/composer-unused --ansi -v",
         "composer-validate": "@composer validate --check-lock --strict --ansi -v",
+        "facades-lint": "@facades-update -- --lint",
+        "facades-update": "/usr/local/opt/php@8.1/bin/php -f ./bin/facades.php",
         "lint": [
             "for DIR in .; do find $DIR -maxdepth 1 -type f -name '*.php' -type f ! -name 'xxx.php' -exec php -l {} \\; 2>&1 | (! grep -v '^No syntax errors detected'); done",
             "for DIR in ./src ./tests; do find $DIR -type f -name '*.php' -type f ! -name 'xxx.php' -exec php -l {} \\; 2>&1 | (! grep -v '^No syntax errors detected'); done"
