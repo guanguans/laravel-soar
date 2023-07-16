@@ -29,7 +29,6 @@ use Rector\Core\ValueObject\PhpVersion;
 use Rector\DeadCode\Rector\Assign\RemoveUnusedVariableAssignRector;
 use Rector\DeadCode\Rector\ClassMethod\RemoveEmptyClassMethodRector;
 use Rector\EarlyReturn\Rector\If_\ChangeAndIfToEarlyReturnRector;
-use Rector\EarlyReturn\Rector\Return_\ReturnBinaryAndToEarlyReturnRector;
 use Rector\EarlyReturn\Rector\Return_\ReturnBinaryOrToEarlyReturnRector;
 use Rector\EarlyReturn\Rector\StmtsAwareInterface\ReturnEarlyIfVariableRector;
 use Rector\Naming\Rector\ClassMethod\RenameParamToMatchTypeRector;
@@ -101,7 +100,6 @@ return static function (RectorConfig $rectorConfig): void {
         // InlineIfToExplicitIfRector::class,
         LogicalToBooleanRector::class,
         NewlineAfterStatementRector::class,
-        ReturnBinaryAndToEarlyReturnRector::class,
         WrapEncapsedVariableInCurlyBracesRector::class,
 
         BooleanInBooleanNotRuleFixerRector::class => [
@@ -177,10 +175,6 @@ return static function (RectorConfig $rectorConfig): void {
         PHPUnitSetList::PHPUNIT_90,
         // PHPUnitSetList::PHPUNIT80_DMS,
         PHPUnitSetList::PHPUNIT_CODE_QUALITY,
-        PHPUnitSetList::PHPUNIT_EXCEPTION,
-        PHPUnitSetList::REMOVE_MOCKS,
-        PHPUnitSetList::PHPUNIT_SPECIFIC_METHOD,
-        PHPUnitSetList::ANNOTATIONS_TO_ATTRIBUTES,
     ]);
 
     $rectorConfig->rules([
