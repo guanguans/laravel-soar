@@ -2,6 +2,10 @@
 
 All notable changes to `guanguans/laravel-soar` will be documented in this file.
 
+## v3.7.1 - 2023-07-16
+
+**Full Changelog**: https://github.com/guanguans/laravel-soar/compare/v3.7.0...v3.7.1
+
 ## v3.7.0 - 2023-07-16
 
 **Full Changelog**: https://github.com/guanguans/laravel-soar/compare/v3.6.1...v3.7.0
