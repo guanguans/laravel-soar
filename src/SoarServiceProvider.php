@@ -12,6 +12,7 @@ declare(strict_types=1);
 
 namespace Guanguans\LaravelSoar;
 
+use Guanguans\LaravelSoar\Commands\ClearCommand;
 use Guanguans\LaravelSoar\Macros\QueryBuilderMacro;
 use Guanguans\LaravelSoar\Outputs\ClockworkOutput;
 use Guanguans\LaravelSoar\Outputs\ConsoleOutput;
@@ -58,7 +59,6 @@ class SoarServiceProvider extends ServiceProvider
         $this->registerMacros();
         $this->registerSoar();
         $this->registerOutputManager();
-        $this->loadRoutes();
     }
 
     /**
@@ -66,6 +66,9 @@ class SoarServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        $this->registerCommands();
+        $this->loadRoutes();
+
         if (config('soar.enabled', false)) {
             $this->app->make(Bootstrapper::class)->boot();
         }
@@ -151,6 +154,15 @@ class SoarServiceProvider extends ServiceProvider
     protected function loadRoutes(): void
     {
         $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
+    }
+
+    protected function registerCommands(): void
+    {
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                ClearCommand::class,
+            ]);
+        }
     }
 
     /**
