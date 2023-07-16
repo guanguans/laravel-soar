@@ -66,8 +66,8 @@ class SoarServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        $this->registerCommands();
         $this->loadRoutes();
+        $this->registerCommands();
 
         if (config('soar.enabled', false)) {
             $this->app->make(Bootstrapper::class)->boot();

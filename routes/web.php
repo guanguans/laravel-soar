@@ -16,7 +16,7 @@ Route::group(
     ['namespace' => 'Guanguans\LaravelSoar\Http\Controllers'] + (array) config('soar.route', [
         'prefix' => 'soar-bar',
         'domain' => null,
-        'as' => 'soar.bar.',
+        'as' => is_lumen() ? 'soar.bar' : 'soar.bar.',
         'middleware' => [],
     ]),
     static function ($router): void {
