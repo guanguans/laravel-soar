@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace Guanguans\LaravelSoar\Commands;
 
-use Guanguans\LaravelSoar\Soar;
+use Guanguans\LaravelSoar\Facades\Soar;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
 
@@ -22,12 +22,11 @@ class ClearCommand extends Command
 
     protected $description = 'Clear the Soar log file';
 
-    public function handle(Soar $soar): void
+    public function handle(): void
     {
         $this->info('Clearing Soar log file...');
 
-        $logFile = config('soar.options.-log-output') ?: \dirname($soar->getSoarPath()).'/soar.log';
-        File::delete($logFile);
+        File::delete($logFile = Soar::getLogOutput(\dirname(Soar::getSoarPath()).\DIRECTORY_SEPARATOR.'soar.log'));
 
         $this->info("The Soar log file($logFile) has been cleared.");
     }
