@@ -27,11 +27,11 @@ it('can return soar array scores for `toSoarArrayScores`', function (): void {
     expect(User::query()->where('id', 1)->toSoarArrayScores())->toBeArray();
 })->group(__DIR__, __FILE__);
 
-it('can dump soar array scores for `dumpSoarArrayScore`', function (): void {
+it('can dump soar array scores for `dumpSoarArrayScores`', function (): void {
     expect(User::query()->where('id', 1)->dumpSoarArrayScores())->toBeArray();
 })->group(__DIR__, __FILE__);
 
-it('can return soar json scores for `toSoarJsonScore`', function (): void {
+it('can return soar json scores for `toSoarJsonScores`', function (): void {
     expect(User::query()->where('id', 1)->toSoarJsonScores())->toBeJson();
 })->group(__DIR__, __FILE__);
 
@@ -44,6 +44,6 @@ it('can return soar html scores for `toSoarHtmlScores`', function (): void {
         ->toBeString()->toContain('<head>', '<body onload=load()>', '<script>');
 })->group(__DIR__, __FILE__);
 
-it('can echo soar html scores for `toSoarHtmlScores`', function (): void {
+it('can echo soar html scores for `echoSoarHtmlScores`', function (): void {
     expect(User::query()->where('id', 1)->echoSoarHtmlScores())->toBeNull();
 })->group(__DIR__, __FILE__);
