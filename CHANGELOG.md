@@ -1,234 +1,324 @@
+<!--- BEGIN HEADER -->
 # Changelog
 
-All notable changes to `guanguans/laravel-soar` will be documented in this file.
+All notable changes to this project will be documented in this file.
+<!--- END HEADER -->
 
-## v3.7.1 - 2023-07-16
+<a name="unreleased"></a>
+## [Unreleased]
 
-**Full Changelog**: https://github.com/guanguans/laravel-soar/compare/v3.7.0...v3.7.1
 
-## v3.7.0 - 2023-07-16
+<a name="3.8.0"></a>
+## [3.8.0] - 2023-07-23
+### Feat
+- **composer.json:** add monorepo-builder-worker package
 
-**Full Changelog**: https://github.com/guanguans/laravel-soar/compare/v3.6.1...v3.7.0
+### Refactor
+- **tests:** Update function names in QueryBuilderMacroTest
 
-## v3.6.1 - 2023-07-14
 
-**Full Changelog**: https://github.com/guanguans/laravel-soar/compare/v3.6.0...v3.6.1
+<a name="v3.7.1"></a>
+## [v3.7.1] - 2023-07-16
+### Fix
+- **routes:** Update route namespace in web.php
 
-## v3.6.0 - 2023-07-14
 
-**Full Changelog**: https://github.com/guanguans/laravel-soar/compare/v3.5.2...v3.6.0
+<a name="v3.7.0"></a>
+## [v3.7.0] - 2023-07-16
+### Feat
+- **commands:** add ClearCommand
 
-## v3.5.2 - 2023-06-30
+### Refactor
+- **rector.php:** Remove unused rules
 
-### What's Changed
+### Test
+- **commands:** Add ClearCommandTest
 
-- Bump dependabot/fetch-metadata from 1.5.1 to 1.6.0 by @dependabot in https://github.com/guanguans/laravel-soar/pull/38
 
-**Full Changelog**: https://github.com/guanguans/laravel-soar/compare/v3.5.1...v3.5.2
+<a name="v3.6.1"></a>
+## [v3.6.1] - 2023-07-14
+### Feat
+- **composer.json:** Add facades-lint and facades-update commands
 
-## v3.5.1 - 2023-06-19
+### Refactor
+- **JsonOutput:** update data assignment
+- **ServiceProvider:** Improve SoarServiceProvider
 
-**Full Changelog**: https://github.com/guanguans/laravel-soar/compare/v3.5.0...v3.5.1
 
-## v3.5.0 - 2023-06-18
+<a name="v3.6.0"></a>
+## [v3.6.0] - 2023-07-14
 
-**Full Changelog**: https://github.com/guanguans/laravel-soar/compare/v3.4.2...v3.5.0
+<a name="v3.5.2"></a>
+## [v3.5.2] - 2023-06-30
+### Feat
+- **composer.json:** Add new dependencies
 
-## v3.4.2 - 2023-06-17
+### Pull Requests
+- Merge pull request [#38](https://github.com/guanguans/monorepo-builder-worker/issues/38) from guanguans/dependabot/github_actions/dependabot/fetch-metadata-1.6.0
 
-**Full Changelog**: https://github.com/guanguans/laravel-soar/compare/v3.4.1...v3.4.2
 
-## v3.4.1 - 2023-06-16
+<a name="v3.5.1"></a>
+## [v3.5.1] - 2023-06-19
 
-**Full Changelog**: https://github.com/guanguans/laravel-soar/compare/v3.4.0...v3.4.1
+<a name="v3.5.0"></a>
+## [v3.5.0] - 2023-06-18
 
-## v3.4.0 - 2023-06-16
+<a name="v3.4.2"></a>
+## [v3.4.2] - 2023-06-17
 
-**Full Changelog**: https://github.com/guanguans/laravel-soar/compare/v3.3.0...v3.4.0
+<a name="v3.4.1"></a>
+## [v3.4.1] - 2023-06-16
 
-## v3.3.0 - 2023-06-16
+<a name="v3.4.0"></a>
+## [v3.4.0] - 2023-06-16
 
-**Full Changelog**: https://github.com/guanguans/laravel-soar/compare/v3.2.0...v3.3.0
+<a name="v3.3.0"></a>
+## [v3.3.0] - 2023-06-16
 
-## v3.2.0 - 2023-06-16
+<a name="v3.2.0"></a>
+## [v3.2.0] - 2023-06-16
 
-**Full Changelog**: https://github.com/guanguans/laravel-soar/compare/v3.1.1...v3.2.0
+<a name="v3.1.1"></a>
+## [v3.1.1] - 2023-06-16
+### Pull Requests
+- Merge pull request [#37](https://github.com/guanguans/monorepo-builder-worker/issues/37) from guanguans/imgbot
 
-## v3.1.1 - 2023-06-16
 
-### What's Changed
+<a name="v3.1.0"></a>
+## [v3.1.0] - 2023-06-05
 
-- [ImgBot] Optimize images by @imgbot in https://github.com/guanguans/laravel-soar/pull/37
+<a name="v3.0.2"></a>
+## [v3.0.2] - 2023-06-05
 
-**Full Changelog**: https://github.com/guanguans/laravel-soar/compare/v3.1.0...v3.1.1
+<a name="v3.0.1"></a>
+## [v3.0.1] - 2023-06-04
 
-## v3.1.0 - 2023-06-05
+<a name="v3.0.0"></a>
+## [v3.0.0] - 2023-06-04
 
-**Full Changelog**: https://github.com/guanguans/laravel-soar/compare/v3.0.2...v3.1.0
+<a name="v3.0.0-RC1"></a>
+## [v3.0.0-RC1] - 2023-06-04
+### Pull Requests
+- Merge pull request [#36](https://github.com/guanguans/monorepo-builder-worker/issues/36) from guanguans/dependabot/composer/rector/rector-tw-0.17
 
-## v3.0.2 - 2023-06-05
 
-**Full Changelog**: https://github.com/guanguans/laravel-soar/compare/v3.0.1...v3.0.2
+<a name="v3.0.0-BETA1"></a>
+## [v3.0.0-BETA1] - 2023-05-29
+### Pull Requests
+- Merge pull request [#35](https://github.com/guanguans/monorepo-builder-worker/issues/35) from guanguans/3.x
 
-## v3.0.1 - 2023-06-04
 
-**Full Changelog**: https://github.com/guanguans/laravel-soar/compare/v3.0.0...v3.0.1
+<a name="v2.3.1"></a>
+## [v2.3.1] - 2023-05-27
 
-## v3.0.0-RC1 - 2023-06-03
+<a name="v2.3.0"></a>
+## [v2.3.0] - 2023-03-25
 
-### What's Changed
+<a name="v2.2.1"></a>
+## [v2.2.1] - 2023-02-14
 
-- Update rector/rector requirement from ^0.16 to ^0.17 by @dependabot in https://github.com/guanguans/laravel-soar/pull/36
+<a name="v2.2.0"></a>
+## [v2.2.0] - 2023-02-14
+### Pull Requests
+- Merge pull request [#29](https://github.com/guanguans/monorepo-builder-worker/issues/29) from guanguans/dependabot/composer/vimeo/psalm-tw-5.0
 
-**Full Changelog**: https://github.com/guanguans/laravel-soar/compare/v3.0.0-BETA1...v3.0.0-RC1
 
-## v3.0.0-BETA1 - 2023-05-29
+<a name="v2.1.3"></a>
+## [v2.1.3] - 2022-06-30
 
-### What's Changed
+<a name="v2.1.2"></a>
+## [v2.1.2] - 2022-06-30
 
-- Wip 3.x by @guanguans in https://github.com/guanguans/laravel-soar/pull/35
+<a name="v2.1.1"></a>
+## [v2.1.1] - 2022-06-30
 
-**Full Changelog**: https://github.com/guanguans/laravel-soar/compare/v2.3.1...v3.0.0-BETA1
+<a name="v2.1.0"></a>
+## [v2.1.0] - 2022-04-29
+### Pull Requests
+- Merge pull request [#26](https://github.com/guanguans/monorepo-builder-worker/issues/26) from guanguans/imgbot
 
-## v2.3.1 - 2023-05-27
 
-**Full Changelog**: https://github.com/guanguans/laravel-soar/compare/v2.3.0...v2.3.1
+<a name="v2.0.12"></a>
+## [v2.0.12] - 2022-04-20
 
-## v2.3.0 - 2023-03-25
+<a name="v2.0.11"></a>
+## [v2.0.11] - 2022-04-20
 
-**Full Changelog**: https://github.com/guanguans/laravel-soar/compare/v2.2.1...v2.3.0
+<a name="v2.0.10"></a>
+## [v2.0.10] - 2022-04-20
+### Pull Requests
+- Merge pull request [#25](https://github.com/guanguans/monorepo-builder-worker/issues/25) from guanguans/imgbot
 
-## v2.2.1 - 2023-02-14
 
-**Full Changelog**: https://github.com/guanguans/laravel-soar/compare/v2.2.0...v2.2.1
+<a name="v2.0.9"></a>
+## [v2.0.9] - 2022-04-18
 
-## v2.2.0 - 2023-02-14
+<a name="v2.0.8"></a>
+## [v2.0.8] - 2022-04-18
+### Pull Requests
+- Merge pull request [#24](https://github.com/guanguans/monorepo-builder-worker/issues/24) from guanguans/imgbot
 
-### What's Changed
 
-- Update vimeo/psalm requirement from ^4.10 to ^5.0 by @dependabot in https://github.com/guanguans/laravel-soar/pull/29
+<a name="v2.0.7"></a>
+## [v2.0.7] - 2022-04-17
+### Pull Requests
+- Merge pull request [#23](https://github.com/guanguans/monorepo-builder-worker/issues/23) from guanguans/imgbot
 
-**Full Changelog**: https://github.com/guanguans/laravel-soar/compare/v2.1.3...v2.2.0
 
-## v2.1.3 - 2022-06-30
+<a name="v2.0.6"></a>
+## [v2.0.6] - 2022-04-16
 
-**Full Changelog**: https://github.com/guanguans/laravel-soar/compare/v2.1.2...v2.1.3
+<a name="v2.0.5"></a>
+## [v2.0.5] - 2022-04-15
 
-## v2.1.2 - 2022-06-30
+<a name="v2.0.4"></a>
+## [v2.0.4] - 2022-04-15
 
-**Full Changelog**: https://github.com/guanguans/laravel-soar/compare/v2.1.1...v2.1.2
+<a name="v2.0.3"></a>
+## [v2.0.3] - 2022-04-15
 
-## v2.1.1 - 2022-06-30
+<a name="v2.0.2"></a>
+## [v2.0.2] - 2022-04-14
 
-**Full Changelog**: https://github.com/guanguans/laravel-soar/compare/v2.1.0...v2.1.1
+<a name="v2.0.1"></a>
+## [v2.0.1] - 2022-04-14
 
-## v2.1.0 - 2022-04-28
+<a name="v2.0.0"></a>
+## [v2.0.0] - 2022-04-13
 
-## What's Changed
+<a name="v1.3.2"></a>
+## [v1.3.2] - 2022-03-27
+### Pull Requests
+- Merge pull request [#21](https://github.com/guanguans/monorepo-builder-worker/issues/21) from guanguans/dependabot/github_actions/actions/cache-3
+- Merge pull request [#20](https://github.com/guanguans/monorepo-builder-worker/issues/20) from guanguans/dependabot/github_actions/actions/checkout-3
 
-- [ImgBot] Optimize images by @imgbot in https://github.com/guanguans/laravel-soar/pull/26
 
-**Full Changelog**: https://github.com/guanguans/laravel-soar/compare/v2.0.12...v2.1.0
+<a name="v1.3.1"></a>
+## [v1.3.1] - 2022-02-22
 
-## v2.0.12 - 2022-04-20
+<a name="v1.3.0"></a>
+## [v1.3.0] - 2022-02-14
 
-**Full Changelog**: https://github.com/guanguans/laravel-soar/compare/v2.0.11...v2.0.12
+<a name="v1.2.3"></a>
+## [v1.2.3] - 2021-11-30
+### Pull Requests
+- Merge pull request [#19](https://github.com/guanguans/monorepo-builder-worker/issues/19) from guanguans/dependabot/composer/overtrue/phplint-tw-4.0.0
 
-## v2.0.11 - 2022-04-20
 
-**Full Changelog**: https://github.com/guanguans/laravel-soar/compare/v2.0.10...v2.0.11
+<a name="v1.2.2"></a>
+## [v1.2.2] - 2021-11-04
+### Pull Requests
+- Merge pull request [#18](https://github.com/guanguans/monorepo-builder-worker/issues/18) from guanguans/dependabot/composer/guanguans/laravel-dump-sql-tw-2.0
 
-## v2.0.10 - 2022-04-20
 
-## What's Changed
+<a name="v1.2.1"></a>
+## [v1.2.1] - 2021-10-24
 
-- [ImgBot] Optimize images by @imgbot in https://github.com/guanguans/laravel-soar/pull/25
+<a name="v1.2.0"></a>
+## [v1.2.0] - 2021-10-08
 
-**Full Changelog**: https://github.com/guanguans/laravel-soar/compare/v2.0.9...v2.0.10
-
-## v2.0.9 - 2022-04-18
-
-**Full Changelog**: https://github.com/guanguans/laravel-soar/compare/v2.0.8...v2.0.9
-
-## v2.0.8 - 2022-04-18
-
-## What's Changed
-
-- [ImgBot] Optimize images by @imgbot in https://github.com/guanguans/laravel-soar/pull/24
-
-**Full Changelog**: https://github.com/guanguans/laravel-soar/compare/v2.0.7...v2.0.8
-
-## v2.0.7 - 2022-04-17
-
-## What's Changed
-
-- [ImgBot] Optimize images by @imgbot in https://github.com/guanguans/laravel-soar/pull/23
-
-**Full Changelog**: https://github.com/guanguans/laravel-soar/compare/v2.0.6...v2.0.7
-
-## v2.0.5 - 2022-04-15
-
-**Full Changelog**: https://github.com/guanguans/laravel-soar/compare/v2.0.4...v2.0.5
-
-## v2.0.4 - 2022-04-15
-
-**Full Changelog**: https://github.com/guanguans/laravel-soar/compare/v2.0.3...v2.0.4
-
-## v2.0.3 - 2022-04-15
-
-**Full Changelog**: https://github.com/guanguans/laravel-soar/compare/v2.0.2...v2.0.3
-
-## v2.0.2 - 2022-04-14
-
-**Full Changelog**: https://github.com/guanguans/laravel-soar/compare/v2.0.1...v2.0.2
-
-## v2.0.1 - 2022-04-14
-
-**Full Changelog**: https://github.com/guanguans/laravel-soar/compare/v2.0.0...v2.0.1
-
-## v2.0.0 - 2022-04-13
-
-<img width="1333" alt="debug-bar" src="https://user-images.githubusercontent.com/22309277/163159595-1ad269a7-0360-407a-b711-87e1ab08ee48.png">
-**Full Changelog**: https://github.com/guanguans/laravel-soar/compare/v1.3.2...v2.0.0
-## v1.3.2 - 2022-03-26
-## What's Changed
-- Bump actions/checkout from 2 to 3 by @dependabot in https://github.com/guanguans/laravel-soar/pull/20
-- Bump actions/cache from 2 to 3 by @dependabot in https://github.com/guanguans/laravel-soar/pull/21
-**Full Changelog**: https://github.com/guanguans/laravel-soar/compare/v1.3.1...v1.3.2
-## v1.3.1 - 2022-02-22
-**Full Changelog**: https://github.com/guanguans/laravel-soar/compare/v1.3.0...v1.3.1
-## 1.3.0 - 2022-02-14
-- Support laravel9.
-## 1.2.3 - 2021-11-30
-- Update overtrue/phplint requirement from `^2.4|| ^3.0` to `^3.0|^4.0`.
-## 1.2.2 - 2021-11-04
-- Update guanguans/laravel-dump-sql requirement from  ^2.0 to `^1.1 || 2.0`.
-## 1.2.1 - 2021-10-24
-- Rename `SOAR_FILE` -> `SOAR_PATH`.
-- Update github config files.
-## 1.2.0 - 2021-10-08
-- Adapt lumen.
-- Update github config files.
-## 1.1.2 - 2021-09-28
-- Bump codecov/codecov-action from 1 to 2.1.0.
-- Update CI config files.
-- Add dependabot config file.
-- Fix the directory separator of windows system configuration files.
-## 1.1.1 - 2021-06-17
-- Remove service delay loading.
-## 1.1.0 - 2021-06-14
-- Add database query builder soar methods.
-- Add IDE helper file.
-- Add `guanguans/laravel-dump-sql` Dependent package.
-- Update config file.
-## 1.0.3 - 2021-04-29
-- Optimize soar config.
-- Add some CI config files.
-- Add comment docs for facade.
-## 1.0.2 - 2021-04-25
-- Optimize soar config.
-- Update some CI config files.
-## 1.0.1 - 2020-10-19
-- Support for Laravel 8.
-## 1.0.0 - 2020-06-27
-- Initial release.
+<a name="v1.1.2"></a>
+## [v1.1.2] - 2021-09-28
+### Pull Requests
+- Merge pull request [#16](https://github.com/guanguans/monorepo-builder-worker/issues/16) from guanguans/dependabot/composer/friendsofphp/php-cs-fixer-tw-3.1
+- Merge pull request [#15](https://github.com/guanguans/monorepo-builder-worker/issues/15) from guanguans/dependabot/composer/overtrue/phplint-tw-3.0
+- Merge pull request [#14](https://github.com/guanguans/monorepo-builder-worker/issues/14) from guanguans/dependabot/composer/orchestra/testbench-tw-6.21
+- Merge pull request [#13](https://github.com/guanguans/monorepo-builder-worker/issues/13) from guanguans/dependabot/composer/vimeo/psalm-tw-4.10
+- Merge pull request [#12](https://github.com/guanguans/monorepo-builder-worker/issues/12) from guanguans/dependabot/github_actions/codecov/codecov-action-2.1.0
+- Merge pull request [#11](https://github.com/guanguans/monorepo-builder-worker/issues/11) from zhonghaibin/master
+
+
+<a name="v1.1.1"></a>
+## [v1.1.1] - 2021-06-17
+### Pull Requests
+- Merge pull request [#9](https://github.com/guanguans/monorepo-builder-worker/issues/9) from guanguans/imgbot
+
+
+<a name="v1.1.0"></a>
+## [v1.1.0] - 2021-06-14
+### Pull Requests
+- Merge pull request [#8](https://github.com/guanguans/monorepo-builder-worker/issues/8) from guanguans/imgbot
+
+
+<a name="v1.0.3"></a>
+## [v1.0.3] - 2021-04-29
+### CI
+- Add some CI config files
+
+### Docs
+- Add comment docs for facade
+
+
+<a name="v1.0.2"></a>
+## [v1.0.2] - 2021-04-25
+### CI
+- Update some CI config files
+
+### Docs
+- Update README.md
+
+
+<a name="v1.0.1"></a>
+## [v1.0.1] - 2020-10-19
+
+<a name="v1.0.0"></a>
+## v1.0.0 - 2020-06-27
+### Pull Requests
+- Merge pull request [#1](https://github.com/guanguans/monorepo-builder-worker/issues/1) from guanguans/add-license-1
+
+
+[Unreleased]: https://github.com/guanguans/monorepo-builder-worker/compare/3.8.0...HEAD
+[3.8.0]: https://github.com/guanguans/monorepo-builder-worker/compare/v3.7.1...3.8.0
+[v3.7.1]: https://github.com/guanguans/monorepo-builder-worker/compare/v3.7.0...v3.7.1
+[v3.7.0]: https://github.com/guanguans/monorepo-builder-worker/compare/v3.6.1...v3.7.0
+[v3.6.1]: https://github.com/guanguans/monorepo-builder-worker/compare/v3.6.0...v3.6.1
+[v3.6.0]: https://github.com/guanguans/monorepo-builder-worker/compare/v3.5.2...v3.6.0
+[v3.5.2]: https://github.com/guanguans/monorepo-builder-worker/compare/v3.5.1...v3.5.2
+[v3.5.1]: https://github.com/guanguans/monorepo-builder-worker/compare/v3.5.0...v3.5.1
+[v3.5.0]: https://github.com/guanguans/monorepo-builder-worker/compare/v3.4.2...v3.5.0
+[v3.4.2]: https://github.com/guanguans/monorepo-builder-worker/compare/v3.4.1...v3.4.2
+[v3.4.1]: https://github.com/guanguans/monorepo-builder-worker/compare/v3.4.0...v3.4.1
+[v3.4.0]: https://github.com/guanguans/monorepo-builder-worker/compare/v3.3.0...v3.4.0
+[v3.3.0]: https://github.com/guanguans/monorepo-builder-worker/compare/v3.2.0...v3.3.0
+[v3.2.0]: https://github.com/guanguans/monorepo-builder-worker/compare/v3.1.1...v3.2.0
+[v3.1.1]: https://github.com/guanguans/monorepo-builder-worker/compare/v3.1.0...v3.1.1
+[v3.1.0]: https://github.com/guanguans/monorepo-builder-worker/compare/v3.0.2...v3.1.0
+[v3.0.2]: https://github.com/guanguans/monorepo-builder-worker/compare/v3.0.1...v3.0.2
+[v3.0.1]: https://github.com/guanguans/monorepo-builder-worker/compare/v3.0.0...v3.0.1
+[v3.0.0]: https://github.com/guanguans/monorepo-builder-worker/compare/v3.0.0-RC1...v3.0.0
+[v3.0.0-RC1]: https://github.com/guanguans/monorepo-builder-worker/compare/v3.0.0-BETA1...v3.0.0-RC1
+[v3.0.0-BETA1]: https://github.com/guanguans/monorepo-builder-worker/compare/v2.3.1...v3.0.0-BETA1
+[v2.3.1]: https://github.com/guanguans/monorepo-builder-worker/compare/v2.3.0...v2.3.1
+[v2.3.0]: https://github.com/guanguans/monorepo-builder-worker/compare/v2.2.1...v2.3.0
+[v2.2.1]: https://github.com/guanguans/monorepo-builder-worker/compare/v2.2.0...v2.2.1
+[v2.2.0]: https://github.com/guanguans/monorepo-builder-worker/compare/v2.1.3...v2.2.0
+[v2.1.3]: https://github.com/guanguans/monorepo-builder-worker/compare/v2.1.2...v2.1.3
+[v2.1.2]: https://github.com/guanguans/monorepo-builder-worker/compare/v2.1.1...v2.1.2
+[v2.1.1]: https://github.com/guanguans/monorepo-builder-worker/compare/v2.1.0...v2.1.1
+[v2.1.0]: https://github.com/guanguans/monorepo-builder-worker/compare/v2.0.12...v2.1.0
+[v2.0.12]: https://github.com/guanguans/monorepo-builder-worker/compare/v2.0.11...v2.0.12
+[v2.0.11]: https://github.com/guanguans/monorepo-builder-worker/compare/v2.0.10...v2.0.11
+[v2.0.10]: https://github.com/guanguans/monorepo-builder-worker/compare/v2.0.9...v2.0.10
+[v2.0.9]: https://github.com/guanguans/monorepo-builder-worker/compare/v2.0.8...v2.0.9
+[v2.0.8]: https://github.com/guanguans/monorepo-builder-worker/compare/v2.0.7...v2.0.8
+[v2.0.7]: https://github.com/guanguans/monorepo-builder-worker/compare/v2.0.6...v2.0.7
+[v2.0.6]: https://github.com/guanguans/monorepo-builder-worker/compare/v2.0.5...v2.0.6
+[v2.0.5]: https://github.com/guanguans/monorepo-builder-worker/compare/v2.0.4...v2.0.5
+[v2.0.4]: https://github.com/guanguans/monorepo-builder-worker/compare/v2.0.3...v2.0.4
+[v2.0.3]: https://github.com/guanguans/monorepo-builder-worker/compare/v2.0.2...v2.0.3
+[v2.0.2]: https://github.com/guanguans/monorepo-builder-worker/compare/v2.0.1...v2.0.2
+[v2.0.1]: https://github.com/guanguans/monorepo-builder-worker/compare/v2.0.0...v2.0.1
+[v2.0.0]: https://github.com/guanguans/monorepo-builder-worker/compare/v1.3.2...v2.0.0
+[v1.3.2]: https://github.com/guanguans/monorepo-builder-worker/compare/v1.3.1...v1.3.2
+[v1.3.1]: https://github.com/guanguans/monorepo-builder-worker/compare/v1.3.0...v1.3.1
+[v1.3.0]: https://github.com/guanguans/monorepo-builder-worker/compare/v1.2.3...v1.3.0
+[v1.2.3]: https://github.com/guanguans/monorepo-builder-worker/compare/v1.2.2...v1.2.3
+[v1.2.2]: https://github.com/guanguans/monorepo-builder-worker/compare/v1.2.1...v1.2.2
+[v1.2.1]: https://github.com/guanguans/monorepo-builder-worker/compare/v1.2.0...v1.2.1
+[v1.2.0]: https://github.com/guanguans/monorepo-builder-worker/compare/v1.1.2...v1.2.0
+[v1.1.2]: https://github.com/guanguans/monorepo-builder-worker/compare/v1.1.1...v1.1.2
+[v1.1.1]: https://github.com/guanguans/monorepo-builder-worker/compare/v1.1.0...v1.1.1
+[v1.1.0]: https://github.com/guanguans/monorepo-builder-worker/compare/v1.0.3...v1.1.0
+[v1.0.3]: https://github.com/guanguans/monorepo-builder-worker/compare/v1.0.2...v1.0.3
+[v1.0.2]: https://github.com/guanguans/monorepo-builder-worker/compare/v1.0.1...v1.0.2
+[v1.0.1]: https://github.com/guanguans/monorepo-builder-worker/compare/v1.0.0...v1.0.1
