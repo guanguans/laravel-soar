@@ -8,6 +8,12 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 
+<a name="3.8.1"></a>
+## [3.8.1] - 2023-07-24
+### Fix
+- **AssetController:** Fix font file path
+
+
 <a name="3.8.0"></a>
 ## [3.8.0] - 2023-07-23
 ### Feat
@@ -267,7 +273,8 @@ All notable changes to this project will be documented in this file.
 - Merge pull request [#1](https://github.com/guanguans/monorepo-builder-worker/issues/1) from guanguans/add-license-1
 
 
-[Unreleased]: https://github.com/guanguans/monorepo-builder-worker/compare/3.8.0...HEAD
+[Unreleased]: https://github.com/guanguans/monorepo-builder-worker/compare/3.8.1...HEAD
+[3.8.1]: https://github.com/guanguans/monorepo-builder-worker/compare/3.8.0...3.8.1
 [3.8.0]: https://github.com/guanguans/monorepo-builder-worker/compare/v3.7.1...3.8.0
 [v3.7.1]: https://github.com/guanguans/monorepo-builder-worker/compare/v3.7.0...v3.7.1
 [v3.7.0]: https://github.com/guanguans/monorepo-builder-worker/compare/v3.6.1...v3.7.0
