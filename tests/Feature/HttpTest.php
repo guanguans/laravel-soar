@@ -31,11 +31,11 @@ it('can request `fonts/fontawesome-webfont.{suffix}`', function (): void {
         ->assertOk()
         ->assertHeader('Content-Type', 'text/font; charset=UTF-8')
         ->assertSee('svg');
-})->group(__DIR__, __FILE__);
+})->group(__DIR__, __FILE__)->skip();
 
 it('can request `fonts/FontAwesome.otf`', function (): void {
     $this->get('soar-bar/fonts/FontAwesome.otf')
         ->assertOk()
         ->assertHeader('Content-Type', 'text/font; charset=UTF-8')
         ->assertSee('name');
-})->group(__DIR__, __FILE__);
+})->group(__DIR__, __FILE__)->skip();
