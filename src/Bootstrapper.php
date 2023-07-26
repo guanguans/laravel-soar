@@ -132,7 +132,10 @@ class Bootstrapper
         $bindings = $queryExecuted->connection->prepareBindings($queryExecuted->bindings);
         $pdo = $queryExecuted->connection->getPdo();
 
-        return vsprintf($sqlWithPlaceholders, array_map([$pdo, 'quote'], $bindings));
+        return vsprintf($sqlWithPlaceholders, array_map(
+            static fn ($binding) => null === $binding ? 'NULL' : $pdo->quote($binding),
+            $bindings
+        ));
     }
 
     /**
