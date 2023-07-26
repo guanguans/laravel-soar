@@ -83,6 +83,7 @@
     "suggest": {
         "barryvdh/laravel-debugbar": "Output SQL scores to Laravel DebugBar.",
         "itsgoingd/clockwork": "Output SQL scores to Clockwork.",
+        "laradumps/laradumps": "Output SQL scores to Laradumps.",
         "spatie/ray": "Output SQL scores to Spatie Ray."
     },
     "minimum-stability": "stable",
