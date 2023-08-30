@@ -59,7 +59,6 @@
         "guanguans/ai-commit": "^1.8",
         "guanguans/monorepo-builder-worker": "^1.2",
         "itsgoingd/clockwork": "^5.1",
-        "jetbrains/phpstorm-attributes": "^1.0",
         "kubawerlos/php-cs-fixer-custom-fixers": "^3.13",
         "laravel/legacy-factories": "^1.3",
         "laravel/lumen-framework": "^7.0 || ^8.0 || ^9.0 || ^10.0",
@@ -74,7 +73,6 @@
         "rector/rector": "^0.18",
         "spatie/pest-plugin-snapshots": "^1.1 || ^2.0",
         "spatie/ray": "^1.37",
-        "veewee/composer-run-parallel": "^1.2",
         "vimeo/psalm": "^5.15"
     },
     "suggest": {
@@ -102,7 +100,6 @@
         "allow-plugins": {
             "pestphp/pest-plugin": true,
             "phpstan/extension-installer": true,
-            "veewee/composer-run-parallel": true,
             "ergebnis/composer-normalize": true
         },
         "apcu-autoloader": true,

@@ -31,6 +31,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
+use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use phpmock\phpunit\PHPMock;
 use Spatie\Snapshots\MatchesSnapshots;
 use Symfony\Component\VarDumper\Test\VarDumperTestTrait;
@@ -40,6 +41,7 @@ use Tests\Seeder\UserSeeder;
 abstract class TestCase extends \Orchestra\Testbench\TestCase
 {
     use MatchesSnapshots;
+    use MockeryPHPUnitIntegration;
     use PHPMock;
     use VarDumperTestTrait;
 
@@ -60,9 +62,16 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
     protected function setUp(): void
     {
         parent::setUp();
+        $this->startMockery();
         $this->setUpDatabase();
         $this->withFactories(__DIR__.'/Factories/');
         $this->seed(UserSeeder::class);
+    }
+
+    protected function tearDown(): void
+    {
+        $this->closeMockery();
+        parent::tearDown();
     }
 
     /**
