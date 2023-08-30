@@ -40,7 +40,7 @@ class QueryAnalyzer
         $sql = htmlspecialchars($sql, ENT_IGNORE);
         $sql = preg_replace_callback(
             '#(/\\*.+?\\*/)|(\\*\\*.+?\\*\\*)|(?<=[\\s,(])('.static::KEYWORDS1.')(?=[\\s,)])|(?<=[\\s,(=])('.static::KEYWORDS2.')(?=[\\s,)=])#is',
-            static function ($matches) {
+            static function (array $matches) {
                 if (! empty($matches[1])) { // comment
                     return '<em style="color:gray">'.$matches[1].'</em>';
                 }
