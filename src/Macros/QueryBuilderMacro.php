@@ -21,6 +21,10 @@ use Guanguans\LaravelSoar\Soar;
  */
 class QueryBuilderMacro
 {
+    /**
+     * @psalm-suppress InvalidReturnType
+     * @psalm-suppress InvalidReturnStatement
+     */
     public function toRawSql(): callable
     {
         return fn (): string => array_reduce(
