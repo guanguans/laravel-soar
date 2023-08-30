@@ -14,6 +14,7 @@ namespace Tests\Facades;
 
 use Guanguans\LaravelSoar\Commands\ClearCommand;
 use Guanguans\LaravelSoar\Facades\Soar;
+use Symfony\Component\Console\Command\Command;
 
 use function Pest\Laravel\artisan;
 
@@ -22,6 +23,6 @@ it('can clear the Soar log file', function (): void {
     $logFile = Soar::getLogOutput(\dirname(Soar::getSoarPath()).\DIRECTORY_SEPARATOR.'soar.log');
 
     expect($logFile)->toBeFile();
-    artisan(ClearCommand::class)->expectsOutput('Clearing Soar log file...')->assertSuccessful();
+    artisan(ClearCommand::class)->expectsOutput('Clearing Soar log file...')->assertExitCode(Command::SUCCESS);
     expect($logFile)->not->toBeFile();
 })->group(__DIR__, __FILE__);

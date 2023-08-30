@@ -15,6 +15,7 @@ namespace Tests\Feature;
 use Guanguans\LaravelSoar\OutputManager;
 use Guanguans\LaravelSoar\Outputs\JsonOutput;
 use Guanguans\LaravelSoar\Outputs\SoarBarOutput;
+use Symfony\Component\Console\Command\Command;
 
 beforeEach(function (): void {
     $this->see = [
@@ -29,7 +30,7 @@ beforeEach(function (): void {
 
 it('can outputs console', function (): void {
     $this->artisan('outputs')
-        ->assertSuccessful()
+        ->assertExitCode(Command::SUCCESS)
         ->expectsOutput(OutputManager::class);
 })->group(__DIR__, __FILE__);
 
