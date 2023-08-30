@@ -8,6 +8,28 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 
+<a name="3.8.3"></a>
+## [3.8.3] - 2023-08-30
+### Docs
+- Update README.md with Chinese translation link
+
+### Feat
+- **facade:** Add facade.php file
+
+### Fix
+- **QueryAnalyzer:** Fix anonymous function parameter type
+
+### Refactor
+- **tests:** update OutputTest.php
+
+### Test
+- **OutputTest:** Update console output functionality
+- **TestCase.php:** Add Mockery integration
+
+### Pull Requests
+- Merge pull request [#40](https://github.com/guanguans/monorepo-builder-worker/issues/40) from guanguans/dependabot/composer/rector/rector-tw-0.18
+
+
 <a name="3.8.2"></a>
 ## [3.8.2] - 2023-07-27
 ### Docs
@@ -282,7 +304,8 @@ All notable changes to this project will be documented in this file.
 - Merge pull request [#1](https://github.com/guanguans/monorepo-builder-worker/issues/1) from guanguans/add-license-1
 
 
-[Unreleased]: https://github.com/guanguans/monorepo-builder-worker/compare/3.8.2...HEAD
+[Unreleased]: https://github.com/guanguans/monorepo-builder-worker/compare/3.8.3...HEAD
+[3.8.3]: https://github.com/guanguans/monorepo-builder-worker/compare/3.8.2...3.8.3
 [3.8.2]: https://github.com/guanguans/monorepo-builder-worker/compare/3.8.1...3.8.2
 [3.8.1]: https://github.com/guanguans/monorepo-builder-worker/compare/3.8.0...3.8.1
 [3.8.0]: https://github.com/guanguans/monorepo-builder-worker/compare/v3.7.1...3.8.0
