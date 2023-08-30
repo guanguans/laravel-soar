@@ -4,7 +4,7 @@
 
 > SQL optimizer and rewriter for laravel. - laravel 的 SQL 优化器和重写器。
 
-[简体中文](README.md) | [ENGLISH](README-EN.md)
+[简体中文](README-zh_CN.md) | [ENGLISH](README.md)
 
 [![tests](https://github.com/guanguans/laravel-soar/workflows/tests/badge.svg)](https://github.com/guanguans/laravel-soar/actions)
 [![check & fix styling](https://github.com/guanguans/laravel-soar/workflows/check%20&%20fix%20styling/badge.svg)](https://github.com/guanguans/laravel-soar/actions)
@@ -13,15 +13,16 @@
 [![Total Downloads](https://poser.pugx.org/guanguans/laravel-soar/downloads)](//packagist.org/packages/guanguans/laravel-soar)
 [![License](https://poser.pugx.org/guanguans/laravel-soar/license)](//packagist.org/packages/guanguans/laravel-soar)
 
-## 功能
+## Feature
 
-* 支持启发式算法语句优化建议、索引优化建议
-* 支持 EXPLAIN 信息丰富解读
-* 自动监控输出 SQL 优化建议
-* [Soar bar](https://github.com/maximebf/php-debugbar)、[Debug bar](https://github.com/barryvdh/laravel-debugbar)、[Clockwork](https://github.com/itsgoingd/clockwork)、[Ray](https://github.com/spatie/ray)、JSON、Console、Dump、Log、Error log、Syslog、自定义输出器(多种场景输出)
-* 支持查询构建器生成 SQL 优化建议
+* Support heuristic algorithm statement optimization suggestions, index optimization suggestions
+* Supports rich interpretation of EXPLAIN information
+* Automatically monitor output SQL optimization recommendations
+* Debug bar、Soar bar、JSON、Clockwork、Console、Dump、Log、Custom output(Multiple scene output)
+* [Soar bar](https://github.com/maximebf/php-debugbar)、[Debug bar](https://github.com/barryvdh/laravel-debugbar)、[Clockwork](https://github.com/itsgoingd/clockwork)、[Ray](https://github.com/spatie/ray)、JSON、Console、Dump、Log、Error log、Syslog、Custom output(Multiple scene output)
+* Support query builder to generate SQL optimization suggestions
 
-## 相关项目
+## Related Links
 
 * [https://github.com/XiaoMi/soar](https://github.com/XiaoMi/soar)
 * [https://github.com/guanguans/soar-php](https://github.com/guanguans/soar-php)
@@ -30,21 +31,21 @@
 * [https://github.com/guanguans/think-soar](https://github.com/guanguans/think-soar)
 * [https://github.com/Tinywan/webman-soar](https://github.com/Tinywan/webman-soar)
 
-## 环境要求
+## Requirement
 
 * PHP >= 7.4
 * ext-json
 * ext-pdo
 
-## 安装
+## Installation
 
 ```shell
 $ composer require guanguans/laravel-soar --dev -v
 ```
 
-## 配置
+## Configuration
 
-### 注册服务
+### Register service
 
 #### laravel
 
@@ -54,25 +55,25 @@ $ php artisan vendor:publish --provider="Guanguans\\LaravelSoar\\SoarServiceProv
 
 #### lumen
 
-将以下代码段添加到 `bootstrap/app.php` 文件中的 `Register Service Providers` 部分下：
+Add the following snippet to the `bootstrap/app.php` file under the `Register Service Providers` section as follows:
 
 ```php
 $app->register(\Guanguans\LaravelSoar\SoarServiceProvider::class);
 ```
 
-### :warning: 在 unix 操作系统非 cli 环境中运行时，可能会抛出 Fatal error: ...Exit Code: 2(Misuse of shell builtins)
+### :warning: When running in a unix OS non-cli environment, may throw Fatal error: ...Exit Code: 2(Misuse of shell builtins)
 
 ```shell
 # Fatal error: Uncaught Guanguans\SoarPHP\Exceptions\ProcessFailedException: The command "'/Users/yaozm/Documents/develop/soar-php/bin/soar.darwin-amd64' '-report-type=json' '-query=select * from users;'" failed. Exit Code: 2(Misuse of shell builtins) Working directory: /Users/yaozm/Documents/develop/soar-php Output: ================ Error Output: ================ panic: runtime error: invalid memory address or nil pointer dereference [signal SIGSEGV: segmentation violation code=0x1 addr=0x0 pc=0x1938665] goroutine 1 [running]: github.com/pingcap/tidb/util/memory.MemTotalNormal() pkg/mod/github.com/pingcap/tidb@v1.1.0-beta.0.20210601085537-5d7c852770eb/util/memory/meminfo.go:41 +0x65 github.com/pingcap/tidb/util/memory.init.0() pkg/mod/github.com/pingcap/tidb@v1.1.0-beta.0.20210601085537-5d7c852770eb/util/memory/meminfo.go:134 +0x175 in /Users/yaozm/Documents/develop/soar-php/src/Concerns/WithRunable.php:36 Stack trace: #0 /Users/yaozm/Documents/develop/soar-php/test.php(163): Guanguans\SoarPHP\Soar->run() #1 /User in /Users/yaozm/Documents/develop/soar-php/src/Concerns/WithRunable.php on line 36
-SOAR_SUDO_PASSWORD='your sudo password' # 设置 sudo 密码，以 sudo 运行 soar 命令，避免出现上述错误。
+SOAR_SUDO_PASSWORD='your sudo password' # Set a sudo password to run the soar command with sudo to avoid the above errors.
 ```
 
-## 使用
+## Usage
 
-### 示例代码
+### Sample code
 
 <details>
-<summary><b>详情</b></summary>
+<summary><b>details</b></summary>
 
 ```php
 <?php
@@ -137,12 +138,12 @@ SQL
 ```
 </details>
 
-### 自动监控输出 SQL 优化建议
+### Automatically monitor output SQL optimization recommendations
 
 <details>
 <summary><b>Soar bar</b></summary>
 
-![Soar bar](docs/soar-bar.png)    
+![Soar bar](docs/soar-bar.png)
 </details>
 
 <details>
@@ -164,7 +165,7 @@ SQL
 </details>
 
 <details>
-<summary><b>Json 响应</b></summary> 
+<summary><b>Json response</b></summary>
 
 ```json
 {
@@ -506,9 +507,9 @@ SQL
 </details>
 
 <details>
-<summary><b>自定义输出器</b></summary>
+<summary><b>Custom output</b></summary>
 
-1. 实现该接口
+1. Implement this interface
 
 ```php
 <?php
@@ -523,7 +524,7 @@ interface Output
 }
 ```
 
-2. `config/soar.php` 中配置输出器即可
+2. `config/soar.php` configure the output in the file
 
 ```php
 <?php
@@ -540,10 +541,10 @@ return [
 ```
 </details>
 
-### Soar 实例及方法
+### Soar instance and methods
 
 <details>
-<summary><b>详情</b></summary>
+<summary><b>details</b></summary>
 
 ```php
 app('soar'); // 获取 Soar 实例
@@ -587,10 +588,10 @@ class Soar{}
 ```
 </details>
 
-### 查询构建器方法
+### Query builder method
 
 <details>
-<summary><b>详情</b></summary>
+<summary><b>details</b></summary>
 
 ```php
 namespace Illuminate\Database\Eloquent {
@@ -620,29 +621,29 @@ namespace Illuminate\Database\Eloquent {
 ```
 </details>
 
-## 测试
+## Testing
 
 ```shell
 $ composer test
 ```
 
-## 变更日志
+## Changelog
 
-请参阅 [CHANGELOG](CHANGELOG.md) 获取最近有关更改的更多信息。
+Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
 
-## 贡献指南
+## Contributing
 
-请参阅 [CONTRIBUTING](.github/CONTRIBUTING.md) 有关详细信息。
+Please see [CONTRIBUTING](.github/CONTRIBUTING.md) for details.
 
-## 安全漏洞
+## Security Vulnerabilities
 
-请查看[我们的安全政策](../../security/policy)了解如何报告安全漏洞。
+Please review [our security policy](../../security/policy) on how to report security vulnerabilities.
 
-## 贡献者
+## Credits
 
 * [guanguans](https://github.com/guanguans)
-* [所有贡献者](../../contributors)
+* [All Contributors](../../contributors)
 
-## 协议
+## License
 
-MIT 许可证（MIT）。有关更多信息，请参见[协议文件](LICENSE)。
+The MIT License (MIT). Please see [License File](LICENSE) for more information.
