@@ -116,6 +116,11 @@
         "sort-packages": true
     },
     "extra": {
+        "bamarni-bin": {
+            "bin-links": true,
+            "forward-command": true,
+            "target-directory": "vendor-bin"
+        },
         "branch-alias": {
             "dev-master": "3.x-dev"
         },
@@ -168,8 +173,8 @@
         "composer-parallel": "@composer parallel --ansi -v",
         "composer-unused": "@php ./vendor/bin/composer-unused --ansi -v",
         "composer-validate": "@composer validate --check-lock --strict --ansi -v",
-        "facades-lint": "@facades-update -- --lint",
-        "facades-update": "/usr/local/opt/php@8.1/bin/php -f ./bin/facades.php",
+        "facade-lint": "@facade-update --lint",
+        "facade-update": "/usr/local/opt/php@8.1/bin/php -f ./facade.php -- Guanguans\\\\LaravelSoar\\\\Facades\\\\Soar",
         "json-lint": "@php ./vendor/bin/jsonlint *.json .*rc",
         "lint": [
             "for DIR in .; do find $DIR -maxdepth 1 -type f -name '*.php' -type f ! -name 'xxx.php' -exec php -l {} \\; 2>&1 | (! grep -v '^No syntax errors detected'); done",

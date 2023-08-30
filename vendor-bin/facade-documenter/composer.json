@@ -1,0 +1,11 @@
+{
+    "repositories": {
+        "facade-documenter": {
+            "type": "vcs",
+            "url": "https://github.com/laravel/facade-documenter.git"
+        }
+    },
+    "require-dev": {
+        "laravel/facade-documenter": "dev-main"
+    }
+}
