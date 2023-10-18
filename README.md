@@ -7,11 +7,11 @@
 [简体中文](README-zh_CN.md) | [ENGLISH](README.md)
 
 [![tests](https://github.com/guanguans/laravel-soar/workflows/tests/badge.svg)](https://github.com/guanguans/laravel-soar/actions)
-[![check & fix styling](https://github.com/guanguans/laravel-soar/workflows/check%20&%20fix%20styling/badge.svg)](https://github.com/guanguans/laravel-soar/actions)
+[![check & fix styling](https://github.com/guanguans/laravel-soar/actions/workflows/php-cs-fixer.yml/badge.svg)](https://github.com/guanguans/laravel-soar/actions/workflows/php-cs-fixer.yml)
 [![codecov](https://codecov.io/gh/guanguans/laravel-soar/branch/master/graph/badge.svg?token=EWBG8GV4JD)](https://codecov.io/gh/guanguans/laravel-soar)
-[![Latest Stable Version](https://poser.pugx.org/guanguans/laravel-soar/v)](//packagist.org/packages/guanguans/laravel-soar)
-[![Total Downloads](https://poser.pugx.org/guanguans/laravel-soar/downloads)](//packagist.org/packages/guanguans/laravel-soar)
-[![License](https://poser.pugx.org/guanguans/laravel-soar/license)](//packagist.org/packages/guanguans/laravel-soar)
+[![Latest Stable Version](https://poser.pugx.org/guanguans/laravel-soar/v)](https://packagist.org/packages/guanguans/laravel-soar)
+[![Total Downloads](https://poser.pugx.org/guanguans/laravel-soar/downloads)](https://packagist.org/packages/guanguans/laravel-soar)
+[![License](https://poser.pugx.org/guanguans/laravel-soar/license)](https://packagist.org/packages/guanguans/laravel-soar)
 
 ## Feature
 
