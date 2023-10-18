@@ -11,11 +11,7 @@
     <UnusedVariable>
       <code>$contents</code>
     </UnusedVariable>
-    <InvalidReturnType>
-      <code>makeUriRelativeTo</code>
-    </InvalidReturnType>
     <InvalidReturnStatement>
-      <code>$uri</code>
       <code>$uris</code>
     </InvalidReturnStatement>
   </file>

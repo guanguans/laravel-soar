@@ -194,8 +194,13 @@ class JavascriptRenderer extends \DebugBar\JavascriptRenderer
     /**
      * @noinspection MissingParentCallInspection
      *
-     * @param mixed $uri
-     * @param mixed $root
+     * @psalm-suppress  InvalidReturnType
+     * @psalm-suppress  MoreSpecificImplementedParamType
+     *
+     * @param array<string>|string $uri
+     * @param mixed|string $root
+     *
+     * @return array<string>|string
      */
     protected function makeUriRelativeTo($uri, $root)
     {

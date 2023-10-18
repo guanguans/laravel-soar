@@ -11,8 +11,8 @@ parameters:
 			path: src/Http/Controllers/AssetController.php
 
 		-
-			message: "#^Method Guanguans\\\\LaravelSoar\\\\JavascriptRenderer\\:\\:makeUriRelativeTo\\(\\) should return string but returns array\\<int\\<0, max\\>, string\\>\\.$#"
-			count: 1
+			message: "#^Variable \\$uri on left side of \\?\\? always exists and is not nullable\\.$#"
+			count: 2
 			path: src/JavascriptRenderer.php
 
 		-
