@@ -8,6 +8,20 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 
+<a name="3.9.0"></a>
+## [3.9.0] - 2023-10-18
+### Fix
+- **.php-cs-fixer:** update curly_braces_position
+
+### Refactor
+- **Bootstrapper:** improve toSql method
+
+### Pull Requests
+- Merge pull request [#43](https://github.com/guanguans/monorepo-builder-worker/issues/43) from guanguans/dependabot/github_actions/stefanzweifel/git-auto-commit-action-5
+- Merge pull request [#42](https://github.com/guanguans/monorepo-builder-worker/issues/42) from guanguans/dependabot/github_actions/codecov/codecov-action-4
+- Merge pull request [#41](https://github.com/guanguans/monorepo-builder-worker/issues/41) from guanguans/dependabot/github_actions/actions/checkout-4
+
+
 <a name="3.8.3"></a>
 ## [3.8.3] - 2023-08-30
 ### Docs
@@ -304,7 +318,8 @@ All notable changes to this project will be documented in this file.
 - Merge pull request [#1](https://github.com/guanguans/monorepo-builder-worker/issues/1) from guanguans/add-license-1
 
 
-[Unreleased]: https://github.com/guanguans/monorepo-builder-worker/compare/3.8.3...HEAD
+[Unreleased]: https://github.com/guanguans/monorepo-builder-worker/compare/3.9.0...HEAD
+[3.9.0]: https://github.com/guanguans/monorepo-builder-worker/compare/3.8.3...3.9.0
 [3.8.3]: https://github.com/guanguans/monorepo-builder-worker/compare/3.8.2...3.8.3
 [3.8.2]: https://github.com/guanguans/monorepo-builder-worker/compare/3.8.1...3.8.2
 [3.8.1]: https://github.com/guanguans/monorepo-builder-worker/compare/3.8.0...3.8.1
