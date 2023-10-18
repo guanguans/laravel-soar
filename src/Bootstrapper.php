@@ -122,6 +122,9 @@ class Bootstrapper
         return Str::is(config('soar.except', []), $sql);
     }
 
+    /**
+     * @noinspection DebugFunctionUsageInspection
+     */
     protected function toSql(QueryExecuted $queryExecuted): string
     {
         if ([] === $queryExecuted->bindings) {
@@ -133,7 +136,7 @@ class Bootstrapper
         $pdo = $queryExecuted->connection->getPdo();
 
         return vsprintf($sqlWithPlaceholders, array_map(
-            static fn ($binding): string => null === $binding ? 'NULL' : $pdo->quote($binding),
+            static fn ($binding): string => \is_string($binding) ? $pdo->quote($binding) : var_export($binding, true),
             $bindings
         ));
     }
