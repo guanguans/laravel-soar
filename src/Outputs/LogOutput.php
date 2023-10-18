@@ -27,7 +27,7 @@ class LogOutput extends Output
     }
 
     /**
-     * {@inheritDoc}
+     * @param mixed $dispatcher
      *
      * @throws \JsonException
      */

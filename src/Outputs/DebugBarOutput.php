@@ -30,7 +30,7 @@ class DebugBarOutput extends Output
     }
 
     /**
-     * {@inheritDoc}
+     * @param mixed $dispatcher
      *
      * @throws \JsonException
      */

@@ -24,9 +24,9 @@ class RayOutput extends Output
     }
 
     /**
-     * {@inheritDoc}
-     *
      * @psalm-suppress UndefinedDocblockClass
+     *
+     * @param mixed $dispatcher
      */
     public function output(Collection $scores, $dispatcher): void
     {

@@ -54,8 +54,6 @@ class Soar extends Facade
 {
     /**
      * @noinspection MissingParentCallInspection
-     *
-     * {@inheritDoc}
      */
     protected static function getFacadeAccessor(): string
     {

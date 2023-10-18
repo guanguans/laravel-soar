@@ -101,9 +101,6 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
         ];
     }
 
-    /**
-     * {@inheritDoc}
-     */
     protected function defineEnvironment($app): void
     {
         config()->set('app.key', 'base64:6Cu/ozj4gPtIjmXjr8EdVnGFNsdRqZfHfVjQkmTlg4Y=');
@@ -138,10 +135,10 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
     }
 
     /**
-     * {@inheritDoc}
-     *
      * @noinspection PhpUndefinedMethodInspection
      * @noinspection PhpUndefinedFieldInspection
+     *
+     * @param mixed $router
      */
     protected function defineRoutes($router): void
     {

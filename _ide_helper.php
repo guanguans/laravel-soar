@@ -11,9 +11,7 @@ declare(strict_types=1);
  */
 
 namespace {
-    class Soar extends \Guanguans\LaravelSoar\Facades\Soar
-    {
-    }
+    class Soar extends \Guanguans\LaravelSoar\Facades\Soar {}
 }
 
 namespace Illuminate\Database\Query {
@@ -34,9 +32,7 @@ namespace Illuminate\Database\Query {
      * @see \Guanguans\LaravelSoar\Macros\QueryBuilderMacro
      * @see \Illuminate\Database\Query\Builder
      */
-    class Builder
-    {
-    }
+    class Builder {}
 }
 
 namespace Illuminate\Database\Eloquent {
@@ -59,9 +55,7 @@ namespace Illuminate\Database\Eloquent {
      * @see \Guanguans\LaravelSoar\Macros\QueryBuilderMacro
      * @see \Illuminate\Database\Eloquent\Builder
      */
-    class Builder
-    {
-    }
+    class Builder {}
 }
 
 namespace Illuminate\Database\Eloquent\Relations {
@@ -84,7 +78,5 @@ namespace Illuminate\Database\Eloquent\Relations {
      * @see \Guanguans\LaravelSoar\Macros\QueryBuilderMacro
      * @see \Illuminate\Database\Eloquent\Relations\Relation
      */
-    class Relation
-    {
-    }
+    class Relation {}
 }

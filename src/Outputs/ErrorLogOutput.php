@@ -28,12 +28,12 @@ class ErrorLogOutput extends Output
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * @throws \JsonException
-     *
      * @noinspection ForgottenDebugOutputInspection
      * @noinspection DebugFunctionUsageInspection
+     *
+     * @param mixed $dispatcher
+     *
+     * @throws \JsonException
      */
     public function output(Collection $scores, $dispatcher): void
     {

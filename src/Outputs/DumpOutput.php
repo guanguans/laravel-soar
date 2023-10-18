@@ -24,11 +24,11 @@ class DumpOutput extends Output
     }
 
     /**
-     * {@inheritDoc}
-     *
      * @noinspection ForgottenDebugOutputInspection
      * @noinspection ClosureToArrowFunctionInspection
      * @noinspection DebugFunctionUsageInspection
+     *
+     * @param mixed $dispatcher
      */
     public function output(Collection $scores, $dispatcher): void
     {
