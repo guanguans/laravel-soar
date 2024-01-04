@@ -25,7 +25,7 @@ class ConsoleOutput extends Output
 
     public function shouldOutput($dispatcher): bool
     {
-        return $this->isHtmlResponse($dispatcher);
+        return $this->isHtmlResponse($dispatcher) && parent::shouldOutput($dispatcher);
     }
 
     public function output(Collection $scores, $dispatcher): void

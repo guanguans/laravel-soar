@@ -16,15 +16,12 @@ use Guanguans\LaravelSoar\Contracts\Sanitizer;
 use Guanguans\LaravelSoar\Outputs\Concerns\OutputConditions;
 use Guanguans\LaravelSoar\Outputs\Concerns\ScoresHydrator;
 use Guanguans\LaravelSoar\Outputs\Concerns\ScoresSanitizer;
+use Guanguans\LaravelSoar\Outputs\Concerns\ShouldOutput;
 
 abstract class Output implements \Guanguans\LaravelSoar\Contracts\Output, Sanitizer
 {
     use OutputConditions;
     use ScoresHydrator;
     use ScoresSanitizer;
-
-    public function shouldOutput($dispatcher): bool
-    {
-        return true;
-    }
+    use ShouldOutput;
 }

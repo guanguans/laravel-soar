@@ -26,7 +26,7 @@ class JsonOutput extends Output
 
     public function shouldOutput($dispatcher): bool
     {
-        return $this->isJsonResponse($dispatcher);
+        return $this->isJsonResponse($dispatcher) && parent::shouldOutput($dispatcher);
     }
 
     public function output(Collection $scores, $dispatcher): void

@@ -18,9 +18,14 @@ class ClockworkOutput extends Output
 {
     public function shouldOutput($dispatcher): bool
     {
-        return \function_exists('clock');
+        return \function_exists('clock') && parent::shouldOutput($dispatcher);
     }
 
+    /**
+     * @psalm-suppress UndefinedFunction
+     *
+     * @param \Illuminate\Console\Events\CommandFinished|\Symfony\Component\HttpFoundation\Response $dispatcher
+     */
     public function output(Collection $scores, $dispatcher): void
     {
         clock(...$scores);

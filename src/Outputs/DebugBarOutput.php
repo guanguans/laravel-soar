@@ -34,7 +34,8 @@ class DebugBarOutput extends Output
         // app(LaravelDebugbar::class)->isEnabled()
         return class_exists(LaravelDebugbar::class)
             && app()->has(LaravelDebugbar::class)
-            && $this->isHtmlResponse($dispatcher);
+            && $this->isHtmlResponse($dispatcher)
+            && parent::shouldOutput($dispatcher);
     }
 
     /**

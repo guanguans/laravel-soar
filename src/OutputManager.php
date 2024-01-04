@@ -16,13 +16,15 @@ use Guanguans\LaravelSoar\Contracts\Output;
 use Guanguans\LaravelSoar\Contracts\Sanitizer;
 use Guanguans\LaravelSoar\Events\OutputtedEvent;
 use Guanguans\LaravelSoar\Events\OutputtingEvent;
-use Guanguans\LaravelSoar\Exceptions\BadMethodCallException;
 use Guanguans\LaravelSoar\Exceptions\InvalidArgumentException;
+use Guanguans\LaravelSoar\Outputs\Concerns\ShouldOutput;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Fluent;
 
 class OutputManager extends Fluent implements Output
 {
+    use ShouldOutput;
+
     /**
      * @param array<\Guanguans\LaravelSoar\Contracts\Output> $outputs
      *
@@ -30,11 +32,13 @@ class OutputManager extends Fluent implements Output
      * @noinspection MissingParentCallInspection
      * @noinspection PhpMissingParentConstructorInspection
      */
-    public function __construct(array $outputs = [])
+    public function __construct(array $outputs = [], array $exclusions = [])
     {
         foreach ($outputs as $index => $output) {
             $this->offsetSet($index, $output);
         }
+
+        $this->exclusions = $exclusions;
     }
 
     /**
@@ -54,6 +58,10 @@ class OutputManager extends Fluent implements Output
 
     public function output(Collection $scores, $dispatcher): void
     {
+        if (! $this->shouldOutput($dispatcher)) {
+            return;
+        }
+
         /** @var \Guanguans\LaravelSoar\Contracts\Output $output */
         foreach ($this->attributes as $output) {
             if (! $output->shouldOutput($dispatcher)) {
@@ -65,10 +73,5 @@ class OutputManager extends Fluent implements Output
             $result = $output->output($scores, $dispatcher);
             event(new OutputtedEvent($output, $scores, $result));
         }
-    }
-
-    public function shouldOutput($dispatcher): bool
-    {
-        throw new BadMethodCallException(sprintf('The method [%s] is not implemented.', __METHOD__));
     }
 }

@@ -25,7 +25,7 @@ class RayOutput extends Output
 
     public function shouldOutput($dispatcher): bool
     {
-        return \function_exists('ray');
+        return \function_exists('ray') && parent::shouldOutput($dispatcher);
     }
 
     /**

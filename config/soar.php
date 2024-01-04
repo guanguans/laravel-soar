@@ -36,6 +36,12 @@ return [
         // 'create table*',
     ],
 
+    // 排除 soar 评分输出的命令、URL 路径、路由
+    'exclusions' => [
+        'telescope:*',
+        '*telescope*',
+    ],
+
     // soar 评分输出器
     'outputs' => [
         // Guanguans\LaravelSoar\Outputs\ClockworkOutput::class,
