@@ -13,3 +13,4 @@ composer.lock
 .phpunit.result.cache
 tests.php
 .php-cs-fixer.cache
+.ai-commit.json
