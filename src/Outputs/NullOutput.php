@@ -12,16 +12,10 @@ declare(strict_types=1);
 
 namespace Guanguans\LaravelSoar\Outputs;
 
-use Guanguans\LaravelSoar\Contracts\Output;
 use Illuminate\Support\Collection;
 
-class NullOutput implements Output
+class NullOutput extends Output
 {
-    public function shouldOutput($dispatcher): bool
-    {
-        return true;
-    }
-
     public function output(Collection $scores, $dispatcher): void
     {
         // noop

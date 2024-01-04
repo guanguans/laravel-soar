@@ -145,10 +145,7 @@ class SoarServiceProvider extends ServiceProvider
 
                     return [$class => $container->make($class, $parameters)];
                 })
-                ->pipe(static fn (Collection $collection): OutputManager => new OutputManager(
-                    $collection->all(),
-                    config('soar.exclusions')
-                ))
+                ->pipe(static fn (Collection $collection): OutputManager => new OutputManager($collection->all()))
         );
 
         $this->app->alias(OutputManager::class, $this->toAlias(OutputManager::class));

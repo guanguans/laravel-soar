@@ -159,7 +159,8 @@
             "@lint",
             "@style-lint",
             "@test",
-            "@psalm"
+            "@psalm",
+            "@rector-dry-run"
         ],
         "checks-parallel": "@composer-parallel composer-validate md-lint lint style-lint test psalm",
         "composer-bin-all-update": "@composer bin all update --ansi -v",

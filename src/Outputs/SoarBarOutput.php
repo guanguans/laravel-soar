@@ -29,9 +29,7 @@ class SoarBarOutput extends Output
 
     public function shouldOutput($dispatcher): bool
     {
-        return ! DebugBarOutput::isOutputted()
-            && $this->isHtmlResponse($dispatcher)
-            && parent::shouldOutput($dispatcher);
+        return ! DebugBarOutput::isOutputted() && $this->isHtmlResponse($dispatcher);
     }
 
     /**

@@ -17,14 +17,13 @@ use Guanguans\LaravelSoar\Contracts\Sanitizer;
 use Guanguans\LaravelSoar\Events\OutputtedEvent;
 use Guanguans\LaravelSoar\Events\OutputtingEvent;
 use Guanguans\LaravelSoar\Exceptions\InvalidArgumentException;
-use Guanguans\LaravelSoar\Outputs\Concerns\ShouldOutput;
+use Illuminate\Console\Events\CommandFinished;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Fluent;
+use Illuminate\Support\Str;
 
 class OutputManager extends Fluent implements Output
 {
-    use ShouldOutput;
-
     /**
      * @param array<\Guanguans\LaravelSoar\Contracts\Output> $outputs
      *
@@ -32,28 +31,21 @@ class OutputManager extends Fluent implements Output
      * @noinspection MissingParentCallInspection
      * @noinspection PhpMissingParentConstructorInspection
      */
-    public function __construct(array $outputs = [], array $exclusions = [])
+    public function __construct(array $outputs = [])
     {
         foreach ($outputs as $index => $output) {
             $this->offsetSet($index, $output);
         }
-
-        $this->exclusions = $exclusions;
     }
 
-    /**
-     * @noinspection MissingParentCallInspection
-     *
-     * @param mixed $offset
-     * @param mixed $value
-     */
-    public function offsetSet($offset, $value): void
+    public function shouldOutput($dispatcher): bool
     {
-        if (! $value instanceof Output) {
-            throw new InvalidArgumentException(sprintf('The value must be instance of %s', Output::class));
+        $exclusions = config('soar.exclusions', []);
+        if ($dispatcher instanceof CommandFinished) {
+            return ! Str::is($exclusions, $dispatcher->command);
         }
 
-        $this->attributes[$offset] = $value;
+        return ! request()->is($exclusions) && ! request()->routeIs($exclusions);
     }
 
     public function output(Collection $scores, $dispatcher): void
@@ -73,5 +65,20 @@ class OutputManager extends Fluent implements Output
             $result = $output->output($scores, $dispatcher);
             event(new OutputtedEvent($output, $scores, $result));
         }
+    }
+
+    /**
+     * @noinspection MissingParentCallInspection
+     *
+     * @param mixed $offset
+     * @param mixed $value
+     */
+    public function offsetSet($offset, $value): void
+    {
+        if (! $value instanceof Output) {
+            throw new InvalidArgumentException(sprintf('The value must be instance of %s', Output::class));
+        }
+
+        $this->attributes[$offset] = $value;
     }
 }
