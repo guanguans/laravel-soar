@@ -43,12 +43,12 @@ return [
         // Guanguans\LaravelSoar\Outputs\DebugBarOutput::class => ['name' => 'Soar Scores', 'label' => 'warning'],
         // Guanguans\LaravelSoar\Outputs\DumpOutput::class => ['exit' => false],
         // Guanguans\LaravelSoar\Outputs\ErrorLogOutput::class => ['messageType' => 0, 'destination' => '', 'extraHeaders' => ''],
+        // Guanguans\LaravelSoar\Outputs\JsonOutput::class => ['key' => 'soar_scores'],
+        Guanguans\LaravelSoar\Outputs\LogOutput::class => ['channel' => 'daily', 'level' => 'warning'],
         // Guanguans\LaravelSoar\Outputs\NullOutput::class,
         // Guanguans\LaravelSoar\Outputs\RayOutput::class => ['label' => 'Soar Scores'],
+        // Guanguans\LaravelSoar\Outputs\SoarBarOutput::class => ['name' => 'Soar Scores', 'label' => 'warning'],
         // Guanguans\LaravelSoar\Outputs\SyslogOutput::class => ['priority' => LOG_WARNING],
-        Guanguans\LaravelSoar\Outputs\JsonOutput::class => ['key' => 'soar_scores'],
-        Guanguans\LaravelSoar\Outputs\LogOutput::class => ['channel' => 'daily', 'level' => 'warning'],
-        Guanguans\LaravelSoar\Outputs\SoarBarOutput::class => ['name' => 'Soar Scores', 'label' => 'warning'],
     ],
 
     // +----------------------------------------------------------------------+//
