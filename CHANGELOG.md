@@ -8,6 +8,19 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 
+<a name="3.9.1"></a>
+## [3.9.1] - 2024-01-04
+### Docs
+- **README:** update check & fix styling badge link
+
+### Refactor
+- **monorepo-builder:** update release workers
+
+### Pull Requests
+- Merge pull request [#45](https://github.com/guanguans/monorepo-builder-worker/issues/45) from guanguans/dependabot/github_actions/actions/stale-9
+- Merge pull request [#44](https://github.com/guanguans/monorepo-builder-worker/issues/44) from guanguans/dependabot/github_actions/actions/labeler-5
+
+
 <a name="3.9.0"></a>
 ## [3.9.0] - 2023-10-18
 ### Fix
@@ -318,7 +331,8 @@ All notable changes to this project will be documented in this file.
 - Merge pull request [#1](https://github.com/guanguans/monorepo-builder-worker/issues/1) from guanguans/add-license-1
 
 
-[Unreleased]: https://github.com/guanguans/monorepo-builder-worker/compare/3.9.0...HEAD
+[Unreleased]: https://github.com/guanguans/monorepo-builder-worker/compare/3.9.1...HEAD
+[3.9.1]: https://github.com/guanguans/monorepo-builder-worker/compare/3.9.0...3.9.1
 [3.9.0]: https://github.com/guanguans/monorepo-builder-worker/compare/3.8.3...3.9.0
 [3.8.3]: https://github.com/guanguans/monorepo-builder-worker/compare/3.8.2...3.8.3
 [3.8.2]: https://github.com/guanguans/monorepo-builder-worker/compare/3.8.1...3.8.2
