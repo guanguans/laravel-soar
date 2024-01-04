@@ -23,6 +23,11 @@ class RayOutput extends Output
         $this->label = $label;
     }
 
+    public function shouldOutput($dispatcher): bool
+    {
+        return \function_exists('ray');
+    }
+
     /**
      * @psalm-suppress UndefinedDocblockClass
      *
@@ -30,10 +35,6 @@ class RayOutput extends Output
      */
     public function output(Collection $scores, $dispatcher): void
     {
-        if (! \function_exists('ray')) {
-            return; // @codeCoverageIgnore
-        }
-
         ray(...$scores)->label($this->label);
     }
 }

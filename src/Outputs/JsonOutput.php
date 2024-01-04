@@ -24,12 +24,13 @@ class JsonOutput extends Output
         $this->key = $key;
     }
 
+    public function shouldOutput($dispatcher): bool
+    {
+        return $this->isJsonResponse($dispatcher);
+    }
+
     public function output(Collection $scores, $dispatcher): void
     {
-        if (! $this->isJsonResponse($dispatcher)) {
-            return;
-        }
-
         /** @var \Symfony\Component\HttpFoundation\JsonResponse $dispatcher */
         $data = Arr::wrap($dispatcher->getData(true));
         Arr::set($data, $this->key, $scores);

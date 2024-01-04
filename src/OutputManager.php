@@ -16,6 +16,7 @@ use Guanguans\LaravelSoar\Contracts\Output;
 use Guanguans\LaravelSoar\Contracts\Sanitizer;
 use Guanguans\LaravelSoar\Events\OutputtedEvent;
 use Guanguans\LaravelSoar\Events\OutputtingEvent;
+use Guanguans\LaravelSoar\Exceptions\BadMethodCallException;
 use Guanguans\LaravelSoar\Exceptions\InvalidArgumentException;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Fluent;
@@ -55,13 +56,19 @@ class OutputManager extends Fluent implements Output
     {
         /** @var \Guanguans\LaravelSoar\Contracts\Output $output */
         foreach ($this->attributes as $output) {
-            if ($output instanceof Sanitizer) {
-                $scores = $output->sanitize($scores);
+            if (! $output->shouldOutput($dispatcher)) {
+                continue;
             }
 
+            $output instanceof Sanitizer and $scores = $output->sanitize($scores);
             event(new OutputtingEvent($output, $scores, $dispatcher));
             $result = $output->output($scores, $dispatcher);
             event(new OutputtedEvent($output, $scores, $result));
         }
+    }
+
+    public function shouldOutput($dispatcher): bool
+    {
+        throw new BadMethodCallException(sprintf('The method [%s] is not implemented.', __METHOD__));
     }
 }

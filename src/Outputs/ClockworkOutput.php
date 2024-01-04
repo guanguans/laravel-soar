@@ -16,12 +16,13 @@ use Illuminate\Support\Collection;
 
 class ClockworkOutput extends Output
 {
+    public function shouldOutput($dispatcher): bool
+    {
+        return \function_exists('clock');
+    }
+
     public function output(Collection $scores, $dispatcher): void
     {
-        if (! \function_exists('clock')) {
-            return; // @codeCoverageIgnore
-        }
-
         clock(...$scores);
     }
 }

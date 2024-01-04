@@ -19,5 +19,10 @@ interface Output
     /**
      * @param \Illuminate\Console\Events\CommandFinished|\Symfony\Component\HttpFoundation\Response $dispatcher
      */
+    public function shouldOutput($dispatcher): bool;
+
+    /**
+     * @param \Illuminate\Console\Events\CommandFinished|\Symfony\Component\HttpFoundation\Response $dispatcher
+     */
     public function output(Collection $scores, $dispatcher);
 }

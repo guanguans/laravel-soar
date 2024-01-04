@@ -22,4 +22,9 @@ abstract class Output implements \Guanguans\LaravelSoar\Contracts\Output, Saniti
     use OutputConditions;
     use ScoresHydrator;
     use ScoresSanitizer;
+
+    public function shouldOutput($dispatcher): bool
+    {
+        return true;
+    }
 }

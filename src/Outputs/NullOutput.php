@@ -17,6 +17,11 @@ use Illuminate\Support\Collection;
 
 class NullOutput implements Output
 {
+    public function shouldOutput($dispatcher): bool
+    {
+        return true;
+    }
+
     public function output(Collection $scores, $dispatcher): void
     {
         // noop

@@ -29,6 +29,14 @@ class DebugBarOutput extends Output
         $this->label = $label;
     }
 
+    public function shouldOutput($dispatcher): bool
+    {
+        // app(LaravelDebugbar::class)->isEnabled()
+        return class_exists(LaravelDebugbar::class)
+            && app()->has(LaravelDebugbar::class)
+            && $this->isHtmlResponse($dispatcher);
+    }
+
     /**
      * @param mixed $dispatcher
      *
@@ -36,10 +44,6 @@ class DebugBarOutput extends Output
      */
     public function output(Collection $scores, $dispatcher): void
     {
-        if (! $this->shouldOutput($dispatcher)) {
-            return;
-        }
-
         $laravelDebugbar = app(LaravelDebugbar::class);
         if (! $laravelDebugbar->hasCollector($this->name)) {
             $laravelDebugbar->addCollector(new MessagesCollector($this->name));
@@ -55,13 +59,5 @@ class DebugBarOutput extends Output
     public static function isOutputted(): bool
     {
         return self::$outputted;
-    }
-
-    protected function shouldOutput($dispatcher): bool
-    {
-        // app(LaravelDebugbar::class)->isEnabled()
-        return class_exists(LaravelDebugbar::class)
-            && app()->has(LaravelDebugbar::class)
-            && $this->isHtmlResponse($dispatcher);
     }
 }

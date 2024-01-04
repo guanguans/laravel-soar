@@ -27,6 +27,11 @@ class SoarBarOutput extends Output
         $this->label = $label;
     }
 
+    public function shouldOutput($dispatcher): bool
+    {
+        return ! DebugBarOutput::isOutputted() && $this->isHtmlResponse($dispatcher);
+    }
+
     /**
      * @param mixed $dispatcher
      *
@@ -34,10 +39,6 @@ class SoarBarOutput extends Output
      */
     public function output(Collection $scores, $dispatcher): void
     {
-        if (! $this->shouldOutput($dispatcher)) {
-            return;
-        }
-
         $soarBar = app(SoarBar::class);
         if (! $soarBar->hasCollector($this->name)) {
             $soarBar->addCollector(new MessagesCollector($this->name));
@@ -67,10 +68,5 @@ class SoarBarOutput extends Output
         // Update the new content and reset the content length
         $dispatcher->setContent($content);
         $dispatcher->headers->remove('Content-Length');
-    }
-
-    protected function shouldOutput($dispatcher): bool
-    {
-        return ! DebugBarOutput::isOutputted() && $this->isHtmlResponse($dispatcher);
     }
 }

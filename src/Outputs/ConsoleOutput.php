@@ -23,12 +23,13 @@ class ConsoleOutput extends Output
         $this->method = $method;
     }
 
+    public function shouldOutput($dispatcher): bool
+    {
+        return $this->isHtmlResponse($dispatcher);
+    }
+
     public function output(Collection $scores, $dispatcher): void
     {
-        if (! $this->isHtmlResponse($dispatcher)) {
-            return;
-        }
-
         $js = $this->toJavascript($scores);
         $content = $dispatcher->getContent();
 
