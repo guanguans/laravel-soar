@@ -8,6 +8,12 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 
+<a name="3.10.1"></a>
+## [3.10.1] - 2024-01-07
+### Test
+- **Feature:** add test for outputting console
+
+
 <a name="3.10.0"></a>
 ## [3.10.0] - 2024-01-07
 ### Refactor
@@ -338,7 +344,8 @@ All notable changes to this project will be documented in this file.
 - Merge pull request [#1](https://github.com/guanguans/monorepo-builder-worker/issues/1) from guanguans/add-license-1
 
 
-[Unreleased]: https://github.com/guanguans/monorepo-builder-worker/compare/3.10.0...HEAD
+[Unreleased]: https://github.com/guanguans/monorepo-builder-worker/compare/3.10.1...HEAD
+[3.10.1]: https://github.com/guanguans/monorepo-builder-worker/compare/3.10.0...3.10.1
 [3.10.0]: https://github.com/guanguans/monorepo-builder-worker/compare/3.9.1...3.10.0
 [3.9.1]: https://github.com/guanguans/monorepo-builder-worker/compare/3.9.0...3.9.1
 [3.9.0]: https://github.com/guanguans/monorepo-builder-worker/compare/3.8.3...3.9.0
