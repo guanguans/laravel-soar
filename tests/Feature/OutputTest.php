@@ -28,6 +28,19 @@ beforeEach(function (): void {
     ];
 });
 
+it('can not output soar scores', function (): void {
+    config()->set('soar.exclusions', ['outputs']);
+
+    $this->artisan('outputs')
+        ->assertExitCode(Command::SUCCESS)
+        ->expectsOutput(OutputManager::class);
+
+    // $this->get('outputs')
+    //     ->assertOk()
+    //     // ->assertSee($this->see)
+    //     ->assertSee(OutputManager::class);
+})->group(__DIR__, __FILE__);
+
 it('can outputs console', function (): void {
     $this->artisan('outputs')
         ->assertExitCode(Command::SUCCESS)
