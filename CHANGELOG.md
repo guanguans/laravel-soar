@@ -8,6 +8,13 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 
+<a name="3.10.0"></a>
+## [3.10.0] - 2024-01-07
+### Refactor
+- **config:** exclude telescope commands and URLs from soar scoring
+- **output:** implement shouldOutput method
+
+
 <a name="3.9.1"></a>
 ## [3.9.1] - 2024-01-04
 ### Docs
@@ -331,7 +338,8 @@ All notable changes to this project will be documented in this file.
 - Merge pull request [#1](https://github.com/guanguans/monorepo-builder-worker/issues/1) from guanguans/add-license-1
 
 
-[Unreleased]: https://github.com/guanguans/monorepo-builder-worker/compare/3.9.1...HEAD
+[Unreleased]: https://github.com/guanguans/monorepo-builder-worker/compare/3.10.0...HEAD
+[3.10.0]: https://github.com/guanguans/monorepo-builder-worker/compare/3.9.1...3.10.0
 [3.9.1]: https://github.com/guanguans/monorepo-builder-worker/compare/3.9.0...3.9.1
 [3.9.0]: https://github.com/guanguans/monorepo-builder-worker/compare/3.8.3...3.9.0
 [3.8.3]: https://github.com/guanguans/monorepo-builder-worker/compare/3.8.2...3.8.3
