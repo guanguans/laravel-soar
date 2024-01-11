@@ -165,7 +165,10 @@
         "checks-parallel": "@composer-parallel composer-validate md-lint lint style-lint test psalm",
         "composer-bin-all-update": "@composer bin all update --ansi -v",
         "composer-check-platform-reqs": "@composer check-platform-reqs --lock --ansi -v",
-        "composer-fixer": "@php ./composer-fixer.php",
+        "composer-fixer": [
+            "Composer\\Config::disableProcessTimeout",
+            "@php ./composer-fixer"
+        ],
         "composer-normalize": "@composer normalize --dry-run --diff --ansi -v",
         "composer-parallel": "@composer parallel --ansi -v",
         "composer-unused": "@php ./vendor/bin/composer-unused --ansi -v",

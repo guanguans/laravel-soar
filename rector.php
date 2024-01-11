@@ -38,12 +38,17 @@ use Rector\Php71\Rector\FuncCall\RemoveExtraParametersRector;
 use Rector\PHPUnit\Set\PHPUnitLevelSetList;
 use Rector\PHPUnit\Set\PHPUnitSetList;
 use Rector\Renaming\Rector\FuncCall\RenameFunctionRector;
+use Rector\Set\ValueObject\DowngradeLevelSetList;
 use Rector\Set\ValueObject\LevelSetList;
 use Rector\Set\ValueObject\SetList;
 use Rector\Strict\Rector\BooleanNot\BooleanInBooleanNotRuleFixerRector;
 use Rector\Strict\Rector\Empty_\DisallowedEmptyRuleFixerRector;
 
 return static function (RectorConfig $rectorConfig): void {
+    define('MHASH_XXH3', 2 << 0);
+    define('MHASH_XXH32', 2 << 1);
+    define('MHASH_XXH64', 2 << 2);
+    define('MHASH_XXH128', 2 << 3);
     $rectorConfig->importNames(false, false);
     $rectorConfig->importShortClasses(false);
     // $rectorConfig->disableParallel();
@@ -152,6 +157,7 @@ return static function (RectorConfig $rectorConfig): void {
     ]);
 
     $rectorConfig->sets([
+        DowngradeLevelSetList::DOWN_TO_PHP_74,
         LevelSetList::UP_TO_PHP_74,
         SetList::PHP_74,
         SetList::CODE_QUALITY,
