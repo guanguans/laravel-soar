@@ -111,7 +111,7 @@ require __DIR__.'/vendor/autoload.php';
 
     private function normalizeComposerJsonFile(): self
     {
-        $this->createAndMustRunProcess("{$this->findComposerBinary()} normalize --dry-run --diff --ansi -v");
+        $this->createAndMustRunProcess("{$this->findComposerBinary()} normalize --diff --ansi -v");
 
         return $this;
     }
