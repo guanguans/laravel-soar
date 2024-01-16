@@ -26,6 +26,11 @@ parameters:
 			path: src/Macros/QueryBuilderMacro.php
 
 		-
+			message: "#^Function clock not found\\.$#"
+			count: 1
+			path: src/Outputs/ClockworkOutput.php
+
+		-
 			message: "#^Call to an undefined method Symfony\\\\Component\\\\HttpFoundation\\\\JsonResponse\\:\\:getData\\(\\)\\.$#"
 			count: 1
 			path: src/Outputs/JsonOutput.php

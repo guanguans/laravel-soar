@@ -15,7 +15,7 @@ namespace Guanguans\LaravelSoar\Facades;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @method static \Guanguans\SoarPHP\Soar create(array $options = [], string|null $soarPath = null)
+ * @method static \Guanguans\SoarPHP\Soar create(array $options = [], string|null $soarBinary = null)
  * @method static string help()
  * @method static string version()
  * @method static \Guanguans\SoarPHP\Soar clone()
@@ -37,13 +37,14 @@ use Illuminate\Support\Facades\Facade;
  * @method static \Guanguans\SoarPHP\Soar mergeOption(string $key, void $value)
  * @method static array getOptions()
  * @method static void getOption(string $key, void $default = null)
- * @method static string getSoarPath()
- * @method static \Guanguans\SoarPHP\Soar setSoarPath(string $soarPath)
+ * @method static string getSoarBinary()
+ * @method static \Guanguans\SoarPHP\Soar setSoarBinary(string $soarBinary)
  * @method static string|null getSudoPassword()
  * @method static \Guanguans\SoarPHP\Soar setSudoPassword(string|null $sudoPassword)
  * @method static void dd(void ...$args)
  * @method static \Guanguans\SoarPHP\Soar dump(void ...$args)
- * @method static string run(array|string $withOptions = [], callable|null $processTapper = null, callable|null $callback = null)
+ * @method static \Guanguans\SoarPHP\Soar setProcessTapper(callable|null $processTapper)
+ * @method static string run(array|string $withOptions = [], callable|null $callback = null)
  * @method static \Guanguans\LaravelSoar\Soar|\Illuminate\Support\HigherOrderTapProxy tap(callable|null $callback = null)
  *
  * @see \Guanguans\LaravelSoar\Soar

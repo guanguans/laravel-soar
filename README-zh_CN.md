@@ -551,7 +551,7 @@ app('soar'); // 获取 Soar 实例
 /**
  * Soar 门面.
  * 
- * @method static \Guanguans\LaravelSoar\Soar create(array $options = [], null|string $soarPath = null)
+ * @method static \Guanguans\LaravelSoar\Soar create(array $options = [], null|string $soarBinary = null)
  * @method static string help()
  * @method static string version()
  * @method static \Guanguans\LaravelSoar\Soar clone()
@@ -574,8 +574,8 @@ app('soar'); // 获取 Soar 实例
  * @method static void getOption(string $key, void $default = null)
  * @method static string getSerializedNormalizedOptions()
  * @method static array getNormalizedOptions()
- * @method static string getSoarPath()
- * @method static \Guanguans\LaravelSoar\Soar setSoarPath(string $soarPath)
+ * @method static string getSoarBinary()
+ * @method static \Guanguans\LaravelSoar\Soar setSoarBinary(string $soarBinary)
  * @method static void dd(void ...$args)
  * @method static \Guanguans\LaravelSoar\Soar dump(void ...$args)
  * @method static string run(array|string $withOptions = [], null|callable $processTapper = null, null|callable $callback = null)

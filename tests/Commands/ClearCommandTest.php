@@ -20,7 +20,7 @@ use function Pest\Laravel\artisan;
 
 it('can clear the Soar log file', function (): void {
     Soar::onlyVerbose()->scores('select * from foo');
-    $logFile = Soar::getLogOutput(\dirname(Soar::getSoarPath()).\DIRECTORY_SEPARATOR.'soar.log');
+    $logFile = Soar::getLogOutput(\dirname(Soar::getSoarBinary()).\DIRECTORY_SEPARATOR.'soar.log');
 
     expect($logFile)->toBeFile();
     artisan(ClearCommand::class)->expectsOutput('Clearing Soar log file...')->assertExitCode(Command::SUCCESS);

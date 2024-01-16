@@ -14,8 +14,8 @@ return [
     // 是否启用 soar 评分
     'enabled' => (bool) env('SOAR_SCORE_ENABLED', config('app.debug')),
 
-    // soar 路径
-    'path' => env('SOAR_PATH'),
+    // soar 二进制文件
+    'binary' => env('SOAR_BINARY'),
 
     // sudo 密码(在 unix 操作系统非 cli 环境中运行时需要设置)
     'sudo_password' => env('SOAR_SUDO_PASSWORD'),
