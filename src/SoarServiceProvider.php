@@ -126,7 +126,7 @@ class SoarServiceProvider extends ServiceProvider
             Soar::class,
             static fn (): Soar => Soar::create(
                 config('soar.options', []),
-                config('soar.path')
+                config('soar.binary')
             )->setSudoPassword(config('soar.sudo_password'))
         );
 
