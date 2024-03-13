@@ -8,6 +8,14 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 
+<a name="3.12.0"></a>
+## [3.12.0] - 2024-03-13
+### Pull Requests
+- Merge pull request [#49](https://github.com/guanguans/monorepo-builder-worker/issues/49) from guanguans/dependabot/github_actions/codecov/codecov-action-4
+- Merge pull request [#50](https://github.com/guanguans/monorepo-builder-worker/issues/50) from guanguans/dependabot/composer/rector/rector-tw-1.0
+- Merge pull request [#48](https://github.com/guanguans/monorepo-builder-worker/issues/48) from guanguans/dependabot/github_actions/actions/cache-4
+
+
 <a name="3.11.0"></a>
 ## [3.11.0] - 2024-01-16
 ### Fix
@@ -358,7 +366,8 @@ All notable changes to this project will be documented in this file.
 - Merge pull request [#1](https://github.com/guanguans/monorepo-builder-worker/issues/1) from guanguans/add-license-1
 
 
-[Unreleased]: https://github.com/guanguans/monorepo-builder-worker/compare/3.11.0...HEAD
+[Unreleased]: https://github.com/guanguans/monorepo-builder-worker/compare/3.12.0...HEAD
+[3.12.0]: https://github.com/guanguans/monorepo-builder-worker/compare/3.11.0...3.12.0
 [3.11.0]: https://github.com/guanguans/monorepo-builder-worker/compare/3.10.1...3.11.0
 [3.10.1]: https://github.com/guanguans/monorepo-builder-worker/compare/3.10.0...3.10.1
 [3.10.0]: https://github.com/guanguans/monorepo-builder-worker/compare/3.9.1...3.10.0
