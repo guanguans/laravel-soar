@@ -99,10 +99,10 @@
     },
     "config": {
         "allow-plugins": {
-            "pestphp/pest-plugin": true,
-            "phpstan/extension-installer": true,
+            "bamarni/composer-bin-plugin": true,
             "ergebnis/composer-normalize": true,
-            "bamarni/composer-bin-plugin": true
+            "pestphp/pest-plugin": true,
+            "phpstan/extension-installer": true
         },
         "apcu-autoloader": true,
         "classmap-authoritative": false,
@@ -165,13 +165,11 @@
         "checks-parallel": "@composer-parallel composer-validate md-lint lint style-lint test psalm",
         "composer-bin-all-update": "@composer bin all update --ansi -v",
         "composer-check-platform-reqs": "@composer check-platform-reqs --lock --ansi -v",
-        "composer-fixer": [
-            "Composer\\Config::disableProcessTimeout",
-            "@php ./composer-fixer"
-        ],
         "composer-normalize": "@composer normalize --dry-run --diff --ansi -v",
         "composer-parallel": "@composer parallel --ansi -v",
         "composer-unused": "@php ./vendor/bin/composer-unused --ansi -v",
+        "composer-updater": "@php ./composer-updater --highest-php-binary=/opt/homebrew/opt/php@8.3/bin/php --except-packages=laravel/lumen-framework --except-packages=orchestra/testbench --except-packages=pestphp/pest-plugin-laravel --ansi",
+        "composer-updater-dry-run": "@composer-updater --dry-run",
         "composer-validate": "@composer validate --check-lock --strict --ansi -v",
         "facade-lint": "@facade-update --lint",
         "facade-update": "/opt/homebrew/opt/php@8.1/bin/php -f ./facade.php -- Guanguans\\\\LaravelSoar\\\\Facades\\\\Soar",
@@ -204,7 +202,7 @@
         "release-minor-dry-run": "@release-minor --dry-run",
         "release-patch": "@release patch",
         "release-patch-dry-run": "@release-patch --dry-run",
-        "style-fix": "@php ./vendor/bin/php-cs-fixer fix --using-cache=yes --config=.php-cs-fixer.php --ansi -v",
+        "style-fix": "@php ./vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.php --show-progress=dots --diff --ansi -v",
         "style-lint": "@style-fix --diff --dry-run",
         "test": "@pest",
         "test-coverage": "@pest-coverage",

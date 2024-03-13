@@ -22,8 +22,7 @@ use Rector\CodingStyle\Rector\Encapsed\EncapsedStringsToSprintfRector;
 use Rector\CodingStyle\Rector\Encapsed\WrapEncapsedVariableInCurlyBracesRector;
 use Rector\CodingStyle\Rector\Stmt\NewlineAfterStatementRector;
 use Rector\Config\RectorConfig;
-use Rector\Core\Configuration\Option;
-use Rector\Core\ValueObject\PhpVersion;
+use Rector\Configuration\Option;
 use Rector\DeadCode\Rector\Assign\RemoveUnusedVariableAssignRector;
 use Rector\DeadCode\Rector\ClassMethod\RemoveEmptyClassMethodRector;
 use Rector\EarlyReturn\Rector\If_\ChangeAndIfToEarlyReturnRector;
@@ -41,6 +40,7 @@ use Rector\Set\ValueObject\LevelSetList;
 use Rector\Set\ValueObject\SetList;
 use Rector\Strict\Rector\BooleanNot\BooleanInBooleanNotRuleFixerRector;
 use Rector\Strict\Rector\Empty_\DisallowedEmptyRuleFixerRector;
+use Rector\ValueObject\PhpVersion;
 
 return static function (RectorConfig $rectorConfig): void {
     define('MHASH_XXH3', 2 << 0);
@@ -80,6 +80,7 @@ return static function (RectorConfig $rectorConfig): void {
         __DIR__.'/tests',
         __DIR__.'/.*.php',
         __DIR__.'/*.php',
+        __DIR__.'/composer-updater',
     ]);
 
     $rectorConfig->skip([
@@ -164,7 +165,7 @@ return static function (RectorConfig $rectorConfig): void {
         SetList::TYPE_DECLARATION,
         SetList::EARLY_RETURN,
 
-        PHPUnitLevelSetList::UP_TO_PHPUNIT_90,
+        // PHPUnitLevelSetList::UP_TO_PHPUNIT_90,
         PHPUnitSetList::PHPUNIT_90,
         // PHPUnitSetList::PHPUNIT80_DMS,
         PHPUnitSetList::PHPUNIT_CODE_QUALITY,
