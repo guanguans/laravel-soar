@@ -57,9 +57,15 @@ jobs:
       - name: Execute tests
         run: composer test-coverage
 
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v4
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
-          fail_ci_if_error: false # optional (default = false)
-          verbose: true # optional (default = false)
+#      - name: Upload coverage to Codecov
+#        uses: codecov/codecov-action@v4
+#        with:
+#          files: ./clover.xml
+#          token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
+#          fail_ci_if_error: true # optional (default = false)
+#          verbose: true # optional (default = false)
+
+      - name: "Upload coverage to Codecov via codecov bash script"
+        env:
+          CODECOV_TOKEN: "${{ secrets.CODECOV_TOKEN }}"
+        run: "bash <(curl -s https://codecov.io/bash) -f clover.xml || true"
