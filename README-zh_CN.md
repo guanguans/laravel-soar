@@ -44,20 +44,10 @@ $ composer require guanguans/laravel-soar --dev -v
 
 ## 配置
 
-### 注册服务
-
-#### laravel
+### 发布文件(可选的)
 
 ```shell
 $ php artisan vendor:publish --provider="Guanguans\\LaravelSoar\\SoarServiceProvider"
-```
-
-#### lumen
-
-将以下代码段添加到 `bootstrap/app.php` 文件中的 `Register Service Providers` 部分下：
-
-```php
-$app->register(\Guanguans\LaravelSoar\SoarServiceProvider::class);
 ```
 
 ### :warning: 在 unix 操作系统非 cli 环境中运行时，可能会抛出 Fatal error: ...Exit Code: 2(Misuse of shell builtins)

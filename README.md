@@ -45,20 +45,10 @@ $ composer require guanguans/laravel-soar --dev -v
 
 ## Configuration
 
-### Register service
-
-#### laravel
+### Publish files(optional)
 
 ```shell
 $ php artisan vendor:publish --provider="Guanguans\\LaravelSoar\\SoarServiceProvider"
-```
-
-#### lumen
-
-Add the following snippet to the `bootstrap/app.php` file under the `Register Service Providers` section as follows:
-
-```php
-$app->register(\Guanguans\LaravelSoar\SoarServiceProvider::class);
 ```
 
 ### :warning: When running in a unix OS non-cli environment, may throw Fatal error: ...Exit Code: 2(Misuse of shell builtins)
