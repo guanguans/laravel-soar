@@ -62,7 +62,6 @@
         "itsgoingd/clockwork": "^5.2",
         "kubawerlos/php-cs-fixer-custom-fixers": "^3.21",
         "laravel/legacy-factories": "^1.4",
-        "laravel/lumen-framework": "^7.0 || ^8.0 || ^9.0 || ^10.0 || ^11.0",
         "mockery/mockery": "^1.6",
         "orchestra/testbench": "^5.0 || ^6.0 || ^7.0 || ^8.0",
         "pestphp/pest": "^1.23 || ^2.0",
