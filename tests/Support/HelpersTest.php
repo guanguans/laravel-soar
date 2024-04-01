@@ -54,10 +54,6 @@ it('can return pretty json for `to_pretty_json`', function (): void {
     expect(to_pretty_json([1, 2, 3]))->toMatchJsonSnapshot();
 })->group(__DIR__, __FILE__);
 
-it('can check is lumen environment for `is_lumen`', function (): void {
-    expect(is_lumen())->toBeFalse();
-})->group(__DIR__, __FILE__);
-
 it('can base64 encode file for `base64_encode_file`', function (): void {
     expect(base64_decode(base64_encode_file(__FILE__), true))->toBe(file_get_contents(__FILE__));
 })->group(__DIR__, __FILE__);

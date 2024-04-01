@@ -23,16 +23,12 @@ use Guanguans\LaravelSoar\Outputs\LogOutput;
 use Guanguans\LaravelSoar\Outputs\NullOutput;
 use Guanguans\LaravelSoar\Outputs\SoarBarOutput;
 use Illuminate\Contracts\Container\Container;
-use Illuminate\Database\Connection;
-use Illuminate\Database\ConnectionInterface;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Relations\Relation as RelationBuilder;
 use Illuminate\Database\Query\Builder as QueryBuilder;
-use Illuminate\Foundation\Application as LaravelApplication;
 use Illuminate\Support\Collection;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
-use Laravel\Lumen\Application as LumenApplication;
 
 class SoarServiceProvider extends ServiceProvider
 {
@@ -95,14 +91,8 @@ class SoarServiceProvider extends ServiceProvider
     {
         $source = realpath($raw = __DIR__.'/../config/soar.php') ?: $raw;
 
-        if ($this->app instanceof LaravelApplication && $this->app->runningInConsole()) {
+        if ($this->app->runningInConsole()) {
             $this->publishes([$source => config_path('soar.php')], 'laravel-soar');
-        } elseif ($this->app instanceof LumenApplication) {
-            $this->app->configure('soar');
-            $this->app->bindIf(
-                ConnectionInterface::class,
-                static fn (Container $container): Connection => $container->make('db')->connection()
-            );
         }
 
         $this->mergeConfigFrom($source, 'soar');

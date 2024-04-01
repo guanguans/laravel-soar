@@ -180,9 +180,7 @@ class Bootstrapper
         );
 
         // 注册输出中间件
-        is_lumen()
-            ? $app->middleware(OutputSoarScoresMiddleware::class) // @codeCoverageIgnore
-            : $app->make(Kernel::class)->pushMiddleware(OutputSoarScoresMiddleware::class);
+        $app->make(Kernel::class)->pushMiddleware(OutputSoarScoresMiddleware::class);
     }
 
     protected function toScores(Collection $queries): Collection
