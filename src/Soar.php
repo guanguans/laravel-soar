@@ -18,7 +18,23 @@ use Illuminate\Support\Traits\Tappable;
 
 class Soar extends \Guanguans\SoarPHP\Soar
 {
-    use Conditionable;
-    // use Macroable;
+    // use Conditionable;
+    use Macroable {
+        Macroable::__call as macroCall;
+    }
     use Tappable;
+
+    /**
+     * Handle dynamic method calls into the method.
+     *
+     * @return mixed
+     */
+    public function __call(string $method, array $parameters)
+    {
+        if (static::hasMacro($method)) {
+            return $this->macroCall($method, $parameters);
+        }
+
+        return parent::__call($method, $parameters);
+    }
 }
