@@ -11,7 +11,7 @@ jobs:
         os: [ ubuntu-latest ]
         php: [ 7.4, 8.3 ]
         dependency-version: [ prefer-stable ]
-        laravel: [ 7.0.*, 8.*, 9.*, 10.* ]
+        laravel: [ 7.0.*, 8.*, 9.*, 10.*, 11.* ]
         include:
           - laravel: 7.0.*
             testbench: 5.*
@@ -21,11 +21,15 @@ jobs:
             testbench: 7.*
           - laravel: 10.*
             testbench: 8.*
+          - laravel: 11.*
+            testbench: 9.*
         exclude:
           - php: 7.4
             laravel: 9.*
           - php: 7.4
             laravel: 10.*
+          - php: 7.4
+            laravel: 11.*
           - php: 8.3
             laravel: 7.0.*
 
@@ -51,7 +55,7 @@ jobs:
       - name: Install dependencies
         run: |
           composer remove "brainmaestro/composer-git-hooks" --no-interaction --no-scripts --dev --ansi -v
-          composer require "laravel/framework:${{ matrix.laravel }}" "laravel/lumen-framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update --ansi -v
+          composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update --ansi -v
           composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction --no-scripts --ansi -W -v
 
       - name: Execute tests
