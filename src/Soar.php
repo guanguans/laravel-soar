@@ -18,7 +18,7 @@ use Illuminate\Support\Traits\Tappable;
 
 class Soar extends \Guanguans\SoarPHP\Soar
 {
-    // use Conditionable;
+    use Conditionable;
     // use Macroable;
     use Tappable;
 }
