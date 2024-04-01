@@ -8,6 +8,9 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 
+<a name="3.14.0"></a>
+## [3.14.0] - 2024-04-01
+
 <a name="3.13.0"></a>
 ## [3.13.0] - 2024-04-01
 ### Docs
@@ -388,7 +391,8 @@ All notable changes to this project will be documented in this file.
 - Merge pull request [#1](https://github.com/guanguans/laravel-soar/issues/1) from guanguans/add-license-1
 
 
-[Unreleased]: https://github.com/guanguans/laravel-soar/compare/3.13.0...HEAD
+[Unreleased]: https://github.com/guanguans/laravel-soar/compare/3.14.0...HEAD
+[3.14.0]: https://github.com/guanguans/laravel-soar/compare/3.13.0...3.14.0
 [3.13.0]: https://github.com/guanguans/laravel-soar/compare/3.12.1...3.13.0
 [3.12.1]: https://github.com/guanguans/laravel-soar/compare/3.12.0...3.12.1
 [3.12.0]: https://github.com/guanguans/laravel-soar/compare/3.11.0...3.12.0
