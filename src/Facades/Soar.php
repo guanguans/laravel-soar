@@ -45,6 +45,11 @@ use Illuminate\Support\Facades\Facade;
  * @method static \Guanguans\SoarPHP\Soar dump(void ...$args)
  * @method static \Guanguans\SoarPHP\Soar setProcessTapper(callable|null $processTapper)
  * @method static string run(array|string $withOptions = [], callable|null $callback = null)
+ * @method static void macro(string $name, object|callable $macro)
+ * @method static void mixin(object $mixin, bool $replace = true)
+ * @method static bool hasMacro(string $name)
+ * @method static void flushMacros()
+ * @method static mixed macroCall(string $method, array $parameters)
  * @method static \Guanguans\LaravelSoar\Soar|\Illuminate\Support\HigherOrderTapProxy tap(callable|null $callback = null)
  *
  * @see \Guanguans\LaravelSoar\Soar
