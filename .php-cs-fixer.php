@@ -12,6 +12,7 @@ declare(strict_types=1);
 
 use PhpCsFixer\Config;
 use PhpCsFixer\Finder;
+use PhpCsFixer\Runner\Parallel\ParallelConfigFactory;
 
 // oskarstark/php-cs-fixer-ga
 require_once __DIR__.'/vendor/autoload.php';
@@ -64,6 +65,7 @@ return (new Config())
     ->setRiskyAllowed(true)
     ->setUsingCache(false)
     ->setCacheFile(__DIR__.'/.php-cs-fixer.cache')
+    ->setParallelConfig(ParallelConfigFactory::detect())
     ->registerCustomFixers(new PhpCsFixerCustomFixers\Fixers())
     // ->registerCustomFixers(new PedroTroller\CS\Fixer\Fixers())
     ->setRules([
