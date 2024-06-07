@@ -8,6 +8,12 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 
+<a name="3.15.1"></a>
+## [3.15.1] - 2024-06-07
+### Refactor
+- **commands:** improve input handling in ScoreCommand
+
+
 <a name="3.15.0"></a>
 ## [3.15.0] - 2024-06-06
 ### Feat
@@ -416,7 +422,8 @@ All notable changes to this project will be documented in this file.
 - Merge pull request [#1](https://github.com/guanguans/laravel-soar/issues/1) from guanguans/add-license-1
 
 
-[Unreleased]: https://github.com/guanguans/laravel-soar/compare/3.15.0...HEAD
+[Unreleased]: https://github.com/guanguans/laravel-soar/compare/3.15.1...HEAD
+[3.15.1]: https://github.com/guanguans/laravel-soar/compare/3.15.0...3.15.1
 [3.15.0]: https://github.com/guanguans/laravel-soar/compare/3.14.2...3.15.0
 [3.14.2]: https://github.com/guanguans/laravel-soar/compare/3.14.1...3.14.2
 [3.14.1]: https://github.com/guanguans/laravel-soar/compare/3.14.0...3.14.1
