@@ -15,12 +15,11 @@ namespace Guanguans\LaravelSoar\Commands;
 use Guanguans\LaravelSoar\Soar;
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
+use Symfony\Component\Console\Input\InputOption;
 
 class ScoreCommand extends Command
 {
-    protected $signature = 'soar:score
-    {--o|option=* : The option to be passed to Soar(e.g. --option=-report-type=markdown)}
-    ';
+    protected $signature = 'soar:score';
 
     protected $description = 'Get the scores of the given SQL statements';
 
@@ -29,25 +28,58 @@ class ScoreCommand extends Command
      *
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
      */
-    public function handle(Soar $soar): void
+    public function handle(): void
     {
+        $soar = $this->soar();
+
+        $query = $soar->getQuery();
+
         for (;;) {
-            $sqls = $this->ask('Please input the SQL statements');
-            if ($sqls) {
+            $query = $query ?: $this->ask('Please input the SQL statements');
+            if ($query) {
                 break;
             }
         }
 
-        echo tap($soar, function (Soar $soar): void {
-            $soar->mergeOptions($this->getNormalizeOptions());
-
-            if ($this->option('verbose')) {
-                $soar->dump();
-            }
-        })->scores($sqls);
+        $this->info(tap($soar, $this->soarTapper())->scores($query));
     }
 
-    private function getNormalizeOptions(): array
+    protected function configure(): void
+    {
+        $this->setDefinition($this->definition());
+    }
+
+    /**
+     * @return array<\Symfony\Component\Console\Input\InputArgument|\Symfony\Component\Console\Input\InputOption>
+     */
+    protected function definition(): array
+    {
+        return [
+            new InputOption(
+                'option',
+                'o',
+                InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY,
+                'The option to be passed to Soar(e.g. --option=-report-type=markdown)',
+            ),
+        ];
+    }
+
+    protected function soar(): Soar
+    {
+        return app(Soar::class)->mergeOptions($this->normalizedSoarOptions());
+    }
+
+    protected function soarTapper(): \Closure
+    {
+        return function (Soar $soar): void {
+            if ($this->option('verbose')) {
+                $soar->dump();
+                $this->newLine();
+            }
+        };
+    }
+
+    protected function normalizedSoarOptions(): array
     {
         return collect($this->option('option'))
             ->mapWithKeys(static function (string $option): array {
