@@ -14,16 +14,17 @@ namespace Guanguans\LaravelSoar\Commands;
 
 use Guanguans\LaravelSoar\Soar;
 use Illuminate\Console\Command;
+use Illuminate\Support\Str;
 
 class ScoreCommand extends Command
 {
-    protected $signature = 'soar:score';
+    protected $signature = 'soar:score
+    {--o|option=* : The option to be passed to Soar(e.g. --option=-report-type=markdown)}
+    ';
 
     protected $description = 'Get the scores of the given SQL statements';
 
     /**
-     * @noinspection ForgottenDebugOutputInspection
-     * @noinspection DebugFunctionUsageInspection
      * @noinspection MethodShouldBeFinalInspection
      *
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
@@ -37,6 +38,23 @@ class ScoreCommand extends Command
             }
         }
 
-        collect($soar->arrayScores($sqls))->each(static fn (array $score) => dump($score));
+        echo tap($soar, function (Soar $soar): void {
+            $soar->mergeOptions($this->getNormalizeOptions());
+
+            if ($this->option('verbose')) {
+                $soar->dump();
+            }
+        })->scores($sqls);
+    }
+
+    private function getNormalizeOptions(): array
+    {
+        return collect($this->option('option'))
+            ->mapWithKeys(static function (string $option): array {
+                [$key, $value] = Str::of($option)->explode('=', 2)->pad(2, null)->all();
+
+                return [Str::start($key, '-') => $value];
+            })
+            ->all();
     }
 }
