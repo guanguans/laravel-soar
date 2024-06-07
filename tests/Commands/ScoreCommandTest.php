@@ -17,7 +17,7 @@ use Symfony\Component\Console\Command\Command;
 
 use function Pest\Laravel\artisan;
 
-it('can get the scores of the given SQL statements', function (): void {
+it('can get the Soar scores of the given SQL statements', function (): void {
     artisan(ScoreCommand::class)
         ->expectsQuestion('Please input the SQL statements', 'select * from foo; select * from bar;')
         ->assertExitCode(Command::SUCCESS);
