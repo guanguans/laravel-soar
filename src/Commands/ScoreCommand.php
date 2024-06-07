@@ -24,13 +24,19 @@ class ScoreCommand extends Command
     /**
      * @noinspection ForgottenDebugOutputInspection
      * @noinspection DebugFunctionUsageInspection
+     * @noinspection MethodShouldBeFinalInspection
      *
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
      */
     public function handle(Soar $soar): void
     {
-        collect($soar->arrayScores($this->ask(
-            'Please input the SQL statements'
-        )))->each(static fn (array $score) => dump($score));
+        for (;;) {
+            $sqls = $this->ask('Please input the SQL statements');
+            if ($sqls) {
+                break;
+            }
+        }
+
+        collect($soar->arrayScores($sqls))->each(static fn (array $score) => dump($score));
     }
 }
