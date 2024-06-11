@@ -58,13 +58,16 @@ Set Height 927
 Set TypingSpeed 50ms
 Set PlaybackSpeed 0.2
 
-Type "php artisan soar:run --option=-version=true" Sleep 20ms
+#Type "php artisan soar:run --option=-version=true" Sleep 100ms
+#Enter 1 Sleep 3s
+#
+#Type "php artisan soar:run --option=-help=true" Sleep 100ms
+#Enter 1 Sleep 3s
+
+Type "php artisan soar:score" Sleep 100ms
+Enter 1 Sleep 3s
+Type "select * from `users`;" Sleep 100ms
 Enter 1 Sleep 3s
 
-Type "php artisan soar:run --option=-help=true" Sleep 20ms
-Enter 1 Sleep 3s
-
-Type "php artisan soar:score" Sleep 20ms
-Enter 1 Sleep 1s
-Type "select * from `users`;" Sleep 20ms
-Enter 1 Sleep 10s
+Type "php artisan soar:score --option=-query='select * from user;'" Sleep 100ms
+Enter 1 Sleep 5s
