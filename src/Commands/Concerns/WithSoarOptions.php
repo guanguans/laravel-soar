@@ -49,7 +49,7 @@ trait WithSoarOptions
 
         if ($this->option('verbose')) {
             $soar->dump();
-            $this->newLine();
+            $this->output->newLine();
         }
 
         return $soar;
