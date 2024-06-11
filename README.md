@@ -1,4 +1,5 @@
-![](docs/soar-bar.gif)
+| ![](docs/soar-bar.gif) | ![](docs/commands.gif) |
+|------------------------|------------------------|
 
 # laravel-soar
 
@@ -539,6 +540,26 @@ return [
     ...
 ];
 ```
+</details>
+
+### Artisan command
+
+<details>
+<summary><b>details</b></summary>
+
+```shell
+╰─ php artisan                                                                            ─╯
+...
+Available commands:
+...
+ soar
+  soar:clear                            Clear the Soar log file
+  soar:run                              Run Soar with the given options
+  soar:score                            Get the Soar scores of the given SQL statements
+...
+```
+
+![commands](docs/commands.gif)
 </details>
 
 ### Soar instance and methods
