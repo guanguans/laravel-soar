@@ -8,6 +8,22 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 
+<a name="3.16.1"></a>
+## [3.16.1] - 2024-06-11
+### Docs
+- **readme:** update available commands section
+
+### Feat
+- **commands.tape:** add new commands and update existing commands
+- **commands.tape:** add commands tape for recording commands
+
+### Refactor
+- **commands:** Update output method in WithSoarOptions trait
+
+### Test
+- Add RunCommandTest and update ScoreCommandTest
+
+
 <a name="3.16.0"></a>
 ## [3.16.0] - 2024-06-07
 ### Feat
@@ -432,7 +448,8 @@ All notable changes to this project will be documented in this file.
 - Merge pull request [#1](https://github.com/guanguans/laravel-soar/issues/1) from guanguans/add-license-1
 
 
-[Unreleased]: https://github.com/guanguans/laravel-soar/compare/3.16.0...HEAD
+[Unreleased]: https://github.com/guanguans/laravel-soar/compare/3.16.1...HEAD
+[3.16.1]: https://github.com/guanguans/laravel-soar/compare/3.16.0...3.16.1
 [3.16.0]: https://github.com/guanguans/laravel-soar/compare/3.15.1...3.16.0
 [3.15.1]: https://github.com/guanguans/laravel-soar/compare/3.15.0...3.15.1
 [3.15.0]: https://github.com/guanguans/laravel-soar/compare/3.14.2...3.15.0
