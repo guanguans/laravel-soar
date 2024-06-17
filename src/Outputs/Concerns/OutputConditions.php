@@ -41,8 +41,9 @@ trait OutputConditions
     protected function isHtmlResponse($dispatcher): bool
     {
         return $this->isResponse($dispatcher)
-               && Str::contains($dispatcher->headers->get('Content-Type'), 'text/html')
-               && ! $this->isJsonResponse($dispatcher);
+            && false !== $dispatcher->getContent()
+            && Str::contains($dispatcher->headers->get('Content-Type'), 'text/html')
+            && ! $this->isJsonResponse($dispatcher);
     }
 
     /**
@@ -51,19 +52,20 @@ trait OutputConditions
     protected function isJsonResponse($dispatcher): bool
     {
         return $dispatcher instanceof JsonResponse
-               && Str::contains($dispatcher->headers->get('Content-Type'), 'application/json')
-               && transform($dispatcher, static function (JsonResponse $dispatcher): bool {
-                   if ('' === ($content = $dispatcher->getContent())) {
-                       return false;
-                   }
+            && false !== $dispatcher->getContent()
+            && Str::contains($dispatcher->headers->get('Content-Type'), 'application/json')
+            && transform($dispatcher, static function (JsonResponse $dispatcher): bool {
+                if ('' === ($content = $dispatcher->getContent())) {
+                    return false;
+                }
 
-                   try {
-                       json_decode($content, false, 512, JSON_THROW_ON_ERROR);
-                   } catch (\JsonException $jsonException) {
-                       return false;
-                   }
+                try {
+                    json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                } catch (\JsonException $jsonException) {
+                    return false;
+                }
 
-                   return true;
-               });
+                return true;
+            });
     }
 }
