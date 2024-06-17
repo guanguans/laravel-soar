@@ -31,7 +31,7 @@ class QueryAnalyzer
     {
         // insert new lines
         $sql = " $sql ";
-        $sql = preg_replace('#(?<=[\\s,(])('.static::KEYWORDS1.')(?=[\\s,)])#i', "\n\$1", $sql);
+        $sql = preg_replace('#(?<=[\s,(])('.static::KEYWORDS1.')(?=[\s,)])#i', "\n\$1", $sql);
 
         // reduce spaces
         $sql = preg_replace('#[ \t]{2,}#', ' ', $sql);
@@ -39,7 +39,7 @@ class QueryAnalyzer
         // syntax highlight
         $sql = htmlspecialchars($sql, ENT_IGNORE);
         $sql = preg_replace_callback(
-            '#(/\\*.+?\\*/)|(\\*\\*.+?\\*\\*)|(?<=[\\s,(])('.static::KEYWORDS1.')(?=[\\s,)])|(?<=[\\s,(=])('.static::KEYWORDS2.')(?=[\\s,)=])#is',
+            '#(/\*.+?\*/)|(\*\*.+?\*\*)|(?<=[\s,(])('.static::KEYWORDS1.')(?=[\s,)])|(?<=[\s,(=])('.static::KEYWORDS2.')(?=[\s,)=])#is',
             static function (array $matches) {
                 if (! empty($matches[1])) { // comment
                     return '<em style="color:gray">'.$matches[1].'</em>';
@@ -118,7 +118,7 @@ class QueryAnalyzer
     public static function performQueryAnalysis(string $sql, ?float $version = null, ?string $driver = null): array
     {
         $hints = [];
-        if (preg_match('/^\\s*SELECT\\s*`?[a-zA-Z0-9]*`?\\.?\\*/i', $sql)) {
+        if (preg_match('/^\s*SELECT\s*`?[a-zA-Z0-9]*`?\.?\*/i', $sql)) {
             $hints[] = 'Use <code>SELECT *</code> only if you need all columns from table';
         }
 
@@ -136,16 +136,16 @@ class QueryAnalyzer
             $hints[] = 'The <code>SELECT</code> statement has no <code>WHERE</code> clause and could examine many more rows than intended';
         }
 
-        if (preg_match('/LIMIT\\s/i', $sql) && false === stripos($sql, 'ORDER BY')) {
+        if (preg_match('/LIMIT\s/i', $sql) && false === stripos($sql, 'ORDER BY')) {
             $hints[] = '<code>LIMIT</code> without <code>ORDER BY</code> causes non-deterministic results, depending on the query execution plan';
         }
 
-        if (preg_match('/LIKE\\s[\'"](%.*?)[\'"]/i', $sql, $matches)) {
+        if (preg_match('/LIKE\s[\'"](%.*?)[\'"]/i', $sql, $matches)) {
             $hints[] = 'An argument has a leading wildcard character: <code>'.$matches[1].'</code>.
                 The predicate with this argument is not sargable and cannot use an index if one exists.';
         }
 
-        if ($version < 5.5 && 'mysql' === $driver && preg_match('/\\sIN\\s*\\(\\s*SELECT/i', $sql)) {
+        if ($version < 5.5 && 'mysql' === $driver && preg_match('/\sIN\s*\(\s*SELECT/i', $sql)) {
             $hints[] = '<code>IN()</code> and <code>NOT IN()</code> subqueries are poorly optimized in that MySQL version : '.$version.
                        '. MySQL executes the subquery as a dependent subquery for each row in the outer query';
         }
