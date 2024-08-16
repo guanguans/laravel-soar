@@ -47,7 +47,7 @@ class ConsoleOutput extends Output
      */
     protected function toJavascript(Collection $scores): string
     {
-        return sprintf(
+        return \sprintf(
             '<script type="text/javascript">console.%s(`%s`);</script>',
             $this->method,
             str_replace('`', '\`', $this->hydrateScores($scores)),

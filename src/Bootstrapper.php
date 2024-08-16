@@ -67,7 +67,7 @@ class Bootstrapper
                     $query = $this->matchQuery(self::$queries, $score);
 
                     return [
-                        'Summary' => sprintf(
+                        'Summary' => \sprintf(
                             '[%s|%d分|%s|%s]',
                             $star = to_star($score['Score']),
                             $score['Score'],
@@ -152,7 +152,7 @@ class Bootstrapper
                 static fn ($trace): bool => isset($trace['file'], $trace['line'])
                     && ! Str::contains($trace['file'], 'vendor')
             )
-            ->map(static fn ($trace, $index): string => sprintf(
+            ->map(static fn ($trace, $index): string => \sprintf(
                 '#%s %s:%s',
                 $index,
                 str_replace(base_path(), '', $trace['file']),

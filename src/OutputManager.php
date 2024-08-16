@@ -76,7 +76,7 @@ class OutputManager extends Fluent implements Output
     public function offsetSet($offset, $value): void
     {
         if (! $value instanceof Output) {
-            throw new InvalidArgumentException(sprintf('The value must be instance of %s', Output::class));
+            throw new InvalidArgumentException(\sprintf('The value must be instance of %s', Output::class));
         }
 
         $this->attributes[$offset] = $value;
