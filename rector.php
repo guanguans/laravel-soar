@@ -172,7 +172,9 @@ return static function (RectorConfig $rectorConfig): void {
     ]);
 
     $rectorConfig->rules([
+        BooleanInBooleanNotRuleFixerRector::class,
         InlineConstructorDefaultToPropertyRector::class,
+        StaticClosureRector::class,
     ]);
 
     $rectorConfig->ruleWithConfiguration(RenameFunctionRector::class, [

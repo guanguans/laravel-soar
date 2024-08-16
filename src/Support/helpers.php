@@ -14,11 +14,9 @@ if (! function_exists('var_output')) {
     /**
      * @param mixed $expression
      *
-     * @return string|void
-     *
      * @noinspection DebugFunctionUsageInspection
      */
-    function var_output($expression, bool $return = false)
+    function var_output($expression, bool $return = false): ?string
     {
         $patterns = [
             "/array \\(\n\\)/" => '[]',
@@ -36,6 +34,8 @@ if (! function_exists('var_output')) {
         }
 
         echo $export;
+
+        return null;
     }
 }
 
