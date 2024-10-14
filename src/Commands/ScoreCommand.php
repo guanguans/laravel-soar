@@ -33,6 +33,11 @@ class ScoreCommand extends Command
 
         $query = $soar->getQuery();
 
+        if (($fstat = fstat(STDIN)) && 0 < $fstat['size']) {
+            $query = trim(stream_get_contents(STDIN));
+            fclose(STDIN);
+        }
+
         for (;;) {
             $query = $query ?: $this->ask('Please input the SQL statements');
 
