@@ -8,6 +8,21 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 
+<a name="3.17.0"></a>
+## [3.17.0] - 2025-01-17
+### CI
+- **config:** Update PHPStan and Psalm configurations
+
+### Docs
+- **README:** Update badge links in the README file
+
+### Feat
+- **ScoreCommand:** Read SQL from standard input if available
+
+### Pull Requests
+- Merge pull request [#58](https://github.com/guanguans/laravel-soar/issues/58) from guanguans/dependabot/composer/guanguans/soar-php-tw-5.0
+
+
 <a name="3.16.3"></a>
 ## [3.16.3] - 2024-08-16
 ### CI
@@ -472,7 +487,8 @@ All notable changes to this project will be documented in this file.
 - Merge pull request [#1](https://github.com/guanguans/laravel-soar/issues/1) from guanguans/add-license-1
 
 
-[Unreleased]: https://github.com/guanguans/laravel-soar/compare/3.16.3...HEAD
+[Unreleased]: https://github.com/guanguans/laravel-soar/compare/3.17.0...HEAD
+[3.17.0]: https://github.com/guanguans/laravel-soar/compare/3.16.3...3.17.0
 [3.16.3]: https://github.com/guanguans/laravel-soar/compare/3.16.2...3.16.3
 [3.16.2]: https://github.com/guanguans/laravel-soar/compare/3.16.1...3.16.2
 [3.16.1]: https://github.com/guanguans/laravel-soar/compare/3.16.0...3.16.1
