@@ -46,7 +46,7 @@
         "php": ">=7.4",
         "ext-json": "*",
         "ext-pdo": "*",
-        "guanguans/soar-php": "^4.2",
+        "guanguans/soar-php": "^5.0",
         "illuminate/support": "^8.0 || ^9.0 || ^10.0 || ^11.0",
         "maximebf/debugbar": "^1.22"
     },
