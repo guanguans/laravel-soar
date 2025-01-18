@@ -12,6 +12,12 @@ parameters:
         - routes
         - src
     tmpDir: build/phpstan
+    friendly:
+        lineBefore: 3
+        lineAfter: 3
+        editorUrl: 'phpstorm://open?file=%%file%%&line=%%line%%'
+    errorFormat: friendly
+#    errorFormat: symplify
 #    checkOctaneCompatibility: true
 #    checkModelProperties: true
 #    checkMissingIterableValueType: true
@@ -30,3 +36,9 @@ parameters:
 #        strictCalls: false
 #        switchConditionsMatchingType: false
 #        noVariableVariables: false
+    ignoreErrors:
+#        - "#^Unsafe usage of new static\\(\\)\\.$#"
+#        - '#^Unused result of "and" operator\.$#'
+#        -
+#            message: '#^Calling var_dump\(\) is forbidden, use some logger instead\.$#'
+#            path: src/Soar.php

@@ -1,61 +1,61 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Call to an undefined method Illuminate\\\\Contracts\\\\Container\\\\Container\\:\\:middleware\\(\\)\\.$#"
-			count: 1
-			path: src/Bootstrapper.php
-
-		-
-			message: "#^Property Guanguans\\\\LaravelSoar\\\\Http\\\\Controllers\\\\AssetController\\:\\:\\$javascriptRenderer \\(Guanguans\\\\LaravelSoar\\\\JavascriptRenderer\\) does not accept DebugBar\\\\JavascriptRenderer\\.$#"
+			message: '#^Property Guanguans\\LaravelSoar\\Http\\Controllers\\AssetController\:\:\$javascriptRenderer \(Guanguans\\LaravelSoar\\JavascriptRenderer\) does not accept DebugBar\\JavascriptRenderer\.$#'
+			identifier: assign.propertyType
 			count: 1
 			path: src/Http/Controllers/AssetController.php
 
 		-
-			message: "#^Variable \\$uri on left side of \\?\\? always exists and is not nullable\\.$#"
+			message: '#^Variable \$uri on left side of \?\? always exists and is not nullable\.$#'
+			identifier: nullCoalesce.variable
 			count: 2
 			path: src/JavascriptRenderer.php
 
 		-
-			message: "#^Method Guanguans\\\\LaravelSoar\\\\Macros\\\\QueryBuilderMacro\\:\\:toSoarArrayScores\\(\\) invoked with 2 parameters, 0 required\\.$#"
+			message: '#^Method Guanguans\\LaravelSoar\\Macros\\QueryBuilderMacro\:\:toSoarArrayScores\(\) invoked with 2 parameters, 0 required\.$#'
+			identifier: arguments.count
 			count: 2
 			path: src/Macros/QueryBuilderMacro.php
 
 		-
-			message: "#^Parameter \\#1 \\(callable\\(\\)\\: mixed\\) of echo cannot be converted to string\\.$#"
+			message: '#^Parameter \#1 \(callable\(\)\: mixed\) of echo cannot be converted to string\.$#'
+			identifier: echo.nonString
 			count: 1
 			path: src/Macros/QueryBuilderMacro.php
 
 		-
-			message: "#^Function clock not found\\.$#"
+			message: '#^Function clock not found\.$#'
+			identifier: function.notFound
 			count: 1
 			path: src/Outputs/ClockworkOutput.php
 
 		-
-			message: "#^Call to an undefined method Symfony\\\\Component\\\\HttpFoundation\\\\JsonResponse\\:\\:getData\\(\\)\\.$#"
+			message: '#^Call to an undefined method Symfony\\Component\\HttpFoundation\\JsonResponse\:\:getData\(\)\.$#'
+			identifier: method.notFound
 			count: 1
 			path: src/Outputs/JsonOutput.php
 
 		-
-			message: "#^Call to method label\\(\\) on an unknown class Spatie\\\\RayBundle\\\\Ray\\.$#"
+			message: '#^Call to method label\(\) on an unknown class Spatie\\RayBundle\\Ray\.$#'
+			identifier: class.notFound
 			count: 1
 			path: src/Outputs/RayOutput.php
 
 		-
-			message: "#^Call to method label\\(\\) on an unknown class Spatie\\\\WordPressRay\\\\Ray\\.$#"
+			message: '#^Call to method label\(\) on an unknown class Spatie\\WordPressRay\\Ray\.$#'
+			identifier: class.notFound
 			count: 1
 			path: src/Outputs/RayOutput.php
 
 		-
-			message: "#^Call to method label\\(\\) on an unknown class Spatie\\\\YiiRay\\\\Ray\\.$#"
+			message: '#^Call to method label\(\) on an unknown class Spatie\\YiiRay\\Ray\.$#'
+			identifier: class.notFound
 			count: 1
 			path: src/Outputs/RayOutput.php
 
 		-
-			message: "#^Anonymous function should return Guanguans\\\\LaravelSoar\\\\Soar but returns Guanguans\\\\SoarPHP\\\\Soar\\.$#"
+			message: '#^Anonymous function should return Guanguans\\LaravelSoar\\Soar but returns Guanguans\\SoarPHP\\Soar\.$#'
+			identifier: return.type
 			count: 1
 			path: src/SoarServiceProvider.php
-
-		-
-			message: "#^Function var_output\\(\\) never returns void so it can be removed from the return type\\.$#"
-			count: 1
-			path: src/Support/helpers.php
