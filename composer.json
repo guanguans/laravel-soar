@@ -48,7 +48,7 @@
         "ext-pdo": "*",
         "guanguans/soar-php": "^5.0",
         "illuminate/support": "^8.0 || ^9.0 || ^10.0 || ^11.0",
-        "maximebf/debugbar": "^1.23"
+        "maximebf/debugbar": "^2.1"
     },
     "require-dev": {
         "bamarni/composer-bin-plugin": "^1.8",
