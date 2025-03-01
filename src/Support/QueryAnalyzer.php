@@ -146,8 +146,8 @@ class QueryAnalyzer
         }
 
         if ($version < 5.5 && 'mysql' === $driver && preg_match('/\sIN\s*\(\s*SELECT/i', $sql)) {
-            $hints[] = '<code>IN()</code> and <code>NOT IN()</code> subqueries are poorly optimized in that MySQL version : '.$version.
-                       '. MySQL executes the subquery as a dependent subquery for each row in the outer query';
+            $hints[] = '<code>IN()</code> and <code>NOT IN()</code> subqueries are poorly optimized in that MySQL version : '.$version
+                       .'. MySQL executes the subquery as a dependent subquery for each row in the outer query';
         }
 
         return $hints;
