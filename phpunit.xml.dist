@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd"
-  backupGlobals="false"
-  backupStaticAttributes="false"
   bootstrap="vendor/autoload.php"
   cacheResultFile="build/phpunit/.phpunit.result.cache"
   colors="true"
-  convertErrorsToExceptions="true"
-  convertNoticesToExceptions="true"
-  convertWarningsToExceptions="true"
-  processIsolation="false"
-  stopOnFailure="false"
   verbose="true"
+  xsi:noNamespaceSchemaLocation="./vendor/phpunit/phpunit/phpunit.xsd"
 >
+  <!--printerClass="NunoMaduro\Collision\Adapters\Phpunit\Printer"-->
+  <!--printerClass="NunoMaduro\Collision\Adapters\Phpunit\Printers\DefaultPrinter"-->
+  <!--printerClass="NunoMaduro\Collision\Adapters\Phpunit\Printers\ReportablePrinter"-->
+  <testsuites>
+    <testsuite name="Guanguans Test Suite">
+      <directory>tests/</directory>
+      <exclude>vendor/</exclude>
+    </testsuite>
+  </testsuites>
   <coverage>
     <include>
       <directory suffix=".php">src/</directory>
@@ -24,10 +26,19 @@
       <file>src/SoarServiceProvider.php</file>
     </exclude>
   </coverage>
-  <testsuites>
-    <testsuite name="Guanguans Test Suite">
-      <directory>tests/</directory>
-      <exclude>vendor/</exclude>
-    </testsuite>
-  </testsuites>
+  <source>
+    <include>
+      <directory suffix=".php">src/</directory>
+    </include>
+    <exclude>
+      <!--<directory>src/Contracts/</directory>-->
+      <file>src/Support/QueryAnalyzer.php</file>
+      <file>src/SoarServiceProvider.php</file>
+    </exclude>
+  </source>
+  <extensions>
+    <!--<extension class="NunoMaduro\Collision\Adapters\Phpunit\Printer"/>-->
+    <!--<extension class="Ergebnis\PHPUnit\SlowTestDetector\Extension"/>-->
+    <!--<bootstrap class="Ergebnis\PHPUnit\SlowTestDetector\Extension"/>-->
+  </extensions>
 </phpunit>
