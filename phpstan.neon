@@ -12,11 +12,11 @@ parameters:
         - routes
         - src
     tmpDir: build/phpstan
-    friendly:
-        lineBefore: 3
-        lineAfter: 3
-        editorUrl: 'phpstorm://open?file=%%file%%&line=%%line%%'
-    errorFormat: friendly
+#    friendly:
+#        lineBefore: 3
+#        lineAfter: 3
+#        editorUrl: 'phpstorm://open?file=%%file%%&line=%%line%%'
+#    errorFormat: friendly
 #    errorFormat: symplify
 #    checkOctaneCompatibility: true
 #    checkModelProperties: true
