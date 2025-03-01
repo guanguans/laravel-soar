@@ -106,7 +106,7 @@ $status = (new SingleCommandApplication())
                     ->updateComposerPackages()
                     ->updateOutdatedComposerPackages()
                     ->updateComposerPackages()
-                    ->normalizeComposerJson()
+                    // ->normalizeComposerJson()
                     ->success();
             }
 
@@ -251,7 +251,7 @@ $status = (new SingleCommandApplication())
             ): Process {
                 $additionalOptions = [
                     '--no-interaction',
-                    // '--no-plugins',
+                    '--no-plugins',
                     '--no-scripts',
                     '--ansi',
                 ];
