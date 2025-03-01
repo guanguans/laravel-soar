@@ -8,6 +8,20 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 
+<a name="3.18.0"></a>
+## [3.18.0] - 2025-03-01
+### CI
+- **config:** Remove friendly error formatting in PHPStan config
+- **dependencies:** Add PHPStan extensions and update composer.json
+- **workflows:** Update PHP and Laravel versions in tests.yml
+
+### Feat
+- **dependencies:** Update Composer package versions and options
+
+### Pull Requests
+- Merge pull request [#59](https://github.com/guanguans/laravel-soar/issues/59) from guanguans/dependabot/github_actions/dependabot/fetch-metadata-2.3.0
+
+
 <a name="3.17.0"></a>
 ## [3.17.0] - 2025-01-17
 ### CI
@@ -487,7 +501,8 @@ All notable changes to this project will be documented in this file.
 - Merge pull request [#1](https://github.com/guanguans/laravel-soar/issues/1) from guanguans/add-license-1
 
 
-[Unreleased]: https://github.com/guanguans/laravel-soar/compare/3.17.0...HEAD
+[Unreleased]: https://github.com/guanguans/laravel-soar/compare/3.18.0...HEAD
+[3.18.0]: https://github.com/guanguans/laravel-soar/compare/3.17.0...3.18.0
 [3.17.0]: https://github.com/guanguans/laravel-soar/compare/3.16.3...3.17.0
 [3.16.3]: https://github.com/guanguans/laravel-soar/compare/3.16.2...3.16.3
 [3.16.2]: https://github.com/guanguans/laravel-soar/compare/3.16.1...3.16.2
