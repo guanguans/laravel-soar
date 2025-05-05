@@ -19,13 +19,13 @@ use Ergebnis\License\Year;
 use Ergebnis\PhpCsFixer\Config\Factory;
 use Ergebnis\PhpCsFixer\Config\Fixers;
 use Ergebnis\PhpCsFixer\Config\Rules;
-use Ergebnis\PhpCsFixer\Config\RuleSet\Php74;
+use Ergebnis\PhpCsFixer\Config\RuleSet\Php80;
 use Ergebnis\PhpCsFixer\Config\RuleSet\Php83;
 use PhpCsFixer\Finder;
 use PhpCsFixer\Fixer\DeprecatedFixerInterface;
 use PhpCsFixerCustomFixers\Fixer\AbstractFixer;
 
-return Factory::fromRuleSet(Php74::create()
+return Factory::fromRuleSet(Php80::create()
     ->withHeader(
         (static function (): string {
             $license = MIT::text(
@@ -279,6 +279,8 @@ return Factory::fromRuleSet(Php74::create()
     ->setFinder(
         Finder::create()
             ->in([
+                __DIR__.'/config/',
+                __DIR__.'/routes/',
                 __DIR__.'/src/',
                 __DIR__.'/tests/',
             ])
@@ -288,6 +290,7 @@ return Factory::fromRuleSet(Php74::create()
             ])
             ->notName([
                 '*.blade.php',
+                'JavascriptRenderer.php',
             ])
             ->append([
                 ...array_filter(

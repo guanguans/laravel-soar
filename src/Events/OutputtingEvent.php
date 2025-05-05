@@ -20,14 +20,9 @@ class OutputtingEvent
 {
     public Output $output;
     public Collection $scores;
+    public \Illuminate\Console\Events\CommandFinished|\Symfony\Component\HttpFoundation\Response $dispatcher;
 
-    /** @var \Illuminate\Console\Events\CommandFinished|\Symfony\Component\HttpFoundation\Response */
-    public $dispatcher;
-
-    /**
-     * @param \Illuminate\Console\Events\CommandFinished|\Symfony\Component\HttpFoundation\Response $dispatcher
-     */
-    public function __construct(Output $output, Collection $scores, $dispatcher)
+    public function __construct(Output $output, Collection $scores, \Illuminate\Console\Events\CommandFinished|\Symfony\Component\HttpFoundation\Response $dispatcher)
     {
         $this->output = $output;
         $this->scores = $scores;

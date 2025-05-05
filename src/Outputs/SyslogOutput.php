@@ -25,11 +25,9 @@ class SyslogOutput extends Output
     }
 
     /**
-     * @param mixed $dispatcher
-     *
      * @throws \JsonException
      */
-    public function output(Collection $scores, $dispatcher): void
+    public function output(Collection $scores, mixed $dispatcher): void
     {
         syslog($this->priority, $this->hydrateScores($scores));
     }

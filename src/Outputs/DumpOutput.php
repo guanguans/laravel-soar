@@ -28,10 +28,8 @@ class DumpOutput extends Output
      * @noinspection ForgottenDebugOutputInspection
      * @noinspection ClosureToArrowFunctionInspection
      * @noinspection DebugFunctionUsageInspection
-     *
-     * @param mixed $dispatcher
      */
-    public function output(Collection $scores, $dispatcher): void
+    public function output(Collection $scores, mixed $dispatcher): void
     {
         $this->exit ? dd(...$scores) : dump(...$scores);
     }

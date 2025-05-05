@@ -134,11 +134,11 @@ class QueryAnalyzer
             $hints[] = 'The <code>!=</code> operator is not standard. Use the <code>&lt;&gt;</code> operator to test for inequality instead.';
         }
 
-        if (false === stripos($sql, 'WHERE')) {
+        if (!str_contains(strtolower($sql), strtolower('WHERE'))) {
             $hints[] = 'The <code>SELECT</code> statement has no <code>WHERE</code> clause and could examine many more rows than intended';
         }
 
-        if (preg_match('/LIMIT\s/i', $sql) && false === stripos($sql, 'ORDER BY')) {
+        if (preg_match('/LIMIT\s/i', $sql) && !str_contains(strtolower($sql), strtolower('ORDER BY'))) {
             $hints[] = '<code>LIMIT</code> without <code>ORDER BY</code> causes non-deterministic results, depending on the query execution plan';
         }
 

@@ -137,10 +137,8 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
     /**
      * @noinspection PhpUndefinedMethodInspection
      * @noinspection PhpUndefinedFieldInspection
-     *
-     * @param mixed $router
      */
-    protected function defineRoutes($router): void
+    protected function defineRoutes(mixed $router): void
     {
         $query = static function (): void {
             User::query()->create([

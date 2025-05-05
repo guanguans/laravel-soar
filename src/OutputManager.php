@@ -71,11 +71,8 @@ class OutputManager extends Fluent implements Output
 
     /**
      * @noinspection MissingParentCallInspection
-     *
-     * @param mixed $offset
-     * @param mixed $value
      */
-    public function offsetSet($offset, $value): void
+    public function offsetSet(mixed $offset, mixed $value): void
     {
         if (!$value instanceof Output) {
             throw new InvalidArgumentException(\sprintf('The value must be instance of %s', Output::class));

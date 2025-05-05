@@ -14,10 +14,8 @@ declare(strict_types=1);
 if (!\function_exists('var_output')) {
     /**
      * @noinspection DebugFunctionUsageInspection
-     *
-     * @param mixed $expression
      */
-    function var_output($expression, bool $return = false): ?string
+    function var_output(mixed $expression, bool $return = false): ?string
     {
         $patterns = [
             "/array \\(\n\\)/" => '[]',
@@ -43,13 +41,11 @@ if (!\function_exists('var_output')) {
 
 if (!\function_exists('array_reduce_with_keys')) {
     /**
-     * @param null|mixed $carry
-     *
      * @return null|mixed
      *
      * @codeCoverageIgnore
      */
-    function array_reduce_with_keys(array $array, callable $callback, $carry = null)
+    function array_reduce_with_keys(array $array, callable $callback, mixed $carry = null): mixed
     {
         foreach ($array as $key => $value) {
             $carry = $callback($carry, $value, $key);

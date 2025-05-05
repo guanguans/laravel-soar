@@ -32,11 +32,9 @@ class ErrorLogOutput extends Output
      * @noinspection ForgottenDebugOutputInspection
      * @noinspection DebugFunctionUsageInspection
      *
-     * @param mixed $dispatcher
-     *
      * @throws \JsonException
      */
-    public function output(Collection $scores, $dispatcher): void
+    public function output(Collection $scores, mixed $dispatcher): void
     {
         error_log($this->hydrateScores($scores), $this->messageType, $this->destination, $this->extraHeaders);
     }

@@ -24,10 +24,8 @@ class ClockworkOutput extends Output
 
     /**
      * @psalm-suppress UndefinedFunction
-     *
-     * @param \Illuminate\Console\Events\CommandFinished|\Symfony\Component\HttpFoundation\Response $dispatcher
      */
-    public function output(Collection $scores, $dispatcher): void
+    public function output(Collection $scores, \Illuminate\Console\Events\CommandFinished|\Symfony\Component\HttpFoundation\Response $dispatcher): void
     {
         clock(...$scores);
     }

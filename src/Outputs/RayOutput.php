@@ -31,10 +31,8 @@ class RayOutput extends Output
 
     /**
      * @psalm-suppress UndefinedDocblockClass
-     *
-     * @param mixed $dispatcher
      */
-    public function output(Collection $scores, $dispatcher): void
+    public function output(Collection $scores, mixed $dispatcher): void
     {
         ray(...$scores)->label($this->label);
     }

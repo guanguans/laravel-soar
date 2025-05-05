@@ -17,13 +17,7 @@ use Illuminate\Support\Collection;
 
 interface Output
 {
-    /**
-     * @param \Illuminate\Console\Events\CommandFinished|\Symfony\Component\HttpFoundation\Response $dispatcher
-     */
-    public function shouldOutput($dispatcher): bool;
+    public function shouldOutput(\Illuminate\Console\Events\CommandFinished|\Symfony\Component\HttpFoundation\Response $dispatcher): bool;
 
-    /**
-     * @param \Illuminate\Console\Events\CommandFinished|\Symfony\Component\HttpFoundation\Response $dispatcher
-     */
-    public function output(Collection $scores, $dispatcher);
+    public function output(Collection $scores, \Illuminate\Console\Events\CommandFinished|\Symfony\Component\HttpFoundation\Response $dispatcher);
 }

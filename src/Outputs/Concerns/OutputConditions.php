@@ -20,26 +20,17 @@ use Symfony\Component\HttpFoundation\Response;
 
 trait OutputConditions
 {
-    /**
-     * @param \Illuminate\Console\Events\CommandFinished|\Symfony\Component\HttpFoundation\Response $dispatcher
-     */
-    protected function isCommandFinished($dispatcher): bool
+    protected function isCommandFinished(CommandFinished|Response $dispatcher): bool
     {
         return $dispatcher instanceof CommandFinished;
     }
 
-    /**
-     * @param \Illuminate\Console\Events\CommandFinished|\Symfony\Component\HttpFoundation\Response $dispatcher
-     */
-    protected function isResponse($dispatcher): bool
+    protected function isResponse(CommandFinished|Response $dispatcher): bool
     {
         return $dispatcher instanceof Response;
     }
 
-    /**
-     * @param \Illuminate\Console\Events\CommandFinished|\Symfony\Component\HttpFoundation\Response $dispatcher
-     */
-    protected function isHtmlResponse($dispatcher): bool
+    protected function isHtmlResponse(CommandFinished|Response $dispatcher): bool
     {
         return $this->isResponse($dispatcher)
             && false !== $dispatcher->getContent()
@@ -47,10 +38,7 @@ trait OutputConditions
             && !$this->isJsonResponse($dispatcher);
     }
 
-    /**
-     * @param \Illuminate\Console\Events\CommandFinished|\Symfony\Component\HttpFoundation\Response $dispatcher
-     */
-    protected function isJsonResponse($dispatcher): bool
+    protected function isJsonResponse(CommandFinished|Response $dispatcher): bool
     {
         return $dispatcher instanceof JsonResponse
             && false !== $dispatcher->getContent()

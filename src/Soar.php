@@ -27,10 +27,8 @@ class Soar extends \Guanguans\SoarPHP\Soar
 
     /**
      * Handle dynamic method calls into the method.
-     *
-     * @return mixed
      */
-    public function __call(string $method, array $parameters):mixed
+    public function __call(string $method, array $parameters): mixed
     {
         if (static::hasMacro($method)) {
             return $this->macroCall($method, $parameters);

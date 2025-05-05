@@ -34,11 +34,9 @@ class SoarBarOutput extends Output
     }
 
     /**
-     * @param mixed $dispatcher
-     *
      * @throws \JsonException
      */
-    public function output(Collection $scores, $dispatcher): void
+    public function output(Collection $scores, mixed $dispatcher): void
     {
         $soarBar = app(SoarBar::class);
 
