@@ -1,21 +1,23 @@
 name: tests
 
-on: [ push, pull_request ]
+on:
+  workflow_dispatch:
+  push:
+  pull_request:
 
 jobs:
   test:
     runs-on: ${{ matrix.os }}
+
     strategy:
       fail-fast: false
       matrix:
         os: [ ubuntu-latest ]
         php: [ 8.0, 8.4 ]
         dependency-version: [ prefer-stable ]
-        laravel: [ 8.0.*, 9.*, 10.*, 11.*, 12.* ]
+        laravel: [ 9.*.*, 10.*, 11.*, 12.* ]
         include:
-          - laravel: 8.0.*
-            testbench: 6.*
-          - laravel: 9.*
+          - laravel: 9.*.*
             testbench: 7.*
           - laravel: 10.*
             testbench: 8.*
@@ -25,15 +27,13 @@ jobs:
             testbench: 10.*
         exclude:
           - php: 8.0
-            laravel: 9.*
-          - php: 8.0
             laravel: 10.*
           - php: 8.0
             laravel: 11.*
           - php: 8.0
             laravel: 12.*
-          - php: 8.4
-            laravel: 8.0.*
+        #   - php: 8.4
+        #     laravel: 9.*.*
 
     name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.dependency-version }}
 
@@ -63,15 +63,10 @@ jobs:
       - name: Execute tests
         run: composer test-coverage
 
-#      - name: Upload coverage to Codecov
-#        uses: codecov/codecov-action@v4
-#        with:
-#          files: ./clover.xml
-#          token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
-#          fail_ci_if_error: true # optional (default = false)
-#          verbose: true # optional (default = false)
-
-      - name: "Upload coverage to Codecov via codecov bash script"
-        env:
-          CODECOV_TOKEN: "${{ secrets.CODECOV_TOKEN }}"
-        run: "bash <(curl -s https://codecov.io/bash) -f clover.xml || true"
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          files: ./.build/phpunit/clover.xml
+          token: ${{ secrets.CODECOV_TOKEN }}
+          fail_ci_if_error: true
+          verbose: true

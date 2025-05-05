@@ -1,17 +1,19 @@
-name: psalm
+name: phpstan
 
 on:
+  workflow_dispatch:
   push:
     paths:
       - '**.php'
-      - '.github/**.yml'
-      - '.github/**.yaml'
+      - '*.neon'
       - '*.xml'
       - '*.xml.dist'
+      - '.github/**.yaml'
+      - '.github/**.yml'
 
 jobs:
-  psalm:
-    name: psalm
+  phpstan:
+    name: phpstan
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -32,5 +34,5 @@ jobs:
       - name: Run composer install
         run: composer install --no-interaction --prefer-dist --ansi -v
 
-      - name: Run psalm
-        run: composer psalm
+      - name: Run phpstan
+        run: composer phpstan
