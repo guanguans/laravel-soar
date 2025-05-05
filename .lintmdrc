@@ -1,8 +1,13 @@
 {
     "excludeFiles": [
+        ".build/",
+        "baselines/",
+        "config/",
         "src/",
         "tests/",
-        "vendor/"
+        "vendor/",
+        "vendor-bin/",
+        "./CHANGELOG.md"
     ],
     "rules": {
         "space-around-alphabet": 2,
@@ -23,7 +28,7 @@
         "no-long-code": [
             1,
             {
-                "length": 10000,
+                "length": 200,
                 "exclude": [
                     "dot"
                 ]

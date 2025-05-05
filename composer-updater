@@ -13,6 +13,7 @@ declare(strict_types=1);
  */
 
 use Composer\InstalledVersions;
+use Illuminate\Support\Str;
 use SebastianBergmann\Diff\Differ;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Input\InputInterface;
@@ -57,6 +58,7 @@ $status = (new SingleCommandApplication)
             private string $composerBinary;
             private array $exceptPackages;
             private array $exceptDependencyVersions;
+            private bool $dryRun;
             private SymfonyStyle $symfonyStyle;
             private Differ $differ;
 
@@ -69,10 +71,11 @@ $status = (new SingleCommandApplication)
                 ?string $composerBinary = null,
                 array $exceptPackages = [],
                 array $exceptDependencyVersions = [],
-                private bool $dryRun = false,
+                bool $dryRun = false,
                 ?SymfonyStyle $symfonyStyle = null,
                 ?Differ $differ = null
             ) {
+                error_reporting(\E_ALL & ~\E_DEPRECATED & ~\E_WARNING);
                 assert_options(\ASSERT_BAIL, 1);
                 \assert((bool) $composerJsonPath);
 
@@ -90,6 +93,7 @@ $status = (new SingleCommandApplication)
                     '*@*',
                     // '*|*',
                 ], $exceptDependencyVersions);
+                $this->dryRun = $dryRun;
                 $this->symfonyStyle = $symfonyStyle ?? new SymfonyStyle(new ArgvInput, new ConsoleOutput);
                 $this->differ = $differ ?? new Differ;
             }
@@ -142,6 +146,9 @@ $status = (new SingleCommandApplication)
                 return $this;
             }
 
+            /**
+             * @noinspection PhpUnusedPrivateMethodInspection
+             */
             private function normalizeComposerJson(): self
             {
                 $this->mustRunCommand("$this->composerBinary normalize --diff --ansi");
@@ -169,11 +176,10 @@ $status = (new SingleCommandApplication)
                     }
 
                     foreach ($value as $package => &$dependencyVersion) {
-                        if ($this->strIs($this->exceptPackages, $package)) {
-                            continue;
-                        }
-
-                        if ($this->strIs($this->exceptDependencyVersions, $dependencyVersion)) {
+                        if (
+                            Str::is($this->exceptPackages, $package)
+                            || Str::is($this->exceptDependencyVersions, $dependencyVersion)
+                        ) {
                             continue;
                         }
 
@@ -201,7 +207,7 @@ $status = (new SingleCommandApplication)
                             $output = $this
                                 ->mustRunCommand("$this->highestComposerBinary outdated --format=json --direct --ansi")
                                 ->getOutput(),
-                            strpos($output, '{')
+                            strpos($output, '{'.\PHP_EOL)
                         ),
                         true
                     )['installed'],
@@ -236,7 +242,6 @@ $status = (new SingleCommandApplication)
             }
 
             /**
-             * @noinspection MissingParameterTypeDeclarationInspection
              * @noinspection PhpSameParameterValueInspection
              *
              * @param mixed $input The input as stream resource, scalar or \Traversable, or null for no input
@@ -277,37 +282,6 @@ $status = (new SingleCommandApplication)
             private function toArrayVersion(string $version): array
             {
                 return explode('.', ltrim($version, 'v'));
-            }
-
-            /**
-             * @noinspection SuspiciousLoopInspection
-             * @noinspection ComparisonScalarOrderInspection
-             * @noinspection MissingParameterTypeDeclarationInspection
-             */
-            private function strIs(array|string $pattern, string $value): bool
-            {
-                $patterns = (array) $pattern;
-
-                if ([] === $patterns) {
-                    return false;
-                }
-
-                foreach ($patterns as $pattern) {
-                    $pattern = (string) $pattern;
-
-                    if ($pattern === $value) {
-                        return true;
-                    }
-
-                    $pattern = preg_quote($pattern, '#');
-                    $pattern = str_replace('\*', '.*', $pattern);
-
-                    if (1 === preg_match('#^'.$pattern.'\z#u', $value)) {
-                        return true;
-                    }
-                }
-
-                return false;
             }
 
             private function formatDiff(string $diff): string

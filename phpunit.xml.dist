@@ -2,7 +2,7 @@
 <phpunit
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   bootstrap="vendor/autoload.php"
-  cacheResultFile="build/phpunit/.phpunit.result.cache"
+  cacheResultFile=".build/phpunit/.phpunit.result.cache"
   colors="true"
   verbose="true"
   xsi:noNamespaceSchemaLocation="./vendor/phpunit/phpunit/phpunit.xsd"
@@ -16,16 +16,6 @@
       <exclude>vendor/</exclude>
     </testsuite>
   </testsuites>
-  <coverage>
-    <include>
-      <directory suffix=".php">src/</directory>
-    </include>
-    <exclude>
-      <!--<directory>src/Contracts/</directory>-->
-      <file>src/Support/QueryAnalyzer.php</file>
-      <file>src/SoarServiceProvider.php</file>
-    </exclude>
-  </coverage>
   <source>
     <include>
       <directory suffix=".php">src/</directory>
@@ -36,6 +26,16 @@
       <file>src/SoarServiceProvider.php</file>
     </exclude>
   </source>
+  <coverage>
+    <include>
+      <directory suffix=".php">src/</directory>
+    </include>
+    <exclude>
+      <!--<directory>src/Contracts/</directory>-->
+      <file>src/Support/QueryAnalyzer.php</file>
+      <file>src/SoarServiceProvider.php</file>
+    </exclude>
+  </coverage>
   <extensions>
     <!--<extension class="NunoMaduro\Collision\Adapters\Phpunit\Printer"/>-->
     <!--<extension class="Ergebnis\PHPUnit\SlowTestDetector\Extension"/>-->

@@ -1,0 +1,30 @@
+{
+    "diff_options": [
+        ":!*-lock.json",
+        ":!*.lock",
+        ":!*.sum",
+        ":!/baselines/*.neon",
+        ":(exclude)__snapshots__/"
+    ],
+    "no_verify": true,
+    "generator": "github_models_cli",
+    "generators": {
+        "github_models_cli": {
+            "driver": "github_models_cli",
+            "binary": "gh",
+            "model": "gpt-4o",
+            "options": {
+                "--max-tokens": null,
+                "--system-prompt": "You are a git commit message generator.",
+                "--temperature": null,
+                "--top-p": null
+            },
+            "parameters": {
+                "cwd": null,
+                "env": null,
+                "input": null,
+                "timeout": 120
+            }
+        }
+    }
+}
