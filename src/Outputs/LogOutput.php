@@ -16,7 +16,7 @@ use Psr\Log\LoggerInterface;
 class LogOutput extends Output
 {
     /**
-     * @var \Psr\Log\LoggerInterface
+     * @var LoggerInterface
      */
     protected $logger;
 

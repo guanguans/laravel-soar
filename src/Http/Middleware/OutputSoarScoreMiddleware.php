@@ -16,12 +16,12 @@ use Guanguans\LaravelSoar\OutputManager;
 class OutputSoarScoreMiddleware
 {
     /**
-     * @var \Guanguans\LaravelSoar\Bootstrapper
+     * @var Bootstrapper
      */
     protected $bootstrapper;
 
     /**
-     * @var \Guanguans\LaravelSoar\OutputManager
+     * @var OutputManager
      */
     protected $outputManager;
 

@@ -16,7 +16,7 @@ use Illuminate\Support\Collection;
 class DebugBarOutput extends Output
 {
     /**
-     * @var \DebugBar\DataCollector\MessagesCollector
+     * @var MessagesCollector
      */
     protected static $collector;
 

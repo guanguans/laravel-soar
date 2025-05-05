@@ -13,7 +13,7 @@ use Laravel\Lumen\Application as LumenApplication;
 
 if (! function_exists('soar')) {
     /**
-     * @return \Guanguans\LaravelSoar\Soar
+     * @return Guanguans\LaravelSoar\Soar
      */
     function soar()
     {
@@ -71,7 +71,7 @@ if (! function_exists('to_pretty_json')) {
     function to_pretty_json(
         array $score,
         int $options = JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES,
-        int $depth = 512
+        int $depth = 512,
     ): string {
         return json_encode($score, $options | JSON_PRETTY_PRINT, $depth);
     }
@@ -85,7 +85,7 @@ if (! function_exists('normalize_sql')) {
 }
 
 if (! function_exists('is_lumen')) {
-    function is_lumen(Container $app = null): bool
+    function is_lumen(?Container $app = null): bool
     {
         $app = $app ?: app();
 

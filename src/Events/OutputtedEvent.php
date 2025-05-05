@@ -16,12 +16,12 @@ use Illuminate\Support\Collection;
 class OutputtedEvent
 {
     /**
-     * @var \Guanguans\LaravelSoar\Contracts\Output
+     * @var Output
      */
     public $output;
 
     /**
-     * @var \Illuminate\Support\Collection
+     * @var Collection
      */
     public $scores;
 

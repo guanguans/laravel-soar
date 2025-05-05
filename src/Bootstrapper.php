@@ -21,12 +21,12 @@ use Illuminate\Support\Str;
 class Bootstrapper
 {
     /**
-     * @var \Illuminate\Support\Collection
+     * @var Collection
      */
     protected $queries;
 
     /**
-     * @var \Illuminate\Support\Collection
+     * @var Collection
      */
     protected $scores;
 

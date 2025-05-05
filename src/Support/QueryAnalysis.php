@@ -29,7 +29,7 @@ class QueryAnalysis
     /**
      * Returns syntax highlighted SQL.
      */
-    public static function highlight(string $sql, array $bindings = [], \PDO $pdo = null): string
+    public static function highlight(string $sql, array $bindings = [], ?\PDO $pdo = null): string
     {
         // insert new lines
         $sql = " $sql ";
@@ -95,7 +95,7 @@ class QueryAnalysis
     /**
      * Perform query analysis hint.
      */
-    public static function performQueryAnalysis(string $sql, float $version = null, string $driver = null): array
+    public static function performQueryAnalysis(string $sql, ?float $version = null, ?string $driver = null): array
     {
         $hints = [];
         if (preg_match('/^\\s*SELECT\\s*`?[a-zA-Z0-9]*`?\\.?\\*/i', $sql)) {

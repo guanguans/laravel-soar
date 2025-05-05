@@ -18,7 +18,7 @@ use Illuminate\Support\Str;
 trait OutputCondition
 {
     /**
-     * @param \Illuminate\Console\Events\CommandFinished|\Symfony\Component\HttpFoundation\Response $dispatcher
+     * @param CommandFinished|\Symfony\Component\HttpFoundation\Response $dispatcher
      */
     protected function isCommandFinished($dispatcher): bool
     {
@@ -26,7 +26,7 @@ trait OutputCondition
     }
 
     /**
-     * @param \Illuminate\Console\Events\CommandFinished|\Symfony\Component\HttpFoundation\Response $dispatcher
+     * @param CommandFinished|\Symfony\Component\HttpFoundation\Response $dispatcher
      */
     protected function isResponse($dispatcher): bool
     {
@@ -34,7 +34,7 @@ trait OutputCondition
     }
 
     /**
-     * @param \Illuminate\Console\Events\CommandFinished|\Symfony\Component\HttpFoundation\Response $dispatcher
+     * @param CommandFinished|\Symfony\Component\HttpFoundation\Response $dispatcher
      */
     protected function isHtmlResponse($dispatcher): bool
     {
@@ -44,7 +44,7 @@ trait OutputCondition
     }
 
     /**
-     * @param \Illuminate\Console\Events\CommandFinished|\Symfony\Component\HttpFoundation\Response $dispatcher
+     * @param CommandFinished|\Symfony\Component\HttpFoundation\Response $dispatcher
      */
     protected function isJsonResponse($dispatcher): bool
     {

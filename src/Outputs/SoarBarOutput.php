@@ -16,7 +16,7 @@ use Illuminate\Support\Collection;
 class SoarBarOutput extends Output
 {
     /**
-     * @var \Guanguans\LaravelSoar\SoarBar
+     * @var SoarBar
      */
     private $debugBar;
 
