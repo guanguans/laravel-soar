@@ -11,7 +11,7 @@ declare(strict_types=1);
  * @see https://github.com/guanguans/laravel-soar
  */
 
-namespace Tests\Outputs\Concerns;
+namespace Guanguans\LaravelSoarTests\Outputs\Concerns;
 
 use Guanguans\LaravelSoar\Outputs\Concerns\OutputConditions;
 use Symfony\Component\HttpFoundation\JsonResponse;

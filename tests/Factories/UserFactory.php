@@ -11,10 +11,10 @@ declare(strict_types=1);
  * @see https://github.com/guanguans/laravel-soar
  */
 
-namespace Tests\Factories;
+namespace Guanguans\LaravelSoarTests\Factories;
 
+use Guanguans\LaravelSoarTests\Models\User;
 use Illuminate\Support\Str;
-use Tests\Models\User;
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory $factory */
 $factory->define(User::class, static fn ($faker): array => [

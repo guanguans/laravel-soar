@@ -11,7 +11,7 @@ declare(strict_types=1);
  * @see https://github.com/guanguans/laravel-soar
  */
 
-namespace Tests;
+namespace Guanguans\LaravelSoarTests;
 
 uses(TestCase::class)
     ->beforeAll(function (): void {})

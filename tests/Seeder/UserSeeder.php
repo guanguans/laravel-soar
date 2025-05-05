@@ -11,10 +11,10 @@ declare(strict_types=1);
  * @see https://github.com/guanguans/laravel-soar
  */
 
-namespace Tests\Seeder;
+namespace Guanguans\LaravelSoarTests\Seeder;
 
+use Guanguans\LaravelSoarTests\Models\User;
 use Illuminate\Database\Seeder;
-use Tests\Models\User;
 
 class UserSeeder extends Seeder
 {

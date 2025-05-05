@@ -11,7 +11,7 @@ declare(strict_types=1);
  * @see https://github.com/guanguans/laravel-soar
  */
 
-namespace Tests\Models;
+namespace Guanguans\LaravelSoarTests\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;

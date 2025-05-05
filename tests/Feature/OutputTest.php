@@ -11,7 +11,7 @@ declare(strict_types=1);
  * @see https://github.com/guanguans/laravel-soar
  */
 
-namespace Tests\Feature;
+namespace Guanguans\LaravelSoarTests\Feature;
 
 use Guanguans\LaravelSoar\OutputManager;
 use Guanguans\LaravelSoar\Outputs\JsonOutput;

@@ -11,7 +11,7 @@ declare(strict_types=1);
  * @see https://github.com/guanguans/laravel-soar
  */
 
-namespace Tests\Support;
+namespace Guanguans\LaravelSoarTests\Support;
 
 it('can echo variable for `var_output`', function (): void {
     expect(var_output([['arr']]))->toBeNull();

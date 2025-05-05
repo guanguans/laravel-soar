@@ -11,7 +11,7 @@ declare(strict_types=1);
  * @see https://github.com/guanguans/laravel-soar
  */
 
-namespace Tests;
+namespace Guanguans\LaravelSoarTests;
 
 use Barryvdh\Debugbar\ServiceProvider;
 use Clockwork\Support\Laravel\ClockworkServiceProvider;
@@ -28,6 +28,8 @@ use Guanguans\LaravelSoar\Outputs\RayOutput;
 use Guanguans\LaravelSoar\Outputs\SoarBarOutput;
 use Guanguans\LaravelSoar\Outputs\SyslogOutput;
 use Guanguans\LaravelSoar\SoarServiceProvider;
+use Guanguans\LaravelSoarTests\Models\User;
+use Guanguans\LaravelSoarTests\Seeder\UserSeeder;
 use Illuminate\Database\ConnectionResolverInterface;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Http\JsonResponse;
@@ -38,8 +40,6 @@ use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use phpmock\phpunit\PHPMock;
 use Spatie\Snapshots\MatchesSnapshots;
 use Symfony\Component\VarDumper\Test\VarDumperTestTrait;
-use Tests\Models\User;
-use Tests\Seeder\UserSeeder;
 
 abstract class TestCase extends \Orchestra\Testbench\TestCase
 {

@@ -11,9 +11,9 @@ declare(strict_types=1);
  * @see https://github.com/guanguans/laravel-soar
  */
 
-namespace Tests\Macros;
+namespace Guanguans\LaravelSoarTests\Macros;
 
-use Tests\Models\User;
+use Guanguans\LaravelSoarTests\Models\User;
 
 it('can return raw sql for `toRawSql`', function (): void {
     expect(User::query()->where('id', 1)->toRawSql())

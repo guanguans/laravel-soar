@@ -11,7 +11,7 @@ declare(strict_types=1);
  * @see https://github.com/guanguans/laravel-soar
  */
 
-namespace Tests\Facades;
+namespace Guanguans\LaravelSoarTests\Facades;
 
 use Guanguans\LaravelSoar\Commands\ScoreCommand;
 use Symfony\Component\Console\Command\Command;
