@@ -43,23 +43,23 @@
         }
     ],
     "require": {
-        "php": ">=7.4",
+        "php": ">=8.0",
         "ext-json": "*",
         "ext-pdo": "*",
-        "guanguans/soar-php": "^5.1",
+        "guanguans/soar-php": "^6.0",
         "laravel/framework": "^8.83 || ^9.0 || ^10.0 || ^11.0 || ^12.0",
         "maximebf/debugbar": "^1.23 || ^2.0"
     },
     "require-dev": {
         "bamarni/composer-bin-plugin": "^1.8",
         "barryvdh/laravel-debugbar": "^3.7",
-        "brainmaestro/composer-git-hooks": "^2.8 || ^3.0",
+        "brainmaestro/composer-git-hooks": "^3.0",
         "ergebnis/composer-normalize": "^2.47",
         "ergebnis/license": "^2.6",
         "ergebnis/php-cs-fixer-config": "^6.46",
         "friendsofphp/php-cs-fixer": "^3.75",
         "guanguans/ai-commit": "dev-main",
-        "guanguans/monorepo-builder-worker": "^1.5 || ^2.0",
+        "guanguans/monorepo-builder-worker": "^2.0",
         "itsgoingd/clockwork": "^5.3",
         "kubawerlos/php-cs-fixer-custom-fixers": "^3.24",
         "laravel/legacy-factories": "^1.4",
@@ -75,7 +75,7 @@
         "spatie/pest-plugin-snapshots": "^1.1 || ^2.0",
         "spatie/ray": "^1.42",
         "symplify/phpstan-extensions": "^12.0",
-        "vimeo/psalm": "^4.0 || ^5.0 || ^6.0",
+        "vimeo/psalm": "^5.26 || ^6.0",
         "yamadashy/phpstan-friendly-formatter": "^1.2"
     },
     "suggest": {
@@ -183,8 +183,8 @@
         "facade-update": "/opt/homebrew/opt/php@8.1/bin/php -f ./facade.php -- Guanguans\\\\LaravelSoar\\\\Facades\\\\Soar",
         "json-lint": "@php ./vendor/bin/jsonlint *.json .*rc",
         "lint": [
-            "for DIR in .; do find $DIR -maxdepth 1 -type f -name '*.php' -type f ! -name 'xxx.php' -exec /opt/homebrew/opt/php@7.4/bin/php -l {} \\; 2>&1 | (! grep -v '^No syntax errors detected'); done",
-            "for DIR in ./src ./tests; do find $DIR -type f -name '*.php' -type f ! -name 'xxx.php' -exec /opt/homebrew/opt/php@7.4/bin/php -l {} \\; 2>&1 | (! grep -v '^No syntax errors detected'); done"
+            "for DIR in .; do find $DIR -maxdepth 1 -type f -name '*.php' -type f ! -name 'xxx.php' -exec /opt/homebrew/opt/php@8.0/bin/php -l {} \\; 2>&1 | (! grep -v '^No syntax errors detected'); done",
+            "for DIR in ./src ./tests; do find $DIR -type f -name '*.php' -type f ! -name 'xxx.php' -exec /opt/homebrew/opt/php@8.0/bin/php -l {} \\; 2>&1 | (! grep -v '^No syntax errors detected'); done"
         ],
         "mark-finish": "printf '\\n!\\n!\\t\\033[0;32m%s\\033[0m\\n!\\n\\n' \"Finished\"",
         "mark-separate": "printf '\\n!\\n!\\t\\033[0;33m%s\\033[0m\\n!\\n\\n' \"----------------\"",

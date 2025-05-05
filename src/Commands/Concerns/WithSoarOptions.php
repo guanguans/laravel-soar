@@ -58,7 +58,7 @@ trait WithSoarOptions
 
     protected function soar(): Soar
     {
-        return app(Soar::class)->mergeOptions($this->normalizedSoarOptions());
+        return app(Soar::class)->withOptions($this->normalizedSoarOptions());
     }
 
     protected function normalizedSoarOptions(): array

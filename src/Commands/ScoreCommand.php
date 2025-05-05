@@ -33,7 +33,7 @@ class ScoreCommand extends Command
     {
         $soar = $this->soar();
 
-        $query = $soar->getQuery();
+        $query = $soar->getOption('-query');
 
         if (($fstat = fstat(\STDIN)) && 0 < $fstat['size']) {
             $query = trim(stream_get_contents(\STDIN));

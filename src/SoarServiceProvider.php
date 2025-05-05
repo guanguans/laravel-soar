@@ -116,7 +116,7 @@ class SoarServiceProvider extends ServiceProvider
     {
         $this->app->singleton(
             Soar::class,
-            static fn (): Soar => Soar::create(
+            static fn (): Soar => Soar::make(
                 config('soar.options', []),
                 config('soar.binary')
             )->setSudoPassword(config('soar.sudo_password'))
