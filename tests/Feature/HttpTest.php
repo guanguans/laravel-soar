@@ -17,8 +17,6 @@ declare(strict_types=1);
  * @see https://github.com/guanguans/laravel-soar
  */
 
-namespace Guanguans\LaravelSoarTests\Feature;
-
 it('can request `assets/javascript`', function (): void {
     $this->get('soar-bar/assets/javascript')
         ->assertOk()

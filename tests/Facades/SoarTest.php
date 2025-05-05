@@ -17,8 +17,6 @@ declare(strict_types=1);
  * @see https://github.com/guanguans/laravel-soar
  */
 
-namespace Guanguans\LaravelSoarTests\Facades;
-
 use Guanguans\LaravelSoar\Facades\Soar;
 
 it('can return soar version for `version`', function (): void {

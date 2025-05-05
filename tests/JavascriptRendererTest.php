@@ -17,8 +17,6 @@ declare(strict_types=1);
  * @see https://github.com/guanguans/laravel-soar
  */
 
-namespace Guanguans\LaravelSoarTests;
-
 use Guanguans\LaravelSoar\JavascriptRenderer;
 
 beforeEach(function (): void {

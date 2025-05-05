@@ -17,14 +17,12 @@ declare(strict_types=1);
  * @see https://github.com/guanguans/laravel-soar
  */
 
-namespace Guanguans\LaravelSoarTests\Support;
-
 it('can echo variable for `var_output`', function (): void {
     expect(var_output([['arr']]))->toBeNull();
 })->group(__DIR__, __FILE__);
 
 it('can return variable for `var_output`', function (): void {
-    expect(var_output([['arr'], new \stdClass], true))->toMatchTextSnapshot();
+    expect(var_output([['arr'], new stdClass], true))->toMatchTextSnapshot();
 })->group(__DIR__, __FILE__);
 
 it('can reduce array with key for `array_reduce_with_keys`', function (): void {

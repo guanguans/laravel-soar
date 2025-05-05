@@ -150,9 +150,9 @@ return RectorConfig::configure()
     // ->withConfiguredRule(NewExceptionToNewAnonymousExtendsExceptionImplementsRector::class, [
     //     'Guanguans\LaravelSoar\Contracts\ThrowableContract',
     // ])
-    // ->withConfiguredRule(RemoveNamespaceRector::class, [
-    //     'Guanguans\LaravelSoarTests',
-    // ])
+    ->withConfiguredRule(RemoveNamespaceRector::class, [
+        'Guanguans\LaravelSoarTests',
+    ])
     ->withConfiguredRule(RemoveAnnotationRector::class, [
         // 'codeCoverageIgnore',
         'phpstan-ignore',
@@ -268,6 +268,9 @@ return RectorConfig::configure()
             __DIR__.'/src/',
             ...glob(__DIR__.'/{*,.*}.php', \GLOB_BRACE),
             __DIR__.'/composer-updater',
+            __DIR__.'/tests/Factories/',
+            __DIR__.'/tests/Models/',
+            __DIR__.'/tests/Seeder/',
             __DIR__.'/tests/Faker.php',
             __DIR__.'/tests/TestCase.php',
         ],
