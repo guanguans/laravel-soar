@@ -17,12 +17,7 @@ use Illuminate\Support\Collection;
 
 class DumpOutput extends Output
 {
-    private bool $exit;
-
-    public function __construct(bool $exit = false)
-    {
-        $this->exit = $exit;
-    }
+    public function __construct(private bool $exit = false) {}
 
     /**
      * @noinspection ForgottenDebugOutputInspection

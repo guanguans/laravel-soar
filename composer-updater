@@ -57,7 +57,6 @@ $status = (new SingleCommandApplication)
             private string $composerBinary;
             private array $exceptPackages;
             private array $exceptDependencyVersions;
-            private bool $dryRun;
             private SymfonyStyle $symfonyStyle;
             private Differ $differ;
 
@@ -70,7 +69,7 @@ $status = (new SingleCommandApplication)
                 ?string $composerBinary = null,
                 array $exceptPackages = [],
                 array $exceptDependencyVersions = [],
-                bool $dryRun = false,
+                private bool $dryRun = false,
                 ?SymfonyStyle $symfonyStyle = null,
                 ?Differ $differ = null
             ) {
@@ -91,7 +90,6 @@ $status = (new SingleCommandApplication)
                     '*@*',
                     // '*|*',
                 ], $exceptDependencyVersions);
-                $this->dryRun = $dryRun;
                 $this->symfonyStyle = $symfonyStyle ?? new SymfonyStyle(new ArgvInput, new ConsoleOutput);
                 $this->differ = $differ ?? new Differ;
             }
@@ -171,10 +169,11 @@ $status = (new SingleCommandApplication)
                     }
 
                     foreach ($value as $package => &$dependencyVersion) {
-                        if (
-                            $this->strIs($this->exceptPackages, $package)
-                            || $this->strIs($this->exceptDependencyVersions, $dependencyVersion)
-                        ) {
+                        if ($this->strIs($this->exceptPackages, $package)) {
+                            continue;
+                        }
+
+                        if ($this->strIs($this->exceptDependencyVersions, $dependencyVersion)) {
                             continue;
                         }
 
@@ -289,7 +288,7 @@ $status = (new SingleCommandApplication)
             {
                 $patterns = (array) $pattern;
 
-                if (empty($patterns)) {
+                if ([] === $patterns) {
                     return false;
                 }
 

@@ -14,18 +14,15 @@ declare(strict_types=1);
 namespace Guanguans\LaravelSoar\Events;
 
 use Guanguans\LaravelSoar\Contracts\Output;
+use Illuminate\Console\Events\CommandFinished;
 use Illuminate\Support\Collection;
+use Symfony\Component\HttpFoundation\Response;
 
 class OutputtingEvent
 {
-    public Output $output;
-    public Collection $scores;
-    public \Illuminate\Console\Events\CommandFinished|\Symfony\Component\HttpFoundation\Response $dispatcher;
-
-    public function __construct(Output $output, Collection $scores, \Illuminate\Console\Events\CommandFinished|\Symfony\Component\HttpFoundation\Response $dispatcher)
-    {
-        $this->output = $output;
-        $this->scores = $scores;
-        $this->dispatcher = $dispatcher;
-    }
+    public function __construct(
+        public Output $output,
+        public Collection $scores,
+        public CommandFinished|Response $dispatcher
+    ) {}
 }

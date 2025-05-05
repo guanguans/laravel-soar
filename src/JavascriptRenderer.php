@@ -157,7 +157,7 @@ final class JavascriptRenderer extends \DebugBar\JavascriptRenderer
     /**
      * Get inline HTML.
      */
-    protected function getInlineHtml(): string
+    private function getInlineHtml(): string
     {
         $html = '';
 
@@ -175,7 +175,7 @@ final class JavascriptRenderer extends \DebugBar\JavascriptRenderer
      *
      * @param null|string $type 'js' or 'css'
      */
-    protected function getModifiedTime(?string $type): int
+    private function getModifiedTime(?string $type): int
     {
         $files = $this->getAssets($type);
 
@@ -195,8 +195,6 @@ final class JavascriptRenderer extends \DebugBar\JavascriptRenderer
     /**
      * @noinspection MissingParentCallInspection
      *
-     * @psalm-suppress  InvalidReturnType
-     * @psalm-suppress  MoreSpecificImplementedParamType
      *
      * @param list<string>|string $uri
      * @param mixed|string $root

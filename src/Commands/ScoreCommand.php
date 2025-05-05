@@ -25,8 +25,6 @@ class ScoreCommand extends Command
     /**
      * @noinspection MethodShouldBeFinalInspection
      *
-     * @psalm-suppress InvalidPassByReference
-     *
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
      */
     public function handle(): void

@@ -28,7 +28,9 @@ use Guanguans\LaravelSoar\Outputs\RayOutput;
 use Guanguans\LaravelSoar\Outputs\SoarBarOutput;
 use Guanguans\LaravelSoar\Outputs\SyslogOutput;
 use Guanguans\LaravelSoar\SoarServiceProvider;
+use Illuminate\Database\ConnectionResolverInterface;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
@@ -120,7 +122,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
 
     protected function setUpDatabase(): void
     {
-        $this->app['db']
+        $this->app->make(ConnectionResolverInterface::class)
             ->connection()
             ->getSchemaBuilder()
             ->create('users', static function (Blueprint $blueprint): void {
@@ -164,7 +166,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
             $query();
         }));
 
-        Route::get('json', static fn () => tap(response()->json(JsonOutput::class), function () use ($query): void {
+        Route::get('json', static fn () => tap(new JsonResponse(JsonOutput::class), function () use ($query): void {
             self::extendOutputManagerWithOutputs(JsonOutput::class);
 
             $query();

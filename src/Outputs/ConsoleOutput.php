@@ -17,12 +17,7 @@ use Illuminate\Support\Collection;
 
 class ConsoleOutput extends Output
 {
-    protected string $method;
-
-    public function __construct(string $method = 'warn')
-    {
-        $this->method = $method;
-    }
+    public function __construct(protected string $method = 'warn') {}
 
     public function shouldOutput($dispatcher): bool
     {

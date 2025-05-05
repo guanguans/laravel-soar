@@ -65,7 +65,7 @@ trait WithSoarOptions
     {
         return collect($this->option('option'))
             ->mapWithKeys(static function (string $option): array {
-                [$key, $value] = Str::of($option)->explode('=', 2)->pad(2, null)->all();
+                [$key, $value] = str($option)->explode('=', 2)->pad(2, null)->all();
 
                 return [Str::start($key, '-') => $value];
             })

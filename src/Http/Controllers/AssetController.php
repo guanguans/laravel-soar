@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Guanguans\LaravelSoar\Http\Controllers;
 
+use Carbon\CarbonImmutable;
 use Guanguans\LaravelSoar\JavascriptRenderer;
 use Guanguans\LaravelSoar\SoarBar;
 use Illuminate\Http\Response;
@@ -91,7 +92,7 @@ class AssetController
     {
         $response->setSharedMaxAge(31_536_000);
         $response->setMaxAge(31_536_000);
-        $response->setExpires(new \DateTimeImmutable('+1 year'));
+        $response->setExpires(CarbonImmutable::now()->addYears(1));
 
         return $response;
     }

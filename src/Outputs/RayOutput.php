@@ -17,21 +17,13 @@ use Illuminate\Support\Collection;
 
 class RayOutput extends Output
 {
-    protected string $label;
-
-    public function __construct(string $label = 'Soar Scores')
-    {
-        $this->label = $label;
-    }
+    public function __construct(protected string $label = 'Soar Scores') {}
 
     public function shouldOutput($dispatcher): bool
     {
         return \function_exists('ray');
     }
 
-    /**
-     * @psalm-suppress UndefinedDocblockClass
-     */
     public function output(Collection $scores, mixed $dispatcher): void
     {
         ray(...$scores)->label($this->label);

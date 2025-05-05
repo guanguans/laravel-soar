@@ -18,12 +18,7 @@ use Illuminate\Support\Collection;
 
 class JsonOutput extends Output
 {
-    protected string $key;
-
-    public function __construct(string $key = 'soar_scores')
-    {
-        $this->key = $key;
-    }
+    public function __construct(protected string $key = 'soar_scores') {}
 
     public function shouldOutput($dispatcher): bool
     {

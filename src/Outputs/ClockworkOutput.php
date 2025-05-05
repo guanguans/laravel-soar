@@ -13,7 +13,9 @@ declare(strict_types=1);
 
 namespace Guanguans\LaravelSoar\Outputs;
 
+use Illuminate\Console\Events\CommandFinished;
 use Illuminate\Support\Collection;
+use Symfony\Component\HttpFoundation\Response;
 
 class ClockworkOutput extends Output
 {
@@ -22,10 +24,7 @@ class ClockworkOutput extends Output
         return \function_exists('clock');
     }
 
-    /**
-     * @psalm-suppress UndefinedFunction
-     */
-    public function output(Collection $scores, \Illuminate\Console\Events\CommandFinished|\Symfony\Component\HttpFoundation\Response $dispatcher): void
+    public function output(Collection $scores, CommandFinished|Response $dispatcher): void
     {
         clock(...$scores);
     }

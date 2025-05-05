@@ -13,11 +13,13 @@ declare(strict_types=1);
 
 namespace Guanguans\LaravelSoar\Contracts;
 
+use Illuminate\Console\Events\CommandFinished;
 use Illuminate\Support\Collection;
+use Symfony\Component\HttpFoundation\Response;
 
 interface Output
 {
-    public function shouldOutput(\Illuminate\Console\Events\CommandFinished|\Symfony\Component\HttpFoundation\Response $dispatcher): bool;
+    public function shouldOutput(CommandFinished|Response $dispatcher): bool;
 
-    public function output(Collection $scores, \Illuminate\Console\Events\CommandFinished|\Symfony\Component\HttpFoundation\Response $dispatcher);
+    public function output(Collection $scores, CommandFinished|Response $dispatcher);
 }

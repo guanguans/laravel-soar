@@ -169,7 +169,6 @@
             "@lint",
             "@style-lint",
             "@test",
-            "@psalm",
             "@rector-dry-run"
         ],
         "checks-parallel": "@composer-parallel composer-validate md-lint lint style-lint test psalm",

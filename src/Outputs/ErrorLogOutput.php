@@ -17,16 +17,11 @@ use Illuminate\Support\Collection;
 
 class ErrorLogOutput extends Output
 {
-    protected int $messageType;
-    protected string $destination;
-    protected string $extraHeaders;
-
-    public function __construct(int $messageType = 0, string $destination = '', string $extraHeaders = '')
-    {
-        $this->messageType = $messageType;
-        $this->destination = $destination;
-        $this->extraHeaders = $extraHeaders;
-    }
+    public function __construct(
+        protected int $messageType = 0,
+        protected string $destination = '',
+        protected string $extraHeaders = ''
+    ) {}
 
     /**
      * @noinspection ForgottenDebugOutputInspection

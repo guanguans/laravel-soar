@@ -28,7 +28,7 @@ use PhpCsFixerCustomFixers\Fixer\AbstractFixer;
 return Factory::fromRuleSet(Php80::create()
     ->withHeader(
         (static function (): string {
-            $license = MIT::text(
+            $mit = MIT::text(
                 __DIR__.'/LICENSE',
                 Range::since(
                     Year::fromString('2020'),
@@ -38,9 +38,9 @@ return Factory::fromRuleSet(Php80::create()
                 Url::fromString('https://github.com/guanguans/laravel-soar'),
             );
 
-            $license->save();
+            $mit->save();
 
-            return $license->header();
+            return $mit->header();
         })()
     )
     ->withCustomFixers(Fixers::fromFixers(...$phpCsFixerCustomFixers = array_filter(

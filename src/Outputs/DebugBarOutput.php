@@ -19,15 +19,12 @@ use Illuminate\Support\Collection;
 
 class DebugBarOutput extends Output
 {
-    protected string $name;
-    protected string $label;
     private static bool $outputted = false;
 
-    public function __construct(string $name = 'Soar Scores', string $label = 'warning')
-    {
-        $this->name = $name;
-        $this->label = $label;
-    }
+    public function __construct(
+        protected string $name = 'Soar Scores',
+        protected string $label = 'warning'
+    ) {}
 
     public function shouldOutput($dispatcher): bool
     {

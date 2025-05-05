@@ -17,12 +17,7 @@ use Illuminate\Support\Collection;
 
 class SyslogOutput extends Output
 {
-    protected int $priority;
-
-    public function __construct(int $priority = \LOG_WARNING)
-    {
-        $this->priority = $priority;
-    }
+    public function __construct(protected int $priority = \LOG_WARNING) {}
 
     /**
      * @throws \JsonException

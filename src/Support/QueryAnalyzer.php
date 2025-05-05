@@ -61,7 +61,7 @@ class QueryAnalyzer
             static function ($binding) use ($pdo): string {
                 if (\is_array($binding)) {
                     $binding = implode(', ', array_map(
-                        static fn ($value) => \is_string($value) ? htmlspecialchars("'".$value."'", \ENT_NOQUOTES) : $value,
+                        static fn ($value): mixed => \is_string($value) ? htmlspecialchars("'".$value."'", \ENT_NOQUOTES) : $value,
                         $binding
                     ));
 

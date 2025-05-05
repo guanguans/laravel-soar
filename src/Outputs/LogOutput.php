@@ -18,14 +18,10 @@ use Illuminate\Support\Facades\Log;
 
 class LogOutput extends Output
 {
-    protected string $channel;
-    protected string $level;
-
-    public function __construct(string $channel = 'daily', string $level = 'warning')
-    {
-        $this->channel = $channel;
-        $this->level = $level;
-    }
+    public function __construct(
+        protected string $channel = 'daily',
+        protected string $level = 'warning'
+    ) {}
 
     /**
      * @throws \JsonException

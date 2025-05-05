@@ -20,14 +20,10 @@ use Symfony\Component\HttpFoundation\Response;
 
 class OutputSoarScoresMiddleware
 {
-    private Bootstrapper $bootstrapper;
-    private OutputManager $outputManager;
-
-    public function __construct(Bootstrapper $bootstrapper, OutputManager $outputManager)
-    {
-        $this->bootstrapper = $bootstrapper;
-        $this->outputManager = $outputManager;
-    }
+    public function __construct(
+        private Bootstrapper $bootstrapper,
+        private OutputManager $outputManager
+    ) {}
 
     /**
      * Handle an incoming request.

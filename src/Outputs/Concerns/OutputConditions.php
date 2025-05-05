@@ -43,14 +43,14 @@ trait OutputConditions
         return $dispatcher instanceof JsonResponse
             && false !== $dispatcher->getContent()
             && Str::contains($dispatcher->headers->get('Content-Type'), 'application/json')
-            && transform($dispatcher, static function (JsonResponse $dispatcher): bool {
-                if ('' === ($content = $dispatcher->getContent())) {
+            && transform($dispatcher, static function (JsonResponse $jsonResponse): bool {
+                if ('' === ($content = $jsonResponse->getContent())) {
                     return false;
                 }
 
                 try {
                     json_decode($content, false, 512, \JSON_THROW_ON_ERROR);
-                } catch (\JsonException $jsonException) {
+                } catch (\JsonException) {
                     return false;
                 }
 

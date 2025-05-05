@@ -25,14 +25,12 @@ use Illuminate\Support\Str;
 
 class Bootstrapper
 {
-    protected Container $container;
     protected bool $booted = false;
     protected static Collection $queries;
     protected static Collection $scores;
 
-    public function __construct(Container $container)
+    public function __construct(protected Container $container)
     {
-        $this->container = $container;
         self::$queries = collect();
         self::$scores = collect();
     }
@@ -54,7 +52,7 @@ class Bootstrapper
         }
 
         $this->booted = true;
-        $this->logQuery($this->container['events']);
+        $this->logQuery($this->container->make(\Illuminate\Contracts\Events\Dispatcher::class));
         $this->registerOutputMonitor($this->container);
     }
 
@@ -168,19 +166,19 @@ class Bootstrapper
      *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
-    protected function registerOutputMonitor(Container $app): void
+    protected function registerOutputMonitor(Container $container): void
     {
         // 注册输出监听
-        $app['events']->listen(
+        $container->make(\Illuminate\Contracts\Events\Dispatcher::class)->listen(
             CommandFinished::class,
-            fn (CommandFinished $commandFinished) => $app->make(OutputManager::class)->output(
+            fn (CommandFinished $commandFinished) => $container->make(OutputManager::class)->output(
                 $this->getScores(),
                 $commandFinished
             )
         );
 
         // 注册输出中间件
-        $app->make(Kernel::class)->pushMiddleware(OutputSoarScoresMiddleware::class);
+        $container->make(Kernel::class)->pushMiddleware(OutputSoarScoresMiddleware::class);
     }
 
     protected function toScores(Collection $queries): Collection

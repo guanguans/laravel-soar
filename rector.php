@@ -34,9 +34,12 @@ use Rector\Config\RectorConfig;
 use Rector\DeadCode\Rector\ClassLike\RemoveAnnotationRector;
 use Rector\DowngradePhp81\Rector\Array_\DowngradeArraySpreadStringKeyRector;
 use Rector\EarlyReturn\Rector\Return_\ReturnBinaryOrToEarlyReturnRector;
+use Rector\Naming\Rector\Foreach_\RenameForeachValueVariableToMatchExprVariableRector;
+use Rector\Php71\Rector\FuncCall\RemoveExtraParametersRector;
 use Rector\PHPUnit\Set\PHPUnitSetList;
 use Rector\Renaming\Rector\FuncCall\RenameFunctionRector;
 use Rector\Renaming\Rector\Name\RenameClassRector;
+use Rector\Strict\Rector\Empty_\DisallowedEmptyRuleFixerRector;
 use Rector\Transform\Rector\StaticCall\StaticCallToFuncCallRector;
 use Rector\Transform\ValueObject\StaticCallToFuncCall;
 use Rector\ValueObject\PhpVersion;
@@ -45,8 +48,12 @@ use Rector\Visibility\Rector\ClassMethod\ChangeMethodVisibilityRector;
 use Rector\Visibility\ValueObject\ChangeMethodVisibility;
 use RectorLaravel\Rector\Class_\ModelCastsPropertyToCastsMethodRector;
 use RectorLaravel\Rector\Empty_\EmptyToBlankAndFilledFuncRector;
+use RectorLaravel\Rector\FuncCall\FactoryFuncCallToStaticCallRector;
 use RectorLaravel\Rector\FuncCall\HelperFuncCallToFacadeClassRector;
 use RectorLaravel\Rector\FuncCall\TypeHintTappableCallRector;
+use RectorLaravel\Rector\If_\ThrowIfRector;
+use RectorLaravel\Rector\MethodCall\UseComponentPropertyWithinCommandsRector;
+use RectorLaravel\Rector\Namespace_\FactoryDefinitionRector;
 use RectorLaravel\Rector\StaticCall\DispatchToHelperFunctionsRector;
 use RectorLaravel\Set\LaravelSetList;
 
@@ -63,9 +70,10 @@ $classes ??= collect(spl_autoload_functions())
 
 return RectorConfig::configure()
     ->withPaths([
-        // __DIR__.'/config',
-        __DIR__.'/src',
-        __DIR__.'/tests',
+        // __DIR__.'/config/',
+        __DIR__.'/routes/',
+        __DIR__.'/src/',
+        __DIR__.'/tests/',
         ...glob(__DIR__.'/{*,.*}.php', \GLOB_BRACE),
         __DIR__.'/composer-updater',
     ])
@@ -129,7 +137,7 @@ return RectorConfig::configure()
             ->all(),
     ])
     ->withConfiguredRule(RemoveAnnotationRector::class, [
-        'codeCoverageIgnore',
+        // 'codeCoverageIgnore',
         'phpstan-ignore',
         'phpstan-ignore-next-line',
         'psalm-suppress',
@@ -189,6 +197,9 @@ return RectorConfig::configure()
         )
     )
     ->withSkip([
+        DisallowedEmptyRuleFixerRector::class,
+        RenameForeachValueVariableToMatchExprVariableRector::class,
+
         DowngradeArraySpreadStringKeyRector::class,
         EncapsedStringsToSprintfRector::class,
         ExplicitBoolCompareRector::class,
@@ -198,6 +209,11 @@ return RectorConfig::configure()
         WrapEncapsedVariableInCurlyBracesRector::class,
     ])
     ->withSkip([
+        FactoryDefinitionRector::class,
+        FactoryFuncCallToStaticCallRector::class,
+        ThrowIfRector::class,
+        UseComponentPropertyWithinCommandsRector::class,
+
         DispatchToHelperFunctionsRector::class,
         EmptyToBlankAndFilledFuncRector::class,
         HelperFuncCallToFacadeClassRector::class,
@@ -205,13 +221,17 @@ return RectorConfig::configure()
         TypeHintTappableCallRector::class,
     ])
     ->withSkip([
+        RemoveExtraParametersRector::class => $staticClosureSkipPaths = [
+            __DIR__.'/src/Macros/QueryBuilderMacro.php',
+        ],
         StaticArrowFunctionRector::class => $staticClosureSkipPaths = [
             __DIR__.'/tests',
         ],
         StaticClosureRector::class => $staticClosureSkipPaths,
         SortAssociativeArrayByKeyRector::class => [
-            __DIR__.'/config',
-            __DIR__.'/src',
-            __DIR__.'/tests',
+            __DIR__.'/config/',
+            __DIR__.'/routes/',
+            __DIR__.'/src/',
+            __DIR__.'/tests/',
         ],
     ]);

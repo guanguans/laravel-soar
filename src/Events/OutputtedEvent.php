@@ -18,14 +18,9 @@ use Illuminate\Support\Collection;
 
 class OutputtedEvent
 {
-    public Output $output;
-    public Collection $scores;
-    public mixed $result;
-
-    public function __construct(Output $output, Collection $scores, mixed $result)
-    {
-        $this->output = $output;
-        $this->scores = $scores;
-        $this->result = $result;
-    }
+    public function __construct(
+        public Output $output,
+        public Collection $scores,
+        public mixed $result
+    ) {}
 }
