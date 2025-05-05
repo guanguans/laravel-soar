@@ -1,5 +1,11 @@
 <?php
 
+/** @noinspection AnonymousFunctionStaticInspection */
+/** @noinspection NullPointerExceptionInspection */
+/** @noinspection PhpPossiblePolymorphicInvocationInspection */
+/** @noinspection PhpUndefinedClassInspection */
+/** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection StaticClosureCanBeUsedInspection */
 declare(strict_types=1);
 
 /**
@@ -15,6 +21,7 @@ namespace Guanguans\LaravelSoarTests;
 
 use Barryvdh\Debugbar\ServiceProvider;
 use Clockwork\Support\Laravel\ClockworkServiceProvider;
+use Guanguans\LaravelSoar\Facades\Soar;
 use Guanguans\LaravelSoar\OutputManager;
 use Guanguans\LaravelSoar\Outputs\ClockworkOutput;
 use Guanguans\LaravelSoar\Outputs\ConsoleOutput;
@@ -43,6 +50,7 @@ use Symfony\Component\VarDumper\Test\VarDumperTestTrait;
 
 abstract class TestCase extends \Orchestra\Testbench\TestCase
 {
+    use Faker;
     use MatchesSnapshots;
     use MockeryPHPUnitIntegration;
     use PHPMock;
@@ -100,6 +108,14 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
             SoarServiceProvider::class,
             ClockworkServiceProvider::class,
             ServiceProvider::class,
+            ...parent::getPackageProviders($app),
+        ];
+    }
+
+    protected function getPackageAliases($app): array
+    {
+        return [
+            'Soar' => Soar::class,
         ];
     }
 

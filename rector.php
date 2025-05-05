@@ -18,7 +18,10 @@ declare(strict_types=1);
 use Carbon\Carbon;
 use Composer\Autoload\ClassLoader;
 use Ergebnis\Rector\Rules\Arrays\SortAssociativeArrayByKeyRector;
-use Guanguans\LaravelSoar\Support\Rectors\ToInternalExceptionRector;
+use Guanguans\MonorepoBuilderWorker\Support\Rectors\AddNoinspectionsDocCommentToDeclareRector;
+use Guanguans\MonorepoBuilderWorker\Support\Rectors\NewExceptionToNewAnonymousExtendsExceptionImplementsRector;
+use Guanguans\MonorepoBuilderWorker\Support\Rectors\RemoveNamespaceRector;
+use Guanguans\MonorepoBuilderWorker\Support\Rectors\SimplifyListIndexRector;
 use Illuminate\Support\Carbon as IlluminateCarbon;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
@@ -125,10 +128,10 @@ return RectorConfig::configure()
     ])
     ->withRules([
         ArraySpreadInsteadOfArrayMergeRector::class,
+        SimplifyListIndexRector::class,
         SortAssociativeArrayByKeyRector::class,
         StaticArrowFunctionRector::class,
         StaticClosureRector::class,
-        // ToInternalExceptionRector::class,
         ...$classes
             ->filter(static fn (string $class): bool => str_starts_with($class, 'RectorLaravel\Rector'))
             ->filter(static fn (string $class): bool => (new ReflectionClass($class))->isInstantiable())
@@ -136,6 +139,20 @@ return RectorConfig::configure()
             // ->dd()
             ->all(),
     ])
+    ->withConfiguredRule(AddNoinspectionsDocCommentToDeclareRector::class, [
+        'AnonymousFunctionStaticInspection',
+        'PhpUndefinedClassInspection',
+        'PhpUnhandledExceptionInspection',
+        'StaticClosureCanBeUsedInspection',
+        'NullPointerExceptionInspection',
+        'PhpPossiblePolymorphicInvocationInspection',
+    ])
+    // ->withConfiguredRule(NewExceptionToNewAnonymousExtendsExceptionImplementsRector::class, [
+    //     'Guanguans\LaravelSoar\Contracts\ThrowableContract',
+    // ])
+    // ->withConfiguredRule(RemoveNamespaceRector::class, [
+    //     'Guanguans\LaravelSoarTests',
+    // ])
     ->withConfiguredRule(RemoveAnnotationRector::class, [
         // 'codeCoverageIgnore',
         'phpstan-ignore',
@@ -233,5 +250,25 @@ return RectorConfig::configure()
             __DIR__.'/routes/',
             __DIR__.'/src/',
             __DIR__.'/tests/',
+        ],
+        AddNoinspectionsDocCommentToDeclareRector::class => [
+            __DIR__.'/config/',
+            __DIR__.'/routes/',
+            __DIR__.'/src/',
+            ...glob(__DIR__.'/{*,.*}.php', \GLOB_BRACE),
+            __DIR__.'/composer-updater',
+        ],
+        NewExceptionToNewAnonymousExtendsExceptionImplementsRector::class => [
+            __DIR__.'/src/Support/Rectors/',
+            __DIR__.'/composer-updater',
+        ],
+        RemoveNamespaceRector::class => [
+            __DIR__.'/config/',
+            __DIR__.'/routes/',
+            __DIR__.'/src/',
+            ...glob(__DIR__.'/{*,.*}.php', \GLOB_BRACE),
+            __DIR__.'/composer-updater',
+            __DIR__.'/tests/Faker.php',
+            __DIR__.'/tests/TestCase.php',
         ],
     ]);

@@ -19,11 +19,26 @@ declare(strict_types=1);
 
 namespace Guanguans\LaravelSoarTests;
 
-use Guanguans\LaravelSoar\Facades\Soar;
+use Faker\Factory;
+use Faker\Generator;
 
-it('can add macro method', function (): void {
-    Soar::macro('foo', function (): void {});
+trait Faker
+{
+    final protected function faker(string $locale = Factory::DEFAULT_LOCALE): Generator
+    {
+        /**
+         * @var array<string, Generator> $fakers
+         */
+        static $fakers = [];
 
-    /** @noinspection PhpUndefinedMethodInspection */
-    expect(Soar::foo())->toBeNull();
-})->group(__DIR__, __FILE__);
+        if (!\array_key_exists($locale, $fakers)) {
+            $faker = Factory::create($locale);
+
+            $faker->seed(9001);
+
+            $fakers[$locale] = $faker;
+        }
+
+        return $fakers[$locale];
+    }
+}
