@@ -3,11 +3,12 @@
 declare(strict_types=1);
 
 /**
- * This file is part of the guanguans/laravel-soar.
+ * Copyright (c) 2020-2025 guanguans<ityaozm@gmail.com>
  *
- * (c) guanguans <ityaozm@gmail.com>
+ * For the full copyright and license information, please view
+ * the LICENSE file that was distributed with this source code.
  *
- * This source file is subject to the MIT license that is bundled.
+ * @see https://github.com/guanguans/laravel-soar
  */
 
 namespace Guanguans\LaravelSoar;
@@ -19,13 +20,10 @@ namespace Guanguans\LaravelSoar;
  *
  * @see https://github.com/barryvdh/laravel-debugbar/blob/master/src/JavascriptRenderer.php
  */
-class JavascriptRenderer extends \DebugBar\JavascriptRenderer
+final class JavascriptRenderer extends \DebugBar\JavascriptRenderer
 {
-    /**
-     * Use XHR handler by default, instead of jQuery
-     */
+    /** Use XHR handler by default, instead of jQuery */
     protected $ajaxHandlerBindToJquery = false;
-
     protected $ajaxHandlerBindToXHR = true;
 
     /**
@@ -151,7 +149,7 @@ class JavascriptRenderer extends \DebugBar\JavascriptRenderer
     {
         return array_reduce(
             $this->getAssets($type),
-            static fn (string $contents, string $file): string => $contents .= file_get_contents($file).PHP_EOL,
+            static fn (string $contents, string $file): string => $contents .= file_get_contents($file).\PHP_EOL,
             ''
         );
     }
@@ -162,9 +160,10 @@ class JavascriptRenderer extends \DebugBar\JavascriptRenderer
     protected function getInlineHtml(): string
     {
         $html = '';
+
         foreach (['head', 'css', 'js'] as $asset) {
             foreach ($this->getAssets('inline_'.$asset) as $item) {
-                $html .= $item.PHP_EOL;
+                $html .= $item.\PHP_EOL;
             }
         }
 
@@ -181,8 +180,10 @@ class JavascriptRenderer extends \DebugBar\JavascriptRenderer
         $files = $this->getAssets($type);
 
         $latest = 0;
+
         foreach ($files as $file) {
             $mtime = filemtime($file);
+
             if ($mtime > $latest) {
                 $latest = $mtime;
             }
@@ -197,19 +198,20 @@ class JavascriptRenderer extends \DebugBar\JavascriptRenderer
      * @psalm-suppress  InvalidReturnType
      * @psalm-suppress  MoreSpecificImplementedParamType
      *
-     * @param array<string>|string $uri
+     * @param list<string>|string $uri
      * @param mixed|string $root
      *
-     * @return array<string>|string
+     * @return list<string>|string
      */
     protected function makeUriRelativeTo($uri, $root)
     {
-        if (! $root) {
+        if (!$root) {
             return $uri;
         }
 
         if (\is_array($uri)) {
             $uris = [];
+
             foreach ($uri as $u) {
                 $uris[] = $this->makeUriRelativeTo($u, $root);
             }
@@ -217,7 +219,7 @@ class JavascriptRenderer extends \DebugBar\JavascriptRenderer
             return $uris;
         }
 
-        if (0 === strpos($uri ?? '', '/') || preg_match('/^([a-zA-Z]+:\/\/|[a-zA-Z]:\/|[a-zA-Z]:\\\)/', $uri ?? '')) {
+        if (str_starts_with($uri ?? '', '/') || preg_match('/^([a-zA-Z]+:\/\/|[a-zA-Z]:\/|[a-zA-Z]:\\\)/', $uri ?? '')) {
             return $uri;
         }
 

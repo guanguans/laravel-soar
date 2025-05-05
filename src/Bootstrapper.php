@@ -3,11 +3,12 @@
 declare(strict_types=1);
 
 /**
- * This file is part of the guanguans/laravel-soar.
+ * Copyright (c) 2020-2025 guanguans<ityaozm@gmail.com>
  *
- * (c) guanguans <ityaozm@gmail.com>
+ * For the full copyright and license information, please view
+ * the LICENSE file that was distributed with this source code.
  *
- * This source file is subject to the MIT license that is bundled.
+ * @see https://github.com/guanguans/laravel-soar
  */
 
 namespace Guanguans\LaravelSoar;
@@ -26,7 +27,6 @@ class Bootstrapper
 {
     protected Container $container;
     protected bool $booted = false;
-
     protected static Collection $queries;
     protected static Collection $scores;
 
@@ -43,9 +43,9 @@ class Bootstrapper
     }
 
     /**
-     * @throws BindingResolutionException
-     *
      * @noinspection OffsetOperationsInspection
+     *
+     * @throws BindingResolutionException
      */
     public function boot(): void
     {
@@ -146,11 +146,11 @@ class Bootstrapper
      */
     protected function getBacktraces(int $limit = 0, int $forgetLines = 0): array
     {
-        return collect(debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, $limit))
+        return collect(debug_backtrace(\DEBUG_BACKTRACE_IGNORE_ARGS, $limit))
             ->forget($forgetLines)
             ->filter(
                 static fn ($trace): bool => isset($trace['file'], $trace['line'])
-                    && ! Str::contains($trace['file'], 'vendor')
+                    && !Str::contains($trace['file'], 'vendor')
             )
             ->map(static fn ($trace, $index): string => \sprintf(
                 '#%s %s:%s',
@@ -163,10 +163,10 @@ class Bootstrapper
     }
 
     /**
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     *
      * @noinspection PhpUndefinedMethodInspection
      * @noinspection OffsetOperationsInspection
+     *
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     protected function registerOutputMonitor(Container $app): void
     {
@@ -202,6 +202,7 @@ class Bootstrapper
     protected function matchQuery(Collection $queries, array $score): array
     {
         $query = $queries->first(static fn ($query): bool => $score['Sample'] === $query['sql']);
+
         if ($query) {
             return $query;
         }
@@ -222,8 +223,8 @@ class Bootstrapper
     {
         return collect($explain)
             ->map(static function (array $explain): array {
-                $explain['Content'] = collect(explode(PHP_EOL, $explain['Content']))->filter()->values()->all();
-                $explain['Case'] = collect(explode(PHP_EOL, $explain['Case']))->filter()->values()->all();
+                $explain['Content'] = collect(explode(\PHP_EOL, $explain['Content']))->filter()->values()->all();
+                $explain['Case'] = collect(explode(\PHP_EOL, $explain['Case']))->filter()->values()->all();
 
                 return $explain;
             })

@@ -55,6 +55,8 @@
         "barryvdh/laravel-debugbar": "^3.7",
         "brainmaestro/composer-git-hooks": "^2.8 || ^3.0",
         "ergebnis/composer-normalize": "^2.47",
+        "ergebnis/license": "^2.6",
+        "ergebnis/php-cs-fixer-config": "^6.46",
         "friendsofphp/php-cs-fixer": "^3.75",
         "guanguans/ai-commit": "dev-main",
         "guanguans/monorepo-builder-worker": "^1.5 || ^2.0",

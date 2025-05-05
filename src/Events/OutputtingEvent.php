@@ -3,11 +3,12 @@
 declare(strict_types=1);
 
 /**
- * This file is part of the guanguans/laravel-soar.
+ * Copyright (c) 2020-2025 guanguans<ityaozm@gmail.com>
  *
- * (c) guanguans <ityaozm@gmail.com>
+ * For the full copyright and license information, please view
+ * the LICENSE file that was distributed with this source code.
  *
- * This source file is subject to the MIT license that is bundled.
+ * @see https://github.com/guanguans/laravel-soar
  */
 
 namespace Guanguans\LaravelSoar\Events;
@@ -18,7 +19,6 @@ use Illuminate\Support\Collection;
 class OutputtingEvent
 {
     public Output $output;
-
     public Collection $scores;
 
     /** @var \Illuminate\Console\Events\CommandFinished|\Symfony\Component\HttpFoundation\Response */

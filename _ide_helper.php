@@ -3,11 +3,12 @@
 declare(strict_types=1);
 
 /**
- * This file is part of the guanguans/laravel-soar.
+ * Copyright (c) 2020-2025 guanguans<ityaozm@gmail.com>
  *
- * (c) guanguans <ityaozm@gmail.com>
+ * For the full copyright and license information, please view
+ * the LICENSE file that was distributed with this source code.
  *
- * This source file is subject to the MIT license that is bundled.
+ * @see https://github.com/guanguans/laravel-soar
  */
 
 namespace {
@@ -16,18 +17,18 @@ namespace {
 
 namespace Illuminate\Database\Query {
     /**
-     * @method string toRawSql()
-     * @method void dumpRawSql()
      * @method void ddRawSql()
-     * @method array toSoarArrayScores(int $depth = 512, int $options = 0)
-     * @method void dumpSoarArrayScores(int $depth = 512, int $options = 0)
      * @method void ddSoarArrayScores(int $depth = 512, int $options = 0)
-     * @method string toSoarJsonScores()
-     * @method void dumpSoarJsonScores()
      * @method void ddSoarJsonScores()
-     * @method string toSoarHtmlScores()
+     * @method void dumpRawSql()
+     * @method void dumpSoarArrayScores(int $depth = 512, int $options = 0)
+     * @method void dumpSoarJsonScores()
      * @method void echoSoarHtmlScores()
      * @method void exitSoarHtmlScores()
+     * @method string toRawSql()
+     * @method array toSoarArrayScores(int $depth = 512, int $options = 0)
+     * @method string toSoarHtmlScores()
+     * @method string toSoarJsonScores()
      *
      * @see \Guanguans\LaravelSoar\Macros\QueryBuilderMacro
      * @see \Illuminate\Database\Query\Builder
@@ -37,18 +38,18 @@ namespace Illuminate\Database\Query {
 
 namespace Illuminate\Database\Eloquent {
     /**
-     * @method string toRawSql()
-     * @method void dumpRawSql()
      * @method void ddRawSql()
-     * @method array toSoarArrayScores(int $depth = 512, int $options = 0)
-     * @method void dumpSoarArrayScores(int $depth = 512, int $options = 0)
      * @method void ddSoarArrayScores(int $depth = 512, int $options = 0)
-     * @method string toSoarJsonScores()
-     * @method void dumpSoarJsonScores()
      * @method void ddSoarJsonScores()
-     * @method string toSoarHtmlScores()
+     * @method void dumpRawSql()
+     * @method void dumpSoarArrayScores(int $depth = 512, int $options = 0)
+     * @method void dumpSoarJsonScores()
      * @method void echoSoarHtmlScores()
      * @method void exitSoarHtmlScores()
+     * @method string toRawSql()
+     * @method array toSoarArrayScores(int $depth = 512, int $options = 0)
+     * @method string toSoarHtmlScores()
+     * @method string toSoarJsonScores()
      *
      * @mixin \Illuminate\Database\Query\Builder
      *
@@ -60,18 +61,18 @@ namespace Illuminate\Database\Eloquent {
 
 namespace Illuminate\Database\Eloquent\Relations {
     /**
-     * @method string toRawSql()
-     * @method void dumpRawSql()
      * @method void ddRawSql()
-     * @method array toSoarArrayScores(int $depth = 512, int $options = 0)
-     * @method void dumpSoarArrayScores(int $depth = 512, int $options = 0)
      * @method void ddSoarArrayScores(int $depth = 512, int $options = 0)
-     * @method string toSoarJsonScores()
-     * @method void dumpSoarJsonScores()
      * @method void ddSoarJsonScores()
-     * @method string toSoarHtmlScores()
+     * @method void dumpRawSql()
+     * @method void dumpSoarArrayScores(int $depth = 512, int $options = 0)
+     * @method void dumpSoarJsonScores()
      * @method void echoSoarHtmlScores()
      * @method void exitSoarHtmlScores()
+     * @method string toRawSql()
+     * @method array toSoarArrayScores(int $depth = 512, int $options = 0)
+     * @method string toSoarHtmlScores()
+     * @method string toSoarJsonScores()
      *
      * @mixin \Illuminate\Database\Eloquent\Builder
      *

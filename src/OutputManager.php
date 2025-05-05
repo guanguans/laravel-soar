@@ -3,11 +3,12 @@
 declare(strict_types=1);
 
 /**
- * This file is part of the guanguans/laravel-soar.
+ * Copyright (c) 2020-2025 guanguans<ityaozm@gmail.com>
  *
- * (c) guanguans <ityaozm@gmail.com>
+ * For the full copyright and license information, please view
+ * the LICENSE file that was distributed with this source code.
  *
- * This source file is subject to the MIT license that is bundled.
+ * @see https://github.com/guanguans/laravel-soar
  */
 
 namespace Guanguans\LaravelSoar;
@@ -25,11 +26,11 @@ use Illuminate\Support\Str;
 class OutputManager extends Fluent implements Output
 {
     /**
-     * @param array<\Guanguans\LaravelSoar\Contracts\Output> $outputs
-     *
      * @noinspection MagicMethodsValidityInspection
      * @noinspection MissingParentCallInspection
      * @noinspection PhpMissingParentConstructorInspection
+     *
+     * @param list<\Guanguans\LaravelSoar\Contracts\Output> $outputs
      */
     public function __construct(array $outputs = [])
     {
@@ -41,22 +42,23 @@ class OutputManager extends Fluent implements Output
     public function shouldOutput($dispatcher): bool
     {
         $exclusions = config('soar.exclusions', []);
+
         if ($dispatcher instanceof CommandFinished) {
-            return ! Str::is($exclusions, $dispatcher->command);
+            return !Str::is($exclusions, $dispatcher->command);
         }
 
-        return ! request()->is($exclusions) && ! request()->routeIs($exclusions);
+        return !request()->is($exclusions) && !request()->routeIs($exclusions);
     }
 
     public function output(Collection $scores, $dispatcher): void
     {
-        if (! $this->shouldOutput($dispatcher)) {
+        if (!$this->shouldOutput($dispatcher)) {
             return;
         }
 
         /** @var \Guanguans\LaravelSoar\Contracts\Output $output */
         foreach ($this->attributes as $output) {
-            if (! $output->shouldOutput($dispatcher)) {
+            if (!$output->shouldOutput($dispatcher)) {
                 continue;
             }
 
@@ -75,7 +77,7 @@ class OutputManager extends Fluent implements Output
      */
     public function offsetSet($offset, $value): void
     {
-        if (! $value instanceof Output) {
+        if (!$value instanceof Output) {
             throw new InvalidArgumentException(\sprintf('The value must be instance of %s', Output::class));
         }
 

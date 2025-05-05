@@ -3,11 +3,12 @@
 declare(strict_types=1);
 
 /**
- * This file is part of the guanguans/laravel-soar.
+ * Copyright (c) 2020-2025 guanguans<ityaozm@gmail.com>
  *
- * (c) guanguans <ityaozm@gmail.com>
+ * For the full copyright and license information, please view
+ * the LICENSE file that was distributed with this source code.
  *
- * This source file is subject to the MIT license that is bundled.
+ * @see https://github.com/guanguans/laravel-soar
  */
 
 namespace Guanguans\LaravelSoar\Outputs\Concerns;
@@ -43,7 +44,7 @@ trait OutputConditions
         return $this->isResponse($dispatcher)
             && false !== $dispatcher->getContent()
             && Str::contains($dispatcher->headers->get('Content-Type'), 'text/html')
-            && ! $this->isJsonResponse($dispatcher);
+            && !$this->isJsonResponse($dispatcher);
     }
 
     /**
@@ -60,7 +61,7 @@ trait OutputConditions
                 }
 
                 try {
-                    json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                    json_decode($content, false, 512, \JSON_THROW_ON_ERROR);
                 } catch (\JsonException $jsonException) {
                     return false;
                 }

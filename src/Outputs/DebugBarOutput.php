@@ -3,11 +3,12 @@
 declare(strict_types=1);
 
 /**
- * This file is part of the guanguans/laravel-soar.
+ * Copyright (c) 2020-2025 guanguans<ityaozm@gmail.com>
  *
- * (c) guanguans <ityaozm@gmail.com>
+ * For the full copyright and license information, please view
+ * the LICENSE file that was distributed with this source code.
  *
- * This source file is subject to the MIT license that is bundled.
+ * @see https://github.com/guanguans/laravel-soar
  */
 
 namespace Guanguans\LaravelSoar\Outputs;
@@ -20,7 +21,6 @@ class DebugBarOutput extends Output
 {
     protected string $name;
     protected string $label;
-
     private static bool $outputted = false;
 
     public function __construct(string $name = 'Soar Scores', string $label = 'warning')
@@ -45,7 +45,8 @@ class DebugBarOutput extends Output
     public function output(Collection $scores, $dispatcher): void
     {
         $laravelDebugbar = app(LaravelDebugbar::class);
-        if (! $laravelDebugbar->hasCollector($this->name)) {
+
+        if (!$laravelDebugbar->hasCollector($this->name)) {
             $laravelDebugbar->addCollector(new MessagesCollector($this->name));
         }
 

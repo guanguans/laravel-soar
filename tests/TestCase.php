@@ -3,11 +3,12 @@
 declare(strict_types=1);
 
 /**
- * This file is part of the guanguans/laravel-soar.
+ * Copyright (c) 2020-2025 guanguans<ityaozm@gmail.com>
  *
- * (c) guanguans <ityaozm@gmail.com>
+ * For the full copyright and license information, please view
+ * the LICENSE file that was distributed with this source code.
  *
- * This source file is subject to the MIT license that is bundled.
+ * @see https://github.com/guanguans/laravel-soar
  */
 
 namespace Tests;
@@ -44,7 +45,6 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
     use MockeryPHPUnitIntegration;
     use PHPMock;
     use VarDumperTestTrait;
-
     public const OUTPUTS = [
         ClockworkOutput::class,
         ConsoleOutput::class => ['method' => 'warn'],
@@ -56,7 +56,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
         NullOutput::class,
         RayOutput::class => ['label' => 'Soar Scores'],
         SoarBarOutput::class => ['name' => 'Scores', 'label' => 'warning'],
-        SyslogOutput::class => ['priority' => LOG_WARNING],
+        SyslogOutput::class => ['priority' => \LOG_WARNING],
     ];
 
     protected function setUp(): void
@@ -75,13 +75,13 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
     }
 
     /**
-     * @param array<class-string, array<string, mixed>>|array<class-string>|class-string $outputs
+     * @param array<class-string, array<string, mixed>>|class-string|list<class-string> $outputs
      */
-    public static function extendOutputManagerWithOutputs($outputs): void
+    final public static function extendOutputManagerWithOutputs($outputs): void
     {
         app()->extend(OutputManager::class, static function (OutputManager $outputManager) use ($outputs): OutputManager {
             foreach ((array) $outputs as $class => $parameters) {
-                if (! \is_array($parameters)) {
+                if (!\is_array($parameters)) {
                     [$parameters, $class] = [(array) $class, $parameters];
                 }
 

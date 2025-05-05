@@ -3,11 +3,12 @@
 declare(strict_types=1);
 
 /**
- * This file is part of the guanguans/laravel-soar.
+ * Copyright (c) 2020-2025 guanguans<ityaozm@gmail.com>
  *
- * (c) guanguans <ityaozm@gmail.com>
+ * For the full copyright and license information, please view
+ * the LICENSE file that was distributed with this source code.
  *
- * This source file is subject to the MIT license that is bundled.
+ * @see https://github.com/guanguans/laravel-soar
  */
 
 namespace Guanguans\LaravelSoar\Outputs;
@@ -29,7 +30,7 @@ class SoarBarOutput extends Output
 
     public function shouldOutput($dispatcher): bool
     {
-        return ! DebugBarOutput::isOutputted() && $this->isHtmlResponse($dispatcher);
+        return !DebugBarOutput::isOutputted() && $this->isHtmlResponse($dispatcher);
     }
 
     /**
@@ -40,7 +41,8 @@ class SoarBarOutput extends Output
     public function output(Collection $scores, $dispatcher): void
     {
         $soarBar = app(SoarBar::class);
-        if (! $soarBar->hasCollector($this->name)) {
+
+        if (!$soarBar->hasCollector($this->name)) {
             $soarBar->addCollector(new MessagesCollector($this->name));
         }
 

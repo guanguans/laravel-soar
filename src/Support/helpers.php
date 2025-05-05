@@ -3,18 +3,19 @@
 declare(strict_types=1);
 
 /**
- * This file is part of the guanguans/laravel-soar.
+ * Copyright (c) 2020-2025 guanguans<ityaozm@gmail.com>
  *
- * (c) guanguans <ityaozm@gmail.com>
+ * For the full copyright and license information, please view
+ * the LICENSE file that was distributed with this source code.
  *
- * This source file is subject to the MIT license that is bundled.
+ * @see https://github.com/guanguans/laravel-soar
  */
 
-if (! function_exists('var_output')) {
+if (!\function_exists('var_output')) {
     /**
-     * @param mixed $expression
-     *
      * @noinspection DebugFunctionUsageInspection
+     *
+     * @param mixed $expression
      */
     function var_output($expression, bool $return = false): ?string
     {
@@ -29,6 +30,7 @@ if (! function_exists('var_output')) {
 
         $export = var_export($expression, true);
         $export = preg_replace(array_keys($patterns), array_values($patterns), $export);
+
         if ($return) {
             return $export;
         }
@@ -39,7 +41,7 @@ if (! function_exists('var_output')) {
     }
 }
 
-if (! function_exists('array_reduce_with_keys')) {
+if (!\function_exists('array_reduce_with_keys')) {
     /**
      * @param null|mixed $carry
      *
@@ -57,21 +59,21 @@ if (! function_exists('array_reduce_with_keys')) {
     }
 }
 
-if (! function_exists('to_star')) {
+if (!\function_exists('to_star')) {
     function to_star(int $score): string
     {
         return str_repeat('★', $good = (int) round($score / 100 * 5)).str_repeat('☆', 5 - $good);
     }
 }
 
-if (! function_exists('to_human_time')) {
+if (!\function_exists('to_human_time')) {
     function to_human_time(float $milliseconds): string
     {
-        if ($milliseconds < 1) {
+        if (1 > $milliseconds) {
             return round($milliseconds * 1000).'μs';
         }
 
-        if ($milliseconds < 1000) {
+        if (1000 > $milliseconds) {
             return round($milliseconds, 2).'ms';
         }
 
@@ -79,7 +81,7 @@ if (! function_exists('to_human_time')) {
     }
 }
 
-if (! function_exists('to_pretty_json')) {
+if (!\function_exists('to_pretty_json')) {
     /**
      * @throws JsonException
      */
@@ -87,13 +89,13 @@ if (! function_exists('to_pretty_json')) {
     {
         return json_encode(
             $score,
-            JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR | $options,
+            \JSON_PRETTY_PRINT | \JSON_UNESCAPED_UNICODE | \JSON_UNESCAPED_SLASHES | \JSON_THROW_ON_ERROR | $options,
             $depth
         );
     }
 }
 
-if (! function_exists('base64_encode_file')) {
+if (!\function_exists('base64_encode_file')) {
     function base64_encode_file(string $filename): string
     {
         return base64_encode(file_get_contents($filename));

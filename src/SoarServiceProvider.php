@@ -3,11 +3,12 @@
 declare(strict_types=1);
 
 /**
- * This file is part of the guanguans/laravel-soar.
+ * Copyright (c) 2020-2025 guanguans<ityaozm@gmail.com>
  *
- * (c) guanguans <ityaozm@gmail.com>
+ * For the full copyright and license information, please view
+ * the LICENSE file that was distributed with this source code.
  *
- * This source file is subject to the MIT license that is bundled.
+ * @see https://github.com/guanguans/laravel-soar
  */
 
 namespace Guanguans\LaravelSoar;
@@ -48,7 +49,6 @@ class SoarServiceProvider extends ServiceProvider
         NullOutput::class => NullOutput::class,
         SoarBarOutput::class => SoarBarOutput::class,
     ];
-
     protected bool $defer = false;
 
     public function register(): void
@@ -131,7 +131,7 @@ class SoarServiceProvider extends ServiceProvider
             OutputManager::class,
             static fn (Container $container): OutputManager => collect(config('soar.outputs'))
                 ->mapWithKeys(static function ($parameters, $class) use ($container): array {
-                    if (! \is_array($parameters)) {
+                    if (!\is_array($parameters)) {
                         [$parameters, $class] = [(array) $class, $parameters];
                     }
 
@@ -165,6 +165,7 @@ class SoarServiceProvider extends ServiceProvider
     protected function toAlias(string $class, string $prefix = 'soar.'): string
     {
         $alias = Str::snake(class_basename($class), '.');
+
         if (Str::startsWith($alias, Str::replaceLast('.', '', $prefix))) {
             return $alias;
         }

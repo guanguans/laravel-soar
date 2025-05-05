@@ -3,11 +3,12 @@
 declare(strict_types=1);
 
 /**
- * This file is part of the guanguans/laravel-soar.
+ * Copyright (c) 2020-2025 guanguans<ityaozm@gmail.com>
  *
- * (c) guanguans <ityaozm@gmail.com>
+ * For the full copyright and license information, please view
+ * the LICENSE file that was distributed with this source code.
  *
- * This source file is subject to the MIT license that is bundled.
+ * @see https://github.com/guanguans/laravel-soar
  */
 
 namespace Tests\Support;
@@ -17,7 +18,7 @@ it('can echo variable for `var_output`', function (): void {
 })->group(__DIR__, __FILE__);
 
 it('can return variable for `var_output`', function (): void {
-    expect(var_output([['arr'], new \stdClass()], true))->toMatchTextSnapshot();
+    expect(var_output([['arr'], new \stdClass], true))->toMatchTextSnapshot();
 })->group(__DIR__, __FILE__);
 
 it('can reduce array with key for `array_reduce_with_keys`', function (): void {

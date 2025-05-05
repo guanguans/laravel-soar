@@ -14,3 +14,4 @@ composer.lock
 tests.php
 .php-cs-fixer.cache
 .ai-commit.json
+/.build/
