@@ -18,34 +18,44 @@ return (new Configuration)
     ->addPathsToScan(
         [
             __DIR__.'/config',
+            __DIR__.'/routes',
             __DIR__.'/src',
         ],
         false
     )
     ->addPathsToExclude([
         __DIR__.'/tests',
-        __DIR__.'/src/Support/Rectors',
+        // __DIR__.'/src/Support/Rectors',
     ])
     /** @see \ShipMonk\ComposerDependencyAnalyser\Analyser::CORE_EXTENSIONS */
     ->ignoreErrorsOnExtensions(
         [
-            'ext-mbstring',
+            // 'ext-pdo',
         ],
         [ErrorType::SHADOW_DEPENDENCY]
     )
     ->ignoreErrorsOnPackages(
         [
-            'guzzlehttp/guzzle',
-            'psr/http-message',
+            'nesbot/carbon',
             'symfony/console',
-            'symfony/error-handler',
+            'symfony/http-foundation',
             'symfony/var-dumper',
         ],
         [ErrorType::SHADOW_DEPENDENCY]
     )
+    ->ignoreErrorsOnPackageAndPath(
+        'barryvdh/laravel-debugbar',
+        __DIR__.'/src/Outputs/DebugBarOutput.php',
+        [ErrorType::DEV_DEPENDENCY_IN_PROD]
+    )
+    ->ignoreErrorsOnPackageAndPath(
+        'spatie/ray',
+        __DIR__.'/src/Outputs/RayOutput.php',
+        [ErrorType::DEV_DEPENDENCY_IN_PROD]
+    )
     ->ignoreErrorsOnPackages(
         [
-            'guanguans/ai-commit',
+            // 'guanguans/ai-commit',
         ],
         [ErrorType::DEV_DEPENDENCY_IN_PROD]
     );

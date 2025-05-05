@@ -141,7 +141,7 @@ return Factory::fromRuleSet(Php80::create()
         // ],
         'explicit_string_variable' => false,
         'final_class' => false,
-        'final_internal_class' => true,
+        // 'final_internal_class' => false,
         'final_public_method_for_abstract_class' => false,
         'fully_qualified_strict_types' => [
             'import_symbols' => false,
@@ -241,7 +241,7 @@ return Factory::fromRuleSet(Php80::create()
                 'depends',
                 'group',
                 'internal',
-                'method',
+                // 'method',
                 'mixin',
                 'property',
                 'property-read',

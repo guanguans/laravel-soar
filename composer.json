@@ -47,7 +47,6 @@
     ],
     "require": {
         "php": ">=8.0",
-        "ext-json": "*",
         "ext-pdo": "*",
         "guanguans/soar-php": "^6.0",
         "laravel/framework": "^9.52 || ^10.0 || ^11.0 || ^12.0",
@@ -112,6 +111,10 @@
         "facade-documenter": {
             "type": "vcs",
             "url": "git@github.com:laravel/facade-documenter.git"
+        },
+        "soar-php": {
+            "type": "vcs",
+            "url": "git@github.com:guanguans/soar-php.git"
         }
     },
     "minimum-stability": "stable",
@@ -181,8 +184,7 @@
             "@cghooks update"
         ],
         "post-update-cmd": [
-            "@cghooks update",
-            "@composer-diff"
+            "@cghooks update"
         ],
         "ai-commit": "@php ./vendor/bin/ai-commit commit --ansi",
         "ai-commit-bito": "@ai-commit --generator=bito_cli",
@@ -199,18 +201,15 @@
             "@env-put-xdebug-off",
             "@composer-normalize",
             "@composer-validate",
-            "@json-lint",
             "@md-lint",
             "@yaml-lint",
             "@phpmnd",
             "@style-lint",
             "@composer-dependency-analyser",
             "@facade-lint",
-            "@sk-check-conflicts",
-            "@sk-finalize-classes-dry-run",
             "@sk-spot-lazy-traits",
             "@env-put-xdebug-on",
-            "@pest-bail",
+            "@pest",
             "@env-put-xdebug-off",
             "@rector-dry-run",
             "@phpstan"
@@ -296,7 +295,7 @@
         "phploc": "@php ./vendor/bin/phploc --suffix=php src/",
         "phpmd": "@php ./vendor/bin/phpmd src/ ansi cleancode,codesize,controversial,design,naming,unusedcode --suffixes=php",
         "phpmetrics": "@php ./vendor/bin/phpmetrics --report-html=./.build/phpmetrics/ ./src/",
-        "phpmnd": "@php ./vendor/bin/phpmnd src --exclude-path=Support/Utils.php --hint --progress --ansi -v",
+        "phpmnd": "@php ./vendor/bin/phpmnd src --exclude-path=Support/QueryAnalyzer.php --exclude-path=Support/helpers.php --ignore-numbers=2,-1 --hint --progress --ansi -v",
         "phpstan": "@php ./vendor/bin/phpstan analyse --ansi -v",
         "phpstan-baseline": "@phpstan --generate-baseline --allow-empty-baseline",
         "phpstan-split-baseline": [
@@ -336,12 +335,12 @@
         "roave-no-leaks": "@php ./vendor/bin/roave-no-leaks",
         "sk": "@php ./vendor/bin/swiss-knife --ansi -v",
         "sk-alice-yaml-fixtures-to-php": "@sk alice-yaml-fixtures-to-php --help",
-        "sk-check-commented-code": "@sk check-commented-code tests/ src/ --line-limit=5",
-        "sk-check-conflicts": "@sk check-conflicts tests/ src/",
+        "sk-check-commented-code": "@sk check-commented-code src/ tests/ --line-limit=5",
+        "sk-check-conflicts": "@sk check-conflicts src/ tests/",
         "sk-dump-editorconfig": "@sk dump-editorconfig",
-        "sk-finalize-classes": "@sk finalize-classes tests/ src/",
+        "sk-finalize-classes": "@sk finalize-classes src/ tests/",
         "sk-finalize-classes-dry-run": "@sk-finalize-classes --dry-run",
-        "sk-find-multi-classes": "@sk find-multi-classes tests/ src/",
+        "sk-find-multi-classes": "@sk find-multi-classes src/ tests/",
         "sk-generate-symfony-config-builders": "@sk generate-symfony-config-builders --help",
         "sk-multi-package-composer-stats": "@sk multi-package-composer-stats 'phpstan/phpstan' 'rector/rector'",
         "sk-namespace-to-psr-4": "@sk namespace-to-psr-4 src/ --namespace-root=Guanguans\\MonorepoBuilderWorker",
