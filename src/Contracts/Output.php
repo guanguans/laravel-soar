@@ -21,5 +21,5 @@ interface Output
 {
     public function shouldOutput(CommandFinished|Response $dispatcher): bool;
 
-    public function output(Collection $scores, CommandFinished|Response $dispatcher);
+    public function output(Collection $scores, CommandFinished|Response $dispatcher): mixed;
 }

@@ -26,8 +26,8 @@ class DumpOutput extends Output
      * @noinspection ClosureToArrowFunctionInspection
      * @noinspection DebugFunctionUsageInspection
      */
-    public function output(Collection $scores, CommandFinished|Response $dispatcher): void
+    public function output(Collection $scores, CommandFinished|Response $dispatcher): mixed
     {
-        $this->exit ? dd(...$scores) : dump(...$scores);
+        return $this->exit ? dd(...$scores) : dump(...$scores);
     }
 }

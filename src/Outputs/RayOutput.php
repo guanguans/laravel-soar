@@ -26,8 +26,8 @@ class RayOutput extends Output
         return \function_exists('ray');
     }
 
-    public function output(Collection $scores, CommandFinished|Response $dispatcher): void
+    public function output(Collection $scores, CommandFinished|Response $dispatcher): mixed
     {
-        ray(...$scores)->label($this->label);
+        return ray(...$scores)->label($this->label);
     }
 }

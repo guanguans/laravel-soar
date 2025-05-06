@@ -24,8 +24,8 @@ class ClockworkOutput extends Output
         return \function_exists('clock');
     }
 
-    public function output(Collection $scores, CommandFinished|Response $dispatcher): void
+    public function output(Collection $scores, CommandFinished|Response $dispatcher): mixed
     {
-        clock(...$scores);
+        return clock(...$scores);
     }
 }

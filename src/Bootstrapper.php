@@ -136,7 +136,7 @@ class Bootstrapper
         $pdo = $queryExecuted->connection->getPdo();
 
         return vsprintf($sqlWithPlaceholders, array_map(
-            static fn ($binding): string => \is_string($binding) ? $pdo->quote($binding) : var_export($binding, true),
+            static fn (mixed $binding): string => \is_string($binding) ? $pdo->quote($binding) : var_export($binding, true),
             $bindings
         ));
     }
@@ -149,10 +149,10 @@ class Bootstrapper
         return collect(debug_backtrace(\DEBUG_BACKTRACE_IGNORE_ARGS, $limit))
             ->forget($forgetLines)
             ->filter(
-                static fn ($trace): bool => isset($trace['file'], $trace['line'])
+                static fn (array $trace): bool => isset($trace['file'], $trace['line'])
                     && !Str::contains($trace['file'], 'vendor')
             )
-            ->map(static fn ($trace, $index): string => \sprintf(
+            ->map(static fn (array $trace, int $index): string => \sprintf(
                 '#%s %s:%s',
                 $index,
                 str_replace(base_path(), '', $trace['file']),
@@ -201,7 +201,7 @@ class Bootstrapper
      */
     protected function matchQuery(Collection $queries, array $score): array
     {
-        $query = $queries->first(static fn ($query): bool => $score['Sample'] === $query['sql']);
+        $query = $queries->first(static fn (array $query): bool => $score['Sample'] === $query['sql']);
 
         if ($query) {
             return $query;

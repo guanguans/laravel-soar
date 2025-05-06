@@ -27,7 +27,7 @@ class JsonOutput extends Output
         return $this->isJsonResponse($dispatcher);
     }
 
-    public function output(Collection $scores, CommandFinished|Response $dispatcher): void
+    public function output(Collection $scores, CommandFinished|Response $dispatcher): mixed
     {
         /** @var \Symfony\Component\HttpFoundation\JsonResponse $dispatcher */
         // $data = Arr::wrap($dispatcher->getData(true));
@@ -37,5 +37,7 @@ class JsonOutput extends Output
         // Update the new content and reset the content length
         $dispatcher->setData($data);
         $dispatcher->headers->remove('Content-Length');
+
+        return $dispatcher;
     }
 }

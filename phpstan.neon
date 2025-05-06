@@ -16,7 +16,7 @@ includes:
 #    - vendor/shipmonk/dead-code-detector/rules.neon
 #    - vendor/staabm/phpstan-todo-by/extension.neon
 
-#    - vendor/symplify/phpstan-rules/config/code-complexity-rules.neon
+    - vendor/symplify/phpstan-rules/config/code-complexity-rules.neon
 #    - vendor/symplify/phpstan-rules/config/configurable-rules.neon
 #    - vendor/symplify/phpstan-rules/config/naming-rules.neon
 #    - vendor/symplify/phpstan-rules/config/static-rules.neon
@@ -37,7 +37,7 @@ parameters:
         - tests/Fixtures/
         - *.blade.php
 #    level: max
-    level: 5
+    level: 6
     tmpDir: .build/phpstan/
     editorUrl: 'phpstorm://open?file=%%file%%&line=%%line%%'
 #    errorFormat: symplify
@@ -56,16 +56,16 @@ parameters:
 #            - Rector\Contract\Rector\RectorInterface
     type_coverage:
         declare: 100
-        param_type: 0
-        return_type: 0
-        constant_type: 0
-        property_type: 0
+        param_type: 100
+        return_type: 100
+        constant_type: 100
+        property_type: 100
     type_perfect:
-        narrow_param: false
-        narrow_return: false
-        null_over_false: false
+        narrow_param: true
+        narrow_return: true
+        null_over_false: true
         no_mixed: false
-        no_mixed_property: false
+        no_mixed_property: true
         no_mixed_caller: false
     disallowedFunctionCalls:
         -
@@ -77,7 +77,7 @@ parameters:
     ignoreErrors:
         - '#^Call to method label\(\) on an unknown class Spatie\\.*\\Ray\.$#'
         - '#^Function clock not found\.$#'
-#        - identifier: argument.templateType
+        - identifier: argument.templateType
 #        - identifier: argument.type
 #        - identifier: binaryOp.invalid
 #        - identifier: cast.string
@@ -85,13 +85,13 @@ parameters:
 #        - identifier: logicalAnd.resultUnused
 #        - identifier: method.nonObject
 #        - identifier: missingType.generics
-#        - identifier: missingType.iterableValue
+        - identifier: missingType.iterableValue
 #        - identifier: return.type
 #        - identifier: return.void
 #        - identifier: symplify.noDynamicName
 #        - identifier: typePerfect.noMixedMethodCaller
 #        - identifier: method.nonObject
-#        - identifier: missingType.generics
+        - identifier: missingType.generics
 
 #        - identifier: argument.type
         - identifier: return.type

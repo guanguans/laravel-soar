@@ -17,7 +17,6 @@ use Guanguans\LaravelSoar\Contracts\Output;
 use Guanguans\LaravelSoar\Contracts\Sanitizer;
 use Guanguans\LaravelSoar\Events\OutputtedEvent;
 use Guanguans\LaravelSoar\Events\OutputtingEvent;
-use Guanguans\LaravelSoar\Exceptions\InvalidArgumentException;
 use Illuminate\Console\Events\CommandFinished;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Fluent;
@@ -26,20 +25,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class OutputManager extends Fluent implements Output
 {
-    /**
-     * @noinspection MagicMethodsValidityInspection
-     * @noinspection MissingParentCallInspection
-     * @noinspection PhpMissingParentConstructorInspection
-     *
-     * @param list<\Guanguans\LaravelSoar\Contracts\Output> $outputs
-     */
-    public function __construct(array $outputs = [])
-    {
-        foreach ($outputs as $index => $output) {
-            $this->offsetSet($index, $output);
-        }
-    }
-
     public function shouldOutput(CommandFinished|Response $dispatcher): bool
     {
         $exclusions = config('soar.exclusions', []);
@@ -51,10 +36,10 @@ class OutputManager extends Fluent implements Output
         return !request()->is($exclusions) && !request()->routeIs($exclusions);
     }
 
-    public function output(Collection $scores, CommandFinished|Response $dispatcher): void
+    public function output(Collection $scores, CommandFinished|Response $dispatcher): mixed
     {
         if (!$this->shouldOutput($dispatcher)) {
-            return;
+            return null;
         }
 
         /** @var \Guanguans\LaravelSoar\Contracts\Output $output */
@@ -68,17 +53,7 @@ class OutputManager extends Fluent implements Output
             $result = $output->output($scores, $dispatcher);
             event(new OutputtedEvent($output, $scores, $result));
         }
-    }
 
-    /**
-     * @noinspection MissingParentCallInspection
-     */
-    public function offsetSet(mixed $offset, mixed $value): void
-    {
-        if (!$value instanceof Output) {
-            throw new InvalidArgumentException(\sprintf('The value must be instance of %s', Output::class));
-        }
-
-        $this->attributes[$offset] = $value;
+        return null;
     }
 }

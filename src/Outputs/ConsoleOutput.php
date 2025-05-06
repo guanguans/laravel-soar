@@ -26,7 +26,7 @@ class ConsoleOutput extends Output
         return $this->isHtmlResponse($dispatcher);
     }
 
-    public function output(Collection $scores, CommandFinished|Response $dispatcher): void
+    public function output(Collection $scores, CommandFinished|Response $dispatcher): mixed
     {
         $js = $this->toJavascript($scores);
         $content = $dispatcher->getContent();
@@ -38,6 +38,8 @@ class ConsoleOutput extends Output
         // Update the new content and reset the content length
         $dispatcher->setContent($content);
         $dispatcher->headers->remove('Content-Length');
+
+        return $dispatcher;
     }
 
     /**

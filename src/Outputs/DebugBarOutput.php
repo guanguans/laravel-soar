@@ -37,7 +37,7 @@ class DebugBarOutput extends Output
     /**
      * @throws \JsonException
      */
-    public function output(Collection $scores, CommandFinished|Response $dispatcher): void
+    public function output(Collection $scores, CommandFinished|Response $dispatcher): mixed
     {
         $laravelDebugbar = app(LaravelDebugbar::class);
 
@@ -50,5 +50,7 @@ class DebugBarOutput extends Output
             $this->label,
             false
         ));
+
+        return $laravelDebugbar;
     }
 }

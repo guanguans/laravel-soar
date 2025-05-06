@@ -25,7 +25,7 @@ class QueryBuilderMixin
     {
         return fn (): string => array_reduce(
             $this->getBindings(),
-            static fn ($sql, $binding) => preg_replace('/\?/', is_numeric($binding) ? (string) $binding : "'".$binding."'", $sql, 1),
+            static fn (string $sql, mixed $binding): string => preg_replace('/\?/', is_numeric($binding) ? (string) $binding : "'".$binding."'", $sql, 1),
             $this->toSql()
         );
     }

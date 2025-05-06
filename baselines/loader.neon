@@ -1,3 +1,4 @@
-# total 1 error
+# total 3 errors
 includes:
     - argument.unresolvableType.neon
+    - method.unresolvableReturnType.neon
