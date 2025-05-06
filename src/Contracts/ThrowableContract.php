@@ -13,4 +13,4 @@ declare(strict_types=1);
 
 namespace Guanguans\LaravelSoar\Contracts;
 
-interface Throwable extends \Throwable {}
+interface ThrowableContract extends \Throwable {}

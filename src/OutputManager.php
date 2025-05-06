@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace Guanguans\LaravelSoar;
 
 use Guanguans\LaravelSoar\Contracts\Output;
-use Guanguans\LaravelSoar\Contracts\Sanitizer;
+use Guanguans\LaravelSoar\Contracts\SanitizerContract;
 use Guanguans\LaravelSoar\Events\OutputtedEvent;
 use Guanguans\LaravelSoar\Events\OutputtingEvent;
 use Illuminate\Console\Events\CommandFinished;
@@ -50,7 +50,7 @@ class OutputManager extends Fluent implements Output
                 continue;
             }
 
-            $output instanceof Sanitizer and $scores = $output->sanitize($scores);
+            $output instanceof SanitizerContract and $scores = $output->sanitize($scores);
             event(new OutputtingEvent($output, $scores, $dispatcher));
             $result = $output->output($scores, $dispatcher);
             event(new OutputtedEvent($output, $scores, $result));

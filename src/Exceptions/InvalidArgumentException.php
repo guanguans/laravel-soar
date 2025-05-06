@@ -13,6 +13,6 @@ declare(strict_types=1);
 
 namespace Guanguans\LaravelSoar\Exceptions;
 
-use Guanguans\LaravelSoar\Contracts\Throwable;
+use Guanguans\LaravelSoar\Contracts\ThrowableContract;
 
-class InvalidArgumentException extends \InvalidArgumentException implements Throwable {}
+class InvalidArgumentException extends \InvalidArgumentException implements ThrowableContract {}

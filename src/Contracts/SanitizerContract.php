@@ -15,7 +15,7 @@ namespace Guanguans\LaravelSoar\Contracts;
 
 use Illuminate\Support\Collection;
 
-interface Sanitizer
+interface SanitizerContract
 {
     public function sanitize(Collection $scores): Collection;
 }
