@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Guanguans\LaravelSoar;
 
-use Guanguans\LaravelSoar\Contracts\Output;
+use Guanguans\LaravelSoar\Contracts\OutputContract;
 use Guanguans\LaravelSoar\Contracts\SanitizerContract;
 use Guanguans\LaravelSoar\Events\OutputtedEvent;
 use Guanguans\LaravelSoar\Events\OutputtingEvent;
@@ -24,7 +24,7 @@ use Illuminate\Support\Fluent;
 use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\Response;
 
-class OutputManager extends Fluent implements Output
+class OutputManager extends Fluent implements OutputContract
 {
     public function shouldOutput(CommandFinished|Response $dispatcher): bool
     {
@@ -44,7 +44,7 @@ class OutputManager extends Fluent implements Output
         }
 
         foreach ($this->attributes as $output) {
-            \assert($output instanceof Output);
+            \assert($output instanceof OutputContract);
 
             if (!$output->shouldOutput($dispatcher)) {
                 continue;

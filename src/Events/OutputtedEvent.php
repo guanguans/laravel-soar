@@ -13,13 +13,13 @@ declare(strict_types=1);
 
 namespace Guanguans\LaravelSoar\Events;
 
-use Guanguans\LaravelSoar\Contracts\Output;
+use Guanguans\LaravelSoar\Contracts\OutputContract;
 use Illuminate\Support\Collection;
 
 class OutputtedEvent
 {
     public function __construct(
-        public Output $output,
+        public OutputContract $output,
         public Collection $scores,
         public mixed $result
     ) {}

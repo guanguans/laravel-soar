@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Guanguans\LaravelSoar\Outputs;
 
+use Guanguans\LaravelSoar\Contracts\OutputContract;
 use Guanguans\LaravelSoar\Contracts\SanitizerContract;
 use Guanguans\LaravelSoar\Outputs\Concerns\OutputConditions;
 use Guanguans\LaravelSoar\Outputs\Concerns\ScoresHydrator;
@@ -20,7 +21,7 @@ use Guanguans\LaravelSoar\Outputs\Concerns\ScoresSanitizer;
 use Illuminate\Console\Events\CommandFinished;
 use Symfony\Component\HttpFoundation\Response;
 
-abstract class Output implements \Guanguans\LaravelSoar\Contracts\Output, SanitizerContract
+abstract class Output implements OutputContract, SanitizerContract
 {
     use OutputConditions;
     use ScoresHydrator;

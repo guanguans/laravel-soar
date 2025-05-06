@@ -17,7 +17,7 @@ use Illuminate\Console\Events\CommandFinished;
 use Illuminate\Support\Collection;
 use Symfony\Component\HttpFoundation\Response;
 
-interface Output
+interface OutputContract
 {
     public function shouldOutput(CommandFinished|Response $dispatcher): bool;
 

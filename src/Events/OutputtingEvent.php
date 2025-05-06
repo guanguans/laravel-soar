@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Guanguans\LaravelSoar\Events;
 
-use Guanguans\LaravelSoar\Contracts\Output;
+use Guanguans\LaravelSoar\Contracts\OutputContract;
 use Illuminate\Console\Events\CommandFinished;
 use Illuminate\Support\Collection;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,7 +21,7 @@ use Symfony\Component\HttpFoundation\Response;
 class OutputtingEvent
 {
     public function __construct(
-        public Output $output,
+        public OutputContract $output,
         public Collection $scores,
         public CommandFinished|Response $dispatcher
     ) {}
