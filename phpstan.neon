@@ -18,12 +18,12 @@ includes:
 
     - vendor/symplify/phpstan-rules/config/code-complexity-rules.neon
 #    - vendor/symplify/phpstan-rules/config/configurable-rules.neon
-#    - vendor/symplify/phpstan-rules/config/naming-rules.neon
-#    - vendor/symplify/phpstan-rules/config/static-rules.neon
+    - vendor/symplify/phpstan-rules/config/naming-rules.neon
+    - vendor/symplify/phpstan-rules/config/static-rules.neon
 #    - vendor/symplify/phpstan-rules/config/symplify-rules.neon
 
 #    - vendor/symplify/phpstan-rules/config/doctrine-rules.neon
-#    - vendor/symplify/phpstan-rules/config/phpunit-rules.neon
+    - vendor/symplify/phpstan-rules/config/phpunit-rules.neon
 #    - vendor/symplify/phpstan-rules/config/rector-rules.neon
 #    - vendor/symplify/phpstan-rules/config/symfony-rules.neon
 
@@ -91,6 +91,11 @@ parameters:
         - identifier: missingType.iterableValue
         - identifier: return.type
         - identifier: shipmonk.deadMethod
+        - identifier: symplify.explicitTraitSuffixName
+        - identifier: symplify.requireExceptionNamespace
+        -
+            identifier: symplify.explicitInterfaceSuffixName
+            path: src/Contracts/
         -
             message: '#^Calling env\(\) is forbidden, use config\(\) instead\.$#'
             paths:

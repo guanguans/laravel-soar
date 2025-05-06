@@ -17,7 +17,7 @@ use Illuminate\Console\Events\CommandFinished;
 use Illuminate\Support\Collection;
 use Symfony\Component\HttpFoundation\Response;
 
-class DumpOutput extends Output
+class DumpOutput extends AbstractOutput
 {
     public function __construct(private bool $exit = false) {}
 

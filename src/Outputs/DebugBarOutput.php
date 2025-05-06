@@ -19,7 +19,7 @@ use Illuminate\Console\Events\CommandFinished;
 use Illuminate\Support\Collection;
 use Symfony\Component\HttpFoundation\Response;
 
-class DebugBarOutput extends Output
+class DebugBarOutput extends AbstractOutput
 {
     public function __construct(
         protected string $name = 'Soar Scores',

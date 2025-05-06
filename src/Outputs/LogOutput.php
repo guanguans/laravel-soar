@@ -18,7 +18,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\Response;
 
-class LogOutput extends Output
+class LogOutput extends AbstractOutput
 {
     public function __construct(
         protected string $channel = 'daily',

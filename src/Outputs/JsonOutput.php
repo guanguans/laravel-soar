@@ -19,7 +19,7 @@ use Illuminate\Support\Collection;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
-class JsonOutput extends Output
+class JsonOutput extends AbstractOutput
 {
     public function __construct(protected string $key = 'soar_scores') {}
 

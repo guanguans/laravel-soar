@@ -17,7 +17,7 @@ use Illuminate\Console\Events\CommandFinished;
 use Illuminate\Support\Collection;
 use Symfony\Component\HttpFoundation\Response;
 
-class ClockworkOutput extends Output
+class ClockworkOutput extends AbstractOutput
 {
     /**
      * @noinspection PhpMissingParentCallCommonInspection

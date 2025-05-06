@@ -5,4 +5,4 @@ parameters:
         -
             message: '#^Access to an undefined property Illuminate\\Console\\Events\\CommandFinished\|Symfony\\Component\\HttpFoundation\\Response\:\:\$headers\.$#'
             count: 1
-            path: ../src/Outputs/Output.php
+            path: ../src/Outputs/AbstractOutput.php

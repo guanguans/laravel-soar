@@ -21,7 +21,7 @@ use Guanguans\LaravelSoar\Outputs\Concerns\ScoresSanitizer;
 use Illuminate\Console\Events\CommandFinished;
 use Symfony\Component\HttpFoundation\Response;
 
-abstract class Output implements OutputContract, SanitizerContract
+abstract class AbstractOutput implements OutputContract, SanitizerContract
 {
     use OutputConditions;
     use ScoresHydrator;
