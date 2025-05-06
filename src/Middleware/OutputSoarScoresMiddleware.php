@@ -30,7 +30,7 @@ class OutputSoarScoresMiddleware
      */
     public function handle(Request $request, callable $next): Response
     {
-        return tap($next($request), fn (Response $response) => $this->outputManager->output(
+        return tap($next($request), fn (Response $response): mixed => $this->outputManager->output(
             $this->bootstrapper->getScores(),
             $response
         ));

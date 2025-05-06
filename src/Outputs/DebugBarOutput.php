@@ -39,13 +39,15 @@ class DebugBarOutput extends Output
      */
     public function output(Collection $scores, CommandFinished|Response $dispatcher): mixed
     {
-        $debugBar = app(LaravelDebugbar::class);
+        $debugBar = resolve(LaravelDebugbar::class);
+
+        \assert($debugBar instanceof LaravelDebugbar);
 
         if (!$debugBar->hasCollector($this->name)) {
             $debugBar->addCollector(new MessagesCollector($this->name));
         }
 
-        $scores->each(fn (array $score) => $debugBar[$this->name]->addMessage(
+        $scores->each(fn (array $score) => $debugBar->getCollector($this->name)->addMessage(
             $this->hydrateScore($score),
             $this->label,
             false

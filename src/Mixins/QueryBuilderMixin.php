@@ -52,7 +52,7 @@ class QueryBuilderMixin
 
     public function toSoarArrayScores(): \Closure
     {
-        return fn (int $depth = 512, int $options = 0): array => app(Soar::class)->arrayScores(
+        return fn (int $depth = 512, int $options = 0): array => resolve(Soar::class)->arrayScores(
             $this->toRawSql(),
             $depth,
             $options
@@ -81,7 +81,7 @@ class QueryBuilderMixin
 
     public function toSoarJsonScores(): \Closure
     {
-        return fn (): string => app(Soar::class)->jsonScores($this->toRawSql());
+        return fn (): string => resolve(Soar::class)->jsonScores($this->toRawSql());
     }
 
     /**
@@ -106,7 +106,7 @@ class QueryBuilderMixin
 
     public function toSoarHtmlScores(): \Closure
     {
-        return fn (): string => app(Soar::class)->htmlScores($this->toRawSql());
+        return fn (): string => resolve(Soar::class)->htmlScores($this->toRawSql());
     }
 
     /**

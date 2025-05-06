@@ -1,0 +1,13 @@
+# total 2 errors
+
+parameters:
+    ignoreErrors:
+        -
+            message: '#^Cannot use array destructuring on mixed\.$#'
+            count: 1
+            path: ../src/Commands/RunCommand.php
+
+        -
+            message: '#^Cannot use array destructuring on mixed\.$#'
+            count: 1
+            path: ../src/Commands/ScoreCommand.php

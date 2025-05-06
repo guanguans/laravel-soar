@@ -36,8 +36,8 @@ parameters:
     excludePaths:
         - tests/Fixtures/
         - *.blade.php
-#    level: max
-    level: 7
+    level: max
+#    level: 10
     tmpDir: .build/phpstan/
     editorUrl: 'phpstorm://open?file=%%file%%&line=%%line%%'
 #    errorFormat: symplify
@@ -77,23 +77,18 @@ parameters:
     ignoreErrors:
         - '#^Call to method label\(\) on an unknown class Spatie\\.*\\Ray\.$#'
         - '#^Function clock not found\.$#'
-        - identifier: argument.templateType
-        - identifier: argument.type
-#        - identifier: binaryOp.invalid
 #        - identifier: cast.string
-#        - identifier: encapsedStringPart.nonString
 #        - identifier: logicalAnd.resultUnused
-#        - identifier: method.nonObject
-#        - identifier: missingType.generics
-        - identifier: missingType.iterableValue
-#        - identifier: return.type
 #        - identifier: return.void
 #        - identifier: symplify.noDynamicName
 #        - identifier: typePerfect.noMixedMethodCaller
-#        - identifier: method.nonObject
+        - identifier: argument.templateType
+        - identifier: argument.type
+        - identifier: binaryOp.invalid
+        - identifier: encapsedStringPart.nonString
+        - identifier: method.nonObject
         - identifier: missingType.generics
-
-#        - identifier: argument.type
+        - identifier: missingType.iterableValue
         - identifier: return.type
         - identifier: shipmonk.deadMethod
         -
@@ -103,12 +98,6 @@ parameters:
                 - src/Support/helpers.php
         -
             messages:
-#                - '#^Access to an undefined property App\\Support\\Mixins\\.*Mixin\:\:\$.*\.$#'
-#                - '#^Call to protected method .*\(\) of class Illuminate\\.*\.$#'
-#                - '#^Call to protected static method this\(\) of class .*\\.*\.$#'
-#                - '#^Class App\\Support\\Mixins\\.*Mixin does not have a constructor and must be instantiated without any parameters\.$#'
                 - '#^Method Guanguans\\LaravelSoar\\Mixins\\QueryBuilderMixin\:\:.*\(\) invoked with \d parameters?, 0 required\.$#'
-#                - '#^PHPDoc tag @var with type .* is not subtype of native type .*\.$#'
-#                - '#^Undefined variable\: \$this$#'
                 - '#^Parameter \#1 \(Closure\) of echo cannot be converted to string\.$#'
             path: src/Mixins/

@@ -1,7 +1,12 @@
-# total 1 error
+# total 2 errors
 
 parameters:
     ignoreErrors:
+        -
+            message: '#^Call to an undefined method DebugBar\\DataCollector\\DataCollectorInterface\:\:addMessage\(\)\.$#'
+            count: 1
+            path: ../src/Outputs/DebugBarOutput.php
+
         -
             message: '#^Call to an undefined method Illuminate\\Console\\Events\\CommandFinished\|Symfony\\Component\\HttpFoundation\\Response\:\:getContent\(\)\.$#'
             count: 1

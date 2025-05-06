@@ -187,7 +187,7 @@ class Bootstrapper
     {
         return $queries
             ->map(static fn (array $query): string => $query['sql'])
-            ->pipe(static fn (Collection $sqls): Collection => collect(app(Soar::class)->arrayScores($sqls->all())));
+            ->pipe(static fn (Collection $sqls): Collection => collect(resolve(Soar::class)->arrayScores($sqls->all())));
     }
 
     /**
