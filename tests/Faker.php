@@ -24,6 +24,9 @@ use Faker\Generator;
 
 trait Faker
 {
+    /**
+     * @noinspection MethodVisibilityInspection
+     */
     final protected function faker(string $locale = Factory::DEFAULT_LOCALE): Generator
     {
         /**

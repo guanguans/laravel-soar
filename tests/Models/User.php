@@ -26,12 +26,12 @@ class User extends Authenticatable
 {
     use Notifiable;
 
-    /** The attributes that are mass assignable. */
+    /** @noinspection ClassOverridesFieldOfSuperClassInspection */
     protected $fillable = [
         'name', 'email', 'password',
     ];
 
-    /** The attributes that should be hidden for arrays. */
+    /** @noinspection ClassOverridesFieldOfSuperClassInspection */
     protected $hidden = [
         'password', 'remember_token',
     ];

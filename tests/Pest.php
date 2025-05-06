@@ -20,10 +20,8 @@ declare(strict_types=1);
  * @see https://github.com/guanguans/laravel-soar
  */
 
-use Composer\Autoload\ClassLoader;
 use Faker\Factory;
 use Guanguans\LaravelSoarTests\TestCase;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Artisan;
 use Pest\Expectation;
 
@@ -70,19 +68,6 @@ expect()->extend('toBetween', fn (int $min, int $max): Expectation => expect($th
 | global functions to help you to reduce the number of lines of code in your test files.
 |
  */
-
-// function classes(): Collection
-// {
-//     return collect(spl_autoload_functions())
-//         ->pipe(static fn (Collection $splAutoloadFunctions): Collection => collect(
-//             $splAutoloadFunctions
-//                 ->firstOrFail(
-//                     static fn (mixed $loader): bool => \is_array($loader) && $loader[0] instanceof ClassLoader
-//                 )[0]
-//                 ->getClassMap()
-//         ))
-//         ->keys();
-// }
 
 /**
  * @throws ReflectionException

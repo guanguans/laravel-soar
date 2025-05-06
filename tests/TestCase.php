@@ -44,7 +44,7 @@ use phpmock\phpunit\PHPMock;
 use Spatie\Snapshots\MatchesSnapshots;
 use Symfony\Component\VarDumper\Test\VarDumperTestTrait;
 
-abstract class TestCase extends \Orchestra\Testbench\TestCase
+class TestCase extends \Orchestra\Testbench\TestCase
 {
     use Faker;
     use MatchesSnapshots;
@@ -61,6 +61,9 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
         RayOutput::class => ['label' => 'Soar Scores'],
     ];
 
+    /**
+     * @noinspection MethodVisibilityInspection
+     */
     protected function setUp(): void
     {
         parent::setUp();
@@ -70,6 +73,9 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
         $this->seed(UserSeeder::class);
     }
 
+    /**
+     * @noinspection MethodVisibilityInspection
+     */
     protected function tearDown(): void
     {
         $this->closeMockery();
@@ -79,7 +85,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
     /**
      * @param array<class-string, array<string, mixed>>|class-string|list<class-string> $outputs
      */
-    final public static function extendOutputManagerWithOutputs($outputs): void
+    public static function extendOutputManager(array|string $outputs): void
     {
         app()->extend(OutputManager::class, static function (OutputManager $outputManager) use ($outputs): OutputManager {
             foreach ((array) $outputs as $class => $parameters) {
@@ -94,7 +100,10 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
         });
     }
 
-    protected function getPackageProviders($app)
+    /**
+     * @noinspection MethodVisibilityInspection
+     */
+    protected function getPackageProviders(mixed $app): array
     {
         return [
             SoarServiceProvider::class,
@@ -104,14 +113,22 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
         ];
     }
 
-    protected function getPackageAliases($app): array
+    /**
+     * @noinspection PhpMissingParentCallCommonInspection
+     * @noinspection MethodVisibilityInspection
+     */
+    protected function getPackageAliases(mixed $app): array
     {
         return [
             'Soar' => Soar::class,
         ];
     }
 
-    protected function defineEnvironment($app): void
+    /**
+     * @noinspection PhpMissingParentCallCommonInspection
+     * @noinspection MethodVisibilityInspection
+     */
+    protected function defineEnvironment(mixed $app): void
     {
         config()->set('app.key', 'base64:6Cu/ozj4gPtIjmXjr8EdVnGFNsdRqZfHfVjQkmTlg4Y=');
 
@@ -128,25 +145,10 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
         config()->set('soar.options.-online-dsn.disable', true);
     }
 
-    protected function setUpDatabase(): void
-    {
-        $this->app->make(ConnectionResolverInterface::class)
-            ->connection()
-            ->getSchemaBuilder()
-            ->create('users', static function (Blueprint $blueprint): void {
-                $blueprint->bigIncrements('id');
-                $blueprint->string('name');
-                $blueprint->string('email')->unique();
-                $blueprint->timestamp('email_verified_at')->nullable();
-                $blueprint->string('password');
-                $blueprint->rememberToken();
-                $blueprint->timestamps();
-            });
-    }
-
     /**
      * @noinspection PhpUndefinedMethodInspection
-     * @noinspection PhpUndefinedFieldInspection
+     * @noinspection PhpMissingParentCallCommonInspection
+     * @noinspection MethodVisibilityInspection
      */
     protected function defineRoutes(mixed $router): void
     {
@@ -161,7 +163,8 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
         };
 
         Artisan::command('outputs', function () use ($query): void {
-            TestCase::extendOutputManagerWithOutputs(TestCase::OUTPUTS);
+            /** @noinspection ClassSelfReferenceFormatInspection */
+            TestCase::extendOutputManager(TestCase::OUTPUTS);
 
             $query();
 
@@ -169,15 +172,31 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
         });
 
         Route::get('outputs', static fn () => tap(response(OutputManager::class), function () use ($query): void {
-            self::extendOutputManagerWithOutputs(self::OUTPUTS);
+            self::extendOutputManager(self::OUTPUTS);
 
             $query();
         }));
 
         Route::get('json', static fn () => tap(new JsonResponse(JsonOutput::class), function () use ($query): void {
-            self::extendOutputManagerWithOutputs(JsonOutput::class);
+            self::extendOutputManager(JsonOutput::class);
 
             $query();
         }));
+    }
+
+    private function setUpDatabase(): void
+    {
+        $this->app->make(ConnectionResolverInterface::class)
+            ->connection()
+            ->getSchemaBuilder()
+            ->create('users', static function (Blueprint $blueprint): void {
+                $blueprint->bigIncrements('id');
+                $blueprint->string('name');
+                $blueprint->string('email')->unique();
+                $blueprint->timestamp('email_verified_at')->nullable();
+                $blueprint->string('password');
+                $blueprint->rememberToken();
+                $blueprint->timestamps();
+            });
     }
 }

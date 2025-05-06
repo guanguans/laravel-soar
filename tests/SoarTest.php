@@ -20,8 +20,8 @@ declare(strict_types=1);
 use Guanguans\LaravelSoar\Facades\Soar;
 
 it('can add macro method', function (): void {
-    Soar::macro('foo', function (): void {});
+    Soar::macro('foo', fn (): mixed => null);
 
-    /** @noinspection PhpUndefinedMethodInspection */
+    /** @noinspection PhpVoidFunctionResultUsedInspection */
     expect(Soar::foo())->toBeNull();
 })->group(__DIR__, __FILE__);
