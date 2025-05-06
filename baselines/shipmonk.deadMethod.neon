@@ -43,44 +43,44 @@ parameters:
             path: ../src/Http/Middleware/OutputSoarScoresMiddleware.php
 
         -
-            message: '#^Unused Guanguans\\LaravelSoar\\Macros\\QueryBuilderMacro\:\:ddRawSql$#'
+            message: '#^Unused Guanguans\\LaravelSoar\\Mixins\\QueryBuilderMacro\:\:ddRawSql$#'
             count: 1
-            path: ../src/Macros/QueryBuilderMacro.php
+            path: ../src/Mixins/QueryBuilderMacro.php
 
         -
-            message: '#^Unused Guanguans\\LaravelSoar\\Macros\\QueryBuilderMacro\:\:ddSoarArrayScores$#'
+            message: '#^Unused Guanguans\\LaravelSoar\\Mixins\\QueryBuilderMacro\:\:ddSoarArrayScores$#'
             count: 1
-            path: ../src/Macros/QueryBuilderMacro.php
+            path: ../src/Mixins/QueryBuilderMacro.php
 
         -
-            message: '#^Unused Guanguans\\LaravelSoar\\Macros\\QueryBuilderMacro\:\:ddSoarJsonScores$#'
+            message: '#^Unused Guanguans\\LaravelSoar\\Mixins\\QueryBuilderMacro\:\:ddSoarJsonScores$#'
             count: 1
-            path: ../src/Macros/QueryBuilderMacro.php
+            path: ../src/Mixins/QueryBuilderMacro.php
 
         -
-            message: '#^Unused Guanguans\\LaravelSoar\\Macros\\QueryBuilderMacro\:\:dumpRawSql$#'
+            message: '#^Unused Guanguans\\LaravelSoar\\Mixins\\QueryBuilderMacro\:\:dumpRawSql$#'
             count: 1
-            path: ../src/Macros/QueryBuilderMacro.php
+            path: ../src/Mixins/QueryBuilderMacro.php
 
         -
-            message: '#^Unused Guanguans\\LaravelSoar\\Macros\\QueryBuilderMacro\:\:dumpSoarArrayScores$#'
+            message: '#^Unused Guanguans\\LaravelSoar\\Mixins\\QueryBuilderMacro\:\:dumpSoarArrayScores$#'
             count: 1
-            path: ../src/Macros/QueryBuilderMacro.php
+            path: ../src/Mixins/QueryBuilderMacro.php
 
         -
-            message: '#^Unused Guanguans\\LaravelSoar\\Macros\\QueryBuilderMacro\:\:dumpSoarJsonScores$#'
+            message: '#^Unused Guanguans\\LaravelSoar\\Mixins\\QueryBuilderMacro\:\:dumpSoarJsonScores$#'
             count: 1
-            path: ../src/Macros/QueryBuilderMacro.php
+            path: ../src/Mixins/QueryBuilderMacro.php
 
         -
-            message: '#^Unused Guanguans\\LaravelSoar\\Macros\\QueryBuilderMacro\:\:echoSoarHtmlScores$#'
+            message: '#^Unused Guanguans\\LaravelSoar\\Mixins\\QueryBuilderMacro\:\:echoSoarHtmlScores$#'
             count: 1
-            path: ../src/Macros/QueryBuilderMacro.php
+            path: ../src/Mixins/QueryBuilderMacro.php
 
         -
-            message: '#^Unused Guanguans\\LaravelSoar\\Macros\\QueryBuilderMacro\:\:exitSoarHtmlScores$#'
+            message: '#^Unused Guanguans\\LaravelSoar\\Mixins\\QueryBuilderMacro\:\:exitSoarHtmlScores$#'
             count: 1
-            path: ../src/Macros/QueryBuilderMacro.php
+            path: ../src/Mixins/QueryBuilderMacro.php
 
         -
             message: '#^Unused Guanguans\\LaravelSoar\\Outputs\\Concerns\\OutputConditions\:\:isCommandFinished$#'

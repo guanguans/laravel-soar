@@ -16,7 +16,7 @@ namespace Guanguans\LaravelSoar;
 use Guanguans\LaravelSoar\Commands\ClearCommand;
 use Guanguans\LaravelSoar\Commands\RunCommand;
 use Guanguans\LaravelSoar\Commands\ScoreCommand;
-use Guanguans\LaravelSoar\Macros\QueryBuilderMacro;
+use Guanguans\LaravelSoar\Mixins\QueryBuilderMacro;
 use Guanguans\LaravelSoar\Outputs\ClockworkOutput;
 use Guanguans\LaravelSoar\Outputs\ConsoleOutput;
 use Guanguans\LaravelSoar\Outputs\DebugBarOutput;

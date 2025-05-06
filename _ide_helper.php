@@ -30,7 +30,7 @@ namespace Illuminate\Database\Query {
      * @method string toSoarHtmlScores()
      * @method string toSoarJsonScores()
      *
-     * @see \Guanguans\LaravelSoar\Macros\QueryBuilderMacro
+     * @see \Guanguans\LaravelSoar\Mixins\QueryBuilderMacro
      * @see \Illuminate\Database\Query\Builder
      */
     class Builder {}
@@ -53,7 +53,7 @@ namespace Illuminate\Database\Eloquent {
      *
      * @mixin \Illuminate\Database\Query\Builder
      *
-     * @see \Guanguans\LaravelSoar\Macros\QueryBuilderMacro
+     * @see \Guanguans\LaravelSoar\Mixins\QueryBuilderMacro
      * @see \Illuminate\Database\Eloquent\Builder
      */
     class Builder {}
@@ -76,7 +76,7 @@ namespace Illuminate\Database\Eloquent\Relations {
      *
      * @mixin \Illuminate\Database\Eloquent\Builder
      *
-     * @see \Guanguans\LaravelSoar\Macros\QueryBuilderMacro
+     * @see \Guanguans\LaravelSoar\Mixins\QueryBuilderMacro
      * @see \Illuminate\Database\Eloquent\Relations\Relation
      */
     class Relation {}

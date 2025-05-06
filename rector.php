@@ -227,7 +227,7 @@ return RectorConfig::configure()
     ])
     ->withSkip([
         RemoveExtraParametersRector::class => $staticClosureSkipPaths = [
-            __DIR__.'/src/Macros/QueryBuilderMacro.php',
+            __DIR__.'/src/Mixins/QueryBuilderMacro.php',
         ],
         StaticArrowFunctionRector::class => $staticClosureSkipPaths = [
             __DIR__.'/tests',

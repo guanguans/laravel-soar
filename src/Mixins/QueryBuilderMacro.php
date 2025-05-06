@@ -11,7 +11,7 @@ declare(strict_types=1);
  * @see https://github.com/guanguans/laravel-soar
  */
 
-namespace Guanguans\LaravelSoar\Macros;
+namespace Guanguans\LaravelSoar\Mixins;
 
 use Guanguans\LaravelSoar\Soar;
 

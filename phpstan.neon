@@ -93,3 +93,13 @@ parameters:
 
         - identifier: argument.type
         - identifier: return.type
+#        -
+#            messages:
+#                - '#^Access to an undefined property App\\Support\\Mixins\\.*Mixin\:\:\$.*\.$#'
+#                - '#^Call to protected method .*\(\) of class Illuminate\\.*\.$#'
+#                - '#^Call to protected static method this\(\) of class .*\\.*\.$#'
+#                - '#^Class App\\Support\\Mixins\\.*Mixin does not have a constructor and must be instantiated without any parameters\.$#'
+#                - '#^Method App\\Support\\Mixins\\.*Mixin\:\:.*\(\) invoked with \d parameters?, 0 required\.$#'
+#                - '#^PHPDoc tag @var with type .* is not subtype of native type .*\.$#'
+#                - '#^Undefined variable\: \$this$#'
+#            path: app/Support/Mixins/
