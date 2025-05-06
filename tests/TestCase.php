@@ -29,7 +29,6 @@ use Guanguans\LaravelSoar\Outputs\DebugBarOutput;
 use Guanguans\LaravelSoar\Outputs\DumpOutput;
 use Guanguans\LaravelSoar\Outputs\JsonOutput;
 use Guanguans\LaravelSoar\Outputs\LogOutput;
-use Guanguans\LaravelSoar\Outputs\NullOutput;
 use Guanguans\LaravelSoar\Outputs\RayOutput;
 use Guanguans\LaravelSoar\SoarServiceProvider;
 use Guanguans\LaravelSoarTests\Models\User;
@@ -59,7 +58,6 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
         DumpOutput::class => ['exit' => false],
         JsonOutput::class => ['key' => 'soar_scores'],
         LogOutput::class => ['channel' => 'daily', 'level' => 'warning'],
-        NullOutput::class,
         RayOutput::class => ['label' => 'Soar Scores'],
     ];
 

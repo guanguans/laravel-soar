@@ -42,10 +42,15 @@ return (new Configuration)
         ],
         [ErrorType::SHADOW_DEPENDENCY]
     )
+    ->ignoreErrorsOnPackageAndPath(
+        'maximebf/debugbar',
+        __DIR__.'/src/Outputs/DebugBarOutput.php',
+        [ErrorType::SHADOW_DEPENDENCY]
+    )
     ->ignoreErrorsOnPackagesAndPaths(
         [
             'barryvdh/laravel-debugbar',
-            'php-debugbar/php-debugbar',
+            // 'php-debugbar/php-debugbar',
         ],
         [__DIR__.'/src/Outputs/DebugBarOutput.php'],
         [ErrorType::DEV_DEPENDENCY_IN_PROD]

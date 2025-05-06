@@ -23,7 +23,6 @@ use Guanguans\LaravelSoar\Outputs\DebugBarOutput;
 use Guanguans\LaravelSoar\Outputs\DumpOutput;
 use Guanguans\LaravelSoar\Outputs\JsonOutput;
 use Guanguans\LaravelSoar\Outputs\LogOutput;
-use Guanguans\LaravelSoar\Outputs\NullOutput;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Relations\Relation as RelationBuilder;
@@ -44,7 +43,6 @@ class SoarServiceProvider extends ServiceProvider
         DumpOutput::class => DumpOutput::class,
         JsonOutput::class => JsonOutput::class,
         LogOutput::class => LogOutput::class,
-        NullOutput::class => NullOutput::class,
     ];
     protected bool $defer = false;
 
