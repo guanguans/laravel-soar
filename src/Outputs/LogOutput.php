@@ -13,8 +13,10 @@ declare(strict_types=1);
 
 namespace Guanguans\LaravelSoar\Outputs;
 
+use Illuminate\Console\Events\CommandFinished;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
+use Symfony\Component\HttpFoundation\Response;
 
 class LogOutput extends Output
 {
@@ -26,7 +28,7 @@ class LogOutput extends Output
     /**
      * @throws \JsonException
      */
-    public function output(Collection $scores, mixed $dispatcher): void
+    public function output(Collection $scores, CommandFinished|Response $dispatcher): void
     {
         $scores->each(fn (array $score) => Log::channel($this->channel)->log(
             $this->level,

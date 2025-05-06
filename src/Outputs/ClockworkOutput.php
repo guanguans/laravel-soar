@@ -19,7 +19,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ClockworkOutput extends Output
 {
-    public function shouldOutput($dispatcher): bool
+    public function shouldOutput(CommandFinished|Response $dispatcher): bool
     {
         return \function_exists('clock');
     }

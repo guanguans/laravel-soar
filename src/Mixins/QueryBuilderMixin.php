@@ -19,9 +19,9 @@ use Guanguans\LaravelSoar\Soar;
  * @mixin \Illuminate\Database\Eloquent\Builder
  * @mixin \Illuminate\Database\Query\Builder
  */
-class QueryBuilderMacro
+class QueryBuilderMixin
 {
-    public function toRawSql(): callable
+    public function toRawSql(): \Closure
     {
         return fn (): string => array_reduce(
             $this->getBindings(),
@@ -34,7 +34,7 @@ class QueryBuilderMacro
      * @noinspection DebugFunctionUsageInspection
      * @noinspection ForgottenDebugOutputInspection
      */
-    public function dumpRawSql(): callable
+    public function dumpRawSql(): \Closure
     {
         return fn (): string => dump($this->toRawSql());
     }
@@ -45,12 +45,12 @@ class QueryBuilderMacro
      *
      * @codeCoverageIgnore
      */
-    public function ddRawSql(): callable
+    public function ddRawSql(): \Closure
     {
         return fn () => dd($this->toRawSql());
     }
 
-    public function toSoarArrayScores(): callable
+    public function toSoarArrayScores(): \Closure
     {
         return fn (int $depth = 512, int $options = 0): array => app(Soar::class)->arrayScores(
             $this->toRawSql(),
@@ -63,7 +63,7 @@ class QueryBuilderMacro
      * @noinspection DebugFunctionUsageInspection
      * @noinspection ForgottenDebugOutputInspection
      */
-    public function dumpSoarArrayScores(): callable
+    public function dumpSoarArrayScores(): \Closure
     {
         return fn (int $depth = 512, int $options = 0): array => dump($this->toSoarArrayScores($depth, $options));
     }
@@ -74,12 +74,12 @@ class QueryBuilderMacro
      *
      * @codeCoverageIgnore
      */
-    public function ddSoarArrayScores(): callable
+    public function ddSoarArrayScores(): \Closure
     {
         return fn (int $depth = 512, int $options = 0) => dd($this->toSoarArrayScores($depth, $options));
     }
 
-    public function toSoarJsonScores(): callable
+    public function toSoarJsonScores(): \Closure
     {
         return fn (): string => app(Soar::class)->jsonScores($this->toRawSql());
     }
@@ -88,7 +88,7 @@ class QueryBuilderMacro
      * @noinspection DebugFunctionUsageInspection
      * @noinspection ForgottenDebugOutputInspection
      */
-    public function dumpSoarJsonScores(): callable
+    public function dumpSoarJsonScores(): \Closure
     {
         return fn (): string => dump($this->toSoarJsonScores());
     }
@@ -99,12 +99,12 @@ class QueryBuilderMacro
      *
      * @codeCoverageIgnore
      */
-    public function ddSoarJsonScores(): callable
+    public function ddSoarJsonScores(): \Closure
     {
         return fn () => dd($this->toSoarJsonScores());
     }
 
-    public function toSoarHtmlScores(): callable
+    public function toSoarHtmlScores(): \Closure
     {
         return fn (): string => app(Soar::class)->htmlScores($this->toRawSql());
     }
@@ -112,7 +112,7 @@ class QueryBuilderMacro
     /**
      * @noinspection ToStringCallInspection
      */
-    public function echoSoarHtmlScores(): callable
+    public function echoSoarHtmlScores(): \Closure
     {
         return function (): void {
             echo $this->toSoarHtmlScores();
@@ -122,7 +122,7 @@ class QueryBuilderMacro
     /**
      * @codeCoverageIgnore
      */
-    public function exitSoarHtmlScores(): callable
+    public function exitSoarHtmlScores(): \Closure
     {
         return function (): void {
             exit($this->toSoarHtmlScores());

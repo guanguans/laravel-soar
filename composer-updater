@@ -165,7 +165,7 @@ $status = (new SingleCommandApplication)
             private function getOutdatedDecodedComposerJson(): array
             {
                 $outdatedComposerPackages = $this->getOutdatedComposerPackages();
-                $decodedComposerJson = json_decode(file_get_contents($this->composerJsonPath), true);
+                $decodedComposerJson = json_decode(file_get_contents($this->composerJsonPath), true, 512, \JSON_THROW_ON_ERROR);
                 InstalledVersions::reload([]);
 
                 foreach ($decodedComposerJson as $name => &$value) {
@@ -208,7 +208,9 @@ $status = (new SingleCommandApplication)
                                 ->getOutput(),
                             strpos($output, '{'.\PHP_EOL)
                         ),
-                        true
+                        true,
+                        512,
+                        \JSON_THROW_ON_ERROR
                     )['installed'],
                     function (array $carry, array $package): array {
                         $lowestArrayVersion = $this->toArrayVersion($package['version']);

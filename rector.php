@@ -37,6 +37,8 @@ use Rector\DowngradePhp81\Rector\Array_\DowngradeArraySpreadStringKeyRector;
 use Rector\EarlyReturn\Rector\Return_\ReturnBinaryOrToEarlyReturnRector;
 use Rector\Naming\Rector\Foreach_\RenameForeachValueVariableToMatchExprVariableRector;
 use Rector\Php71\Rector\FuncCall\RemoveExtraParametersRector;
+use Rector\Php73\Rector\FuncCall\JsonThrowOnErrorRector;
+use Rector\PHPUnit\CodeQuality\Rector\Class_\AddSeeTestAnnotationRector;
 use Rector\PHPUnit\Set\PHPUnitSetList;
 use Rector\Renaming\Rector\FuncCall\RenameFunctionRector;
 use Rector\Renaming\Rector\Name\RenameClassRector;
@@ -114,7 +116,9 @@ return RectorConfig::configure()
             ->all(),
     ])
     ->withRules([
+        AddSeeTestAnnotationRector::class,
         ArraySpreadInsteadOfArrayMergeRector::class,
+        JsonThrowOnErrorRector::class,
         SimplifyListIndexRector::class,
         SortAssociativeArrayByKeyRector::class,
         StaticArrowFunctionRector::class,
@@ -227,7 +231,7 @@ return RectorConfig::configure()
     ])
     ->withSkip([
         RemoveExtraParametersRector::class => $staticClosureSkipPaths = [
-            __DIR__.'/src/Mixins/QueryBuilderMacro.php',
+            __DIR__.'/src/Mixins/QueryBuilderMixin.php',
         ],
         StaticArrowFunctionRector::class => $staticClosureSkipPaths = [
             __DIR__.'/tests',

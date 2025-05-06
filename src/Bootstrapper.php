@@ -100,20 +100,20 @@ class Bootstrapper
         // 记录 SQL
         $dispatcher->listen(QueryExecuted::class, function (QueryExecuted $queryExecuted): void {
             if (
-                isset(self::$queries[$queryExecuted->sql])
+                self::$queries->has($queryExecuted->sql)
                 || $this->isExceptSql($queryExecuted->sql)
                 || $this->isExceptSql($sql = $this->toSql($queryExecuted))
             ) {
                 return;
             }
 
-            self::$queries[$queryExecuted->sql] = [
+            self::$queries->put($queryExecuted->sql, [
                 'sql' => $sql,
                 'time' => humanly_milliseconds($queryExecuted->time),
                 'connection' => $queryExecuted->connectionName,
                 'driver' => $queryExecuted->connection->getDriverName(),
                 'backtraces' => $this->getBacktraces(),
-            ];
+            ]);
         });
     }
 

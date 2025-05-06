@@ -13,7 +13,9 @@ declare(strict_types=1);
 
 namespace Guanguans\LaravelSoar\Outputs;
 
+use Illuminate\Console\Events\CommandFinished;
 use Illuminate\Support\Collection;
+use Symfony\Component\HttpFoundation\Response;
 
 class DumpOutput extends Output
 {
@@ -24,7 +26,7 @@ class DumpOutput extends Output
      * @noinspection ClosureToArrowFunctionInspection
      * @noinspection DebugFunctionUsageInspection
      */
-    public function output(Collection $scores, mixed $dispatcher): void
+    public function output(Collection $scores, CommandFinished|Response $dispatcher): void
     {
         $this->exit ? dd(...$scores) : dump(...$scores);
     }

@@ -22,6 +22,7 @@ use Illuminate\Console\Events\CommandFinished;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Fluent;
 use Illuminate\Support\Str;
+use Symfony\Component\HttpFoundation\Response;
 
 class OutputManager extends Fluent implements Output
 {
@@ -39,7 +40,7 @@ class OutputManager extends Fluent implements Output
         }
     }
 
-    public function shouldOutput($dispatcher): bool
+    public function shouldOutput(CommandFinished|Response $dispatcher): bool
     {
         $exclusions = config('soar.exclusions', []);
 
@@ -50,7 +51,7 @@ class OutputManager extends Fluent implements Output
         return !request()->is($exclusions) && !request()->routeIs($exclusions);
     }
 
-    public function output(Collection $scores, $dispatcher): void
+    public function output(Collection $scores, CommandFinished|Response $dispatcher): void
     {
         if (!$this->shouldOutput($dispatcher)) {
             return;

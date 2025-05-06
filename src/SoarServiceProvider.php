@@ -16,7 +16,7 @@ namespace Guanguans\LaravelSoar;
 use Guanguans\LaravelSoar\Commands\ClearCommand;
 use Guanguans\LaravelSoar\Commands\RunCommand;
 use Guanguans\LaravelSoar\Commands\ScoreCommand;
-use Guanguans\LaravelSoar\Mixins\QueryBuilderMacro;
+use Guanguans\LaravelSoar\Mixins\QueryBuilderMixin;
 use Guanguans\LaravelSoar\Outputs\ClockworkOutput;
 use Guanguans\LaravelSoar\Outputs\ConsoleOutput;
 use Guanguans\LaravelSoar\Outputs\DebugBarOutput;
@@ -35,7 +35,7 @@ class SoarServiceProvider extends ServiceProvider
 {
     public array $singletons = [
         Bootstrapper::class => Bootstrapper::class,
-        QueryBuilderMacro::class => QueryBuilderMacro::class,
+        QueryBuilderMixin::class => QueryBuilderMixin::class,
 
         ClockworkOutput::class => ClockworkOutput::class,
         ConsoleOutput::class => ConsoleOutput::class,
@@ -99,10 +99,10 @@ class SoarServiceProvider extends ServiceProvider
      */
     protected function registerMacros(): void
     {
-        $queryBuilderMacro = $this->app->make(QueryBuilderMacro::class);
-        EloquentBuilder::mixin($queryBuilderMacro);
-        QueryBuilder::mixin($queryBuilderMacro);
-        RelationBuilder::mixin($queryBuilderMacro);
+        $queryBuilderMixin = $this->app->make(QueryBuilderMixin::class);
+        EloquentBuilder::mixin($queryBuilderMixin);
+        QueryBuilder::mixin($queryBuilderMixin);
+        RelationBuilder::mixin($queryBuilderMixin);
     }
 
     protected function registerSoar(): void

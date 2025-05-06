@@ -47,7 +47,6 @@
     ],
     "require": {
         "php": ">=8.0",
-        "ext-pdo": "*",
         "guanguans/soar-php": "^6.0",
         "laravel/framework": "^9.52 || ^10.0 || ^11.0 || ^12.0"
     },
@@ -294,7 +293,7 @@
         "phploc": "@php ./vendor/bin/phploc --suffix=php src/",
         "phpmd": "@php ./vendor/bin/phpmd src/ ansi cleancode,codesize,controversial,design,naming,unusedcode --suffixes=php",
         "phpmetrics": "@php ./vendor/bin/phpmetrics --report-html=./.build/phpmetrics/ ./src/",
-        "phpmnd": "@php ./vendor/bin/phpmnd src --exclude-path=Support/QueryAnalyzer.php --exclude-path=Support/helpers.php --ignore-numbers=2,-1 --hint --progress --ansi -v",
+        "phpmnd": "@php ./vendor/bin/phpmnd src --exclude-path=Support/helpers.php --ignore-numbers=2,-1 --hint --progress --ansi -v",
         "phpstan": "@php ./vendor/bin/phpstan analyse --ansi -v",
         "phpstan-baseline": "@phpstan --generate-baseline --allow-empty-baseline",
         "phpstan-split-baseline": [

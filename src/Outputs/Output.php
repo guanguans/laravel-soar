@@ -17,6 +17,8 @@ use Guanguans\LaravelSoar\Contracts\Sanitizer;
 use Guanguans\LaravelSoar\Outputs\Concerns\OutputConditions;
 use Guanguans\LaravelSoar\Outputs\Concerns\ScoresHydrator;
 use Guanguans\LaravelSoar\Outputs\Concerns\ScoresSanitizer;
+use Illuminate\Console\Events\CommandFinished;
+use Symfony\Component\HttpFoundation\Response;
 
 abstract class Output implements \Guanguans\LaravelSoar\Contracts\Output, Sanitizer
 {
@@ -24,7 +26,7 @@ abstract class Output implements \Guanguans\LaravelSoar\Contracts\Output, Saniti
     use ScoresHydrator;
     use ScoresSanitizer;
 
-    public function shouldOutput($dispatcher): bool
+    public function shouldOutput(CommandFinished|Response $dispatcher): bool
     {
         return true;
     }

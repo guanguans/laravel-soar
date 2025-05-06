@@ -1,14 +1,3 @@
-# total 77 errors
+# total 1 error
 includes:
     - argument.unresolvableType.neon
-    - arguments.count.neon
-    - class.notFound.neon
-    - complexity.functionLike.neon
-    - disallowed.function.neon
-    - echo.nonString.neon
-    - function.notFound.neon
-    - method.notFound.neon
-    - property.onlyWritten.neon
-    - shipmonk.deadMethod.neon
-    - typePerfect.noArrayAccessOnObject.neon
-    - typePerfect.noParamTypeRemoval.neon

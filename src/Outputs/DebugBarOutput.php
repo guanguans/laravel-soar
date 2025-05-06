@@ -15,18 +15,18 @@ namespace Guanguans\LaravelSoar\Outputs;
 
 use Barryvdh\Debugbar\LaravelDebugbar;
 use DebugBar\DataCollector\MessagesCollector;
+use Illuminate\Console\Events\CommandFinished;
 use Illuminate\Support\Collection;
+use Symfony\Component\HttpFoundation\Response;
 
 class DebugBarOutput extends Output
 {
-    private static bool $outputted = false;
-
     public function __construct(
         protected string $name = 'Soar Scores',
         protected string $label = 'warning'
     ) {}
 
-    public function shouldOutput($dispatcher): bool
+    public function shouldOutput(CommandFinished|Response $dispatcher): bool
     {
         // app(LaravelDebugbar::class)->isEnabled()
         return class_exists(LaravelDebugbar::class)
@@ -37,7 +37,7 @@ class DebugBarOutput extends Output
     /**
      * @throws \JsonException
      */
-    public function output(Collection $scores, mixed $dispatcher): void
+    public function output(Collection $scores, CommandFinished|Response $dispatcher): void
     {
         $laravelDebugbar = app(LaravelDebugbar::class);
 

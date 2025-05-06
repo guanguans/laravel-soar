@@ -59,7 +59,8 @@ it('can outputs http', function (): void {
 })->group(__DIR__, __FILE__);
 
 it('can output to json', function (): void {
-    $this->get('json')
+    $this->getJson('json')
+        // ->dd()
         ->assertOk()
         // ->assertSee($this->see)
         ->assertSee(class_basename(JsonOutput::class));

@@ -13,18 +13,20 @@ declare(strict_types=1);
 
 namespace Guanguans\LaravelSoar\Outputs;
 
+use Illuminate\Console\Events\CommandFinished;
 use Illuminate\Support\Collection;
+use Symfony\Component\HttpFoundation\Response;
 
 class ConsoleOutput extends Output
 {
     public function __construct(protected string $method = 'warn') {}
 
-    public function shouldOutput($dispatcher): bool
+    public function shouldOutput(CommandFinished|Response $dispatcher): bool
     {
         return $this->isHtmlResponse($dispatcher);
     }
 
-    public function output(Collection $scores, $dispatcher): void
+    public function output(Collection $scores, CommandFinished|Response $dispatcher): void
     {
         $js = $this->toJavascript($scores);
         $content = $dispatcher->getContent();
