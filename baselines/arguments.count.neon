@@ -1,0 +1,8 @@
+# total 2 errors
+
+parameters:
+    ignoreErrors:
+        -
+            message: '#^Method Guanguans\\LaravelSoar\\Macros\\QueryBuilderMacro\:\:toSoarArrayScores\(\) invoked with 2 parameters, 0 required\.$#'
+            count: 2
+            path: ../src/Macros/QueryBuilderMacro.php

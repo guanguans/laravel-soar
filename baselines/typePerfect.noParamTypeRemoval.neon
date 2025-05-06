@@ -1,0 +1,23 @@
+# total 5 errors
+
+parameters:
+    ignoreErrors:
+        -
+            message: '#^Removing parent param type is forbidden$#'
+            count: 2
+            path: ../src/OutputManager.php
+
+        -
+            message: '#^Removing parent param type is forbidden$#'
+            count: 1
+            path: ../src/Outputs/ConsoleOutput.php
+
+        -
+            message: '#^Removing parent param type is forbidden$#'
+            count: 1
+            path: ../src/Outputs/JsonOutput.php
+
+        -
+            message: '#^Removing parent param type is forbidden$#'
+            count: 1
+            path: ../src/Outputs/Output.php

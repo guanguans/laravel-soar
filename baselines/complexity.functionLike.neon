@@ -1,0 +1,13 @@
+# total 2 errors
+
+parameters:
+    ignoreErrors:
+        -
+            message: '#^Cognitive complexity for "Guanguans\\LaravelSoar\\Support\\QueryAnalyzer\:\:highlight\(\)" is 21, keep it under 8$#'
+            count: 1
+            path: ../src/Support/QueryAnalyzer.php
+
+        -
+            message: '#^Cognitive complexity for "Guanguans\\LaravelSoar\\Support\\QueryAnalyzer\:\:performQueryAnalysis\(\)" is 10, keep it under 8$#'
+            count: 1
+            path: ../src/Support/QueryAnalyzer.php

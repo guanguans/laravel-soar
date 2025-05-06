@@ -1,0 +1,8 @@
+# total 1 error
+
+parameters:
+    ignoreErrors:
+        -
+            message: '#^Function clock not found\.$#'
+            count: 1
+            path: ../src/Outputs/ClockworkOutput.php

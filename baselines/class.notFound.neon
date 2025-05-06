@@ -1,0 +1,23 @@
+# total 4 errors
+
+parameters:
+    ignoreErrors:
+        -
+            message: '#^Call to method label\(\) on an unknown class Spatie\\LaravelRay\\Ray\.$#'
+            count: 1
+            path: ../src/Outputs/RayOutput.php
+
+        -
+            message: '#^Call to method label\(\) on an unknown class Spatie\\RayBundle\\Ray\.$#'
+            count: 1
+            path: ../src/Outputs/RayOutput.php
+
+        -
+            message: '#^Call to method label\(\) on an unknown class Spatie\\WordPressRay\\Ray\.$#'
+            count: 1
+            path: ../src/Outputs/RayOutput.php
+
+        -
+            message: '#^Call to method label\(\) on an unknown class Spatie\\YiiRay\\Ray\.$#'
+            count: 1
+            path: ../src/Outputs/RayOutput.php

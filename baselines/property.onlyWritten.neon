@@ -1,0 +1,8 @@
+# total 1 error
+
+parameters:
+    ignoreErrors:
+        -
+            message: '#^Static property Guanguans\\LaravelSoar\\Outputs\\DebugBarOutput\:\:\$outputted is never read, only written\.$#'
+            count: 1
+            path: ../src/Outputs/DebugBarOutput.php

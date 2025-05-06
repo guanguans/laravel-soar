@@ -1,0 +1,8 @@
+# total 2 errors
+
+parameters:
+    ignoreErrors:
+        -
+            message: '#^Use explicit methods over array access on object$#'
+            count: 2
+            path: ../src/Bootstrapper.php

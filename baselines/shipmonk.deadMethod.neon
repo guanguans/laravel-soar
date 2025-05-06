@@ -1,0 +1,138 @@
+# total 27 errors
+
+parameters:
+    ignoreErrors:
+        -
+            message: '#^Unused Guanguans\\LaravelSoar\\Bootstrapper\:\:__construct$#'
+            count: 1
+            path: ../src/Bootstrapper.php
+
+        -
+            message: '#^Unused Guanguans\\LaravelSoar\\Bootstrapper\:\:boot$#'
+            count: 1
+            path: ../src/Bootstrapper.php
+
+        -
+            message: '#^Unused Guanguans\\LaravelSoar\\Bootstrapper\:\:isBooted$#'
+            count: 1
+            path: ../src/Bootstrapper.php
+
+        -
+            message: '#^Unused Guanguans\\LaravelSoar\\Commands\\ClearCommand\:\:handle$#'
+            count: 1
+            path: ../src/Commands/ClearCommand.php
+
+        -
+            message: '#^Unused Guanguans\\LaravelSoar\\Commands\\RunCommand\:\:handle$#'
+            count: 1
+            path: ../src/Commands/RunCommand.php
+
+        -
+            message: '#^Unused Guanguans\\LaravelSoar\\Commands\\ScoreCommand\:\:handle$#'
+            count: 1
+            path: ../src/Commands/ScoreCommand.php
+
+        -
+            message: '#^Unused Guanguans\\LaravelSoar\\Http\\Middleware\\OutputSoarScoresMiddleware\:\:__construct$#'
+            count: 1
+            path: ../src/Http/Middleware/OutputSoarScoresMiddleware.php
+
+        -
+            message: '#^Unused Guanguans\\LaravelSoar\\Http\\Middleware\\OutputSoarScoresMiddleware\:\:handle$#'
+            count: 1
+            path: ../src/Http/Middleware/OutputSoarScoresMiddleware.php
+
+        -
+            message: '#^Unused Guanguans\\LaravelSoar\\Macros\\QueryBuilderMacro\:\:ddRawSql$#'
+            count: 1
+            path: ../src/Macros/QueryBuilderMacro.php
+
+        -
+            message: '#^Unused Guanguans\\LaravelSoar\\Macros\\QueryBuilderMacro\:\:ddSoarArrayScores$#'
+            count: 1
+            path: ../src/Macros/QueryBuilderMacro.php
+
+        -
+            message: '#^Unused Guanguans\\LaravelSoar\\Macros\\QueryBuilderMacro\:\:ddSoarJsonScores$#'
+            count: 1
+            path: ../src/Macros/QueryBuilderMacro.php
+
+        -
+            message: '#^Unused Guanguans\\LaravelSoar\\Macros\\QueryBuilderMacro\:\:dumpRawSql$#'
+            count: 1
+            path: ../src/Macros/QueryBuilderMacro.php
+
+        -
+            message: '#^Unused Guanguans\\LaravelSoar\\Macros\\QueryBuilderMacro\:\:dumpSoarArrayScores$#'
+            count: 1
+            path: ../src/Macros/QueryBuilderMacro.php
+
+        -
+            message: '#^Unused Guanguans\\LaravelSoar\\Macros\\QueryBuilderMacro\:\:dumpSoarJsonScores$#'
+            count: 1
+            path: ../src/Macros/QueryBuilderMacro.php
+
+        -
+            message: '#^Unused Guanguans\\LaravelSoar\\Macros\\QueryBuilderMacro\:\:echoSoarHtmlScores$#'
+            count: 1
+            path: ../src/Macros/QueryBuilderMacro.php
+
+        -
+            message: '#^Unused Guanguans\\LaravelSoar\\Macros\\QueryBuilderMacro\:\:exitSoarHtmlScores$#'
+            count: 1
+            path: ../src/Macros/QueryBuilderMacro.php
+
+        -
+            message: '#^Unused Guanguans\\LaravelSoar\\Outputs\\Concerns\\OutputConditions\:\:isCommandFinished$#'
+            count: 1
+            path: ../src/Outputs/Concerns/OutputConditions.php
+
+        -
+            message: '#^Unused Guanguans\\LaravelSoar\\Outputs\\ConsoleOutput\:\:__construct$#'
+            count: 1
+            path: ../src/Outputs/ConsoleOutput.php
+
+        -
+            message: '#^Unused Guanguans\\LaravelSoar\\Outputs\\DebugBarOutput\:\:__construct$#'
+            count: 1
+            path: ../src/Outputs/DebugBarOutput.php
+
+        -
+            message: '#^Unused Guanguans\\LaravelSoar\\Outputs\\DumpOutput\:\:__construct$#'
+            count: 1
+            path: ../src/Outputs/DumpOutput.php
+
+        -
+            message: '#^Unused Guanguans\\LaravelSoar\\Outputs\\JsonOutput\:\:__construct$#'
+            count: 1
+            path: ../src/Outputs/JsonOutput.php
+
+        -
+            message: '#^Unused Guanguans\\LaravelSoar\\Outputs\\LogOutput\:\:__construct$#'
+            count: 1
+            path: ../src/Outputs/LogOutput.php
+
+        -
+            message: '#^Unused Guanguans\\LaravelSoar\\Outputs\\RayOutput\:\:__construct$#'
+            count: 1
+            path: ../src/Outputs/RayOutput.php
+
+        -
+            message: '#^Unused Guanguans\\LaravelSoar\\SoarServiceProvider\:\:boot$#'
+            count: 1
+            path: ../src/SoarServiceProvider.php
+
+        -
+            message: '#^Unused Guanguans\\LaravelSoar\\Support\\QueryAnalyzer\:\:explain$#'
+            count: 1
+            path: ../src/Support/QueryAnalyzer.php
+
+        -
+            message: '#^Unused Guanguans\\LaravelSoar\\Support\\QueryAnalyzer\:\:highlight$#'
+            count: 1
+            path: ../src/Support/QueryAnalyzer.php
+
+        -
+            message: '#^Unused Guanguans\\LaravelSoar\\Support\\QueryAnalyzer\:\:performQueryAnalysis$#'
+            count: 1
+            path: ../src/Support/QueryAnalyzer.php

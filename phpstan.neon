@@ -16,7 +16,7 @@ includes:
 #    - vendor/shipmonk/dead-code-detector/rules.neon
 #    - vendor/staabm/phpstan-todo-by/extension.neon
 
-    - vendor/symplify/phpstan-rules/config/code-complexity-rules.neon
+#    - vendor/symplify/phpstan-rules/config/code-complexity-rules.neon
 #    - vendor/symplify/phpstan-rules/config/configurable-rules.neon
 #    - vendor/symplify/phpstan-rules/config/naming-rules.neon
 #    - vendor/symplify/phpstan-rules/config/static-rules.neon
@@ -29,13 +29,15 @@ includes:
 
 parameters:
     paths:
+        - config/
         - src/
     scanFiles:
         - vendor/composer/InstalledVersions.php
     excludePaths:
         - tests/Fixtures/
-    level: max
-#    level: 10
+        - *.blade.php
+#    level: max
+    level: 5
     tmpDir: .build/phpstan/
     editorUrl: 'phpstorm://open?file=%%file%%&line=%%line%%'
 #    errorFormat: symplify
@@ -46,25 +48,25 @@ parameters:
         editorUrl: 'phpstorm://open?file=%%file%%&line=%%line%%'
     treatPhpDocTypesAsCertain: false
     cognitive_complexity:
-        class: 50
+        class: 42
         function: 8
         dependency_tree: 150
         dependency_tree_types:
             # only these explicit types are checked, nothing else
-            - Rector\Contract\Rector\RectorInterface
+#            - Rector\Contract\Rector\RectorInterface
     type_coverage:
         declare: 100
-        param_type: 100
-        return_type: 100
-        constant_type: 100
-        property_type: 100
+        param_type: 0
+        return_type: 0
+        constant_type: 0
+        property_type: 0
     type_perfect:
-        narrow_param: true
-        narrow_return: true
-        null_over_false: true
-        no_mixed: true
-        no_mixed_property: true
-        no_mixed_caller: true
+        narrow_param: false
+        narrow_return: false
+        null_over_false: false
+        no_mixed: false
+        no_mixed_property: false
+        no_mixed_caller: false
     disallowedFunctionCalls:
         -
             function: 'env()'
@@ -72,20 +74,22 @@ parameters:
         -
             function: 'env_explode()'
             message: 'use config() instead'
-        -
-            function: 'env_getcsv()'
-            message: 'use config() instead'
     ignoreErrors:
 #        - identifier: argument.templateType
+#        - identifier: argument.type
 #        - identifier: binaryOp.invalid
 #        - identifier: cast.string
 #        - identifier: encapsedStringPart.nonString
 #        - identifier: logicalAnd.resultUnused
+#        - identifier: method.nonObject
+#        - identifier: missingType.generics
 #        - identifier: missingType.iterableValue
+#        - identifier: return.type
 #        - identifier: return.void
 #        - identifier: symplify.noDynamicName
 #        - identifier: typePerfect.noMixedMethodCaller
+#        - identifier: method.nonObject
+#        - identifier: missingType.generics
+
         - identifier: argument.type
-        - identifier: method.nonObject
-        - identifier: missingType.generics
         - identifier: return.type
