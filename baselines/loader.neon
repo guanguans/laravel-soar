@@ -1,4 +1,7 @@
-# total 3 errors
+# total 7 errors
 includes:
     - argument.unresolvableType.neon
+    - method.notFound.neon
     - method.unresolvableReturnType.neon
+    - offsetAccess.notFound.neon
+    - property.notFound.neon

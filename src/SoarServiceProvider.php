@@ -128,6 +128,7 @@ class SoarServiceProvider extends ServiceProvider
                         [$parameters, $class] = [(array) $class, $parameters];
                     }
 
+                    /** @var string $class */
                     return [$class => $container->make($class, $parameters)];
                 })
                 ->pipe(static fn (Collection $collection): OutputManager => new OutputManager($collection->all()))

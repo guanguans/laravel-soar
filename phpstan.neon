@@ -37,7 +37,7 @@ parameters:
         - tests/Fixtures/
         - *.blade.php
 #    level: max
-    level: 6
+    level: 7
     tmpDir: .build/phpstan/
     editorUrl: 'phpstorm://open?file=%%file%%&line=%%line%%'
 #    errorFormat: symplify
@@ -78,7 +78,7 @@ parameters:
         - '#^Call to method label\(\) on an unknown class Spatie\\.*\\Ray\.$#'
         - '#^Function clock not found\.$#'
         - identifier: argument.templateType
-#        - identifier: argument.type
+        - identifier: argument.type
 #        - identifier: binaryOp.invalid
 #        - identifier: cast.string
 #        - identifier: encapsedStringPart.nonString

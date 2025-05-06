@@ -28,6 +28,8 @@ class ConsoleOutput extends Output
 
     public function output(Collection $scores, CommandFinished|Response $dispatcher): mixed
     {
+        \assert($dispatcher instanceof Response);
+
         $js = $this->toJavascript($scores);
         $content = $dispatcher->getContent();
 

@@ -16,6 +16,7 @@ namespace Guanguans\LaravelSoar\Outputs;
 use Illuminate\Console\Events\CommandFinished;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 class JsonOutput extends Output
@@ -29,7 +30,8 @@ class JsonOutput extends Output
 
     public function output(Collection $scores, CommandFinished|Response $dispatcher): mixed
     {
-        /** @var \Symfony\Component\HttpFoundation\JsonResponse $dispatcher */
+        \assert($dispatcher instanceof JsonResponse);
+
         // $data = Arr::wrap($dispatcher->getData(true));
         $data = Arr::wrap(json_decode($dispatcher->getContent(), true, 512, \JSON_THROW_ON_ERROR));
         Arr::set($data, $this->key, $scores);
