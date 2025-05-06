@@ -27,13 +27,11 @@ use Guanguans\LaravelSoar\Outputs\ClockworkOutput;
 use Guanguans\LaravelSoar\Outputs\ConsoleOutput;
 use Guanguans\LaravelSoar\Outputs\DebugBarOutput;
 use Guanguans\LaravelSoar\Outputs\DumpOutput;
-use Guanguans\LaravelSoar\Outputs\ErrorLogOutput;
 use Guanguans\LaravelSoar\Outputs\JsonOutput;
 use Guanguans\LaravelSoar\Outputs\LogOutput;
 use Guanguans\LaravelSoar\Outputs\NullOutput;
 use Guanguans\LaravelSoar\Outputs\RayOutput;
 use Guanguans\LaravelSoar\Outputs\SoarBarOutput;
-use Guanguans\LaravelSoar\Outputs\SyslogOutput;
 use Guanguans\LaravelSoar\SoarServiceProvider;
 use Guanguans\LaravelSoarTests\Models\User;
 use Guanguans\LaravelSoarTests\Seeder\UserSeeder;
@@ -60,13 +58,11 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
         ConsoleOutput::class => ['method' => 'warn'],
         DebugBarOutput::class => ['name' => 'Soar Scores', 'label' => 'warning'],
         DumpOutput::class => ['exit' => false],
-        ErrorLogOutput::class => ['messageType' => 0, 'destination' => '', 'extraHeaders' => ''],
         JsonOutput::class => ['key' => 'soar_scores'],
         LogOutput::class => ['channel' => 'daily', 'level' => 'warning'],
         NullOutput::class,
         RayOutput::class => ['label' => 'Soar Scores'],
         SoarBarOutput::class => ['name' => 'Scores', 'label' => 'warning'],
-        SyslogOutput::class => ['priority' => \LOG_WARNING],
     ];
 
     protected function setUp(): void
