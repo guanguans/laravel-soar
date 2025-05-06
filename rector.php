@@ -62,7 +62,6 @@ use function Guanguans\LaravelSoar\Support\classes;
 return RectorConfig::configure()
     ->withPaths([
         // __DIR__.'/config/',
-        __DIR__.'/routes/',
         __DIR__.'/src/',
         __DIR__.'/tests/',
         ...glob(__DIR__.'/{*,.*}.php', \GLOB_BRACE),

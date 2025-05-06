@@ -20,7 +20,7 @@
 * 支持启发式算法语句优化建议、索引优化建议
 * 支持 EXPLAIN 信息丰富解读
 * 自动监控输出 SQL 优化建议
-* [Soar bar](https://github.com/maximebf/php-debugbar)、[Debug bar](https://github.com/barryvdh/laravel-debugbar)、[Clockwork](https://github.com/itsgoingd/clockwork)、[Ray](https://github.com/spatie/ray)、JSON、Console、Dump、Log、自定义输出器(多种场景输出)
+* [Debug bar](https://github.com/barryvdh/laravel-debugbar)、[Clockwork](https://github.com/itsgoingd/clockwork)、[Ray](https://github.com/spatie/ray)、JSON、Console、Dump、Log、自定义输出器(多种场景输出)
 * 支持查询构建器生成 SQL 优化建议
 
 ## 相关项目
@@ -130,12 +130,6 @@ SQL
 </details>
 
 ### 自动监控输出 SQL 优化建议
-
-<details>
-<summary><b>Soar bar</b></summary>
-
-![Soar bar](docs/soar-bar.png)    
-</details>
 
 <details>
 <summary><b>Debug bar</b></summary>

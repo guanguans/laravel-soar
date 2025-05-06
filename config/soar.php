@@ -53,7 +53,6 @@ return [
         Guanguans\LaravelSoar\Outputs\LogOutput::class => ['channel' => 'daily', 'level' => 'warning'],
         // Guanguans\LaravelSoar\Outputs\NullOutput::class,
         // Guanguans\LaravelSoar\Outputs\RayOutput::class => ['label' => 'Soar Scores'],
-        // Guanguans\LaravelSoar\Outputs\SoarBarOutput::class => ['name' => 'Soar Scores', 'label' => 'warning'],
     ],
 
     // +----------------------------------------------------------------------+//

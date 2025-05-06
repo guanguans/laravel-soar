@@ -24,7 +24,6 @@ use Guanguans\LaravelSoar\Outputs\DumpOutput;
 use Guanguans\LaravelSoar\Outputs\JsonOutput;
 use Guanguans\LaravelSoar\Outputs\LogOutput;
 use Guanguans\LaravelSoar\Outputs\NullOutput;
-use Guanguans\LaravelSoar\Outputs\SoarBarOutput;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Relations\Relation as RelationBuilder;
@@ -38,7 +37,6 @@ class SoarServiceProvider extends ServiceProvider
     public array $singletons = [
         Bootstrapper::class => Bootstrapper::class,
         QueryBuilderMacro::class => QueryBuilderMacro::class,
-        SoarBar::class => SoarBar::class,
 
         ClockworkOutput::class => ClockworkOutput::class,
         ConsoleOutput::class => ConsoleOutput::class,
@@ -47,7 +45,6 @@ class SoarServiceProvider extends ServiceProvider
         JsonOutput::class => JsonOutput::class,
         LogOutput::class => LogOutput::class,
         NullOutput::class => NullOutput::class,
-        SoarBarOutput::class => SoarBarOutput::class,
     ];
     protected bool $defer = false;
 
@@ -64,7 +61,6 @@ class SoarServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        $this->loadRoutes();
         $this->registerCommands();
 
         if (config('soar.enabled', false)) {
@@ -80,7 +76,6 @@ class SoarServiceProvider extends ServiceProvider
             Bootstrapper::class,
             OutputManager::class,
             Soar::class,
-            SoarBar::class,
         ];
     }
 
@@ -141,11 +136,6 @@ class SoarServiceProvider extends ServiceProvider
         );
 
         $this->app->alias(OutputManager::class, $this->toAlias(OutputManager::class));
-    }
-
-    protected function loadRoutes(): void
-    {
-        $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
     }
 
     protected function registerCommands(): void

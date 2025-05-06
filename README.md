@@ -20,8 +20,7 @@
 * Support heuristic algorithm statement optimization suggestions, index optimization suggestions
 * Supports rich interpretation of EXPLAIN information
 * Automatically monitor output SQL optimization recommendations
-* Debug bar、Soar bar、JSON、Clockwork、Console、Dump、Log、Custom output(Multiple scene output)
-* [Soar bar](https://github.com/maximebf/php-debugbar)、[Debug bar](https://github.com/barryvdh/laravel-debugbar)、[Clockwork](https://github.com/itsgoingd/clockwork)、[Ray](https://github.com/spatie/ray)、JSON、Console、Dump、Log、Custom output(Multiple scene output)
+* [Debug bar](https://github.com/barryvdh/laravel-debugbar)、[Clockwork](https://github.com/itsgoingd/clockwork)、[Ray](https://github.com/spatie/ray)、JSON、Console、Dump、Log、Custom output(Multiple scene output)
 * Support query builder to generate SQL optimization suggestions
 
 ## Related Links
@@ -131,12 +130,6 @@ SQL
 </details>
 
 ### Automatically monitor output SQL optimization recommendations
-
-<details>
-<summary><b>Soar bar</b></summary>
-
-![Soar bar](docs/soar-bar.png)
-</details>
 
 <details>
 <summary><b>Debug bar</b></summary>

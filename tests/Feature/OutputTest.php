@@ -19,7 +19,6 @@ declare(strict_types=1);
 
 use Guanguans\LaravelSoar\OutputManager;
 use Guanguans\LaravelSoar\Outputs\JsonOutput;
-use Guanguans\LaravelSoar\Outputs\SoarBarOutput;
 use Symfony\Component\Console\Command\Command;
 
 beforeEach(function (): void {
@@ -64,11 +63,4 @@ it('can output to json', function (): void {
         ->assertOk()
         // ->assertSee($this->see)
         ->assertSee(class_basename(JsonOutput::class));
-})->group(__DIR__, __FILE__);
-
-it('can output to SoarBar', function (): void {
-    $this->get('soar-bar')
-        ->assertOk()
-        // ->assertSee($this->see)
-        ->assertSee(SoarBarOutput::class);
 })->group(__DIR__, __FILE__);

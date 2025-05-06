@@ -18,7 +18,6 @@ return (new Configuration)
     ->addPathsToScan(
         [
             __DIR__.'/config',
-            __DIR__.'/routes',
             __DIR__.'/src',
         ],
         false
@@ -43,9 +42,12 @@ return (new Configuration)
         ],
         [ErrorType::SHADOW_DEPENDENCY]
     )
-    ->ignoreErrorsOnPackageAndPath(
-        'barryvdh/laravel-debugbar',
-        __DIR__.'/src/Outputs/DebugBarOutput.php',
+    ->ignoreErrorsOnPackagesAndPaths(
+        [
+            'barryvdh/laravel-debugbar',
+            'php-debugbar/php-debugbar',
+        ],
+        [__DIR__.'/src/Outputs/DebugBarOutput.php'],
         [ErrorType::DEV_DEPENDENCY_IN_PROD]
     )
     ->ignoreErrorsOnPackageAndPath(

@@ -31,7 +31,6 @@ use Guanguans\LaravelSoar\Outputs\JsonOutput;
 use Guanguans\LaravelSoar\Outputs\LogOutput;
 use Guanguans\LaravelSoar\Outputs\NullOutput;
 use Guanguans\LaravelSoar\Outputs\RayOutput;
-use Guanguans\LaravelSoar\Outputs\SoarBarOutput;
 use Guanguans\LaravelSoar\SoarServiceProvider;
 use Guanguans\LaravelSoarTests\Models\User;
 use Guanguans\LaravelSoarTests\Seeder\UserSeeder;
@@ -62,7 +61,6 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
         LogOutput::class => ['channel' => 'daily', 'level' => 'warning'],
         NullOutput::class,
         RayOutput::class => ['label' => 'Soar Scores'],
-        SoarBarOutput::class => ['name' => 'Scores', 'label' => 'warning'],
     ];
 
     protected function setUp(): void
@@ -182,16 +180,6 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
             self::extendOutputManagerWithOutputs(JsonOutput::class);
 
             $query();
-        }));
-
-        Route::get('soar-bar', fn () => tap(response(SoarBarOutput::class), function () use ($query): void {
-            self::extendOutputManagerWithOutputs(SoarBarOutput::class);
-
-            $query();
-
-            (function (): void {
-                $this::$outputted = false;
-            })->call($this->app->make(DebugBarOutput::class));
         }));
     }
 }

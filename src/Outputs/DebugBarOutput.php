@@ -49,11 +49,6 @@ class DebugBarOutput extends Output
             $this->hydrateScore($score),
             $this->label,
             false
-        ))->tap(static fn (): bool => self::$outputted = true);
-    }
-
-    public static function isOutputted(): bool
-    {
-        return self::$outputted;
+        ));
     }
 }
