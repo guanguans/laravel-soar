@@ -15,8 +15,11 @@ namespace Guanguans\LaravelSoar\Middleware;
 
 use Guanguans\LaravelSoar\Bootstrapper;
 use Guanguans\LaravelSoar\OutputManager;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 
 class OutputSoarScoresMiddleware
 {
@@ -26,13 +29,17 @@ class OutputSoarScoresMiddleware
     ) {}
 
     /**
-     * Handle an incoming request.
+     * @noinspection RedundantDocCommentTagInspection
+     *
+     * @param \Closure(\Illuminate\Http\Request): (JsonResponse|RedirectResponse|Response) $next
+     *
+     * @throws \JsonException
      */
-    public function handle(Request $request, callable $next): Response
+    public function handle(Request $request, \Closure $next): SymfonyResponse
     {
-        return tap($next($request), fn (Response $response): mixed => $this->outputManager->output(
+        return tap($next($request), fn (SymfonyResponse $symfonyResponse): mixed => $this->outputManager->output(
             $this->bootstrapper->getScores(),
-            $response
+            $symfonyResponse
         ));
     }
 }

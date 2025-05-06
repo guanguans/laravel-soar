@@ -26,6 +26,9 @@ class DebugBarOutput extends Output
         protected string $label = 'warning'
     ) {}
 
+    /**
+     * @noinspection PhpMissingParentCallCommonInspection
+     */
     public function shouldOutput(CommandFinished|Response $dispatcher): bool
     {
         // app(LaravelDebugbar::class)->isEnabled()
@@ -35,9 +38,12 @@ class DebugBarOutput extends Output
     }
 
     /**
+     * @noinspection PhpPossiblePolymorphicInvocationInspection
+     *
+     * @throws \DebugBar\DebugBarException
      * @throws \JsonException
      */
-    public function output(Collection $scores, CommandFinished|Response $dispatcher): mixed
+    public function output(Collection $scores, CommandFinished|Response $dispatcher): LaravelDebugbar
     {
         $debugBar = resolve(LaravelDebugbar::class);
 

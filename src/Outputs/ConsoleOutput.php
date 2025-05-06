@@ -21,16 +21,24 @@ class ConsoleOutput extends Output
 {
     public function __construct(protected string $method = 'warn') {}
 
+    /**
+     * @noinspection PhpMissingParentCallCommonInspection
+     */
     public function shouldOutput(CommandFinished|Response $dispatcher): bool
     {
         return $this->isHtmlResponse($dispatcher);
     }
 
+    /**
+     * @noinspection PhpMixedReturnTypeCanBeReducedInspection
+     *
+     * @throws \JsonException
+     */
     public function output(Collection $scores, CommandFinished|Response $dispatcher): mixed
     {
         \assert($dispatcher instanceof Response);
 
-        $js = $this->toJavascript($scores);
+        $js = $this->toJavaScript($scores);
         $content = $dispatcher->getContent();
 
         // Try to put the widget at the end, directly before the </body>
@@ -47,9 +55,10 @@ class ConsoleOutput extends Output
     /**
      * @throws \JsonException
      */
-    protected function toJavascript(Collection $scores): string
+    private function toJavaScript(Collection $scores): string
     {
         return \sprintf(
+            /** @lang JavaScript */
             '<script type="text/javascript">console.%s(`%s`);</script>',
             $this->method,
             str_replace('`', '\`', $this->hydrateScores($scores)),

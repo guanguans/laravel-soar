@@ -1,5 +1,8 @@
 <?php
 
+/** @noinspection PhpMethodParametersCountMismatchInspection */
+/** @noinspection PhpParamsInspection */
+
 declare(strict_types=1);
 
 /**
@@ -111,6 +114,7 @@ class QueryBuilderMixin
 
     /**
      * @noinspection ToStringCallInspection
+     * @noinspection PhpToStringImplementationInspection
      */
     public function echoSoarHtmlScores(): \Closure
     {

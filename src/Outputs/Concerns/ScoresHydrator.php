@@ -1,5 +1,7 @@
 <?php
 
+/** @noinspection MethodVisibilityInspection */
+
 declare(strict_types=1);
 
 /**
@@ -19,6 +21,8 @@ use function Guanguans\LaravelSoar\Support\json_pretty_encode;
 trait ScoresHydrator
 {
     /**
+     * @noinspection PhpStrictTypeCheckingInspection
+     *
      * @throws \JsonException
      */
     protected function hydrateScores(Collection $scores): string

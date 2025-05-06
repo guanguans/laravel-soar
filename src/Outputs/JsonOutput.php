@@ -23,12 +23,18 @@ class JsonOutput extends Output
 {
     public function __construct(protected string $key = 'soar_scores') {}
 
+    /**
+     * @noinspection PhpMissingParentCallCommonInspection
+     */
     public function shouldOutput(CommandFinished|Response $dispatcher): bool
     {
         return $this->isJsonResponse($dispatcher);
     }
 
-    public function output(Collection $scores, CommandFinished|Response $dispatcher): mixed
+    /**
+     * @throws \JsonException
+     */
+    public function output(Collection $scores, CommandFinished|Response $dispatcher): JsonResponse
     {
         \assert($dispatcher instanceof JsonResponse);
 

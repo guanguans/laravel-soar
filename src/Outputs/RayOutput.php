@@ -21,6 +21,9 @@ class RayOutput extends Output
 {
     public function __construct(protected string $label = 'Soar Scores') {}
 
+    /**
+     * @noinspection PhpMissingParentCallCommonInspection
+     */
     public function shouldOutput(CommandFinished|Response $dispatcher): bool
     {
         return \function_exists('ray');

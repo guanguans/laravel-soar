@@ -19,6 +19,7 @@ use Guanguans\LaravelSoar\Events\OutputtedEvent;
 use Guanguans\LaravelSoar\Events\OutputtingEvent;
 use Illuminate\Console\Events\CommandFinished;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Fluent;
 use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\Response;
@@ -33,7 +34,7 @@ class OutputManager extends Fluent implements Output
             return !Str::is($exclusions, $dispatcher->command);
         }
 
-        return !request()->is($exclusions) && !request()->routeIs($exclusions);
+        return !Request::is($exclusions) && !Request::routeIs($exclusions);
     }
 
     public function output(Collection $scores, CommandFinished|Response $dispatcher): mixed
@@ -42,8 +43,9 @@ class OutputManager extends Fluent implements Output
             return null;
         }
 
-        /** @var \Guanguans\LaravelSoar\Contracts\Output $output */
         foreach ($this->attributes as $output) {
+            \assert($output instanceof Output);
+
             if (!$output->shouldOutput($dispatcher)) {
                 continue;
             }

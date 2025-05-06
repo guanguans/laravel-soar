@@ -44,8 +44,13 @@ class SoarServiceProvider extends ServiceProvider
         JsonOutput::class => JsonOutput::class,
         LogOutput::class => LogOutput::class,
     ];
-    protected bool $defer = false;
 
+    /**
+     * @noinspection PhpMissingParentCallCommonInspection
+     *
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     * @throws \ReflectionException
+     */
     public function register(): void
     {
         $this->setupConfig();
@@ -66,6 +71,9 @@ class SoarServiceProvider extends ServiceProvider
         }
     }
 
+    /**
+     * @noinspection PhpMissingParentCallCommonInspection
+     */
     public function provides(): array
     {
         return [
@@ -79,10 +87,8 @@ class SoarServiceProvider extends ServiceProvider
 
     /**
      * @noinspection RealpathInStreamContextInspection
-     * @noinspection PhpUndefinedClassInspection
-     * @noinspection PhpUndefinedMethodInspection
      */
-    protected function setupConfig(): void
+    private function setupConfig(): void
     {
         $source = realpath($raw = __DIR__.'/../config/soar.php') ?: $raw;
 
@@ -97,7 +103,7 @@ class SoarServiceProvider extends ServiceProvider
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      * @throws \ReflectionException
      */
-    protected function registerMacros(): void
+    private function registerMacros(): void
     {
         $queryBuilderMixin = $this->app->make(QueryBuilderMixin::class);
         EloquentBuilder::mixin($queryBuilderMixin);
@@ -105,7 +111,7 @@ class SoarServiceProvider extends ServiceProvider
         RelationBuilder::mixin($queryBuilderMixin);
     }
 
-    protected function registerSoar(): void
+    private function registerSoar(): void
     {
         $this->app->singleton(
             Soar::class,
@@ -118,7 +124,7 @@ class SoarServiceProvider extends ServiceProvider
         $this->app->alias(Soar::class, $this->toAlias(Soar::class));
     }
 
-    protected function registerOutputManager(): void
+    private function registerOutputManager(): void
     {
         $this->app->singleton(
             OutputManager::class,
@@ -137,7 +143,7 @@ class SoarServiceProvider extends ServiceProvider
         $this->app->alias(OutputManager::class, $this->toAlias(OutputManager::class));
     }
 
-    protected function registerCommands(): void
+    private function registerCommands(): void
     {
         if ($this->app->runningInConsole()) {
             $this->commands([
@@ -151,7 +157,7 @@ class SoarServiceProvider extends ServiceProvider
     /**
      * @param class-string $class
      */
-    protected function toAlias(string $class, string $prefix = 'soar.'): string
+    private function toAlias(string $class, string $prefix = 'soar.'): string
     {
         $alias = Str::snake(class_basename($class), '.');
 

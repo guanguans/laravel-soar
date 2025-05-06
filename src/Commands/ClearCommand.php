@@ -19,14 +19,20 @@ use Illuminate\Support\Facades\File;
 
 class ClearCommand extends Command
 {
+    /** @noinspection ClassOverridesFieldOfSuperClassInspection */
     protected $signature = 'soar:clear';
+
+    /** @noinspection ClassOverridesFieldOfSuperClassInspection */
     protected $description = 'Clear the Soar log file';
 
     public function handle(): void
     {
         $this->info('Clearing Soar log file...');
 
-        File::delete($logFile = Soar::getOption('-log-output', \dirname(Soar::getSoarBinary()).\DIRECTORY_SEPARATOR.'soar.log'));
+        File::delete($logFile = Soar::getOption(
+            '-log-output',
+            \dirname(Soar::getSoarBinary()).\DIRECTORY_SEPARATOR.'soar.log'
+        ));
 
         $this->info("The Soar log file($logFile) has been cleared.");
     }

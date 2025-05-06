@@ -19,7 +19,11 @@ use Illuminate\Console\Command;
 class RunCommand extends Command
 {
     use WithSoarOptions;
+
+    /** @noinspection ClassOverridesFieldOfSuperClassInspection */
     protected $signature = 'soar:run';
+
+    /** @noinspection ClassOverridesFieldOfSuperClassInspection */
     protected $description = 'Run Soar with the given options';
 
     /**

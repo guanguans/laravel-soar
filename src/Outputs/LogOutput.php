@@ -28,7 +28,7 @@ class LogOutput extends Output
     /**
      * @throws \JsonException
      */
-    public function output(Collection $scores, CommandFinished|Response $dispatcher): mixed
+    public function output(Collection $scores, CommandFinished|Response $dispatcher): CommandFinished|Response
     {
         $scores->each(fn (array $score) => Log::channel($this->channel)->log(
             $this->level,

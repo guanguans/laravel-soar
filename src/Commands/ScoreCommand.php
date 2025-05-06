@@ -19,7 +19,11 @@ use Illuminate\Console\Command;
 class ScoreCommand extends Command
 {
     use WithSoarOptions;
+
+    /** @noinspection ClassOverridesFieldOfSuperClassInspection */
     protected $signature = 'soar:score';
+
+    /** @noinspection ClassOverridesFieldOfSuperClassInspection */
     protected $description = 'Get the Soar scores of the given SQL statements';
 
     /**

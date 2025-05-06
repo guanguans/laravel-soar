@@ -19,6 +19,9 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ClockworkOutput extends Output
 {
+    /**
+     * @noinspection PhpMissingParentCallCommonInspection
+     */
     public function shouldOutput(CommandFinished|Response $dispatcher): bool
     {
         return \function_exists('clock');

@@ -14,12 +14,16 @@ declare(strict_types=1);
 namespace Guanguans\LaravelSoar;
 
 use Illuminate\Support\Traits\Conditionable;
+use Illuminate\Support\Traits\ForwardsCalls;
+use Illuminate\Support\Traits\Localizable;
 use Illuminate\Support\Traits\Macroable;
 use Illuminate\Support\Traits\Tappable;
 
 class Soar extends \Guanguans\SoarPHP\Soar
 {
-    // use Conditionable;
+    use Conditionable;
+    use ForwardsCalls;
+    use Localizable;
     use Macroable {
         Macroable::__call as macroCall;
     }
@@ -27,6 +31,9 @@ class Soar extends \Guanguans\SoarPHP\Soar
 
     /**
      * Handle dynamic method calls into the method.
+     *
+     * @noinspection PhpParameterNameChangedDuringInheritanceInspection
+     * @noinspection PhpHierarchyChecksInspection
      */
     public function __call(string $method, array $parameters): mixed
     {

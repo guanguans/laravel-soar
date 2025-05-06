@@ -27,11 +27,11 @@ use function Guanguans\LaravelSoar\Support\star_for;
 
 class Bootstrapper
 {
-    protected bool $booted = false;
-    protected static Collection $queries;
-    protected static Collection $scores;
+    private bool $booted = false;
+    private static Collection $queries;
+    private static Collection $scores;
 
-    public function __construct(protected Container $container)
+    public function __construct(private Container $container)
     {
         self::$queries = collect();
         self::$scores = collect();
@@ -43,8 +43,6 @@ class Bootstrapper
     }
 
     /**
-     * @noinspection OffsetOperationsInspection
-     *
      * @throws BindingResolutionException
      */
     public function boot(): void
@@ -58,6 +56,9 @@ class Bootstrapper
         $this->registerOutputMonitor($this->container);
     }
 
+    /**
+     * @throws \JsonException
+     */
     public function getScores(): Collection
     {
         if (self::$scores->isEmpty()) {
@@ -95,7 +96,7 @@ class Bootstrapper
         return self::$scores;
     }
 
-    protected function logQuery(Dispatcher $dispatcher): void
+    private function logQuery(Dispatcher $dispatcher): void
     {
         // 记录 SQL
         $dispatcher->listen(QueryExecuted::class, function (QueryExecuted $queryExecuted): void {
@@ -117,7 +118,7 @@ class Bootstrapper
         });
     }
 
-    protected function isExceptSql(string $sql): bool
+    private function isExceptSql(string $sql): bool
     {
         return Str::is(config('soar.except', []), $sql);
     }
@@ -125,7 +126,7 @@ class Bootstrapper
     /**
      * @noinspection DebugFunctionUsageInspection
      */
-    protected function toSql(QueryExecuted $queryExecuted): string
+    private function toSql(QueryExecuted $queryExecuted): string
     {
         if ([] === $queryExecuted->bindings) {
             return $queryExecuted->sql;
@@ -144,7 +145,7 @@ class Bootstrapper
     /**
      * @noinspection DebugFunctionUsageInspection
      */
-    protected function getBacktraces(int $limit = 0, int $forgetLines = 0): array
+    private function getBacktraces(int $limit = 0, int $forgetLines = 0): array
     {
         return collect(debug_backtrace(\DEBUG_BACKTRACE_IGNORE_ARGS, $limit))
             ->forget($forgetLines)
@@ -163,12 +164,9 @@ class Bootstrapper
     }
 
     /**
-     * @noinspection PhpUndefinedMethodInspection
-     * @noinspection OffsetOperationsInspection
-     *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
-    protected function registerOutputMonitor(Container $container): void
+    private function registerOutputMonitor(Container $container): void
     {
         // 注册输出监听
         $container->make(\Illuminate\Contracts\Events\Dispatcher::class)->listen(
@@ -183,7 +181,10 @@ class Bootstrapper
         $container->make(Kernel::class)->pushMiddleware(OutputSoarScoresMiddleware::class);
     }
 
-    protected function toScores(Collection $queries): Collection
+    /**
+     * @throws \JsonException
+     */
+    private function toScores(Collection $queries): Collection
     {
         return $queries
             ->map(static fn (array $query): string => $query['sql'])
@@ -199,7 +200,7 @@ class Bootstrapper
      *     backtraces: array<string>
      * }
      */
-    protected function matchQuery(Collection $queries, array $score): array
+    private function matchQuery(Collection $queries, array $score): array
     {
         $query = $queries->first(static fn (array $query): bool => $score['Sample'] === $query['sql']);
 
@@ -219,7 +220,7 @@ class Bootstrapper
         // @codeCoverageIgnoreEnd
     }
 
-    protected function sanitizeExplain(array $explain): array
+    private function sanitizeExplain(array $explain): array
     {
         return collect($explain)
             ->map(static function (array $explain): array {

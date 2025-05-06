@@ -1,5 +1,7 @@
 <?php
 
+/** @noinspection PhpFullyQualifiedNameUsageInspection */
+
 declare(strict_types=1);
 
 /**
@@ -46,6 +48,9 @@ use Illuminate\Support\Facades\Facade;
  * @method static \Guanguans\SoarPHP\Soar dump(mixed ...$args)
  * @method static \Guanguans\SoarPHP\Soar setProcessTapper(callable|null $processTapper)
  * @method static string run(null|callable $callback = null)
+ * @method static \Guanguans\LaravelSoar\Soar|mixed when(\Closure|mixed|null $value = null, callable|null $callback = null, callable|null $default = null)
+ * @method static \Guanguans\LaravelSoar\Soar|mixed unless(\Closure|mixed|null $value = null, callable|null $callback = null, callable|null $default = null)
+ * @method static mixed withLocale(string $locale, \Closure $callback)
  * @method static void macro(string $name, object|callable $macro)
  * @method static void mixin(object $mixin, bool $replace = true)
  * @method static bool hasMacro(string $name)
@@ -54,13 +59,12 @@ use Illuminate\Support\Facades\Facade;
  * @method static \Guanguans\LaravelSoar\Soar|\Illuminate\Support\HigherOrderTapProxy tap(callable|null $callback = null)
  *
  * @see \Guanguans\LaravelSoar\Soar
- *
- * @mixin \Guanguans\LaravelSoar\Soar
  */
 class Soar extends Facade
 {
     /**
-     * @noinspection MissingParentCallInspection
+     * @noinspection PhpMissingParentCallCommonInspection
+     * @noinspection MethodVisibilityInspection
      */
     protected static function getFacadeAccessor(): string
     {
