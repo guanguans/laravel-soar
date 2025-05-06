@@ -16,14 +16,12 @@ declare(strict_types=1);
  */
 
 use Carbon\Carbon;
-use Composer\Autoload\ClassLoader;
 use Ergebnis\Rector\Rules\Arrays\SortAssociativeArrayByKeyRector;
 use Guanguans\MonorepoBuilderWorker\Support\Rectors\AddNoinspectionsDocCommentToDeclareRector;
 use Guanguans\MonorepoBuilderWorker\Support\Rectors\NewExceptionToNewAnonymousExtendsExceptionImplementsRector;
 use Guanguans\MonorepoBuilderWorker\Support\Rectors\RemoveNamespaceRector;
 use Guanguans\MonorepoBuilderWorker\Support\Rectors\SimplifyListIndexRector;
 use Illuminate\Support\Carbon as IlluminateCarbon;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Rector\CodeQuality\Rector\If_\ExplicitBoolCompareRector;
 use Rector\CodeQuality\Rector\LogicalAnd\LogicalToBooleanRector;
@@ -59,17 +57,7 @@ use RectorLaravel\Rector\MethodCall\UseComponentPropertyWithinCommandsRector;
 use RectorLaravel\Rector\Namespace_\FactoryDefinitionRector;
 use RectorLaravel\Rector\StaticCall\DispatchToHelperFunctionsRector;
 use RectorLaravel\Set\LaravelSetList;
-
-/** @var \Illuminate\Support\Collection $classes */
-$classes ??= collect(spl_autoload_functions())
-    ->pipe(static fn (Collection $splAutoloadFunctions): Collection => collect(
-        $splAutoloadFunctions
-            ->firstOrFail(
-                static fn (mixed $loader): bool => \is_array($loader) && $loader[0] instanceof ClassLoader
-            )[0]
-            ->getClassMap()
-    ))
-    ->keys();
+use function Guanguans\LaravelSoar\Support\classes;
 
 return RectorConfig::configure()
     ->withPaths([
@@ -132,10 +120,9 @@ return RectorConfig::configure()
         SortAssociativeArrayByKeyRector::class,
         StaticArrowFunctionRector::class,
         StaticClosureRector::class,
-        ...$classes
-            ->filter(static fn (string $class): bool => str_starts_with($class, 'RectorLaravel\Rector'))
-            ->filter(static fn (string $class): bool => (new ReflectionClass($class))->isInstantiable())
-            ->values()
+        ...classes(static fn (string $file, string $class): bool => str_starts_with($class, 'RectorLaravel\Rector'))
+            ->filter(static fn (ReflectionClass $reflectionClass): bool => $reflectionClass->isInstantiable())
+            ->keys()
             // ->dd()
             ->all(),
     ])
@@ -167,10 +154,10 @@ return RectorConfig::configure()
     ])
     ->withConfiguredRule(
         ChangeMethodVisibilityRector::class,
-        $classes
-            ->filter(static fn (string $class): bool => str_starts_with($class, 'Guanguans\LaravelSoar'))
-            ->mapWithKeys(static fn (string $class): array => [$class => new ReflectionClass($class)])
+        classes(static fn (string $file, string $class): bool => str_starts_with($class, 'Guanguans\LaravelSoar'))
             ->filter(static fn (ReflectionClass $reflectionClass): bool => $reflectionClass->isTrait())
+            // ->keys()
+            // ->dd()
             ->map(
                 static fn (ReflectionClass $reflectionClass): array => collect($reflectionClass->getMethods(ReflectionMethod::IS_PRIVATE))
                     ->reject(static fn (ReflectionMethod $reflectionMethod): bool => $reflectionMethod->isFinal())
@@ -191,18 +178,20 @@ return RectorConfig::configure()
     ->withConfiguredRule(
         RenameFunctionRector::class,
         [
-            // // 'app' => 'resolve',
-            // 'faker' => 'fake',
-            // 'Guanguans\Notify\Foundation\Support\rescue' => 'Guanguans\LaravelSoar\Support\rescue',
-            // 'Pest\Faker\fake' => 'fake',
-            // 'Pest\Faker\faker' => 'faker',
-            // 'test' => 'it',
+            // 'app' => 'resolve',
+            'faker' => 'fake',
+            'Pest\Faker\fake' => 'fake',
+            'Pest\Faker\faker' => 'faker',
+            'test' => 'it',
         ] + array_reduce(
             [
-                // 'env_explode',
-                // 'json_pretty_encode',
-                // 'make',
-                // 'rescue',
+                'base64_encode_file',
+                'classes',
+                'env_explode',
+                'humanly_milliseconds',
+                'json_pretty_encode',
+                'make',
+                'star_for',
             ],
             static function (array $carry, string $func): array {
                 /** @see https://github.com/laravel/framework/blob/11.x/src/Illuminate/Support/functions.php */

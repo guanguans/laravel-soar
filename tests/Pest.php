@@ -71,18 +71,18 @@ expect()->extend('toBetween', fn (int $min, int $max): Expectation => expect($th
 |
  */
 
-function classes(): Collection
-{
-    return collect(spl_autoload_functions())
-        ->pipe(static fn (Collection $splAutoloadFunctions): Collection => collect(
-            $splAutoloadFunctions
-                ->firstOrFail(
-                    static fn (mixed $loader): bool => \is_array($loader) && $loader[0] instanceof ClassLoader
-                )[0]
-                ->getClassMap()
-        ))
-        ->keys();
-}
+// function classes(): Collection
+// {
+//     return collect(spl_autoload_functions())
+//         ->pipe(static fn (Collection $splAutoloadFunctions): Collection => collect(
+//             $splAutoloadFunctions
+//                 ->firstOrFail(
+//                     static fn (mixed $loader): bool => \is_array($loader) && $loader[0] instanceof ClassLoader
+//                 )[0]
+//                 ->getClassMap()
+//         ))
+//         ->keys();
+// }
 
 /**
  * @throws ReflectionException

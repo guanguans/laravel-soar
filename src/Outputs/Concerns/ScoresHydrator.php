@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Guanguans\LaravelSoar\Outputs\Concerns;
 
 use Illuminate\Support\Collection;
+use function Guanguans\LaravelSoar\Support\json_pretty_encode;
 
 trait ScoresHydrator
 {
@@ -33,6 +34,6 @@ trait ScoresHydrator
      */
     protected function hydrateScore(array $score): string
     {
-        return ($score['Summary'] ?? '').\PHP_EOL.to_pretty_json($score);
+        return ($score['Summary'] ?? '').\PHP_EOL.json_pretty_encode($score);
     }
 }

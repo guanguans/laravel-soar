@@ -22,6 +22,8 @@ use Illuminate\Database\Events\QueryExecuted;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
+use function Guanguans\LaravelSoar\Support\humanly_milliseconds;
+use function Guanguans\LaravelSoar\Support\star_for;
 
 class Bootstrapper
 {
@@ -67,7 +69,7 @@ class Bootstrapper
                     return [
                         'Summary' => \sprintf(
                             '[%s|%d分|%s|%s]',
-                            $star = to_star($score['Score']),
+                            $star = star_for($score['Score']),
                             $score['Score'],
                             $query['time'],
                             $query['sql']
@@ -107,7 +109,7 @@ class Bootstrapper
 
             self::$queries[$queryExecuted->sql] = [
                 'sql' => $sql,
-                'time' => to_human_time($queryExecuted->time),
+                'time' => humanly_milliseconds($queryExecuted->time),
                 'connection' => $queryExecuted->connectionName,
                 'driver' => $queryExecuted->connection->getDriverName(),
                 'backtraces' => $this->getBacktraces(),

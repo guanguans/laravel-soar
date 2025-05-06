@@ -13,6 +13,8 @@ declare(strict_types=1);
 
 namespace Guanguans\LaravelSoar;
 
+use function Guanguans\LaravelSoar\Support\base64_encode_file;
+
 /**
  * This is modified from the https://github.com/barryvdh/laravel-debugbar.
  *
