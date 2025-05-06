@@ -11,7 +11,7 @@ declare(strict_types=1);
  * @see https://github.com/guanguans/laravel-soar
  */
 
-namespace Guanguans\LaravelSoar\Http\Middleware;
+namespace Guanguans\LaravelSoar\Middleware;
 
 use Guanguans\LaravelSoar\Bootstrapper;
 use Guanguans\LaravelSoar\OutputManager;

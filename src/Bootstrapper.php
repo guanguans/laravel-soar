@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Guanguans\LaravelSoar;
 
-use Guanguans\LaravelSoar\Http\Middleware\OutputSoarScoresMiddleware;
+use Guanguans\LaravelSoar\Middleware\OutputSoarScoresMiddleware;
 use Illuminate\Console\Events\CommandFinished;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\Container\Container;

@@ -33,14 +33,14 @@ parameters:
             path: ../src/Commands/ScoreCommand.php
 
         -
-            message: '#^Unused Guanguans\\LaravelSoar\\Http\\Middleware\\OutputSoarScoresMiddleware\:\:__construct$#'
+            message: '#^Unused Guanguans\\LaravelSoar\\Middleware\\OutputSoarScoresMiddleware\:\:__construct$#'
             count: 1
-            path: ../src/Http/Middleware/OutputSoarScoresMiddleware.php
+            path: ../src/Middleware/OutputSoarScoresMiddleware.php
 
         -
-            message: '#^Unused Guanguans\\LaravelSoar\\Http\\Middleware\\OutputSoarScoresMiddleware\:\:handle$#'
+            message: '#^Unused Guanguans\\LaravelSoar\\Middleware\\OutputSoarScoresMiddleware\:\:handle$#'
             count: 1
-            path: ../src/Http/Middleware/OutputSoarScoresMiddleware.php
+            path: ../src/Middleware/OutputSoarScoresMiddleware.php
 
         -
             message: '#^Unused Guanguans\\LaravelSoar\\Mixins\\QueryBuilderMacro\:\:ddRawSql$#'
