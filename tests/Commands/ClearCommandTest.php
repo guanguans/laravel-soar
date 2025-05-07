@@ -5,6 +5,7 @@
 /** @noinspection PhpPossiblePolymorphicInvocationInspection */
 /** @noinspection PhpUndefinedClassInspection */
 /** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection SqlResolve */
 /** @noinspection StaticClosureCanBeUsedInspection */
 declare(strict_types=1);
 
@@ -19,14 +20,17 @@ declare(strict_types=1);
 
 use Guanguans\LaravelSoar\Commands\ClearCommand;
 use Guanguans\LaravelSoar\Facades\Soar;
-use Symfony\Component\Console\Command\Command;
 use function Pest\Laravel\artisan;
 
-it('can clear the Soar log file', function (): void {
-    Soar::onlyVerbose()->scores('select * from foo');
-    $logFile = Soar::getOption('-log-output', \dirname(Soar::getSoarBinary()).\DIRECTORY_SEPARATOR.'soar.log');
+it('can clear the soar log file', function (): void {
+    Soar::onlyVerbose()->scores('select * from foo;');
 
-    expect($logFile)->toBeFile();
-    artisan(ClearCommand::class)->expectsOutput('Clearing Soar log file...')->assertExitCode(Command::SUCCESS);
+    expect($logFile = ClearCommand::soarLogFile())->toBeFile();
+
+    artisan(ClearCommand::class)
+        ->expectsOutput('⏳ Clearing Soar log file...')
+        ->expectsOutput("✅ The Soar log file [$logFile] has been cleared.")
+        ->assertOk();
+
     expect($logFile)->not->toBeFile();
 })->group(__DIR__, __FILE__);

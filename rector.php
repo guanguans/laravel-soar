@@ -130,11 +130,12 @@ return RectorConfig::configure()
     ])
     ->withConfiguredRule(AddNoinspectionsDocCommentToDeclareRector::class, [
         'AnonymousFunctionStaticInspection',
-        'PhpUndefinedClassInspection',
-        'PhpUnhandledExceptionInspection',
-        'StaticClosureCanBeUsedInspection',
         'NullPointerExceptionInspection',
         'PhpPossiblePolymorphicInvocationInspection',
+        'PhpUndefinedClassInspection',
+        'PhpUnhandledExceptionInspection',
+        'SqlResolve',
+        'StaticClosureCanBeUsedInspection',
     ])
     ->withConfiguredRule(NewExceptionToNewAnonymousExtendsExceptionImplementsRector::class, [
         ThrowableContract::class,
