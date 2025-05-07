@@ -14,13 +14,16 @@ declare(strict_types=1);
 namespace Guanguans\LaravelSoar\Events;
 
 use Guanguans\LaravelSoar\Contracts\OutputContract;
+use Illuminate\Console\Events\CommandFinished;
 use Illuminate\Support\Collection;
+use Symfony\Component\HttpFoundation\Response;
 
 class OutputtedEvent
 {
     public function __construct(
         public OutputContract $output,
         public Collection $scores,
+        public CommandFinished|Response $outputter,
         public mixed $result
     ) {}
 }

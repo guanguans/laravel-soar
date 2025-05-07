@@ -53,7 +53,7 @@ class OutputManager extends Fluent implements OutputContract
             $output instanceof SanitizerContract and $scores = $output->sanitize($scores);
             event(new OutputtingEvent($output, $scores, $outputter));
             $result = $output->output($scores, $outputter);
-            event(new OutputtedEvent($output, $scores, $result));
+            event(new OutputtedEvent($output, $scores, $outputter, $result));
         }
 
         return null;

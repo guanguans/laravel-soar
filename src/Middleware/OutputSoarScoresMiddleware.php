@@ -37,9 +37,12 @@ class OutputSoarScoresMiddleware
      */
     public function handle(Request $request, \Closure $next): SymfonyResponse
     {
-        return tap($next($request), fn (SymfonyResponse $symfonyResponse): mixed => $this->outputManager->output(
-            $this->bootstrapper->getScores(),
-            $symfonyResponse
-        ));
+        return tap(
+            $next($request),
+            fn (SymfonyResponse $symfonyResponse): mixed => $this->outputManager->output(
+                $this->bootstrapper->getScores(),
+                $symfonyResponse
+            )
+        );
     }
 }
