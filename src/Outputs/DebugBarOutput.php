@@ -33,7 +33,7 @@ class DebugBarOutput extends AbstractOutput
     {
         return class_exists(LaravelDebugbar::class)
             && app()->has(LaravelDebugbar::class)
-            && resolve(LaravelDebugbar::class)->isEnabled()
+            // && resolve(LaravelDebugbar::class)->isEnabled()
             && $this->isHtmlResponse($outputter);
     }
 

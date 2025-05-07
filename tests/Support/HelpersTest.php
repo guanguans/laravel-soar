@@ -18,16 +18,11 @@ declare(strict_types=1);
  * @see https://github.com/guanguans/laravel-soar
  */
 
-use function Guanguans\LaravelSoar\Support\base64_encode_file;
 use function Guanguans\LaravelSoar\Support\env_explode;
 use function Guanguans\LaravelSoar\Support\humanly_milliseconds;
 use function Guanguans\LaravelSoar\Support\json_pretty_encode;
 use function Guanguans\LaravelSoar\Support\make;
 use function Guanguans\LaravelSoar\Support\star_for;
-
-it('can base64 encode file for `base64_encode_file`', function (): void {
-    expect(base64_decode(base64_encode_file(__FILE__), true))->toBe(file_get_contents(__FILE__));
-})->group(__DIR__, __FILE__);
 
 it('can humanly milliseconds', function (): void {
     expect([

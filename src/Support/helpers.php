@@ -19,13 +19,6 @@ use Guanguans\LaravelSoar\Exceptions\InvalidArgumentException;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 
-if (!\function_exists('Guanguans\LaravelSoar\Support\base64_encode_file')) {
-    function base64_encode_file(string $filename): string
-    {
-        return base64_encode(file_get_contents($filename));
-    }
-}
-
 if (!\function_exists('Guanguans\LaravelSoar\Support\classes')) {
     /**
      * @see https://github.com/alekitto/class-finder
