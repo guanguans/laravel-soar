@@ -83,7 +83,6 @@ parameters:
 #        - identifier: cast.string
 #        - identifier: encapsedStringPart.nonString
 #        - identifier: logicalAnd.resultUnused
-#        - identifier: return.void
 #        - identifier: symplify.noDynamicName
 #        - identifier: typePerfect.noMixedMethodCaller
         - identifier: argument.templateType
@@ -93,6 +92,7 @@ parameters:
         - identifier: missingType.generics
         - identifier: missingType.iterableValue
         - identifier: return.type
+        - identifier: return.void
         - identifier: shipmonk.deadMethod
         - identifier: symplify.explicitTraitSuffixName
         - identifier: symplify.requireExceptionNamespace

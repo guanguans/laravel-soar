@@ -22,6 +22,6 @@ trait ScoresSanitizer
 
     public function sanitize(Collection $scores): Collection
     {
-        return $scores->map(fn (array $score): array => Arr::except($score, $this->except));
+        return $scores->transform(fn (array $score): array => Arr::except($score, $this->except));
     }
 }

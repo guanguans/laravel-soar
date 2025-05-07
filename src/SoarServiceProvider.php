@@ -13,50 +13,36 @@ declare(strict_types=1);
 
 namespace Guanguans\LaravelSoar;
 
+use Composer\InstalledVersions;
 use Guanguans\LaravelSoar\Commands\ClearCommand;
 use Guanguans\LaravelSoar\Commands\RunCommand;
 use Guanguans\LaravelSoar\Commands\ScoreCommand;
 use Guanguans\LaravelSoar\Mixins\QueryBuilderMixin;
-use Guanguans\LaravelSoar\Outputs\ClockworkOutput;
-use Guanguans\LaravelSoar\Outputs\ConsoleOutput;
-use Guanguans\LaravelSoar\Outputs\DebugBarOutput;
-use Guanguans\LaravelSoar\Outputs\DumpOutput;
-use Guanguans\LaravelSoar\Outputs\JsonOutput;
-use Guanguans\LaravelSoar\Outputs\LogOutput;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Relations\Relation as RelationBuilder;
 use Illuminate\Database\Query\Builder as QueryBuilder;
+use Illuminate\Foundation\Console\AboutCommand;
 use Illuminate\Support\Collection;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Str;
 
 class SoarServiceProvider extends ServiceProvider
 {
     public array $singletons = [
-        Bootstrapper::class => Bootstrapper::class,
-        QueryBuilderMixin::class => QueryBuilderMixin::class,
-
-        ClockworkOutput::class => ClockworkOutput::class,
-        ConsoleOutput::class => ConsoleOutput::class,
-        DebugBarOutput::class => DebugBarOutput::class,
-        DumpOutput::class => DumpOutput::class,
-        JsonOutput::class => JsonOutput::class,
-        LogOutput::class => LogOutput::class,
+        Bootstrapper::class,
     ];
 
     /**
      * @noinspection PhpMissingParentCallCommonInspection
      *
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      * @throws \ReflectionException
      */
     public function register(): void
     {
         $this->setupConfig();
-        $this->registerMacros();
-        $this->registerSoar();
+        $this->registerMixins();
         $this->registerOutputManager();
+        $this->registerSoar();
     }
 
     /**
@@ -77,8 +63,6 @@ class SoarServiceProvider extends ServiceProvider
     public function provides(): array
     {
         return [
-            $this->toAlias(OutputManager::class),
-            $this->toAlias(Soar::class),
             Bootstrapper::class,
             OutputManager::class,
             Soar::class,
@@ -100,28 +84,14 @@ class SoarServiceProvider extends ServiceProvider
     }
 
     /**
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      * @throws \ReflectionException
      */
-    private function registerMacros(): void
+    private function registerMixins(): void
     {
-        $queryBuilderMixin = $this->app->make(QueryBuilderMixin::class);
+        $queryBuilderMixin = new QueryBuilderMixin;
         EloquentBuilder::mixin($queryBuilderMixin);
         QueryBuilder::mixin($queryBuilderMixin);
         RelationBuilder::mixin($queryBuilderMixin);
-    }
-
-    private function registerSoar(): void
-    {
-        $this->app->singleton(
-            Soar::class,
-            static fn (): Soar => Soar::make(
-                config('soar.options', []),
-                config('soar.binary')
-            )->setSudoPassword(config('soar.sudo_password'))
-        );
-
-        $this->app->alias(Soar::class, $this->toAlias(Soar::class));
     }
 
     private function registerOutputManager(): void
@@ -137,10 +107,19 @@ class SoarServiceProvider extends ServiceProvider
                     /** @var string $class */
                     return [$class => $container->make($class, $parameters)];
                 })
-                ->pipe(static fn (Collection $collection): OutputManager => new OutputManager($collection->all()))
+                ->pipe(static fn (Collection $outputs): OutputManager => new OutputManager($outputs->all()))
         );
+    }
 
-        $this->app->alias(OutputManager::class, $this->toAlias(OutputManager::class));
+    private function registerSoar(): void
+    {
+        $this->app->singleton(
+            Soar::class,
+            static fn (): Soar => Soar::make(
+                config('soar.options', []),
+                config('soar.binary')
+            )->setSudoPassword(config('soar.sudo_password'))
+        );
     }
 
     private function registerCommands(): void
@@ -151,20 +130,24 @@ class SoarServiceProvider extends ServiceProvider
                 RunCommand::class,
                 ScoreCommand::class,
             ]);
+
+            $this->addSectionToAboutCommand();
         }
     }
 
-    /**
-     * @param class-string $class
-     */
-    private function toAlias(string $class, string $prefix = 'soar.'): string
+    private function addSectionToAboutCommand(): void
     {
-        $alias = Str::snake(class_basename($class), '.');
-
-        if (Str::startsWith($alias, Str::replaceLast('.', '', $prefix))) {
-            return $alias;
-        }
-
-        return $prefix.$alias;
+        AboutCommand::add(
+            str($package = 'guanguans/laravel-soar')->headline()->toString(),
+            static fn (): array => collect(['Homepage' => "https://github.com/$package"])
+                ->when(
+                    class_exists(InstalledVersions::class),
+                    static fn (Collection $data): Collection => $data->put(
+                        'Version',
+                        InstalledVersions::getPrettyVersion($package)
+                    )
+                )
+                ->all()
+        );
     }
 }
