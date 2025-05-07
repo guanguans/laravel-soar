@@ -115,7 +115,7 @@ class Bootstrapper
 
     private function isExceptSql(string $sql): bool
     {
-        return Str::is(config('soar.except', []), $sql);
+        return Str::is(config('soar.except_queries', []), $sql);
     }
 
     /**

@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 return [
     // 是否启用 soar 评分
-    'enabled' => (bool) env('SOAR_SCORE_ENABLED', config('app.debug')),
+    'enabled' => (bool) env('SOAR_SCORE_ENABLED', config('app.debug') && 'local' === config('app.env')),
 
     // soar 二进制文件
     'binary' => env('SOAR_BINARY'),
@@ -21,8 +21,14 @@ return [
     // sudo 密码(在 unix 操作系统非 cli 环境中运行时需要设置)
     'sudo_password' => env('SOAR_SUDO_PASSWORD'),
 
-    // 排除 soar 评分的 sql
+    // 排除 soar 评分输出的命令、URL 路径、路由
     'except' => [
+        'telescope:*',
+        '*telescope*',
+    ],
+
+    // 排除 soar 评分的 sql
+    'except_queries' => [
         '^use \?$',
         '^set.*',
         '^show.*',
@@ -35,12 +41,6 @@ return [
         '*telescope*',
         '*horizon*',
         // 'create table*',
-    ],
-
-    // 排除 soar 评分输出的命令、URL 路径、路由
-    'exclusions' => [
-        'telescope:*',
-        '*telescope*',
     ],
 
     // soar 评分输出器

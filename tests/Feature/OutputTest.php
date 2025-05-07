@@ -34,7 +34,7 @@ beforeEach(function (): void {
 });
 
 it('can not output soar scores', function (): void {
-    config()->set('soar.exclusions', ['outputs']);
+    config()->set('soar.except', ['outputs']);
 
     $this->artisan('outputs')
         ->assertExitCode(Command::SUCCESS)

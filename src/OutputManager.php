@@ -28,13 +28,13 @@ class OutputManager extends Fluent implements OutputContract
 {
     public function shouldOutput(CommandFinished|Response $outputter): bool
     {
-        $exclusions = config('soar.exclusions', []);
+        $except = config('soar.except', []);
 
         if ($outputter instanceof CommandFinished) {
-            return !Str::is($exclusions, $outputter->command);
+            return !Str::is($except, $outputter->command);
         }
 
-        return !Request::is($exclusions) && !Request::routeIs($exclusions);
+        return !Request::is($except) && !Request::routeIs($except);
     }
 
     public function output(Collection $scores, CommandFinished|Response $outputter): mixed
