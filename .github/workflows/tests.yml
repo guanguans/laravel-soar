@@ -59,9 +59,10 @@ jobs:
       - name: Install dependencies
         run: |
           composer remove "brainmaestro/composer-git-hooks" --no-interaction --no-scripts --dev --ansi -v
+          composer remove "guanguans/soar-php" --no-interaction --no-scripts --ansi -v
+          composer require guanguans/soar-php --prefer-source --no-interaction --no-scripts --ansi -v
           composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update --ansi -v
-          composer install --prefer-dist --no-interaction --no-scripts --ansi -v
-          composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction --no-scripts --ansi -W -v
+          composer update --${{ matrix.dependency-version }} --prefer-source --no-interaction --no-scripts --ansi -W -v
 
       - name: Execute tests
         run: composer test-coverage
