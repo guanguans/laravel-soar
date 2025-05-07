@@ -19,7 +19,6 @@ declare(strict_types=1);
  */
 
 use Guanguans\LaravelSoar\Commands\RunCommand;
-use Symfony\Component\Console\Command\Command;
 use function Pest\Laravel\artisan;
 
 it('can run Soar with the given options', function (): void {
@@ -32,5 +31,5 @@ it('can run Soar with the given options', function (): void {
             ],
             '--verbose' => true,
         ]
-    )->assertExitCode(Command::SUCCESS);
+    )->assertOk();
 })->group(__DIR__, __FILE__);

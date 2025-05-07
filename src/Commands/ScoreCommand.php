@@ -33,19 +33,16 @@ class ScoreCommand extends Command
      */
     public function handle(): void
     {
-        $soar = $this->soar();
+        $query = $this->soar()->getOption('-query');
 
-        $query = $soar->getOption('-query');
-
+        // If the query is not passed in, read from STDIN
         if (($fstat = fstat(\STDIN)) && 0 < $fstat['size']) {
             $query = trim(stream_get_contents(\STDIN));
             fclose(\STDIN);
         }
 
-        while (true) {
-            $query = $query ?: $this->ask('Please input the SQL statements');
-
-            if ($query) {
+        while (blank($query)) {
+            if (filled($query = $this->ask('Please input the SQL statements'))) {
                 break;
             }
         }

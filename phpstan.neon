@@ -80,9 +80,8 @@ parameters:
             function: 'env_explode()'
             message: 'use config() instead'
     ignoreErrors:
-        - '#^Call to method label\(\) on an unknown class Spatie\\.*\\Ray\.$#'
-        - '#^Function clock not found\.$#'
 #        - identifier: cast.string
+#        - identifier: encapsedStringPart.nonString
 #        - identifier: logicalAnd.resultUnused
 #        - identifier: return.void
 #        - identifier: symplify.noDynamicName
@@ -90,7 +89,6 @@ parameters:
         - identifier: argument.templateType
         - identifier: argument.type
         - identifier: binaryOp.invalid
-        - identifier: encapsedStringPart.nonString
         - identifier: method.nonObject
         - identifier: missingType.generics
         - identifier: missingType.iterableValue
@@ -98,6 +96,8 @@ parameters:
         - identifier: shipmonk.deadMethod
         - identifier: symplify.explicitTraitSuffixName
         - identifier: symplify.requireExceptionNamespace
+        - '#^Call to method label\(\) on an unknown class Spatie\\.*\\Ray\.$#'
+        - '#^Function clock not found\.$#'
         -
             identifier: symplify.explicitInterfaceSuffixName
             path: src/Contracts/

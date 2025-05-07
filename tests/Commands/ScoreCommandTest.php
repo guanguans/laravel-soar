@@ -19,11 +19,10 @@ declare(strict_types=1);
  */
 
 use Guanguans\LaravelSoar\Commands\ScoreCommand;
-use Symfony\Component\Console\Command\Command;
 use function Pest\Laravel\artisan;
 
 it('can get the Soar scores of the given SQL statements', function (): void {
     artisan(ScoreCommand::class)
         ->expectsQuestion('Please input the SQL statements', 'select * from foo; select * from bar;')
-        ->assertExitCode(Command::SUCCESS);
+        ->assertOk();
 })->group(__DIR__, __FILE__);

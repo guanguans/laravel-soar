@@ -26,30 +26,23 @@ trait WithSoarOptions
 {
     protected function configure(): void
     {
-        $this->setDefinition($this->definition());
-    }
-
-    /**
-     * @return list<\Symfony\Component\Console\Input\InputArgument|\Symfony\Component\Console\Input\InputOption>
-     */
-    protected function definition(): array
-    {
-        return [
+        $this->setDefinition([
             new InputOption(
                 'option',
-                'o',
+                null,
                 InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY,
-                'The option to be passed to Soar(e.g. `--option=-report-type=markdown` or `--option report-type=markdown` or `-o report-type=markdown`)',
+                'The option to be passed to Soar(e.g. `--option=-report-type=markdown` or `--option report-type=markdown`)',
             ),
-        ];
+        ]);
     }
 
     protected function debugSoar(): Soar
     {
         $soar = $this->soar();
 
-        if ($this->option('verbose')) {
+        if ($this->output->isVerbose()) {
             $soar->dump();
+
             $this->output->newLine();
         }
 
@@ -58,10 +51,10 @@ trait WithSoarOptions
 
     protected function soar(): Soar
     {
-        return app(Soar::class)->withOptions($this->normalizedSoarOptions());
+        return resolve(Soar::class)->withOptions($this->normalizedOptions());
     }
 
-    protected function normalizedSoarOptions(): array
+    protected function normalizedOptions(): array
     {
         return collect($this->option('option'))
             ->mapWithKeys(static function (string $option): array {

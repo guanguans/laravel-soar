@@ -22,7 +22,7 @@ use Guanguans\LaravelSoar\Commands\ClearCommand;
 use Guanguans\LaravelSoar\Facades\Soar;
 use function Pest\Laravel\artisan;
 
-it('can clear the soar log file', function (): void {
+it('can clear the Soar log file', function (): void {
     Soar::onlyVerbose()->scores('select * from foo;');
 
     expect($logFile = ClearCommand::soarLogFile())->toBeFile();
