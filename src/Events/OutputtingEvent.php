@@ -23,6 +23,6 @@ class OutputtingEvent
     public function __construct(
         public OutputContract $output,
         public Collection $scores,
-        public CommandFinished|Response $dispatcher
+        public CommandFinished|Response $outputter
     ) {}
 }

@@ -26,33 +26,33 @@ use Symfony\Component\HttpFoundation\Response;
 
 class OutputManager extends Fluent implements OutputContract
 {
-    public function shouldOutput(CommandFinished|Response $dispatcher): bool
+    public function shouldOutput(CommandFinished|Response $outputter): bool
     {
         $exclusions = config('soar.exclusions', []);
 
-        if ($dispatcher instanceof CommandFinished) {
-            return !Str::is($exclusions, $dispatcher->command);
+        if ($outputter instanceof CommandFinished) {
+            return !Str::is($exclusions, $outputter->command);
         }
 
         return !Request::is($exclusions) && !Request::routeIs($exclusions);
     }
 
-    public function output(Collection $scores, CommandFinished|Response $dispatcher): mixed
+    public function output(Collection $scores, CommandFinished|Response $outputter): mixed
     {
-        if (!$this->shouldOutput($dispatcher)) {
+        if (!$this->shouldOutput($outputter)) {
             return null;
         }
 
         foreach ($this->attributes as $output) {
             \assert($output instanceof OutputContract);
 
-            if (!$output->shouldOutput($dispatcher)) {
+            if (!$output->shouldOutput($outputter)) {
                 continue;
             }
 
             $output instanceof SanitizerContract and $scores = $output->sanitize($scores);
-            event(new OutputtingEvent($output, $scores, $dispatcher));
-            $result = $output->output($scores, $dispatcher);
+            event(new OutputtingEvent($output, $scores, $outputter));
+            $result = $output->output($scores, $outputter);
             event(new OutputtedEvent($output, $scores, $result));
         }
 

@@ -24,9 +24,9 @@ class ConsoleOutput extends AbstractOutput
     /**
      * @noinspection PhpMissingParentCallCommonInspection
      */
-    public function shouldOutput(CommandFinished|Response $dispatcher): bool
+    public function shouldOutput(CommandFinished|Response $outputter): bool
     {
-        return $this->isHtmlResponse($dispatcher);
+        return $this->isHtmlResponse($outputter);
     }
 
     /**
@@ -34,22 +34,22 @@ class ConsoleOutput extends AbstractOutput
      *
      * @throws \JsonException
      */
-    public function output(Collection $scores, CommandFinished|Response $dispatcher): mixed
+    public function output(Collection $scores, CommandFinished|Response $outputter): mixed
     {
-        \assert($dispatcher instanceof Response);
+        \assert($outputter instanceof Response);
 
         $js = $this->toJavaScript($scores);
-        $content = $dispatcher->getContent();
+        $content = $outputter->getContent();
 
         // Try to put the widget at the end, directly before the </body>
         $pos = strripos($content, '</body>');
         $content = false !== $pos ? substr($content, 0, $pos).$js.substr($content, $pos) : $content.$js;
 
         // Update the new content and reset the content length
-        $dispatcher->setContent($content);
-        $dispatcher->headers->remove('Content-Length');
+        $outputter->setContent($content);
+        $outputter->headers->remove('Content-Length');
 
-        return $dispatcher;
+        return $outputter;
     }
 
     /**

@@ -26,26 +26,26 @@ class JsonOutput extends AbstractOutput
     /**
      * @noinspection PhpMissingParentCallCommonInspection
      */
-    public function shouldOutput(CommandFinished|Response $dispatcher): bool
+    public function shouldOutput(CommandFinished|Response $outputter): bool
     {
-        return $this->isJsonResponse($dispatcher);
+        return $this->isJsonResponse($outputter);
     }
 
     /**
      * @throws \JsonException
      */
-    public function output(Collection $scores, CommandFinished|Response $dispatcher): JsonResponse
+    public function output(Collection $scores, CommandFinished|Response $outputter): JsonResponse
     {
-        \assert($dispatcher instanceof JsonResponse);
+        \assert($outputter instanceof JsonResponse);
 
-        // $data = Arr::wrap($dispatcher->getData(true));
-        $data = Arr::wrap(json_decode($dispatcher->getContent(), true, 512, \JSON_THROW_ON_ERROR));
+        // $data = Arr::wrap($outputter->getData(true));
+        $data = Arr::wrap(json_decode($outputter->getContent(), true, 512, \JSON_THROW_ON_ERROR));
         Arr::set($data, $this->key, $scores);
 
         // Update the new content and reset the content length
-        $dispatcher->setData($data);
-        $dispatcher->headers->remove('Content-Length');
+        $outputter->setData($data);
+        $outputter->headers->remove('Content-Length');
 
-        return $dispatcher;
+        return $outputter;
     }
 }

@@ -22,12 +22,12 @@ class ClockworkOutput extends AbstractOutput
     /**
      * @noinspection PhpMissingParentCallCommonInspection
      */
-    public function shouldOutput(CommandFinished|Response $dispatcher): bool
+    public function shouldOutput(CommandFinished|Response $outputter): bool
     {
         return \function_exists('clock');
     }
 
-    public function output(Collection $scores, CommandFinished|Response $dispatcher): mixed
+    public function output(Collection $scores, CommandFinished|Response $outputter): mixed
     {
         return clock(...$scores);
     }

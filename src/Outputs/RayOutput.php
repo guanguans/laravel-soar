@@ -24,12 +24,12 @@ class RayOutput extends AbstractOutput
     /**
      * @noinspection PhpMissingParentCallCommonInspection
      */
-    public function shouldOutput(CommandFinished|Response $dispatcher): bool
+    public function shouldOutput(CommandFinished|Response $outputter): bool
     {
         return \function_exists('ray');
     }
 
-    public function output(Collection $scores, CommandFinished|Response $dispatcher): mixed
+    public function output(Collection $scores, CommandFinished|Response $outputter): mixed
     {
         return ray(...$scores)->label($this->label);
     }

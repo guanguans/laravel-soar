@@ -19,7 +19,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 interface OutputContract
 {
-    public function shouldOutput(CommandFinished|Response $dispatcher): bool;
+    public function shouldOutput(CommandFinished|Response $outputter): bool;
 
-    public function output(Collection $scores, CommandFinished|Response $dispatcher): mixed;
+    public function output(Collection $scores, CommandFinished|Response $outputter): mixed;
 }

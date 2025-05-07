@@ -27,7 +27,7 @@ abstract class AbstractOutput implements OutputContract, SanitizerContract
     use ScoresHydrator;
     use ScoresSanitizer;
 
-    public function shouldOutput(CommandFinished|Response $dispatcher): bool
+    public function shouldOutput(CommandFinished|Response $outputter): bool
     {
         return true;
     }

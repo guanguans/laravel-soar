@@ -21,25 +21,25 @@ use Symfony\Component\HttpFoundation\Response;
 
 trait OutputConditions
 {
-    protected function isCommandFinished(CommandFinished|Response $dispatcher): bool
+    protected function isCommandFinished(CommandFinished|Response $outputter): bool
     {
-        return $dispatcher instanceof CommandFinished;
+        return $outputter instanceof CommandFinished;
     }
 
-    protected function isHtmlResponse(CommandFinished|Response $dispatcher): bool
+    protected function isHtmlResponse(CommandFinished|Response $outputter): bool
     {
-        return $dispatcher instanceof Response
-            && false !== $dispatcher->getContent()
-            && str($dispatcher->headers->get('Content-Type'))->contains('text/html')
-            && !$this->isJsonResponse($dispatcher);
+        return $outputter instanceof Response
+            && false !== $outputter->getContent()
+            && str($outputter->headers->get('Content-Type'))->contains('text/html')
+            && !$this->isJsonResponse($outputter);
     }
 
-    protected function isJsonResponse(CommandFinished|Response $dispatcher): bool
+    protected function isJsonResponse(CommandFinished|Response $outputter): bool
     {
-        return $dispatcher instanceof JsonResponse
-            && false !== $dispatcher->getContent()
-            && str($dispatcher->headers->get('Content-Type'))->contains('application/json')
-            && transform($dispatcher, static function (JsonResponse $jsonResponse): bool {
+        return $outputter instanceof JsonResponse
+            && false !== $outputter->getContent()
+            && str($outputter->headers->get('Content-Type'))->contains('application/json')
+            && transform($outputter, static function (JsonResponse $jsonResponse): bool {
                 if ('' === ($content = $jsonResponse->getContent())) {
                     return false;
                 }

@@ -508,14 +508,14 @@ use Illuminate\Support\Collection;
 interface Output
 {
     /**
-     * @param \Illuminate\Console\Events\CommandFinished|\Symfony\Component\HttpFoundation\Response $dispatcher
+     * @param \Illuminate\Console\Events\CommandFinished|\Symfony\Component\HttpFoundation\Response $outputter
      */
-    public function shouldOutput($dispatcher): bool;
+    public function shouldOutput($outputter): bool;
 
     /**
-     * @param \Illuminate\Console\Events\CommandFinished|\Symfony\Component\HttpFoundation\Response $dispatcher
+     * @param \Illuminate\Console\Events\CommandFinished|\Symfony\Component\HttpFoundation\Response $outputter
      */
-    public function output(Collection $scores, $dispatcher);
+    public function output(Collection $scores, $outputter);
 }
 ```
 

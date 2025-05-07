@@ -28,13 +28,13 @@ class LogOutput extends AbstractOutput
     /**
      * @throws \JsonException
      */
-    public function output(Collection $scores, CommandFinished|Response $dispatcher): CommandFinished|Response
+    public function output(Collection $scores, CommandFinished|Response $outputter): CommandFinished|Response
     {
         $scores->each(fn (array $score) => Log::channel($this->channel)->log(
             $this->level,
             $this->hydrateScore($score)
         ));
 
-        return $dispatcher;
+        return $outputter;
     }
 }

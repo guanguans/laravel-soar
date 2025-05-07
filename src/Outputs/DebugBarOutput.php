@@ -29,12 +29,12 @@ class DebugBarOutput extends AbstractOutput
     /**
      * @noinspection PhpMissingParentCallCommonInspection
      */
-    public function shouldOutput(CommandFinished|Response $dispatcher): bool
+    public function shouldOutput(CommandFinished|Response $outputter): bool
     {
         // app(LaravelDebugbar::class)->isEnabled()
         return class_exists(LaravelDebugbar::class)
             && app()->has(LaravelDebugbar::class)
-            && $this->isHtmlResponse($dispatcher);
+            && $this->isHtmlResponse($outputter);
     }
 
     /**
@@ -43,7 +43,7 @@ class DebugBarOutput extends AbstractOutput
      * @throws \DebugBar\DebugBarException
      * @throws \JsonException
      */
-    public function output(Collection $scores, CommandFinished|Response $dispatcher): LaravelDebugbar
+    public function output(Collection $scores, CommandFinished|Response $outputter): LaravelDebugbar
     {
         $debugBar = resolve(LaravelDebugbar::class);
 
