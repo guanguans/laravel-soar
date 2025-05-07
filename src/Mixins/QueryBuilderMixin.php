@@ -2,6 +2,7 @@
 
 /** @noinspection PhpMethodParametersCountMismatchInspection */
 /** @noinspection PhpParamsInspection */
+/** @noinspection PhpUnused */
 
 declare(strict_types=1);
 
@@ -51,7 +52,7 @@ class QueryBuilderMixin
      */
     public function ddRawSql(): \Closure
     {
-        return fn () => dd($this->toRawSql());
+        return fn (): mixed => dd($this->toRawSql());
     }
 
     public function toSoarArrayScores(): \Closure
@@ -80,7 +81,7 @@ class QueryBuilderMixin
      */
     public function ddSoarArrayScores(): \Closure
     {
-        return fn (int $depth = 512, int $options = 0) => dd($this->toSoarArrayScores($depth, $options));
+        return fn (int $depth = 512, int $options = 0): mixed => dd($this->toSoarArrayScores($depth, $options));
     }
 
     public function toSoarJsonScores(): \Closure
@@ -105,7 +106,7 @@ class QueryBuilderMixin
      */
     public function ddSoarJsonScores(): \Closure
     {
-        return fn () => dd($this->toSoarJsonScores());
+        return fn (): mixed => dd($this->toSoarJsonScores());
     }
 
     public function toSoarHtmlScores(): \Closure
