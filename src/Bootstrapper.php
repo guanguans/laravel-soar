@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Guanguans\LaravelSoar;
 
-use Guanguans\LaravelSoar\Middleware\OutputSoarScoresMiddleware;
+use Guanguans\LaravelSoar\Middleware\OutputScoresMiddleware;
 use Illuminate\Console\Events\CommandFinished;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\Container\Container;
@@ -178,7 +178,7 @@ class Bootstrapper
         );
 
         // 注册输出中间件
-        $container->make(Kernel::class)->pushMiddleware(OutputSoarScoresMiddleware::class);
+        $container->make(Kernel::class)->pushMiddleware(OutputScoresMiddleware::class);
     }
 
     /**

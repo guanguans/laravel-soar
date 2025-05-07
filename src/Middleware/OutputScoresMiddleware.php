@@ -21,7 +21,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 
-class OutputSoarScoresMiddleware
+class OutputScoresMiddleware
 {
     public function __construct(
         private Bootstrapper $bootstrapper,
