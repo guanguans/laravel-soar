@@ -15,6 +15,7 @@ namespace Guanguans\LaravelSoar;
 
 use Composer\InstalledVersions;
 use Guanguans\LaravelSoar\Commands\ClearCommand;
+use Guanguans\LaravelSoar\Commands\DownloadCommand;
 use Guanguans\LaravelSoar\Commands\RunCommand;
 use Guanguans\LaravelSoar\Commands\ScoreCommand;
 use Guanguans\LaravelSoar\Mixins\QueryBuilderMixin;
@@ -127,6 +128,7 @@ class SoarServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->commands([
                 ClearCommand::class,
+                DownloadCommand::class,
                 RunCommand::class,
                 ScoreCommand::class,
             ]);

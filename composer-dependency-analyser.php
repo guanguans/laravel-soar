@@ -58,7 +58,7 @@ return (new Configuration)
     ->ignoreErrorsOnPackageAndPath(
         'spatie/ray',
         __DIR__.'/src/Outputs/RayOutput.php',
-        [ErrorType::DEV_DEPENDENCY_IN_PROD]
+        [ErrorType::SHADOW_DEPENDENCY]
     )
     ->ignoreErrorsOnPackages(
         [

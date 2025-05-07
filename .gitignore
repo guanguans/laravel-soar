@@ -8,7 +8,7 @@ vendor/
 .phpunit.result.cache
 clover.xml
 composer.lock
-laravel/
+/laravel
 phpunit.xml
 psalm.xml
 tests.*

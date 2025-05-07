@@ -61,6 +61,7 @@
         "ergebnis/rector-rules": "^1.4",
         "guanguans/ai-commit": "dev-main",
         "guanguans/monorepo-builder-worker": "^2.0",
+        "guzzlehttp/guzzle": "^7.9",
         "itsgoingd/clockwork": "^5.3",
         "laradumps/laradumps": "^2.2 || ^3.0 || ^4.0",
         "laravel/facade-documenter": "dev-main",
