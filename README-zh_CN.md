@@ -35,13 +35,11 @@
 ## 环境要求
 
 * PHP >= 8.0
-* ext-json
-* ext-pdo
 
 ## 安装
 
 ```shell
-$ composer require guanguans/laravel-soar --dev -v
+composer require guanguans/laravel-soar --dev --ansi -v
 ```
 
 ## 配置
@@ -49,7 +47,7 @@ $ composer require guanguans/laravel-soar --dev -v
 ### 发布文件(可选的)
 
 ```shell
-$ php artisan vendor:publish --provider="Guanguans\\LaravelSoar\\SoarServiceProvider"
+php artisan vendor:publish --provider="Guanguans\\LaravelSoar\\SoarServiceProvider"
 ```
 
 ### :warning: 在 unix 操作系统非 cli 环境中运行时，可能会抛出 Fatal error: ...Exit Code: 2(Misuse of shell builtins)
@@ -134,11 +132,17 @@ SQL
 <details>
 <summary><b>Debug bar</b></summary>
 
+1. 安装 [barryvdh/laravel-debugbar](https://github.com/barryvdh/laravel-debugbar)
+2. 配置 [soar.outputs.Guanguans\LaravelSoar\Outputs\DebugBarOutput::class](config/soar.php)
+
 ![Debug bar](docs/debug-bar.png)
 </details>
 
 <details>
 <summary><b>Clockwork</b></summary>
+
+1. 安装 [itsgoingd/clockwork](https://github.com/itsgoingd/clockwork)
+2. 配置 [soar.outputs.Guanguans\LaravelSoar\Outputs\ClockworkOutput::class](config/soar.php)
 
 ![Clockwork](docs/clockwork.png)
 </details>
@@ -146,11 +150,16 @@ SQL
 <details>
 <summary><b>Ray</b></summary>
 
+1. 安装 [spatie/laravel-ray](https://github.com/spatie/laravel-ray)
+2. 配置 [soar.outputs.Guanguans\LaravelSoar\Outputs\RayOutput::class](config/soar.php)
+
 ![Ray](docs/ray.png)
 </details>
 
 <details>
 <summary><b>Json 响应</b></summary> 
+
+1. 配置 [soar.outputs.Guanguans\LaravelSoar\Outputs\JsonOutput::class](config/soar.php)
 
 ```json
 {
@@ -466,11 +475,15 @@ SQL
 <details>
 <summary><b>Console</b></summary>
 
+1. 配置 [soar.outputs.Guanguans\LaravelSoar\Outputs\ConsoleOutput::class](config/soar.php)
+
 ![Console](docs/console.png)
 </details>
 
 <details>
 <summary><b>Dump</b></summary>
+
+1. 配置 [soar.outputs.Guanguans\LaravelSoar\Outputs\DumpOutput::class](config/soar.php)
 
 ![Dump](docs/dump.png)
 </details>
@@ -478,17 +491,9 @@ SQL
 <details>
 <summary><b>Log</b></summary>
 
+1. 配置 [soar.outputs.Guanguans\LaravelSoar\Outputs\LogOutput::class](config/soar.php)
+
 ![Log](docs/log.png)
-</details>
-
-<details>
-<summary><b>Error log</b></summary>
-
-</details>
-
-<details>
-<summary><b>Syslog</b></summary>
-
 </details>
 
 <details>
@@ -503,19 +508,15 @@ declare(strict_types=1);
 
 namespace Guanguans\LaravelSoar\Contracts;
 
+use Illuminate\Console\Events\CommandFinished;
 use Illuminate\Support\Collection;
+use Symfony\Component\HttpFoundation\Response;
 
-interface Output
+interface OutputContract
 {
-    /**
-     * @param \Illuminate\Console\Events\CommandFinished|\Symfony\Component\HttpFoundation\Response $outputter
-     */
-    public function shouldOutput($outputter): bool;
+    public function shouldOutput(CommandFinished|Response $outputter): bool;
 
-    /**
-     * @param \Illuminate\Console\Events\CommandFinished|\Symfony\Component\HttpFoundation\Response $outputter
-     */
-    public function output(Collection $scores, $outputter);
+    public function output(Collection $scores, CommandFinished|Response $outputter): mixed;
 }
 ```
 
@@ -639,7 +640,7 @@ namespace Illuminate\Database\Eloquent {
 ## 测试
 
 ```shell
-$ composer test
+composer test
 ```
 
 ## 变更日志
