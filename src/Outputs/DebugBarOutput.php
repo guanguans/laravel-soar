@@ -22,8 +22,8 @@ use Symfony\Component\HttpFoundation\Response;
 class DebugBarOutput extends AbstractOutput
 {
     public function __construct(
-        protected string $name = 'Soar Scores',
-        protected string $label = 'warning'
+        private string $name = 'Soar Scores',
+        private string $label = 'warning'
     ) {}
 
     /**
@@ -31,9 +31,9 @@ class DebugBarOutput extends AbstractOutput
      */
     public function shouldOutput(CommandFinished|Response $outputter): bool
     {
-        // app(LaravelDebugbar::class)->isEnabled()
         return class_exists(LaravelDebugbar::class)
             && app()->has(LaravelDebugbar::class)
+            && resolve(LaravelDebugbar::class)->isEnabled()
             && $this->isHtmlResponse($outputter);
     }
 

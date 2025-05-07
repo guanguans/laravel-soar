@@ -21,7 +21,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class JsonOutput extends AbstractOutput
 {
-    public function __construct(protected string $key = 'soar_scores') {}
+    public function __construct(private string $key = 'soar_scores') {}
 
     /**
      * @noinspection PhpMissingParentCallCommonInspection

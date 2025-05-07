@@ -21,8 +21,8 @@ use Symfony\Component\HttpFoundation\Response;
 class LogOutput extends AbstractOutput
 {
     public function __construct(
-        protected string $channel = 'daily',
-        protected string $level = 'warning'
+        private string $channel = 'daily',
+        private string $level = 'warning'
     ) {}
 
     /**
@@ -30,7 +30,7 @@ class LogOutput extends AbstractOutput
      */
     public function output(Collection $scores, CommandFinished|Response $outputter): CommandFinished|Response
     {
-        $scores->each(fn (array $score) => Log::channel($this->channel)->log(
+        $scores->each(fn (array $score): mixed => Log::channel($this->channel)->log(
             $this->level,
             $this->hydrateScore($score)
         ));
