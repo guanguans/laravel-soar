@@ -1,8 +1,6 @@
 <?php
 
-/** @noinspection PhpInternalEntityUsedInspection */
 /** @noinspection PhpUnhandledExceptionInspection */
-/** @noinspection PhpUnusedAliasInspection */
 
 declare(strict_types=1);
 
@@ -17,6 +15,7 @@ declare(strict_types=1);
 
 use Carbon\Carbon;
 use Ergebnis\Rector\Rules\Arrays\SortAssociativeArrayByKeyRector;
+use Guanguans\LaravelSoar\Contracts\ThrowableContract;
 use Guanguans\MonorepoBuilderWorker\Support\Rectors\AddNoinspectionsDocCommentToDeclareRector;
 use Guanguans\MonorepoBuilderWorker\Support\Rectors\NewExceptionToNewAnonymousExtendsExceptionImplementsRector;
 use Guanguans\MonorepoBuilderWorker\Support\Rectors\RemoveNamespaceRector;
@@ -137,9 +136,9 @@ return RectorConfig::configure()
         'NullPointerExceptionInspection',
         'PhpPossiblePolymorphicInvocationInspection',
     ])
-    // ->withConfiguredRule(NewExceptionToNewAnonymousExtendsExceptionImplementsRector::class, [
-    //     'Guanguans\LaravelSoar\Contracts\ThrowableContract',
-    // ])
+    ->withConfiguredRule(NewExceptionToNewAnonymousExtendsExceptionImplementsRector::class, [
+        ThrowableContract::class,
+    ])
     ->withConfiguredRule(RemoveNamespaceRector::class, [
         'Guanguans\LaravelSoarTests',
     ])

@@ -15,6 +15,7 @@ namespace Guanguans\LaravelSoar\Support;
 
 use Carbon\CarbonInterval;
 use Composer\Autoload\ClassLoader;
+use Guanguans\LaravelSoar\Exceptions\InvalidArgumentException;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 
@@ -150,7 +151,7 @@ if (!\function_exists('Guanguans\LaravelSoar\Support\make')) {
             }
         }
 
-        throw new \InvalidArgumentException(\sprintf(
+        throw new InvalidArgumentException(\sprintf(
             'The argument of abstract must be an array containing a `%s` element.',
             implode('` or `', $keys)
         ));

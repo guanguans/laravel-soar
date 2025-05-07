@@ -47,6 +47,11 @@ parameters:
         lineAfter: 3
         editorUrl: 'phpstorm://open?file=%%file%%&line=%%line%%'
     treatPhpDocTypesAsCertain: false
+    strictRules:
+        # https://github.com/phpstan/phpstan-strict-rules
+        allRules: true
+        booleansInConditions: false
+        disallowedShortTernary: false
     cognitive_complexity:
         class: 42
         function: 8

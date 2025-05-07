@@ -1,12 +1,7 @@
-# total 2 errors
+# total 1 error
 
 parameters:
     ignoreErrors:
-        -
-            message: '#^Call to an undefined method Illuminate\\Console\\Events\\CommandFinished\|Symfony\\Component\\HttpFoundation\\Response\:\:getContent\(\)\.$#'
-            count: 1
-            path: ../src/Outputs/AbstractOutput.php
-
         -
             message: '#^Call to an undefined method DebugBar\\DataCollector\\DataCollectorInterface\:\:addMessage\(\)\.$#'
             count: 1

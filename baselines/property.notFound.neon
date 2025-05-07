@@ -1,8 +1,0 @@
-# total 1 error
-
-parameters:
-    ignoreErrors:
-        -
-            message: '#^Access to an undefined property Illuminate\\Console\\Events\\CommandFinished\|Symfony\\Component\\HttpFoundation\\Response\:\:\$headers\.$#'
-            count: 1
-            path: ../src/Outputs/AbstractOutput.php

@@ -20,6 +20,7 @@ use Guanguans\LaravelSoar\Soar;
 
 /**
  * @mixin \Illuminate\Database\Eloquent\Builder
+ * @mixin \Illuminate\Database\Eloquent\Relations\Relation
  * @mixin \Illuminate\Database\Query\Builder
  */
 class QueryBuilderMixin

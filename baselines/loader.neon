@@ -5,4 +5,4 @@ includes:
     - method.unresolvableReturnType.neon
     - offsetAccess.nonArray.neon
     - offsetAccess.notFound.neon
-    - property.notFound.neon
+    - staticMethod.dynamicCall.neon

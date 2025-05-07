@@ -16,7 +16,6 @@ declare(strict_types=1);
 namespace Guanguans\LaravelSoar\Outputs\Concerns;
 
 use Illuminate\Console\Events\CommandFinished;
-use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -27,16 +26,11 @@ trait OutputConditions
         return $dispatcher instanceof CommandFinished;
     }
 
-    protected function isResponse(CommandFinished|Response $dispatcher): bool
-    {
-        return $dispatcher instanceof Response;
-    }
-
     protected function isHtmlResponse(CommandFinished|Response $dispatcher): bool
     {
-        return $this->isResponse($dispatcher)
+        return $dispatcher instanceof Response
             && false !== $dispatcher->getContent()
-            && Str::contains($dispatcher->headers->get('Content-Type'), 'text/html')
+            && str($dispatcher->headers->get('Content-Type'))->contains('text/html')
             && !$this->isJsonResponse($dispatcher);
     }
 
@@ -44,7 +38,7 @@ trait OutputConditions
     {
         return $dispatcher instanceof JsonResponse
             && false !== $dispatcher->getContent()
-            && Str::contains($dispatcher->headers->get('Content-Type'), 'application/json')
+            && str($dispatcher->headers->get('Content-Type'))->contains('application/json')
             && transform($dispatcher, static function (JsonResponse $jsonResponse): bool {
                 if ('' === ($content = $jsonResponse->getContent())) {
                     return false;
