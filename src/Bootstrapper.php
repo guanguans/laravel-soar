@@ -19,8 +19,8 @@ use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Database\Events\QueryExecuted;
-use Illuminate\Events\Dispatcher;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Str;
 use function Guanguans\LaravelSoar\Support\humanly_milliseconds;
 use function Guanguans\LaravelSoar\Support\star_for;
@@ -37,11 +37,6 @@ class Bootstrapper
         self::$scores = collect();
     }
 
-    public function isBooted(): bool
-    {
-        return $this->booted;
-    }
-
     /**
      * @throws BindingResolutionException
      */
@@ -52,8 +47,8 @@ class Bootstrapper
         }
 
         $this->booted = true;
-        $this->logQuery($this->container->make(\Illuminate\Contracts\Events\Dispatcher::class));
-        $this->registerOutputMonitor($this->container);
+        $this->logQueries();
+        $this->registerOutputMonitor();
     }
 
     /**
@@ -61,49 +56,49 @@ class Bootstrapper
      */
     public function getScores(): Collection
     {
-        if (self::$scores->isEmpty()) {
-            self::$scores = $this->toScores(self::$queries)
+        return self::$scores = self::$scores->whenEmpty(
+            fn () => $this->toScores()
                 ->sortBy('Score')
-                ->map(function (array $score): array {
-                    $query = $this->matchQuery(self::$queries, $score);
-
-                    return [
-                        'Summary' => \sprintf(
-                            '[%s|%d分|%s|%s]',
-                            $star = star_for($score['Score']),
-                            $score['Score'],
-                            $query['time'],
-                            $query['sql']
-                        ),
-                        'Basic' => [
-                            'Sample' => $query['sql'],
-                            'Score' => $score['Score'],
-                            'Star' => $star,
-                            'Time' => $query['time'],
-                            'Connection' => $query['connection'],
-                            'Driver' => $query['driver'],
-                            'Tables' => (array) $score['Tables'],
-                        ],
-                        'HeuristicRules' => (array) $score['HeuristicRules'],
-                        'IndexRules' => (array) $score['IndexRules'],
-                        'Explain' => $this->sanitizeExplain((array) $score['Explain']),
-                        'Backtraces' => $query['backtraces'],
-                    ];
-                })
-                ->values();
-        }
-
-        return self::$scores;
+                ->map(fn (array $score): array => $this->hydrateScore($score))
+                ->values()
+        );
     }
 
-    private function logQuery(Dispatcher $dispatcher): void
+    private function hydrateScore(array $score): array
     {
-        // 记录 SQL
-        $dispatcher->listen(QueryExecuted::class, function (QueryExecuted $queryExecuted): void {
+        $query = $this->matchQuery($score);
+
+        return [
+            'Summary' => \sprintf(
+                '[%s|%d分|%s|%s]',
+                $star = star_for($score['Score']),
+                $score['Score'],
+                $query['time'],
+                $query['sql']
+            ),
+            'Basic' => [
+                'Sample' => $query['sql'],
+                'Score' => $score['Score'],
+                'Star' => $star,
+                'Time' => $query['time'],
+                'Connection' => $query['connection'],
+                'Driver' => $query['driver'],
+                'Tables' => (array) $score['Tables'],
+            ],
+            'HeuristicRules' => (array) $score['HeuristicRules'],
+            'IndexRules' => (array) $score['IndexRules'],
+            'Explain' => $this->sanitizeExplain((array) $score['Explain']),
+            'Backtraces' => $query['backtraces'],
+        ];
+    }
+
+    private function logQueries(): void
+    {
+        Event::listen(QueryExecuted::class, function (QueryExecuted $queryExecuted): void {
             if (
                 self::$queries->has($queryExecuted->sql)
                 || $this->isExceptSql($queryExecuted->sql)
-                || $this->isExceptSql($sql = $this->toSql($queryExecuted))
+                || $this->isExceptSql($sql = $this->toRawSql($queryExecuted))
             ) {
                 return;
             }
@@ -126,20 +121,25 @@ class Bootstrapper
     /**
      * @noinspection DebugFunctionUsageInspection
      */
-    private function toSql(QueryExecuted $queryExecuted): string
+    private function toRawSql(QueryExecuted $queryExecuted): string
     {
+        if (method_exists($queryExecuted, 'toRawSql')) {
+            return $queryExecuted->toRawSql();
+        }
+
         if ([] === $queryExecuted->bindings) {
             return $queryExecuted->sql;
         }
 
-        $sqlWithPlaceholders = str_replace(['%', '?', '%s%s'], ['%%', '%s', '?'], $queryExecuted->sql);
-        $bindings = $queryExecuted->connection->prepareBindings($queryExecuted->bindings);
-        $pdo = $queryExecuted->connection->getPdo();
-
-        return vsprintf($sqlWithPlaceholders, array_map(
-            static fn (mixed $binding): string => \is_string($binding) ? $pdo->quote($binding) : var_export($binding, true),
-            $bindings
-        ));
+        return vsprintf(
+            str_replace(['%', '?', '%s%s'], ['%%', '%s', '?'], $queryExecuted->sql),
+            array_map(
+                static fn (mixed $binding): string => \is_string($binding)
+                    ? $queryExecuted->connection->getPdo()->quote($binding)
+                    : var_export($binding, true),
+                $queryExecuted->connection->prepareBindings($queryExecuted->bindings)
+            )
+        );
     }
 
     /**
@@ -166,28 +166,26 @@ class Bootstrapper
     /**
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
-    private function registerOutputMonitor(Container $container): void
+    private function registerOutputMonitor(): void
     {
-        // 注册输出监听
-        $container->make(\Illuminate\Contracts\Events\Dispatcher::class)->listen(
+        Event::listen(
             CommandFinished::class,
-            fn (CommandFinished $commandFinished) => $container->make(OutputManager::class)->output(
+            fn (CommandFinished $commandFinished) => $this->container->make(OutputManager::class)->output(
                 $this->getScores(),
                 $commandFinished
             )
         );
 
-        // 注册输出中间件
-        $container->make(Kernel::class)->pushMiddleware(OutputScoresMiddleware::class);
+        $this->container->make(Kernel::class)->prependMiddleware(OutputScoresMiddleware::class);
     }
 
     /**
      * @throws \JsonException
      */
-    private function toScores(Collection $queries): Collection
+    private function toScores(): Collection
     {
-        return $queries
-            ->map(static fn (array $query): string => $query['sql'])
+        return self::$queries
+            ->pluck('sql')
             ->pipe(static fn (Collection $sqls): Collection => collect(resolve(Soar::class)->arrayScores($sqls->all())));
     }
 
@@ -200,32 +198,27 @@ class Bootstrapper
      *     backtraces: array<string>
      * }
      */
-    private function matchQuery(Collection $queries, array $score): array
+    private function matchQuery(array $score): array
     {
-        $query = $queries->first(static fn (array $query): bool => $score['Sample'] === $query['sql']);
+        return self::$queries->first(
+            static fn (array $query): bool => $score['Sample'] === $query['sql'],
+            static fn (): array => self::$queries
+                ->map(static function (array $query) use ($score): array {
+                    $query['similarity'] = similar_text($score['Sample'], $query['sql']);
 
-        if ($query) {
-            return $query;
-        }
-
-        // @codeCoverageIgnoreStart
-        return $queries
-            ->map(static function (array $query) use ($score): array {
-                $query['similarity'] = similar_text($score['Sample'], $query['sql']);
-
-                return $query;
-            })
-            ->sortByDesc('similarity')
-            ->first();
-        // @codeCoverageIgnoreEnd
+                    return $query;
+                })
+                ->sortByDesc('similarity')
+                ->first()
+        );
     }
 
     private function sanitizeExplain(array $explain): array
     {
         return collect($explain)
             ->map(static function (array $explain): array {
-                $explain['Content'] = collect(explode(\PHP_EOL, $explain['Content']))->filter()->values()->all();
-                $explain['Case'] = collect(explode(\PHP_EOL, $explain['Case']))->filter()->values()->all();
+                $explain['Content'] = str($explain['Content'])->explode(\PHP_EOL)->filter()->values()->all();
+                $explain['Case'] = str($explain['Case'])->explode(\PHP_EOL)->filter()->values()->all();
 
                 return $explain;
             })

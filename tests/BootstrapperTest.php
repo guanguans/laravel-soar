@@ -24,10 +24,6 @@ beforeEach(function (): void {
     $this->bootstrapper = $this->app->make(Bootstrapper::class);
 });
 
-it('can return `bool` for `isBooted`', function (): void {
-    expect($this->bootstrapper)->isBooted()->toBeBool();
-})->group(__DIR__, __FILE__);
-
 it('can boot `soar score` for `boot`', function (): void {
     expect($this->bootstrapper)->boot()->toBeNull();
 })->group(__DIR__, __FILE__);

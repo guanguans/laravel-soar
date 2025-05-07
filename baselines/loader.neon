@@ -1,8 +1,6 @@
-# total 10 errors
+# total 7 errors
 includes:
-    - argument.unresolvableType.neon
     - method.notFound.neon
-    - method.unresolvableReturnType.neon
     - offsetAccess.nonArray.neon
     - offsetAccess.notFound.neon
     - staticMethod.dynamicCall.neon
