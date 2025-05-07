@@ -1,4 +1,4 @@
-# total 7 errors
+# total 8 errors
 includes:
     - method.notFound.neon
     - offsetAccess.nonArray.neon

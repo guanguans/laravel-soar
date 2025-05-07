@@ -18,10 +18,10 @@ use Guanguans\LaravelSoar\Commands\ClearCommand;
 use Guanguans\LaravelSoar\Commands\RunCommand;
 use Guanguans\LaravelSoar\Commands\ScoreCommand;
 use Guanguans\LaravelSoar\Mixins\QueryBuilderMixin;
-use Illuminate\Contracts\Container\Container;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Relations\Relation as RelationBuilder;
 use Illuminate\Database\Query\Builder as QueryBuilder;
+use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Console\AboutCommand;
 use Illuminate\Support\Collection;
 use Illuminate\Support\ServiceProvider;
@@ -98,14 +98,14 @@ class SoarServiceProvider extends ServiceProvider
     {
         $this->app->singleton(
             OutputManager::class,
-            static fn (Container $container): OutputManager => collect(config('soar.outputs'))
-                ->mapWithKeys(static function (array|string $parameters, int|string $class) use ($container): array {
+            static fn (Application $application): OutputManager => collect(config('soar.outputs'))
+                ->mapWithKeys(static function (array|string $parameters, int|string $class) use ($application): array {
                     if (!\is_array($parameters)) {
                         [$parameters, $class] = [(array) $class, $parameters];
                     }
 
                     /** @var string $class */
-                    return [$class => $container->make($class, $parameters)];
+                    return [$class => $application->make($class, $parameters)];
                 })
                 ->pipe(static fn (Collection $outputs): OutputManager => new OutputManager($outputs->all()))
         );

@@ -16,9 +16,9 @@ namespace Guanguans\LaravelSoar;
 use Guanguans\LaravelSoar\Middleware\OutputScoresMiddleware;
 use Illuminate\Console\Events\CommandFinished;
 use Illuminate\Contracts\Container\BindingResolutionException;
-use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Database\Events\QueryExecuted;
+use Illuminate\Foundation\Application;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Str;
@@ -31,7 +31,7 @@ class Bootstrapper
     private static Collection $queries;
     private static Collection $scores;
 
-    public function __construct(private Container $container)
+    public function __construct(private Application $application)
     {
         self::$queries = collect();
         self::$scores = collect();
@@ -170,13 +170,13 @@ class Bootstrapper
     {
         Event::listen(
             CommandFinished::class,
-            fn (CommandFinished $commandFinished) => $this->container->make(OutputManager::class)->output(
+            fn (CommandFinished $commandFinished) => $this->application->make(OutputManager::class)->output(
                 $this->getScores(),
                 $commandFinished
             )
         );
 
-        $this->container->make(Kernel::class)->prependMiddleware(OutputScoresMiddleware::class);
+        $this->application->make(Kernel::class)->prependMiddleware(OutputScoresMiddleware::class);
     }
 
     /**
