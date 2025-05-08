@@ -8,6 +8,69 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 
+<a name="4.0.0"></a>
+## [4.0.0] - 2025-05-08
+### ✨ Features
+- **commands:** add Soar binary download command ([7880f14](https://github.com/guanguans/laravel-soar/commit/7880f14))
+- **composer:** Update PHP and package requirements ([5449859](https://github.com/guanguans/laravel-soar/commit/5449859))
+
+### 🐞 Bug Fixes
+- **dependencies:** update guanguans/soar-php to ^6.1 and refactor related usages ([9effcc8](https://github.com/guanguans/laravel-soar/commit/9effcc8))
+- **query-builder-mixin:** specify return type for closure functions ([dfe2d01](https://github.com/guanguans/laravel-soar/commit/dfe2d01))
+
+### 🎨 Styles
+- apply php-cs-fixer ([a2eba03](https://github.com/guanguans/laravel-soar/commit/a2eba03))
+- apply php-cs-fixer ([f14c991](https://github.com/guanguans/laravel-soar/commit/f14c991))
+
+### 💅 Code Refactorings
+- apply rector ([3a101ab](https://github.com/guanguans/laravel-soar/commit/3a101ab))
+- apply inspection ([178a481](https://github.com/guanguans/laravel-soar/commit/178a481))
+- **bootstrapper:** simplify query logging and output monitoring setup ([706abee](https://github.com/guanguans/laravel-soar/commit/706abee))
+- **commands:** enhance log clearing messages and test structure ([ea48b52](https://github.com/guanguans/laravel-soar/commit/ea48b52))
+- **commands:** update soar option handling and improve user prompts ([f69bb2d](https://github.com/guanguans/laravel-soar/commit/f69bb2d))
+- **commands:** remove download command and its test ([02c1294](https://github.com/guanguans/laravel-soar/commit/02c1294))
+- **config:** rename soar exclusions key for consistency ([e591971](https://github.com/guanguans/laravel-soar/commit/e591971))
+- **config:** update soar configuration keys and comments ([31740b9](https://github.com/guanguans/laravel-soar/commit/31740b9))
+- **contracts:** rename Output interface to OutputContract ([4031015](https://github.com/guanguans/laravel-soar/commit/4031015))
+- **contracts:** rename interfaces for consistency ([c499223](https://github.com/guanguans/laravel-soar/commit/c499223))
+- **debug:** remove unused helper and commented logic in DebugBarOutput ([b527ae0](https://github.com/guanguans/laravel-soar/commit/b527ae0))
+- **events:** enhance OutputtedEvent to include outputter ([e819b6b](https://github.com/guanguans/laravel-soar/commit/e819b6b))
+- **helpers:** replace utility functions with improved implementation ([79ad66e](https://github.com/guanguans/laravel-soar/commit/79ad66e))
+- **middleware:** rename OutputSoarScoresMiddleware to OutputScoresMiddleware ([37f3c3f](https://github.com/guanguans/laravel-soar/commit/37f3c3f))
+- **namespace:** simplify middleware namespace structure ([2cbe763](https://github.com/guanguans/laravel-soar/commit/2cbe763))
+- **namespace:** update `Macros` to `Mixins` in QueryBuilderMacro ([be51659](https://github.com/guanguans/laravel-soar/commit/be51659))
+- **output:** replace variable name 'dispatcher' with 'outputter' ([c0fec88](https://github.com/guanguans/laravel-soar/commit/c0fec88))
+- **outputs:** rename base Output class and update usage ([c4fdb29](https://github.com/guanguans/laravel-soar/commit/c4fdb29))
+- **outputs:** remove NullOutput class and its usage ([447691a](https://github.com/guanguans/laravel-soar/commit/447691a))
+- **outputs:** Remove SoarBarOutput and SoarBar classes ([0e6a946](https://github.com/guanguans/laravel-soar/commit/0e6a946))
+- **outputs:** remove unused output handlers and update documentation ([60fbf22](https://github.com/guanguans/laravel-soar/commit/60fbf22))
+- **outputs:** update visibility modifier for constructor properties ([8335c56](https://github.com/guanguans/laravel-soar/commit/8335c56))
+- **tests:** improve tests structure and update method definitions ([4ab0889](https://github.com/guanguans/laravel-soar/commit/4ab0889))
+
+### ✅ Tests
+- **namespace:** streamline namespace usage in tests ([9e5bfd1](https://github.com/guanguans/laravel-soar/commit/9e5bfd1))
+- **unit:** improve test utilities and setup ([0c8895f](https://github.com/guanguans/laravel-soar/commit/0c8895f))
+
+### 📦 Builds
+- **composer:** Update Laravel framework and add new dependencies ([6314d23](https://github.com/guanguans/laravel-soar/commit/6314d23))
+- **config:** enhance project configuration and streamline file management ([108c3d4](https://github.com/guanguans/laravel-soar/commit/108c3d4))
+- **dependencies:** update composer dependencies ([8f67a94](https://github.com/guanguans/laravel-soar/commit/8f67a94))
+
+### 🤖 Continuous Integrations
+- apply phpstan level max ([c5c024c](https://github.com/guanguans/laravel-soar/commit/c5c024c))
+- apply phpstan level 7 ([2a9c8af](https://github.com/guanguans/laravel-soar/commit/2a9c8af))
+- apply phpstan level 6 ([96d0fda](https://github.com/guanguans/laravel-soar/commit/96d0fda))
+- apply phpstan level 5 ([a584b32](https://github.com/guanguans/laravel-soar/commit/a584b32))
+- **config:** enhance PHPStan configuration and improve QueryBuilderMixin docblock ([87a7118](https://github.com/guanguans/laravel-soar/commit/87a7118))
+- **config:** update linting and analysis configurations ([00e396a](https://github.com/guanguans/laravel-soar/commit/00e396a))
+- **dependencies:** add phpstan-strict-rules to composer dependencies ([a59ac46](https://github.com/guanguans/laravel-soar/commit/a59ac46))
+- **phpstan:** update phpstan configuration to apply revised parameters ([1327e73](https://github.com/guanguans/laravel-soar/commit/1327e73))
+- **setup:** enhance configuration and update file handling rules ([4831910](https://github.com/guanguans/laravel-soar/commit/4831910))
+- **templates:** migrate issue templates to YAML and improve workflows ([cadf102](https://github.com/guanguans/laravel-soar/commit/cadf102))
+- **workflow:** update php-cs-fixer workflow steps ([e100697](https://github.com/guanguans/laravel-soar/commit/e100697))
+- **workflows:** adjust dependency installation order in test workflow ([aadf633](https://github.com/guanguans/laravel-soar/commit/aadf633))
+
+
 <a name="3.18.1"></a>
 ## [3.18.1] - 2025-05-03
 ### 📦 Builds
@@ -523,7 +586,8 @@ All notable changes to this project will be documented in this file.
 - Merge pull request [#1](https://github.com/guanguans/laravel-soar/issues/1) from guanguans/add-license-1
 
 
-[Unreleased]: https://github.com/guanguans/laravel-soar/compare/3.18.1...HEAD
+[Unreleased]: https://github.com/guanguans/laravel-soar/compare/4.0.0...HEAD
+[4.0.0]: https://github.com/guanguans/laravel-soar/compare/3.18.1...4.0.0
 [3.18.1]: https://github.com/guanguans/laravel-soar/compare/3.18.0...3.18.1
 [3.18.0]: https://github.com/guanguans/laravel-soar/compare/3.17.0...3.18.0
 [3.17.0]: https://github.com/guanguans/laravel-soar/compare/3.16.3...3.17.0
