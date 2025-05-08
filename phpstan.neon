@@ -96,6 +96,7 @@ parameters:
         - identifier: shipmonk.deadMethod
         - identifier: symplify.explicitTraitSuffixName
         - identifier: symplify.requireExceptionNamespace
+        - '#^Call to an undefined static method Guanguans\\LaravelSoar\\Facades\\Soar\:\:get.*\(\)\.$#'
         - '#^Call to method label\(\) on an unknown class Spatie\\.*\\Ray\.$#'
         - '#^Function clock not found\.$#'
         -
