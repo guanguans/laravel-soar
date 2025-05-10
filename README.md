@@ -612,27 +612,25 @@ class Soar{}
 ```php
 namespace Illuminate\Database\Eloquent {
     /**
-     * @method string toRawSql()
-     * @method void dumpRawSql()
-     * @method void ddRawSql()
-     * @method array toSoarArrayScores(int $depth = 512, int $options = 0)
-     * @method void dumpSoarArrayScores(int $depth = 512, int $options = 0)
-     * @method void ddSoarArrayScores(int $depth = 512, int $options = 0)
-     * @method string toSoarJsonScores()
-     * @method void dumpSoarJsonScores()
-     * @method void ddSoarJsonScores()
-     * @method string toSoarHtmlScores()
+     * @method never ddRawSql()
+     * @method never ddSoarArrayScores(int $depth = 512, int $options = 0)
+     * @method never ddSoarJsonScores()
+     * @method string dumpRawSql()
+     * @method array dumpSoarArrayScores(int $depth = 512, int $options = 0)
+     * @method string dumpSoarJsonScores()
      * @method void echoSoarHtmlScores()
-     * @method void exitSoarHtmlScores()
+     * @method never exitSoarHtmlScores()
+     * @method string toRawSql()
+     * @method array toSoarArrayScores(int $depth = 512, int $options = 0)
+     * @method string toSoarHtmlScores()
+     * @method string toSoarJsonScores()
      *
      * @mixin \Illuminate\Database\Query\Builder
      *
      * @see \Guanguans\LaravelSoar\Mixins\QueryBuilderMixin
      * @see \Illuminate\Database\Eloquent\Builder
      */
-    class Builder
-    {
-    }
+    class Builder {}
 }
 ```
 </details>

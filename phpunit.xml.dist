@@ -40,7 +40,7 @@
     <!--<bootstrap class="Ergebnis\PHPUnit\SlowTestDetector\Extension"/>-->
   </extensions>
   <php>
-    <env name="APP_ENV" value="testing"/>
+    <!--<env name="APP_ENV" value="testing"/>
     <env name="APP_DEBUG" value="true"/>
     <env name="APP_MAINTENANCE_DRIVER" value="file"/>
     <env name="BCRYPT_ROUNDS" value="4"/>
@@ -52,6 +52,6 @@
     <env name="QUEUE_CONNECTION" value="sync"/>
     <env name="SESSION_DRIVER" value="array"/>
     <env name="TELESCOPE_ENABLED" value="false"/>
-    <env name="TELESCOPE_ENABLED" value="false"/>
+    <env name="TELESCOPE_ENABLED" value="false"/>-->
   </php>
 </phpunit>

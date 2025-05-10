@@ -150,10 +150,3 @@ if (!\function_exists('Guanguans\LaravelSoar\Support\make')) {
         ));
     }
 }
-
-if (!\function_exists('Guanguans\LaravelSoar\Support\star_for')) {
-    function star_for(int $score): string
-    {
-        return str_repeat('★', $good = (int) round($score / 100 * 5)).str_repeat('☆', 5 - $good);
-    }
-}

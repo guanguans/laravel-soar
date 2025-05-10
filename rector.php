@@ -1,5 +1,6 @@
 <?php
 
+/** @noinspection PhpUnusedAliasInspection */
 /** @noinspection PhpUnhandledExceptionInspection */
 
 declare(strict_types=1);
@@ -16,6 +17,7 @@ declare(strict_types=1);
 use Carbon\Carbon;
 use Ergebnis\Rector\Rules\Arrays\SortAssociativeArrayByKeyRector;
 use Guanguans\LaravelSoar\Contracts\ThrowableContract;
+use Guanguans\LaravelSoar\Support\Utils;
 use Guanguans\MonorepoBuilderWorker\Support\Rectors\AddNoinspectionsDocCommentToDeclareRector;
 use Guanguans\MonorepoBuilderWorker\Support\Rectors\NewExceptionToNewAnonymousExtendsExceptionImplementsRector;
 use Guanguans\MonorepoBuilderWorker\Support\Rectors\RemoveNamespaceRector;
@@ -42,7 +44,9 @@ use Rector\PHPUnit\Set\PHPUnitSetList;
 use Rector\Renaming\Rector\FuncCall\RenameFunctionRector;
 use Rector\Renaming\Rector\Name\RenameClassRector;
 use Rector\Strict\Rector\Empty_\DisallowedEmptyRuleFixerRector;
+use Rector\Transform\Rector\FuncCall\FuncCallToStaticCallRector;
 use Rector\Transform\Rector\StaticCall\StaticCallToFuncCallRector;
+use Rector\Transform\ValueObject\FuncCallToStaticCall;
 use Rector\Transform\ValueObject\StaticCallToFuncCall;
 use Rector\ValueObject\PhpVersion;
 use Rector\ValueObject\Visibility;
@@ -152,6 +156,9 @@ return RectorConfig::configure()
     ->withConfiguredRule(RenameClassRector::class, [
         Carbon::class => IlluminateCarbon::class,
     ])
+    ->withConfiguredRule(FuncCallToStaticCallRector::class, [
+        // new FuncCallToStaticCall('Guanguans\LaravelSoar\Support\star_for', Utils::class, 'star'),
+    ])
     ->withConfiguredRule(StaticCallToFuncCallRector::class, [
         new StaticCallToFuncCall(Str::class, 'of', 'str'),
     ])
@@ -194,7 +201,6 @@ return RectorConfig::configure()
                 'humanly_milliseconds',
                 'json_pretty_encode',
                 'make',
-                'star_for',
             ],
             static function (array $carry, string $func): array {
                 /** @see https://github.com/laravel/framework/blob/11.x/src/Illuminate/Support/functions.php */

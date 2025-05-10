@@ -14,15 +14,14 @@ declare(strict_types=1);
 namespace Guanguans\LaravelSoar;
 
 use Guanguans\LaravelSoar\Middleware\OutputScoresMiddleware;
+use Guanguans\LaravelSoar\Support\Utils;
 use Illuminate\Console\Events\CommandFinished;
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Database\Events\QueryExecuted;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Event;
-use Illuminate\Support\Str;
 use function Guanguans\LaravelSoar\Support\humanly_milliseconds;
-use function Guanguans\LaravelSoar\Support\star_for;
 
 class Bootstrapper
 {
@@ -60,6 +59,40 @@ class Bootstrapper
         );
     }
 
+    private function logQueries(): void
+    {
+        Event::listen(QueryExecuted::class, static function (QueryExecuted $queryExecuted): void {
+            if (
+                self::$queries->has($queryExecuted->sql)
+                || Utils::isExceptQuery($queryExecuted->sql)
+                || Utils::isExceptQuery($sql = Utils::toRawSql($queryExecuted))
+            ) {
+                return;
+            }
+
+            self::$queries->put($queryExecuted->sql, [
+                'sql' => $sql,
+                'time' => humanly_milliseconds($queryExecuted->time),
+                'connection' => $queryExecuted->connectionName,
+                'driver' => $queryExecuted->connection->getDriverName(),
+                'backtraces' => Utils::backtraces(),
+            ]);
+        });
+    }
+
+    private function registerOutputMonitor(): void
+    {
+        Event::listen(
+            CommandFinished::class,
+            fn (CommandFinished $commandFinished) => $this
+                ->application
+                ->make(OutputManager::class)
+                ->output($this->getScores(), $commandFinished)
+        );
+
+        $this->application->make(Kernel::class)->prependMiddleware(OutputScoresMiddleware::class);
+    }
+
     /**
      * @throws \JsonException
      */
@@ -79,7 +112,7 @@ class Bootstrapper
         return [
             'Summary' => \sprintf(
                 '[%s|%d分|%s|%s]',
-                $star = star_for($score['Score']),
+                $star = Utils::star($score['Score']),
                 $score['Score'],
                 $query['time'],
                 $query['sql']
@@ -95,7 +128,7 @@ class Bootstrapper
             ],
             'HeuristicRules' => (array) $score['HeuristicRules'],
             'IndexRules' => (array) $score['IndexRules'],
-            'Explain' => $this->sanitizeExplain((array) $score['Explain']),
+            'Explain' => Utils::sanitizeExplain($score['Explain']),
             'Backtraces' => $query['backtraces'],
         ];
     }
@@ -122,101 +155,5 @@ class Bootstrapper
                 ->sortByDesc('similarity')
                 ->first()
         );
-    }
-
-    private function sanitizeExplain(array $explain): array
-    {
-        return collect($explain)
-            ->map(static function (array $explain): array {
-                $explain['Content'] = str($explain['Content'])->explode(\PHP_EOL)->filter()->values()->all();
-                $explain['Case'] = str($explain['Case'])->explode(\PHP_EOL)->filter()->values()->all();
-
-                return $explain;
-            })
-            ->all();
-    }
-
-    private function logQueries(): void
-    {
-        Event::listen(QueryExecuted::class, function (QueryExecuted $queryExecuted): void {
-            if (
-                self::$queries->has($queryExecuted->sql)
-                || $this->isExceptQuery($queryExecuted->sql)
-                || $this->isExceptQuery($sql = $this->toRawSql($queryExecuted))
-            ) {
-                return;
-            }
-
-            self::$queries->put($queryExecuted->sql, [
-                'sql' => $sql,
-                'time' => humanly_milliseconds($queryExecuted->time),
-                'connection' => $queryExecuted->connectionName,
-                'driver' => $queryExecuted->connection->getDriverName(),
-                'backtraces' => $this->getBacktraces(),
-            ]);
-        });
-    }
-
-    private function isExceptQuery(string $query): bool
-    {
-        return Str::is(config('soar.except_queries', []), $query);
-    }
-
-    /**
-     * @noinspection DebugFunctionUsageInspection
-     */
-    private function toRawSql(QueryExecuted $queryExecuted): string
-    {
-        if (method_exists($queryExecuted, 'toRawSql')) {
-            return $queryExecuted->toRawSql();
-        }
-
-        if ([] === $queryExecuted->bindings) {
-            return $queryExecuted->sql;
-        }
-
-        return vsprintf(
-            str_replace(['%', '?', '%s%s'], ['%%', '%s', '?'], $queryExecuted->sql),
-            array_map(
-                static fn (mixed $binding): string => \is_string($binding)
-                    ? $queryExecuted->connection->getPdo()->quote($binding)
-                    : var_export($binding, true),
-                $queryExecuted->connection->prepareBindings($queryExecuted->bindings)
-            )
-        );
-    }
-
-    /**
-     * @noinspection DebugFunctionUsageInspection
-     */
-    private function getBacktraces(int $limit = 0, int $forgetLines = 0): array
-    {
-        return collect(debug_backtrace(\DEBUG_BACKTRACE_IGNORE_ARGS, $limit))
-            ->forget($forgetLines)
-            ->filter(
-                static fn (array $trace): bool => isset($trace['file'], $trace['line'])
-                    && !Str::contains($trace['file'], 'vendor')
-            )
-            ->map(static fn (array $trace, int $index): string => \sprintf(
-                '#%s %s:%s',
-                $index,
-                str_replace(base_path(), '', $trace['file']),
-                $trace['line']
-            ))
-            ->values()
-            ->all();
-    }
-
-    private function registerOutputMonitor(): void
-    {
-        Event::listen(
-            CommandFinished::class,
-            fn (CommandFinished $commandFinished) => $this
-                ->application
-                ->make(OutputManager::class)
-                ->output($this->getScores(), $commandFinished)
-        );
-
-        $this->application->make(Kernel::class)->prependMiddleware(OutputScoresMiddleware::class);
     }
 }

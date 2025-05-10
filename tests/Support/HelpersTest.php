@@ -22,7 +22,6 @@ use function Guanguans\LaravelSoar\Support\env_explode;
 use function Guanguans\LaravelSoar\Support\humanly_milliseconds;
 use function Guanguans\LaravelSoar\Support\json_pretty_encode;
 use function Guanguans\LaravelSoar\Support\make;
-use function Guanguans\LaravelSoar\Support\star_for;
 
 it('can humanly milliseconds', function (): void {
     expect([
@@ -58,15 +57,3 @@ it('can json pretty encode', function (): void {
 it('will throw `InvalidArgumentException` when abstract is empty array', function (): void {
     make([]);
 })->group(__DIR__, __FILE__)->throws(InvalidArgumentException::class);
-
-it('can return star for score', function (): void {
-    expect([
-        star_for(0),
-        star_for(50),
-        star_for(100),
-    ])->sequence(
-        '☆☆☆☆☆',
-        '★★★☆☆',
-        '★★★★★'
-    );
-})->group(__DIR__, __FILE__);

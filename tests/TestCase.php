@@ -94,7 +94,7 @@ class TestCase extends \Orchestra\Testbench\TestCase
                     [$parameters, $class] = [(array) $class, $parameters];
                 }
 
-                $outputManager[$class] = app($class, $parameters);
+                $outputManager[$class] = resolve($class, $parameters);
             }
 
             return $outputManager;
