@@ -54,12 +54,10 @@ use Rector\Visibility\Rector\ClassMethod\ChangeMethodVisibilityRector;
 use Rector\Visibility\ValueObject\ChangeMethodVisibility;
 use RectorLaravel\Rector\Class_\ModelCastsPropertyToCastsMethodRector;
 use RectorLaravel\Rector\Empty_\EmptyToBlankAndFilledFuncRector;
-use RectorLaravel\Rector\FuncCall\FactoryFuncCallToStaticCallRector;
 use RectorLaravel\Rector\FuncCall\HelperFuncCallToFacadeClassRector;
 use RectorLaravel\Rector\FuncCall\TypeHintTappableCallRector;
 use RectorLaravel\Rector\If_\ThrowIfRector;
 use RectorLaravel\Rector\MethodCall\UseComponentPropertyWithinCommandsRector;
-use RectorLaravel\Rector\Namespace_\FactoryDefinitionRector;
 use RectorLaravel\Rector\StaticCall\DispatchToHelperFunctionsRector;
 use RectorLaravel\Set\LaravelSetList;
 use function Guanguans\LaravelSoar\Support\classes;
@@ -224,8 +222,6 @@ return RectorConfig::configure()
         WrapEncapsedVariableInCurlyBracesRector::class,
     ])
     ->withSkip([
-        FactoryDefinitionRector::class,
-        FactoryFuncCallToStaticCallRector::class,
         ThrowIfRector::class,
         UseComponentPropertyWithinCommandsRector::class,
 

@@ -32,8 +32,6 @@ use Guanguans\LaravelSoar\Outputs\JsonOutput;
 use Guanguans\LaravelSoar\Outputs\LogOutput;
 use Guanguans\LaravelSoar\Outputs\RayOutput;
 use Guanguans\LaravelSoar\SoarServiceProvider;
-use Guanguans\LaravelSoarTests\Models\User;
-use Guanguans\LaravelSoarTests\Seeder\UserSeeder;
 use Illuminate\Database\ConnectionResolverInterface;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Http\JsonResponse;
@@ -44,6 +42,7 @@ use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use phpmock\phpunit\PHPMock;
 use Spatie\Snapshots\MatchesSnapshots;
 use Symfony\Component\VarDumper\Test\VarDumperTestTrait;
+use Workbench\App\Models\User;
 
 class TestCase extends \Orchestra\Testbench\TestCase
 {
@@ -70,8 +69,6 @@ class TestCase extends \Orchestra\Testbench\TestCase
         parent::setUp();
         $this->startMockery();
         $this->setUpDatabase();
-        $this->withFactories(__DIR__.'/Factories/');
-        $this->seed(UserSeeder::class);
     }
 
     /**
@@ -190,14 +187,17 @@ class TestCase extends \Orchestra\Testbench\TestCase
         $this->app->make(ConnectionResolverInterface::class)
             ->connection()
             ->getSchemaBuilder()
-            ->create('users', static function (Blueprint $blueprint): void {
-                $blueprint->bigIncrements('id');
-                $blueprint->string('name');
-                $blueprint->string('email')->unique();
-                $blueprint->timestamp('email_verified_at')->nullable();
-                $blueprint->string('password');
-                $blueprint->rememberToken();
-                $blueprint->timestamps();
-            });
+            ->create(
+                'users',
+                static function (Blueprint $blueprint): void {
+                    $blueprint->bigIncrements('id');
+                    $blueprint->string('name');
+                    $blueprint->string('email')->unique();
+                    $blueprint->timestamp('email_verified_at')->nullable();
+                    $blueprint->string('password');
+                    $blueprint->rememberToken();
+                    $blueprint->timestamps();
+                }
+            );
     }
 }

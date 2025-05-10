@@ -18,10 +18,18 @@ declare(strict_types=1);
  * @see https://github.com/guanguans/laravel-soar
  */
 
+use Illuminate\Support\Collection;
+use function Guanguans\LaravelSoar\Support\classes;
 use function Guanguans\LaravelSoar\Support\env_explode;
 use function Guanguans\LaravelSoar\Support\humanly_milliseconds;
 use function Guanguans\LaravelSoar\Support\json_pretty_encode;
 use function Guanguans\LaravelSoar\Support\make;
+
+it('can get classes', function (): void {
+    expect(
+        classes(fn (string $file, string $class): bool => str($class)->startsWith('Rector'))
+    )->toBeInstanceOf(Collection::class);
+})->group(__DIR__, __FILE__);
 
 it('can humanly milliseconds', function (): void {
     expect([
