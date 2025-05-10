@@ -96,6 +96,9 @@ return Factory::fromRuleSet(Php80::create()
         // '@PhpCsFixer:risky' => true,
     ]))
     ->withRules(Rules::fromArray([
+        'align_multiline_comment' => [
+            'comment_type' => 'phpdocs_only',
+        ],
         'attribute_empty_parentheses' => [
             'use_parentheses' => false,
         ],
@@ -282,6 +285,7 @@ return Factory::fromRuleSet(Php80::create()
                 __DIR__.'/config/',
                 __DIR__.'/src/',
                 __DIR__.'/tests/',
+                __DIR__.'/workbench/',
             ])
             ->exclude([
                 '__snapshots__',

@@ -20,7 +20,6 @@ declare(strict_types=1);
 
 use Guanguans\LaravelSoar\OutputManager;
 use Guanguans\LaravelSoar\Outputs\JsonOutput;
-use Symfony\Component\Console\Command\Command;
 
 beforeEach(function (): void {
     $this->see = [
@@ -37,7 +36,7 @@ it('can not output soar scores', function (): void {
     config()->set('soar.except', ['outputs']);
 
     $this->artisan('outputs')
-        ->assertExitCode(Command::SUCCESS)
+        ->assertOk()
         ->expectsOutput(OutputManager::class);
 
     // $this->get('outputs')
@@ -48,7 +47,7 @@ it('can not output soar scores', function (): void {
 
 it('can outputs console', function (): void {
     $this->artisan('outputs')
-        ->assertExitCode(Command::SUCCESS)
+        ->assertOk()
         ->expectsOutput(OutputManager::class);
 })->group(__DIR__, __FILE__);
 

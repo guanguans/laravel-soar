@@ -1,5 +1,7 @@
 <?php
 
+/** @noinspection DebugFunctionUsageInspection */
+/** @noinspection ForgottenDebugOutputInspection */
 /** @noinspection PhpMethodParametersCountMismatchInspection */
 /** @noinspection PhpParamsInspection */
 /** @noinspection PhpUnused */
@@ -26,9 +28,6 @@ use Guanguans\LaravelSoar\Soar;
  */
 class QueryBuilderMixin
 {
-    /**
-     * @noinspection DebugFunctionUsageInspection
-     */
     public function toRawSql(): \Closure
     {
         return fn (): string => vsprintf(
@@ -42,24 +41,14 @@ class QueryBuilderMixin
         );
     }
 
-    /**
-     * @noinspection DebugFunctionUsageInspection
-     * @noinspection ForgottenDebugOutputInspection
-     */
     public function dumpRawSql(): \Closure
     {
         return fn (): string => dump($this->toRawSql());
     }
 
-    /**
-     * @noinspection DebugFunctionUsageInspection
-     * @noinspection ForgottenDebugOutputInspection
-     *
-     * @codeCoverageIgnore
-     */
     public function ddRawSql(): \Closure
     {
-        return fn (): mixed => dd($this->toRawSql());
+        return fn (): mixed => dd($this->toRawSql()); // @codeCoverageIgnore
     }
 
     public function toSoarArrayScores(): \Closure
@@ -71,24 +60,14 @@ class QueryBuilderMixin
         );
     }
 
-    /**
-     * @noinspection DebugFunctionUsageInspection
-     * @noinspection ForgottenDebugOutputInspection
-     */
     public function dumpSoarArrayScores(): \Closure
     {
         return fn (int $depth = 512, int $options = 0): array => dump($this->toSoarArrayScores($depth, $options));
     }
 
-    /**
-     * @noinspection DebugFunctionUsageInspection
-     * @noinspection ForgottenDebugOutputInspection
-     *
-     * @codeCoverageIgnore
-     */
     public function ddSoarArrayScores(): \Closure
     {
-        return fn (int $depth = 512, int $options = 0): mixed => dd($this->toSoarArrayScores($depth, $options));
+        return fn (int $depth = 512, int $options = 0): mixed => dd($this->toSoarArrayScores($depth, $options)); // @codeCoverageIgnore
     }
 
     public function toSoarJsonScores(): \Closure
@@ -96,24 +75,14 @@ class QueryBuilderMixin
         return fn (): string => resolve(Soar::class)->jsonScores($this->toRawSql());
     }
 
-    /**
-     * @noinspection DebugFunctionUsageInspection
-     * @noinspection ForgottenDebugOutputInspection
-     */
     public function dumpSoarJsonScores(): \Closure
     {
         return fn (): string => dump($this->toSoarJsonScores());
     }
 
-    /**
-     * @noinspection DebugFunctionUsageInspection
-     * @noinspection ForgottenDebugOutputInspection
-     *
-     * @codeCoverageIgnore
-     */
     public function ddSoarJsonScores(): \Closure
     {
-        return fn (): mixed => dd($this->toSoarJsonScores());
+        return fn (): mixed => dd($this->toSoarJsonScores()); // @codeCoverageIgnore
     }
 
     public function toSoarHtmlScores(): \Closure
@@ -122,8 +91,8 @@ class QueryBuilderMixin
     }
 
     /**
-     * @noinspection ToStringCallInspection
      * @noinspection PhpToStringImplementationInspection
+     * @noinspection ToStringCallInspection
      */
     public function echoSoarHtmlScores(): \Closure
     {
@@ -132,13 +101,10 @@ class QueryBuilderMixin
         };
     }
 
-    /**
-     * @codeCoverageIgnore
-     */
     public function exitSoarHtmlScores(): \Closure
     {
         return function (): void {
-            exit($this->toSoarHtmlScores());
+            exit($this->toSoarHtmlScores()); // @codeCoverageIgnore
         };
     }
 }

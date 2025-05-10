@@ -46,7 +46,7 @@ class Utils
     public static function toRawSql(QueryExecuted $queryExecuted): string
     {
         if (method_exists($queryExecuted, 'toRawSql')) {
-            return $queryExecuted->toRawSql();
+            return $queryExecuted->toRawSql(); // @codeCoverageIgnore
         }
 
         if ([] === $queryExecuted->bindings) {

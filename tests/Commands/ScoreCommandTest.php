@@ -19,10 +19,51 @@ declare(strict_types=1);
  */
 
 use Guanguans\LaravelSoar\Commands\ScoreCommand;
+use Symfony\Component\Process\Process;
+use function Orchestra\Testbench\php_binary;
 use function Pest\Laravel\artisan;
 
 it('can get the Soar scores of the given SQL statements', function (): void {
     artisan(ScoreCommand::class)
         ->expectsQuestion('Please input the SQL statements', 'select * from foo; select * from bar;')
         ->assertOk();
+})->group(__DIR__, __FILE__);
+
+it('can get the Soar scores of the given stdin SQL statements', function (): void {
+    expect(
+        new Process([
+            php_binary(),
+            base_path('vendor/bin/testbench'),
+            'soar:score',
+            // '--ansi',
+            // '-v',
+        ])
+    )
+        ->setInput('select * from foo; select * from bar;')
+        ->mustRun()
+        ->getOutput()
+        ->toContain('select * from foo', 'select * from bar');
+})->group(__DIR__, __FILE__);
+
+it('can get the Soar scores of the given stdin SQL statements file', function (): void {
+    expect(
+        Process::fromShellCommandline(str_replace(
+            "'<'",
+            '<',
+            (new Process(
+                command: [
+                    php_binary(),
+                    base_path('vendor/bin/testbench'),
+                    'soar:score',
+                    // '--ansi',
+                    // '-v',
+                    '<',
+                    fixtures_path('queries.sql'),
+                ],
+            ))->getCommandLine()
+        ))
+    )
+        ->mustRun()
+        ->getOutput()
+        ->toContain('select * from foo', 'select * from bar');
 })->group(__DIR__, __FILE__);

@@ -15,8 +15,6 @@ namespace Guanguans\LaravelSoar\Support;
 
 use Carbon\CarbonInterval;
 use Composer\Autoload\ClassLoader;
-use Guanguans\LaravelSoar\Exceptions\InvalidArgumentException;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 
 if (!\function_exists('Guanguans\LaravelSoar\Support\classes')) {
@@ -103,50 +101,5 @@ if (!\function_exists('Guanguans\LaravelSoar\Support\json_pretty_encode')) {
             \JSON_PRETTY_PRINT | \JSON_UNESCAPED_UNICODE | \JSON_UNESCAPED_SLASHES | \JSON_THROW_ON_ERROR | $options,
             $depth
         );
-    }
-}
-
-if (!\function_exists('Guanguans\LaravelSoar\Support\make')) {
-    /**
-     * @see https://github.com/laravel/framework/blob/12.x/src/Illuminate/Foundation/helpers.php
-     * @see https://github.com/yiisoft/yii2/blob/master/framework/BaseYii.php
-     *
-     * @template TClass of object
-     *
-     * @param array<string, mixed>|class-string<TClass>|string $name
-     * @param array<string, mixed> $parameters
-     *
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     *
-     * @return ($name is class-string<TClass> ? TClass : mixed)
-     */
-    function make(array|string $name, array $parameters = []): mixed
-    {
-        if (\is_string($name)) {
-            return resolve($name, $parameters);
-        }
-
-        foreach (
-            $keys = [
-                '__abstract',
-                '__class',
-                '__name',
-                '_abstract',
-                '_class',
-                '_name',
-                'abstract',
-                'class',
-                'name',
-            ] as $key
-        ) {
-            if (isset($name[$key])) {
-                return make($name[$key], $parameters + Arr::except($name, $key));
-            }
-        }
-
-        throw new InvalidArgumentException(\sprintf(
-            'The argument of abstract must be an array containing a `%s` element.',
-            implode('` or `', $keys)
-        ));
     }
 }

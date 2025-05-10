@@ -21,8 +21,8 @@ declare(strict_types=1);
 use Workbench\App\Models\User;
 
 it('can return raw sql for `toRawSql`', function (): void {
-    expect(User::query()->where('id', 1)->toRawSql())
-        ->toBe('select * from "users" where "id" = 1');
+    expect(User::query()->where('id', 1)->where('name', 'name')->toRawSql())
+        ->toBe('select * from "users" where "id" = 1 and "name" = \'name\'');
 })->group(__DIR__, __FILE__);
 
 it('can dump raw sql for `dumpRawSql`', function (): void {

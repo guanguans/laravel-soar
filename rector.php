@@ -53,6 +53,7 @@ use Rector\ValueObject\Visibility;
 use Rector\Visibility\Rector\ClassMethod\ChangeMethodVisibilityRector;
 use Rector\Visibility\ValueObject\ChangeMethodVisibility;
 use RectorLaravel\Rector\Class_\ModelCastsPropertyToCastsMethodRector;
+use RectorLaravel\Rector\Class_\RemoveModelPropertyFromFactoriesRector;
 use RectorLaravel\Rector\Empty_\EmptyToBlankAndFilledFuncRector;
 use RectorLaravel\Rector\FuncCall\HelperFuncCallToFacadeClassRector;
 use RectorLaravel\Rector\FuncCall\TypeHintTappableCallRector;
@@ -67,6 +68,7 @@ return RectorConfig::configure()
         // __DIR__.'/config/',
         __DIR__.'/src/',
         __DIR__.'/tests/',
+        __DIR__.'/workbench/',
         ...glob(__DIR__.'/{*,.*}.php', \GLOB_BRACE),
         __DIR__.'/composer-updater',
     ])
@@ -146,7 +148,7 @@ return RectorConfig::configure()
         'Guanguans\LaravelSoarTests',
     ])
     ->withConfiguredRule(RemoveAnnotationRector::class, [
-        // 'codeCoverageIgnore',
+        'codeCoverageIgnore',
         'phpstan-ignore',
         'phpstan-ignore-next-line',
         'psalm-suppress',
@@ -193,12 +195,10 @@ return RectorConfig::configure()
             'test' => 'it',
         ] + array_reduce(
             [
-                'base64_encode_file',
                 'classes',
                 'env_explode',
                 'humanly_milliseconds',
                 'json_pretty_encode',
-                'make',
             ],
             static function (array $carry, string $func): array {
                 /** @see https://github.com/laravel/framework/blob/11.x/src/Illuminate/Support/functions.php */
@@ -222,6 +222,7 @@ return RectorConfig::configure()
         WrapEncapsedVariableInCurlyBracesRector::class,
     ])
     ->withSkip([
+        RemoveModelPropertyFromFactoriesRector::class,
         ThrowIfRector::class,
         UseComponentPropertyWithinCommandsRector::class,
 
@@ -241,14 +242,14 @@ return RectorConfig::configure()
         StaticClosureRector::class => $staticClosureSkipPaths,
         SortAssociativeArrayByKeyRector::class => [
             __DIR__.'/config/',
-            __DIR__.'/routes/',
             __DIR__.'/src/',
             __DIR__.'/tests/',
+            __DIR__.'/workbench/',
         ],
         AddNoinspectionsDocCommentToDeclareRector::class => [
             __DIR__.'/config/',
-            __DIR__.'/routes/',
             __DIR__.'/src/',
+            __DIR__.'/workbench/',
             ...glob(__DIR__.'/{*,.*}.php', \GLOB_BRACE),
             __DIR__.'/composer-updater',
         ],
@@ -258,14 +259,13 @@ return RectorConfig::configure()
         ],
         RemoveNamespaceRector::class => [
             __DIR__.'/config/',
-            __DIR__.'/routes/',
             __DIR__.'/src/',
+            __DIR__.'/workbench/',
             ...glob(__DIR__.'/{*,.*}.php', \GLOB_BRACE),
             __DIR__.'/composer-updater',
             __DIR__.'/tests/Factories/',
             __DIR__.'/tests/Models/',
             __DIR__.'/tests/Seeder/',
-            __DIR__.'/tests/Faker.php',
             __DIR__.'/tests/TestCase.php',
         ],
     ]);

@@ -7,6 +7,8 @@
 /** @noinspection PhpUnhandledExceptionInspection */
 /** @noinspection SqlResolve */
 /** @noinspection StaticClosureCanBeUsedInspection */
+/** @noinspection LaravelFunctionsInspection */
+/** @noinspection PhpInternalEntityUsedInspection */
 declare(strict_types=1);
 
 /**
@@ -19,16 +21,32 @@ declare(strict_types=1);
  */
 
 use Illuminate\Support\Collection;
+use Pest\Expectation;
 use function Guanguans\LaravelSoar\Support\classes;
 use function Guanguans\LaravelSoar\Support\env_explode;
 use function Guanguans\LaravelSoar\Support\humanly_milliseconds;
 use function Guanguans\LaravelSoar\Support\json_pretty_encode;
-use function Guanguans\LaravelSoar\Support\make;
 
 it('can get classes', function (): void {
     expect(
         classes(fn (string $file, string $class): bool => str($class)->startsWith('Rector'))
     )->toBeInstanceOf(Collection::class);
+})->group(__DIR__, __FILE__);
+
+it('can explode env', function (): void {
+    expect([
+        'APP_',
+        'APP_DEBUG',
+        'APP_NAME',
+        'REDIS_PORT',
+    ])->each(static function (Expectation $expectation): void {
+        $env = env($expectation->value);
+        $explodedEnv = env_explode($expectation->value);
+
+        \is_string($env)
+            ? expect($explodedEnv)->toBe(explode(',', $env))
+            : expect($explodedEnv)->toBe($env);
+    });
 })->group(__DIR__, __FILE__);
 
 it('can humanly milliseconds', function (): void {
@@ -40,28 +58,6 @@ it('can humanly milliseconds', function (): void {
     ])->each->toBeString()->toEndWith('s');
 })->group(__DIR__, __FILE__);
 
-it('can explode env', function (): void {
-    expect([
-        env_explode('ENV_EXPLODE_STRING'),
-        env_explode('ENV_EXPLODE_EMPTY'),
-        env_explode('ENV_EXPLODE_NOT_EXIST'),
-        // env_explode('ENV_EXPLODE_FALSE'),
-        // env_explode('ENV_EXPLODE_NULL'),
-        // env_explode('ENV_EXPLODE_TRUE'),
-    ])->sequence(
-        static fn (Expectation $expectation): Expectation => $expectation->toBeArray()->toBeTruthy(),
-        static fn (Expectation $expectation): Expectation => $expectation->toBeArray()->toBeFalsy(),
-        static fn (Expectation $expectation): Expectation => $expectation->toBeNull(),
-        // static fn (Pest\Expectation $expectation): Pest\Expectation => $expectation->toBeFalse(),
-        // static fn (Pest\Expectation $expectation): Pest\Expectation => $expectation->toBeNull(),
-        // static fn (Pest\Expectation $expectation): Pest\Expectation => $expectation->toBeTrue(),
-    );
-})->group(__DIR__, __FILE__)->skip();
-
 it('can json pretty encode', function (): void {
     expect(json_pretty_encode([1, 2, 3]))->toMatchJsonSnapshot();
 })->group(__DIR__, __FILE__);
-
-it('will throw `InvalidArgumentException` when abstract is empty array', function (): void {
-    make([]);
-})->group(__DIR__, __FILE__)->throws(InvalidArgumentException::class);

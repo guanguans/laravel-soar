@@ -18,8 +18,6 @@ declare(strict_types=1);
  * @see https://github.com/guanguans/laravel-soar
  */
 
-use Guanguans\LaravelSoar\Facades\Soar;
-
 it('can return soar version for `version`', function (): void {
     expect(Soar::version())->toBeString();
 })->group(__DIR__, __FILE__);
