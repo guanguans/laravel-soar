@@ -100,7 +100,7 @@ if (!\function_exists('Guanguans\LaravelSoar\Support\json_pretty_encode')) {
     {
         return json_encode(
             $value,
-            \JSON_PRETTY_PRINT | \JSON_UNESCAPED_UNICODE | \JSON_UNESCAPED_SLASHES | \JSON_THROW_ON_ERROR | \JSON_FORCE_OBJECT | $options,
+            \JSON_PRETTY_PRINT | \JSON_UNESCAPED_UNICODE | \JSON_UNESCAPED_SLASHES | \JSON_THROW_ON_ERROR | $options,
             $depth
         );
     }

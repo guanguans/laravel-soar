@@ -54,10 +54,22 @@ class Bootstrapper
     {
         return self::$scores = self::$scores->whenEmpty(
             fn () => $this->toScores()
-                ->sortBy('Score')
+                ->sortBy(['Score', 'Fingerprint'])
                 ->map(fn (array $score): array => $this->hydrateScore($score))
                 ->values()
         );
+    }
+
+    /**
+     * @throws \JsonException
+     */
+    private function toScores(): Collection
+    {
+        return self::$queries
+            ->pluck('sql')
+            ->pipe(static fn (Collection $queries): Collection => collect(
+                resolve(Soar::class)->arrayScores($queries->all())
+            ));
     }
 
     private function hydrateScore(array $score): array
@@ -88,13 +100,49 @@ class Bootstrapper
         ];
     }
 
+    /**
+     * @return array{
+     *     sql: string,
+     *     time: string,
+     *     connection: string,
+     *     driver: string,
+     *     backtraces: array<string>
+     * }
+     */
+    private function matchQuery(array $score): array
+    {
+        return self::$queries->first(
+            static fn (array $query): bool => $score['Sample'] === $query['sql'],
+            static fn (): array => self::$queries
+                ->map(static function (array $query) use ($score): array {
+                    $query['similarity'] = similar_text($score['Sample'], $query['sql']);
+
+                    return $query;
+                })
+                ->sortByDesc('similarity')
+                ->first()
+        );
+    }
+
+    private function sanitizeExplain(array $explain): array
+    {
+        return collect($explain)
+            ->map(static function (array $explain): array {
+                $explain['Content'] = str($explain['Content'])->explode(\PHP_EOL)->filter()->values()->all();
+                $explain['Case'] = str($explain['Case'])->explode(\PHP_EOL)->filter()->values()->all();
+
+                return $explain;
+            })
+            ->all();
+    }
+
     private function logQueries(): void
     {
         Event::listen(QueryExecuted::class, function (QueryExecuted $queryExecuted): void {
             if (
                 self::$queries->has($queryExecuted->sql)
-                || $this->isExceptSql($queryExecuted->sql)
-                || $this->isExceptSql($sql = $this->toRawSql($queryExecuted))
+                || $this->isExceptQuery($queryExecuted->sql)
+                || $this->isExceptQuery($sql = $this->toRawSql($queryExecuted))
             ) {
                 return;
             }
@@ -109,9 +157,9 @@ class Bootstrapper
         });
     }
 
-    private function isExceptSql(string $sql): bool
+    private function isExceptQuery(string $query): bool
     {
-        return Str::is(config('soar.except_queries', []), $sql);
+        return Str::is(config('soar.except_queries', []), $query);
     }
 
     /**
@@ -163,58 +211,12 @@ class Bootstrapper
     {
         Event::listen(
             CommandFinished::class,
-            fn (CommandFinished $commandFinished) => $this->application->make(OutputManager::class)->output(
-                $this->getScores(),
-                $commandFinished
-            )
+            fn (CommandFinished $commandFinished) => $this
+                ->application
+                ->make(OutputManager::class)
+                ->output($this->getScores(), $commandFinished)
         );
 
         $this->application->make(Kernel::class)->prependMiddleware(OutputScoresMiddleware::class);
-    }
-
-    /**
-     * @throws \JsonException
-     */
-    private function toScores(): Collection
-    {
-        return self::$queries
-            ->pluck('sql')
-            ->pipe(static fn (Collection $sqls): Collection => collect(resolve(Soar::class)->arrayScores($sqls->all())));
-    }
-
-    /**
-     * @return array{
-     *     sql: string,
-     *     time: string,
-     *     connection: string,
-     *     driver: string,
-     *     backtraces: array<string>
-     * }
-     */
-    private function matchQuery(array $score): array
-    {
-        return self::$queries->first(
-            static fn (array $query): bool => $score['Sample'] === $query['sql'],
-            static fn (): array => self::$queries
-                ->map(static function (array $query) use ($score): array {
-                    $query['similarity'] = similar_text($score['Sample'], $query['sql']);
-
-                    return $query;
-                })
-                ->sortByDesc('similarity')
-                ->first()
-        );
-    }
-
-    private function sanitizeExplain(array $explain): array
-    {
-        return collect($explain)
-            ->map(static function (array $explain): array {
-                $explain['Content'] = str($explain['Content'])->explode(\PHP_EOL)->filter()->values()->all();
-                $explain['Case'] = str($explain['Case'])->explode(\PHP_EOL)->filter()->values()->all();
-
-                return $explain;
-            })
-            ->all();
     }
 }
