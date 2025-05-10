@@ -21,11 +21,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 trait OutputConditions
 {
-    protected function isCommandFinished(CommandFinished|Response $outputter): bool
-    {
-        return $outputter instanceof CommandFinished;
-    }
-
     protected function isHtmlResponse(CommandFinished|Response $outputter): bool
     {
         return $outputter instanceof Response

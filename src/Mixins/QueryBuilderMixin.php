@@ -26,12 +26,19 @@ use Guanguans\LaravelSoar\Soar;
  */
 class QueryBuilderMixin
 {
+    /**
+     * @noinspection DebugFunctionUsageInspection
+     */
     public function toRawSql(): \Closure
     {
-        return fn (): string => array_reduce(
-            $this->getBindings(),
-            static fn (string $sql, mixed $binding): string => preg_replace('/\?/', is_numeric($binding) ? (string) $binding : "'".$binding."'", $sql, 1),
-            $this->toSql()
+        return fn (): string => vsprintf(
+            str_replace(['%', '?', '%s%s'], ['%%', '%s', '?'], $this->toSql()),
+            array_map(
+                fn (mixed $binding): string => \is_string($binding)
+                    ? $this->getConnection()->getPdo()->quote($binding)
+                    : var_export($binding, true),
+                $this->getConnection()->prepareBindings($this->getBindings())
+            )
         );
     }
 

@@ -20,13 +20,8 @@ declare(strict_types=1);
 
 use Guanguans\LaravelSoar\Outputs\Concerns\OutputConditions;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
 
 uses(OutputConditions::class);
-
-it('can check is command finished for `isCommandFinished`', function (): void {
-    expect($this->isCommandFinished(new Response))->toBeFalse();
-})->group(__DIR__, __FILE__);
 
 it('can check is json response for `isJsonResponse`', function (): void {
     expect([

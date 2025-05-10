@@ -1,6 +1,5 @@
-# total 8 errors
+# total 6 errors
 includes:
     - method.notFound.neon
     - offsetAccess.nonArray.neon
     - offsetAccess.notFound.neon
-    - staticMethod.dynamicCall.neon
