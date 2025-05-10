@@ -15,7 +15,6 @@ namespace Guanguans\LaravelSoar;
 
 use Guanguans\LaravelSoar\Middleware\OutputScoresMiddleware;
 use Illuminate\Console\Events\CommandFinished;
-use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Database\Events\QueryExecuted;
 use Illuminate\Foundation\Application;
@@ -37,9 +36,6 @@ class Bootstrapper
         self::$scores = collect();
     }
 
-    /**
-     * @throws BindingResolutionException
-     */
     public function boot(): void
     {
         if ($this->booted) {
@@ -163,9 +159,6 @@ class Bootstrapper
             ->all();
     }
 
-    /**
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     */
     private function registerOutputMonitor(): void
     {
         Event::listen(

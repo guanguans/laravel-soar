@@ -30,8 +30,6 @@ class Soar extends \Guanguans\SoarPHP\Soar
     use Tappable;
 
     /**
-     * Handle dynamic method calls into the method.
-     *
      * @noinspection PhpParameterNameChangedDuringInheritanceInspection
      * @noinspection PhpHierarchyChecksInspection
      */

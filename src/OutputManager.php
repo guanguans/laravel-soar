@@ -37,28 +37,30 @@ class OutputManager extends Fluent implements OutputContract
         return !Request::is($except) && !Request::routeIs($except);
     }
 
-    public function output(Collection $scores, CommandFinished|Response $outputter): mixed
+    public function output(Collection $scores, CommandFinished|Response $outputter): array
     {
-        if (!$this->shouldOutput($outputter)) {
-            return null;
-        }
+        return $this->shouldOutput($outputter)
+            ? array_reduce(
+                $this->attributes,
+                static function (array $results, OutputContract $outputContract) use ($outputter, $scores): array {
+                    if (!$outputContract->shouldOutput($outputter)) {
+                        return $results;
+                    }
 
-        foreach ($this->attributes as $output) {
-            \assert($output instanceof OutputContract);
+                    if ($outputContract instanceof SanitizerContract) {
+                        $scores = $outputContract->sanitize($scores);
+                    }
 
-            if (!$output->shouldOutput($outputter)) {
-                continue;
-            }
+                    event(new OutputtingEvent($outputContract, $scores, $outputter));
+                    $result = $outputContract->output($scores, $outputter);
+                    event(new OutputtedEvent($outputContract, $scores, $outputter, $result));
 
-            if ($output instanceof SanitizerContract) {
-                $scores = $output->sanitize($scores);
-            }
+                    $results[$outputContract::class] = $result;
 
-            event(new OutputtingEvent($output, $scores, $outputter));
-            $result = $output->output($scores, $outputter);
-            event(new OutputtedEvent($output, $scores, $outputter, $result));
-        }
-
-        return null;
+                    return $results;
+                },
+                []
+            )
+            : [];
     }
 }

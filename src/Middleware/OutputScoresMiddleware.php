@@ -39,7 +39,7 @@ class OutputScoresMiddleware
     {
         return tap(
             $next($request),
-            fn (SymfonyResponse $symfonyResponse): mixed => $this->outputManager->output(
+            fn (SymfonyResponse $symfonyResponse): array => $this->outputManager->output(
                 $this->bootstrapper->getScores(),
                 $symfonyResponse
             )
