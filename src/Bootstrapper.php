@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Guanguans\LaravelSoar;
 
+use Guanguans\LaravelSoar\Listeners\OutputScoresListener;
 use Guanguans\LaravelSoar\Middleware\OutputScoresMiddleware;
 use Guanguans\LaravelSoar\Support\Utils;
 use Illuminate\Console\Events\CommandFinished;
@@ -43,7 +44,7 @@ class Bootstrapper
 
         $this->booted = true;
         $this->logQueries();
-        $this->registerOutputMonitor();
+        $this->registerOutputter();
     }
 
     /**
@@ -80,16 +81,9 @@ class Bootstrapper
         });
     }
 
-    private function registerOutputMonitor(): void
+    private function registerOutputter(): void
     {
-        Event::listen(
-            CommandFinished::class,
-            fn (CommandFinished $commandFinished) => $this
-                ->application
-                ->make(OutputManager::class)
-                ->output($this->getScores(), $commandFinished)
-        );
-
+        Event::listen(CommandFinished::class, OutputScoresListener::class);
         $this->application->make(Kernel::class)->prependMiddleware(OutputScoresMiddleware::class);
     }
 
