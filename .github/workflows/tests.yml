@@ -5,6 +5,8 @@ on:
   push:
   pull_request:
 
+permissions: write-all
+
 jobs:
   test:
     runs-on: ${{ matrix.os }}

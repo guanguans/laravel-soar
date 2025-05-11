@@ -43,7 +43,11 @@ class QueryBuilderMixin
 
     public function dumpRawSql(): \Closure
     {
-        return fn (): string => dump($this->toRawSql());
+        return function (): self {
+            dump($this->toRawSql());
+
+            return $this;
+        };
     }
 
     public function ddRawSql(): \Closure
@@ -62,7 +66,11 @@ class QueryBuilderMixin
 
     public function dumpSoarArrayScores(): \Closure
     {
-        return fn (int $depth = 512, int $options = 0): array => dump($this->toSoarArrayScores($depth, $options));
+        return function (int $depth = 512, int $options = 0): self {
+            dump($this->toSoarArrayScores($depth, $options));
+
+            return $this;
+        };
     }
 
     public function ddSoarArrayScores(): \Closure
@@ -77,7 +85,11 @@ class QueryBuilderMixin
 
     public function dumpSoarJsonScores(): \Closure
     {
-        return fn (): string => dump($this->toSoarJsonScores());
+        return function (): self {
+            dump($this->toSoarJsonScores());
+
+            return $this;
+        };
     }
 
     public function ddSoarJsonScores(): \Closure
@@ -96,8 +108,10 @@ class QueryBuilderMixin
      */
     public function echoSoarHtmlScores(): \Closure
     {
-        return function (): void {
+        return function (): self {
             echo $this->toSoarHtmlScores();
+
+            return $this;
         };
     }
 

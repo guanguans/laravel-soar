@@ -103,6 +103,11 @@ function faker(string $locale = Factory::DEFAULT_LOCALE): Generator
 //     return Factory::create($locale);
 // }
 
+function running_in_github_action(): bool
+{
+    return getenv('GITHUB_ACTIONS') === 'true';
+}
+
 /**
  * @see \Illuminate\Foundation\Console\StorageLinkCommand
  */

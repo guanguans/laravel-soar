@@ -27,10 +27,6 @@
 
 * [https://github.com/XiaoMi/soar](https://github.com/XiaoMi/soar)
 * [https://github.com/guanguans/soar-php](https://github.com/guanguans/soar-php)
-* [https://github.com/huangdijia/laravel-web-soar](https://github.com/huangdijia/laravel-web-soar)
-* [https://github.com/wilbur-yu/hyperf-soar](https://github.com/wilbur-yu/hyperf-soar)
-* [https://github.com/guanguans/think-soar](https://github.com/guanguans/think-soar)
-* [https://github.com/Tinywan/webman-soar](https://github.com/Tinywan/webman-soar)
 
 ## 环境要求
 
@@ -499,42 +495,8 @@ SQL
 <details>
 <summary><b>自定义输出器</b></summary>
 
-1. 实现该接口
-
-```php
-<?php
-
-declare(strict_types=1);
-
-namespace Guanguans\LaravelSoar\Contracts;
-
-use Illuminate\Console\Events\CommandFinished;
-use Illuminate\Support\Collection;
-use Symfony\Component\HttpFoundation\Response;
-
-interface OutputContract
-{
-    public function shouldOutput(CommandFinished|Response $outputter): bool;
-
-    public function output(Collection $scores, CommandFinished|Response $outputter): mixed;
-}
-```
-
-2. `config/soar.php` 中配置输出器即可
-
-```php
-<?php
-
-return [
-    ...
-    'output' => [
-        ...
-        Guanguans\LaravelSoar\Outputs\LogOutput::class => ['channel' => 'daily', 'level' => 'warning'],
-        ...
-    ],
-    ...
-];
-```
+1. 实现 [OutputContract](src/Contracts/OutputContract.php)
+2. `config/soar.php` 中配置输出器 `soar.outputs`
 </details>
 
 ### Artisan 命令
@@ -554,86 +516,21 @@ Available commands:
 ...
 ```
 
+#### 示例(支持标准输入)
+
+```shell
+echo 'select * from foo; select * from bar;' | php artisan soar:score --ansi
+php artisan soar:score --ansi
+php artisan soar:score --ansi --option=-query='select * from foo; select * from bar;'
+php artisan soar:score --ansi < tests/Fixtures/queries.sql
+```
+
 ![commands](docs/commands.gif)
 </details>
 
-### Soar 实例及方法
+### [Soar 实例及方法](src/Facades/Soar.php)
 
-<details>
-<summary><b>详情</b></summary>
-
-```php
-app('soar'); // 获取 Soar 实例
-
-/**
- * Soar 门面.
- * 
- * @method static \Guanguans\LaravelSoar\Soar create(array $options = [], null|string $soarBinary = null)
- * @method static string help()
- * @method static string version()
- * @method static \Guanguans\LaravelSoar\Soar clone()
- * @method static array arrayScores(array|string $sqls, int $depth = 512, int $options = 0)
- * @method static string jsonScores(array|string $sqls)
- * @method static string htmlScores(array|string $sqls)
- * @method static string markdownScores(array|string $sqls)
- * @method static string scores(array|string $sqls)
- * @method static \Guanguans\LaravelSoar\Soar addOptions(array $options)
- * @method static \Guanguans\LaravelSoar\Soar addOption(string $key, void $value)
- * @method static \Guanguans\LaravelSoar\Soar removeOptions(array $keys)
- * @method static \Guanguans\LaravelSoar\Soar removeOption(string $key)
- * @method static \Guanguans\LaravelSoar\Soar onlyOptions(array $keys = ['-test-dsn','-online-dsn'])
- * @method static \Guanguans\LaravelSoar\Soar onlyOption(string $key)
- * @method static \Guanguans\LaravelSoar\Soar setOptions(array $options)
- * @method static \Guanguans\LaravelSoar\Soar setOption(string $key, void $value)
- * @method static \Guanguans\LaravelSoar\Soar mergeOptions(array $options)
- * @method static \Guanguans\LaravelSoar\Soar mergeOption(string $key, void $value)
- * @method static array getOptions()
- * @method static void getOption(string $key, void $default = null)
- * @method static string getSerializedNormalizedOptions()
- * @method static array getNormalizedOptions()
- * @method static string getSoarBinary()
- * @method static \Guanguans\LaravelSoar\Soar setSoarBinary(string $soarBinary)
- * @method static void dd(void ...$args)
- * @method static \Guanguans\LaravelSoar\Soar dump(void ...$args)
- * @method static string run(array|string $withOptions = [], null|callable $processTapper = null, null|callable $callback = null)
- * @method static \Guanguans\LaravelSoar\Soar|\Illuminate\Support\HigherOrderTapProxy tap(null|callable $callback = null)
- *
- * @see \Guanguans\LaravelSoar\Soar
- */ 
-class Soar{}
-```
-</details>
-
-### 查询构建器方法
-
-<details>
-<summary><b>详情</b></summary>
-
-```php
-namespace Illuminate\Database\Eloquent {
-    /**
-     * @method never ddRawSql()
-     * @method never ddSoarArrayScores(int $depth = 512, int $options = 0)
-     * @method never ddSoarJsonScores()
-     * @method string dumpRawSql()
-     * @method array dumpSoarArrayScores(int $depth = 512, int $options = 0)
-     * @method string dumpSoarJsonScores()
-     * @method void echoSoarHtmlScores()
-     * @method never exitSoarHtmlScores()
-     * @method string toRawSql()
-     * @method array toSoarArrayScores(int $depth = 512, int $options = 0)
-     * @method string toSoarHtmlScores()
-     * @method string toSoarJsonScores()
-     *
-     * @mixin \Illuminate\Database\Query\Builder
-     *
-     * @see \Guanguans\LaravelSoar\Mixins\QueryBuilderMixin
-     * @see \Illuminate\Database\Eloquent\Builder
-     */
-    class Builder {}
-}
-```
-</details>
+### [查询构建器方法](src/Mixins/QueryBuilderMixin.php)
 
 ## 测试
 

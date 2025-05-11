@@ -33,10 +33,8 @@ it('can get the Soar scores of the given stdin SQL statements', function (): voi
     expect(
         new Process([
             php_binary(),
-            base_path('vendor/bin/testbench'),
+            __DIR__.'/../../vendor/bin/testbench',
             'soar:score',
-            // '--ansi',
-            // '-v',
         ])
     )
         ->setInput('select * from foo; select * from bar;')
@@ -53,10 +51,8 @@ it('can get the Soar scores of the given stdin SQL statements file', function ()
             (new Process(
                 command: [
                     php_binary(),
-                    base_path('vendor/bin/testbench'),
+                    __DIR__.'/../../vendor/bin/testbench',
                     'soar:score',
-                    // '--ansi',
-                    // '-v',
                     '<',
                     fixtures_path('queries.sql'),
                 ],

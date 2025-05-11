@@ -56,6 +56,7 @@ use RectorLaravel\Rector\Class_\ModelCastsPropertyToCastsMethodRector;
 use RectorLaravel\Rector\Class_\RemoveModelPropertyFromFactoriesRector;
 use RectorLaravel\Rector\Empty_\EmptyToBlankAndFilledFuncRector;
 use RectorLaravel\Rector\FuncCall\HelperFuncCallToFacadeClassRector;
+use RectorLaravel\Rector\FuncCall\RemoveDumpDataDeadCodeRector;
 use RectorLaravel\Rector\FuncCall\TypeHintTappableCallRector;
 use RectorLaravel\Rector\If_\ThrowIfRector;
 use RectorLaravel\Rector\MethodCall\UseComponentPropertyWithinCommandsRector;
@@ -233,7 +234,10 @@ return RectorConfig::configure()
         TypeHintTappableCallRector::class,
     ])
     ->withSkip([
-        RemoveExtraParametersRector::class => $staticClosureSkipPaths = [
+        RemoveDumpDataDeadCodeRector::class => [
+            __DIR__.'/src/Mixins/QueryBuilderMixin.php',
+        ],
+        RemoveExtraParametersRector::class => [
             __DIR__.'/src/Mixins/QueryBuilderMixin.php',
         ],
         StaticArrowFunctionRector::class => $staticClosureSkipPaths = [

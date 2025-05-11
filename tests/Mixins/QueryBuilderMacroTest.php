@@ -18,38 +18,43 @@ declare(strict_types=1);
  * @see https://github.com/guanguans/laravel-soar
  */
 
+use Illuminate\Database\Eloquent\Builder;
 use Workbench\App\Models\User;
 
 it('can return raw sql for `toRawSql`', function (): void {
-    expect(User::query()->where('id', 1)->where('name', 'name')->toRawSql())
-        ->toBe('select * from "users" where "id" = 1 and "name" = \'name\'');
+    expect(User::query()->where('id', 1)->where('name', 'soar')->toRawSql())->toBe(
+        'select * from "users" where "id" = 1 and "name" = \'soar\''
+    );
 })->group(__DIR__, __FILE__);
 
 it('can dump raw sql for `dumpRawSql`', function (): void {
-    expect(User::query()->where('id', 1)->dumpRawSql())->toBeString();
+    expect(User::query()->where('id', 1)->where('name', 'soar')->dumpRawSql())->toBeInstanceOf(Builder::class);
 })->group(__DIR__, __FILE__);
 
 it('can return soar array scores for `toSoarArrayScores`', function (): void {
-    expect(User::query()->where('id', 1)->toSoarArrayScores())->toBeArray();
+    expect(User::query()->where('id', 1)->where('name', 'soar')->toSoarArrayScores())->toBeArray();
 })->group(__DIR__, __FILE__);
 
 it('can dump soar array scores for `dumpSoarArrayScores`', function (): void {
-    expect(User::query()->where('id', 1)->dumpSoarArrayScores())->toBeArray();
+    expect(User::query()->where('id', 1)->where('name', 'soar')->dumpSoarArrayScores())->toBeInstanceOf(Builder::class);
 })->group(__DIR__, __FILE__);
 
 it('can return soar json scores for `toSoarJsonScores`', function (): void {
-    expect(User::query()->where('id', 1)->toSoarJsonScores())->toBeJson();
+    expect(User::query()->where('id', 1)->where('name', 'soar')->toSoarJsonScores())->toBeJson();
 })->group(__DIR__, __FILE__);
 
 it('can dump soar json scores for `dumpSoarJsonScores`', function (): void {
-    expect(User::query()->where('id', 1)->dumpSoarJsonScores())->toBeJson();
+    expect(User::query()->where('id', 1)->where('name', 'soar')->dumpSoarJsonScores())->toBeInstanceOf(Builder::class);
 })->group(__DIR__, __FILE__);
 
 it('can return soar html scores for `toSoarHtmlScores`', function (): void {
-    expect(User::query()->where('id', 1)->toSoarHtmlScores())
-        ->toBeString()->toContain('<head>', '<body onload=load()>', '<script>');
+    expect(User::query()->where('id', 1)->where('name', 'soar')->toSoarHtmlScores())->toBeString()->toContain(
+        '<head>',
+        '<body onload=load()>',
+        '<script>'
+    );
 })->group(__DIR__, __FILE__);
 
 it('can echo soar html scores for `echoSoarHtmlScores`', function (): void {
-    expect(User::query()->where('id', 1)->echoSoarHtmlScores())->toBeNull();
+    expect(User::query()->where('id', 1)->where('name', 'soar')->echoSoarHtmlScores())->toBeInstanceOf(Builder::class);
 })->group(__DIR__, __FILE__);

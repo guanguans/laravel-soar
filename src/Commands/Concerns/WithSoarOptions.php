@@ -31,7 +31,7 @@ trait WithSoarOptions
                 'option',
                 null,
                 InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY,
-                'The option to be passed to Soar(e.g. `--option=-report-type=markdown` or `--option report-type=markdown`)',
+                'Specify Soar option. Example: `--option=-report-type=markdown` or `--option report-type=markdown`. Can be used multiple times.',
             ),
         ]);
     }
