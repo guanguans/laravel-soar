@@ -66,8 +66,10 @@ class Utils
 
     /**
      * @noinspection DebugFunctionUsageInspection
+     *
+     * @param int|list<int> $forgetLines
      */
-    public static function backtraces(int $limit = 0, int $forgetLines = 0): array
+    public static function backtraces(int $limit = 0, array|int $forgetLines = 0): array
     {
         return collect(debug_backtrace(\DEBUG_BACKTRACE_IGNORE_ARGS, $limit))
             ->forget($forgetLines)

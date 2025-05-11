@@ -52,7 +52,7 @@ class Bootstrapper
     public function getScores(): Collection
     {
         return self::$scores = self::$scores->whenEmpty(
-            fn () => $this->toScores()
+            fn () => $this->toOriginalScores()
                 ->sortBy(['Score', 'Fingerprint'])
                 ->map(fn (array $score): array => $this->hydrateScore($score))
                 ->values()
@@ -96,7 +96,7 @@ class Bootstrapper
     /**
      * @throws \JsonException
      */
-    private function toScores(): Collection
+    private function toOriginalScores(): Collection
     {
         return self::$queries
             ->pluck('sql')
