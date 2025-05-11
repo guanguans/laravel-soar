@@ -8,6 +8,29 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 
+<a name="4.0.1"></a>
+## [4.0.1] - 2025-05-11
+### 🐞 Bug Fixes
+- **issue-template:** update URLs to use 'master' instead of 'main' ([71f3c77](https://github.com/guanguans/laravel-soar/commit/71f3c77))
+- **output:** enhance output handling and score sanitization ([c9a2d90](https://github.com/guanguans/laravel-soar/commit/c9a2d90))
+- **query-builder:** improve SQL query binding for toRawSql ([7c2506d](https://github.com/guanguans/laravel-soar/commit/7c2506d))
+- **scores:** improve scores sorting and remove duplicate methods ([d95e952](https://github.com/guanguans/laravel-soar/commit/d95e952))
+- **utils:** update backtraces method to support list of lines ([c98127a](https://github.com/guanguans/laravel-soar/commit/c98127a))
+
+### 💅 Code Refactorings
+- **bootstrapper:** replace inline listener logic with dedicated class ([5bab9e7](https://github.com/guanguans/laravel-soar/commit/5bab9e7))
+- **query-builder-mixin:** improve chainability of diagnostic methods ([713d19e](https://github.com/guanguans/laravel-soar/commit/713d19e))
+- **utils:** centralize star generation logic in a utility class ([500628d](https://github.com/guanguans/laravel-soar/commit/500628d))
+
+### 🏎 Performance Improvements
+- **SoarServiceProvider:** optimize application boot process ([72474b3](https://github.com/guanguans/laravel-soar/commit/72474b3))
+
+### ✅ Tests
+- **project:** enhance testing and configuration setups ([ba68e32](https://github.com/guanguans/laravel-soar/commit/ba68e32))
+- **utils:** refactor and enhance utility functions with improved structure ([3116864](https://github.com/guanguans/laravel-soar/commit/3116864))
+- **workbench:** integrate workbench structure and refactor tests ([8b7d200](https://github.com/guanguans/laravel-soar/commit/8b7d200))
+
+
 <a name="4.0.0"></a>
 ## [4.0.0] - 2025-05-08
 ### ✨ Features
@@ -586,7 +609,8 @@ All notable changes to this project will be documented in this file.
 - Merge pull request [#1](https://github.com/guanguans/laravel-soar/issues/1) from guanguans/add-license-1
 
 
-[Unreleased]: https://github.com/guanguans/laravel-soar/compare/4.0.0...HEAD
+[Unreleased]: https://github.com/guanguans/laravel-soar/compare/4.0.1...HEAD
+[4.0.1]: https://github.com/guanguans/laravel-soar/compare/4.0.0...4.0.1
 [4.0.0]: https://github.com/guanguans/laravel-soar/compare/3.18.1...4.0.0
 [3.18.1]: https://github.com/guanguans/laravel-soar/compare/3.18.0...3.18.1
 [3.18.0]: https://github.com/guanguans/laravel-soar/compare/3.17.0...3.18.0
