@@ -53,7 +53,7 @@ class SoarServiceProvider extends ServiceProvider
         $this->registerCommands();
 
         if (config('soar.enabled', false)) {
-            $this->app->make(Bootstrapper::class)->boot();
+            $this->app->booted(static fn (Application $application) => $application->make(Bootstrapper::class)->boot());
         }
     }
 
