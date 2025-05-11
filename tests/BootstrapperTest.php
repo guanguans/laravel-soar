@@ -5,6 +5,7 @@
 /** @noinspection PhpPossiblePolymorphicInvocationInspection */
 /** @noinspection PhpUndefinedClassInspection */
 /** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection PhpVoidFunctionResultUsedInspection */
 /** @noinspection SqlResolve */
 /** @noinspection StaticClosureCanBeUsedInspection */
 declare(strict_types=1);
@@ -20,14 +21,8 @@ declare(strict_types=1);
 
 use Guanguans\LaravelSoar\Bootstrapper;
 
-beforeEach(function (): void {
-    $this->bootstrapper = $this->app->make(Bootstrapper::class);
-});
-
-it('can boot `soar score` for `boot`', function (): void {
-    expect($this->bootstrapper)->boot()->toBeNull();
-})->group(__DIR__, __FILE__);
-
-it('can get `scores` for `getScores`', function (): void {
-    expect($this->bootstrapper->getScores())->toBeCollection();
+it('only boot once', function (): void {
+    expect(resolve(Bootstrapper::class))
+        ->boot()->toBeNull()
+        ->boot()->toBeNull();
 })->group(__DIR__, __FILE__);

@@ -30,7 +30,7 @@ use Workbench\Database\Factories\UserFactory;
 
 Route::get('/', static fn () => view('welcome'));
 
-Route::get('outputs', static fn () => tap(
+Route::get('output-all', static fn () => tap(
     response(OutputManager::class),
     static function (): void {
         extend_output_manager();
@@ -38,7 +38,7 @@ Route::get('outputs', static fn () => tap(
     }
 ));
 
-Route::get('json', static fn () => tap(
+Route::get('output-json', static fn () => tap(
     new JsonResponse(JsonOutput::class),
     static function (): void {
         extend_output_manager(JsonOutput::class);

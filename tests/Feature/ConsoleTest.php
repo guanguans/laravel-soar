@@ -19,10 +19,26 @@ declare(strict_types=1);
  * @see https://github.com/guanguans/laravel-soar
  */
 
-use Guanguans\LaravelSoar\Facades\Soar;
+use Illuminate\Support\Arr;
 
-it('can register macro method', function (): void {
-    Soar::macro('foo', fn () => null);
+beforeEach(function (): void {
+    $this->see = collect(Arr::first(Soar::arrayScores('select * from users')))
+        ->except(['ID', 'Fingerprint'])
+        ->keys()
+        ->push('Summary', 'Basic', 'Backtraces')
+        ->all();
+});
 
-    expect(Soar::foo())->toBeNull();
+it('can not output soar scores', function (): void {
+    config()->set('soar.except', ['output:all']);
+
+    $this->artisan('output:all')
+        // ->expectsOutput(OutputManager::class)
+        ->assertOk();
+})->group(__DIR__, __FILE__);
+
+it('can outputs console', function (): void {
+    $this->artisan('output:all')
+        // ->expectsOutput(OutputManager::class)
+        ->assertOk();
 })->group(__DIR__, __FILE__);

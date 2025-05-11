@@ -5,6 +5,7 @@
 /** @noinspection PhpPossiblePolymorphicInvocationInspection */
 /** @noinspection PhpUndefinedClassInspection */
 /** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection PhpVoidFunctionResultUsedInspection */
 /** @noinspection SqlResolve */
 /** @noinspection StaticClosureCanBeUsedInspection */
 declare(strict_types=1);
@@ -20,18 +21,6 @@ declare(strict_types=1);
 
 use Guanguans\LaravelSoar\Support\Utils;
 
-it('can return star for score', function (): void {
-    expect([
-        Utils::star(0),
-        Utils::star(50),
-        Utils::star(100),
-    ])->sequence(
-        '☆☆☆☆☆',
-        '★★★☆☆',
-        '★★★★★'
-    );
-})->group(__DIR__, __FILE__);
-
 it('can sanitize `explain` for `sanitizeExplain`', function (): void {
     $explain = [
         [
@@ -45,4 +34,16 @@ it('can sanitize `explain` for `sanitizeExplain`', function (): void {
     ];
 
     expect(Utils::sanitizeExplain($explain))->toBeArray();
+})->group(__DIR__, __FILE__);
+
+it('can return star for score', function (): void {
+    expect([
+        Utils::star(0),
+        Utils::star(50),
+        Utils::star(100),
+    ])->sequence(
+        '☆☆☆☆☆',
+        '★★★☆☆',
+        '★★★★★'
+    );
 })->group(__DIR__, __FILE__);

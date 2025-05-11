@@ -45,9 +45,6 @@ class SoarServiceProvider extends ServiceProvider
         $this->registerSoar();
     }
 
-    /**
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     */
     public function boot(): void
     {
         $this->registerCommands();

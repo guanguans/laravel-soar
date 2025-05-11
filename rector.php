@@ -139,6 +139,7 @@ return RectorConfig::configure()
         'PhpPossiblePolymorphicInvocationInspection',
         'PhpUndefinedClassInspection',
         'PhpUnhandledExceptionInspection',
+        'PhpVoidFunctionResultUsedInspection',
         'SqlResolve',
         'StaticClosureCanBeUsedInspection',
     ])

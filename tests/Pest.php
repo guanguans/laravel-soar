@@ -5,11 +5,11 @@
 /** @noinspection PhpPossiblePolymorphicInvocationInspection */
 /** @noinspection PhpUndefinedClassInspection */
 /** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection PhpVoidFunctionResultUsedInspection */
 /** @noinspection SqlResolve */
 /** @noinspection StaticClosureCanBeUsedInspection */
 /** @noinspection PhpInconsistentReturnPointsInspection */
 /** @noinspection PhpInternalEntityUsedInspection */
-/** @noinspection PhpVoidFunctionResultUsedInspection */
 declare(strict_types=1);
 
 /**

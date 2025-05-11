@@ -5,6 +5,7 @@
 /** @noinspection PhpPossiblePolymorphicInvocationInspection */
 /** @noinspection PhpUndefinedClassInspection */
 /** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection PhpVoidFunctionResultUsedInspection */
 /** @noinspection SqlResolve */
 /** @noinspection StaticClosureCanBeUsedInspection */
 declare(strict_types=1);
@@ -18,6 +19,6 @@ declare(strict_types=1);
  * @see https://github.com/guanguans/laravel-soar
  */
 
-it('can return soar version for `version`', function (): void {
+it('can return soar version using Soar alias', function (): void {
     expect(Soar::version())->toBeString();
 })->group(__DIR__, __FILE__);

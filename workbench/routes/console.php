@@ -31,8 +31,10 @@ use Workbench\Database\Factories\UserFactory;
 //     $this->comment(Inspiring::quote());
 // })->purpose('Display an inspiring quote');
 
-Artisan::command('outputs', function (): void {
+Artisan::command('output:all', function (): void {
     extend_output_manager();
     UserFactory::new()->times(3)->create();
+
+    /** @var \Illuminate\Console\Command $this */
     $this->info(OutputManager::class);
 });

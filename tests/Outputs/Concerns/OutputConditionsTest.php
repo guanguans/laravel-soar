@@ -5,6 +5,7 @@
 /** @noinspection PhpPossiblePolymorphicInvocationInspection */
 /** @noinspection PhpUndefinedClassInspection */
 /** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection PhpVoidFunctionResultUsedInspection */
 /** @noinspection SqlResolve */
 /** @noinspection StaticClosureCanBeUsedInspection */
 declare(strict_types=1);
@@ -25,7 +26,7 @@ uses(OutputConditions::class);
 
 it('can check is json response for `isJsonResponse`', function (): void {
     expect([
-        $this->isJsonResponse(new JsonResponse('', 200, [], true)),
-        $this->isJsonResponse(new JsonResponse('data', 200, [], true)),
+        $this->isJsonResponse(new JsonResponse(data: '', json: true)),
+        $this->isJsonResponse(new JsonResponse(data: 'data', json: true)),
     ])->each->toBeFalse();
 })->group(__DIR__, __FILE__);

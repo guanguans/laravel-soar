@@ -18,9 +18,32 @@ use Illuminate\Support\Str;
 
 class Utils
 {
-    public static function star(int $score): string
+    /**
+     * @noinspection DebugFunctionUsageInspection
+     *
+     * @param int|list<int> $forgetLines
+     */
+    public static function backtraces(int $limit = 0, array|int $forgetLines = 0): array
     {
-        return str_repeat('★', $good = (int) round($score / 100 * 5)).str_repeat('☆', 5 - $good);
+        return collect(debug_backtrace(\DEBUG_BACKTRACE_IGNORE_ARGS, $limit))
+            ->forget($forgetLines)
+            ->filter(
+                static fn (array $trace): bool => isset($trace['file'], $trace['line'])
+                    && !Str::contains($trace['file'], 'vendor')
+            )
+            ->map(static fn (array $trace, int $index): string => \sprintf(
+                '#%s %s:%s',
+                $index,
+                str_replace(base_path(), '', $trace['file']),
+                $trace['line']
+            ))
+            ->values()
+            ->all();
+    }
+
+    public static function isExceptQuery(string $query): bool
+    {
+        return Str::is(config('soar.except_queries', []), $query);
     }
 
     public static function sanitizeExplain(?array $explain): array
@@ -35,9 +58,9 @@ class Utils
             ->all();
     }
 
-    public static function isExceptQuery(string $query): bool
+    public static function star(int $score): string
     {
-        return Str::is(config('soar.except_queries', []), $query);
+        return str_repeat('★', $good = (int) round($score / 100 * 5)).str_repeat('☆', 5 - $good);
     }
 
     /**
@@ -62,28 +85,5 @@ class Utils
                 $queryExecuted->connection->prepareBindings($queryExecuted->bindings)
             )
         );
-    }
-
-    /**
-     * @noinspection DebugFunctionUsageInspection
-     *
-     * @param int|list<int> $forgetLines
-     */
-    public static function backtraces(int $limit = 0, array|int $forgetLines = 0): array
-    {
-        return collect(debug_backtrace(\DEBUG_BACKTRACE_IGNORE_ARGS, $limit))
-            ->forget($forgetLines)
-            ->filter(
-                static fn (array $trace): bool => isset($trace['file'], $trace['line'])
-                    && !Str::contains($trace['file'], 'vendor')
-            )
-            ->map(static fn (array $trace, int $index): string => \sprintf(
-                '#%s %s:%s',
-                $index,
-                str_replace(base_path(), '', $trace['file']),
-                $trace['line']
-            ))
-            ->values()
-            ->all();
     }
 }

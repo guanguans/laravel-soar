@@ -5,6 +5,7 @@
 /** @noinspection PhpPossiblePolymorphicInvocationInspection */
 /** @noinspection PhpUndefinedClassInspection */
 /** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection PhpVoidFunctionResultUsedInspection */
 /** @noinspection SqlResolve */
 /** @noinspection StaticClosureCanBeUsedInspection */
 declare(strict_types=1);
@@ -18,50 +19,30 @@ declare(strict_types=1);
  * @see https://github.com/guanguans/laravel-soar
  */
 
+use Guanguans\LaravelSoar\Facades\Soar;
 use Guanguans\LaravelSoar\OutputManager;
 use Guanguans\LaravelSoar\Outputs\JsonOutput;
+use Illuminate\Support\Arr;
 
 beforeEach(function (): void {
-    $this->see = [
-        'Summary',
-        'Basic',
-        'HeuristicRules',
-        'IndexRules',
-        'Explain',
-        'Backtraces',
-    ];
+    $this->see = collect(Arr::first(Soar::arrayScores('select * from users')))
+        ->except(['ID', 'Fingerprint'])
+        ->keys()
+        ->push('Summary', 'Basic', 'Backtraces')
+        ->all();
 });
 
-it('can not output soar scores', function (): void {
-    config()->set('soar.except', ['outputs']);
-
-    $this->artisan('outputs')
+it('can output to all', function (): void {
+    $this->get('output-all')
         ->assertOk()
-        ->expectsOutput(OutputManager::class);
-
-    // $this->get('outputs')
-    //     ->assertOk()
-    //     // ->assertSee($this->see)
-    //     ->assertSee(OutputManager::class);
-})->group(__DIR__, __FILE__);
-
-it('can outputs console', function (): void {
-    $this->artisan('outputs')
-        ->assertOk()
-        ->expectsOutput(OutputManager::class);
-})->group(__DIR__, __FILE__);
-
-it('can outputs http', function (): void {
-    $this->get('outputs')
-        ->assertOk()
-        // ->assertSee($this->see)
+        ->assertSee($this->see)
         ->assertSee(OutputManager::class);
 })->group(__DIR__, __FILE__);
 
 it('can output to json', function (): void {
-    $this->getJson('json')
-        // ->dd()
+    $this->getJson('output-json')
         ->assertOk()
-        // ->assertSee($this->see)
+        ->assertJsonStructure()
+        ->assertSee($this->see)
         ->assertSee(class_basename(JsonOutput::class));
 })->group(__DIR__, __FILE__);
