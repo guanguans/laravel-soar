@@ -2,7 +2,6 @@
 
 /** @noinspection DebugFunctionUsageInspection */
 /** @noinspection ForgottenDebugOutputInspection */
-/** @noinspection PhpMethodParametersCountMismatchInspection */
 /** @noinspection PhpParamsInspection */
 /** @noinspection PhpUnused */
 

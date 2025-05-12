@@ -30,11 +30,9 @@ class ConsoleOutput extends AbstractOutput
     }
 
     /**
-     * @noinspection PhpMixedReturnTypeCanBeReducedInspection
-     *
      * @throws \JsonException
      */
-    public function output(Collection $scores, CommandFinished|Response $outputter): mixed
+    public function output(Collection $scores, CommandFinished|Response $outputter): Response
     {
         \assert($outputter instanceof Response);
 

@@ -59,7 +59,7 @@ SOAR_SUDO_PASSWORD='your sudo password' # Set a sudo password to run the soar co
 <summary><b>Clockwork</b></summary>
 
 1. Install [itsgoingd/clockwork](https://github.com/itsgoingd/clockwork)
-2. Configure [soar.outputs.Guanguans\LaravelSoar\Outputs\ClockworkOutput::class](config/soar.php)
+2. Configure [soar.outputs.Outputs\ClockworkOutput::class](config/soar.php)
 
 ![Clockwork](docs/clockwork.png)
 </details>
@@ -67,7 +67,7 @@ SOAR_SUDO_PASSWORD='your sudo password' # Set a sudo password to run the soar co
 <details>
 <summary><b>Console</b></summary>
 
-1. Configure [soar.outputs.Guanguans\LaravelSoar\Outputs\ConsoleOutput::class](config/soar.php)
+1. Configure [soar.outputs.Outputs\ConsoleOutput::class](config/soar.php)
 
 ![Console](docs/console.png)
 </details>
@@ -76,7 +76,7 @@ SOAR_SUDO_PASSWORD='your sudo password' # Set a sudo password to run the soar co
 <summary><b>DebugBar</b></summary>
 
 1. Install [barryvdh/laravel-debugbar](https://github.com/barryvdh/laravel-debugbar)
-2. Configure [soar.outputs.Guanguans\LaravelSoar\Outputs\DebugBarOutput::class](config/soar.php)
+2. Configure [soar.outputs.Outputs\DebugBarOutput::class](config/soar.php)
 
 ![DebugBar](docs/debug-bar.png)
 </details>
@@ -84,7 +84,7 @@ SOAR_SUDO_PASSWORD='your sudo password' # Set a sudo password to run the soar co
 <details>
 <summary><b>Dump</b></summary>
 
-1. Configure [soar.outputs.Guanguans\LaravelSoar\Outputs\DumpOutput::class](config/soar.php)
+1. Configure [soar.outputs.Outputs\DumpOutput::class](config/soar.php)
 
 ![Dump](docs/dump.png)
 </details>
@@ -92,7 +92,7 @@ SOAR_SUDO_PASSWORD='your sudo password' # Set a sudo password to run the soar co
 <details>
 <summary><b>Json</b></summary>
 
-1. Configure [soar.outputs.Guanguans\LaravelSoar\Outputs\JsonOutput::class](config/soar.php)
+1. Configure [soar.outputs.Outputs\JsonOutput::class](config/soar.php)
 
 ```json
 {
@@ -409,7 +409,7 @@ SOAR_SUDO_PASSWORD='your sudo password' # Set a sudo password to run the soar co
 <summary><b>LaraDumps</b></summary>
 
 1. Install [laradumps/laradumps](https://github.com/laradumps/laradumps)
-2. Configure [soar.outputs.Guanguans\LaravelSoar\Outputs\LaraDumpsOutput::class](config/soar.php)
+2. Configure [soar.outputs.Outputs\LaraDumpsOutput::class](config/soar.php)
 
 ![LaraDumps](docs/lara-dumps.png)
 </details>
@@ -417,7 +417,7 @@ SOAR_SUDO_PASSWORD='your sudo password' # Set a sudo password to run the soar co
 <details>
 <summary><b>Log</b></summary>
 
-1. Configure [soar.outputs.Guanguans\LaravelSoar\Outputs\LogOutput::class](config/soar.php)
+1. Configure [soar.outputs.Outputs\LogOutput::class](config/soar.php)
 
 ![Log](docs/log.png)
 </details>
@@ -426,7 +426,7 @@ SOAR_SUDO_PASSWORD='your sudo password' # Set a sudo password to run the soar co
 <summary><b>Ray</b></summary>
 
 1. Install [spatie/laravel-ray](https://github.com/spatie/laravel-ray)
-2. Configure [soar.outputs.Guanguans\LaravelSoar\Outputs\RayOutput::class](config/soar.php)
+2. Configure [soar.outputs.Outputs\RayOutput::class](config/soar.php)
 
 ![Ray](docs/ray.png)
 </details>
@@ -477,7 +477,7 @@ return [
 <summary><b>Custom output</b></summary>
 
 1. Implement [OutputContract](src/Contracts/OutputContract.php)
-2. Configure [soar.outputs.YourOutput::class](config/soar.php)
+2. Configure [soar.outputs.Outputs\CustomOutput::class](config/soar.php)
 </details>
 
 ### Soar commands

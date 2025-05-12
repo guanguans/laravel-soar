@@ -87,9 +87,6 @@ class Bootstrapper
         $this->application->make(Kernel::class)->prependMiddleware(OutputScoresMiddleware::class);
     }
 
-    /**
-     * @throws \JsonException
-     */
     private function toOriginalScores(): Collection
     {
         return self::$queries->whenNotEmpty(static fn (Collection $queries): Collection => collect(

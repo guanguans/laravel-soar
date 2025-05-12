@@ -11,6 +11,7 @@ declare(strict_types=1);
  * @see https://github.com/guanguans/laravel-soar
  */
 
+use Guanguans\LaravelSoar\Outputs;
 use function Guanguans\LaravelSoar\Support\env_explode;
 
 return [
@@ -47,14 +48,14 @@ return [
 
     // 评分输出器
     'outputs' => [
-        // Guanguans\LaravelSoar\Outputs\ClockworkOutput::class,
-        // Guanguans\LaravelSoar\Outputs\ConsoleOutput::class => ['method' => 'warn'],
-        // Guanguans\LaravelSoar\Outputs\DebugBarOutput::class => ['name' => 'Soar Scores', 'label' => 'warning'],
-        // Guanguans\LaravelSoar\Outputs\DumpOutput::class => ['exit' => false],
-        // Guanguans\LaravelSoar\Outputs\JsonOutput::class => ['key' => 'soar_scores'],
-        // Guanguans\LaravelSoar\Outputs\LaraDumpsOutput::class => ['label' => 'Soar Scores'],
-        Guanguans\LaravelSoar\Outputs\LogOutput::class => ['channel' => 'daily', 'level' => 'warning'],
-        // Guanguans\LaravelSoar\Outputs\RayOutput::class => ['label' => 'Soar Scores'],
+        // Outputs\ClockworkOutput::class,
+        // Outputs\ConsoleOutput::class => ['method' => 'warn'],
+        // Outputs\DebugBarOutput::class => ['name' => 'Soar Scores', 'label' => 'warning'],
+        // Outputs\DumpOutput::class => ['exit' => false],
+        // Outputs\JsonOutput::class => ['key' => 'soar_scores'],
+        // Outputs\LaraDumpsOutput::class => ['label' => 'Soar Scores'],
+        Outputs\LogOutput::class => ['channel' => 'daily', 'level' => 'warning'],
+        // Outputs\RayOutput::class => ['label' => 'Soar Scores'],
     ],
 
     /**

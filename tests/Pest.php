@@ -10,6 +10,7 @@
 /** @noinspection StaticClosureCanBeUsedInspection */
 /** @noinspection PhpInconsistentReturnPointsInspection */
 /** @noinspection PhpInternalEntityUsedInspection */
+/** @noinspection PhpUnused */
 declare(strict_types=1);
 
 /**

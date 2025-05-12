@@ -37,34 +37,32 @@ class OutputManager extends Fluent implements OutputContract
         return !Request::is($except) && !Request::routeIs($except);
     }
 
-    public function output(Collection $scores, CommandFinished|Response $outputter): array
+    /**
+     * @noinspection PhpUndefinedMethodInspection
+     * @noinspection NullPointerExceptionInspection
+     */
+    public function output(Collection $scores, CommandFinished|Response $outputter): Collection
     {
         if (!$this->shouldOutput($outputter)) {
-            return [];
+            return collect();
         }
 
-        event(new OutputtingEvent($this, $scores, $outputter));
+        return collect($this->attributes)
+            ->tap(fn () => event(new OutputtingEvent($this, $scores, $outputter)))
+            ->reduce(
+                static function (Collection $results, OutputContract $outputContract) use ($outputter, $scores): Collection {
+                    if (!$outputContract->shouldOutput($outputter)) {
+                        return $results;
+                    }
 
-        $results = array_reduce(
-            $this->attributes,
-            static function (array $results, OutputContract $outputContract) use ($outputter, $scores): array {
-                if (!$outputContract->shouldOutput($outputter)) {
-                    return $results;
-                }
+                    if ($outputContract instanceof SanitizerContract) {
+                        $scores = $outputContract->sanitize($scores);
+                    }
 
-                if ($outputContract instanceof SanitizerContract) {
-                    $scores = $outputContract->sanitize($scores);
-                }
-
-                $results[$outputContract::class] = $outputContract->output($scores, $outputter);
-
-                return $results;
-            },
-            []
-        );
-
-        event(new OutputtedEvent($this, $scores, $outputter, $results));
-
-        return $results;
+                    return $results->put($outputContract::class, $outputContract->output($scores, $outputter));
+                },
+                collect()
+            )
+            ->tap(fn (Collection $results) => event(new OutputtedEvent($this, $scores, $outputter, $results)));
     }
 }

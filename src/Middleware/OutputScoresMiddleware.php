@@ -19,6 +19,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Collection;
 use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 
 class OutputScoresMiddleware
@@ -39,7 +40,7 @@ class OutputScoresMiddleware
     {
         return tap(
             $next($request),
-            fn (SymfonyResponse $symfonyResponse): array => $this->outputManager->output(
+            fn (SymfonyResponse $symfonyResponse): Collection => $this->outputManager->output(
                 $this->bootstrapper->getScores(),
                 $symfonyResponse
             )

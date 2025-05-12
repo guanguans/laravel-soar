@@ -59,7 +59,7 @@ SOAR_SUDO_PASSWORD='your sudo password' # 设置 sudo 密码，以 sudo 运行 s
 <summary><b>Clockwork</b></summary>
 
 1. 安装 [itsgoingd/clockwork](https://github.com/itsgoingd/clockwork)
-2. 配置 [soar.outputs.Guanguans\LaravelSoar\Outputs\ClockworkOutput::class](config/soar.php)
+2. 配置 [soar.outputs.Outputs\ClockworkOutput::class](config/soar.php)
 
 ![Clockwork](docs/clockwork.png)
 </details>
@@ -67,7 +67,7 @@ SOAR_SUDO_PASSWORD='your sudo password' # 设置 sudo 密码，以 sudo 运行 s
 <details>
 <summary><b>Console</b></summary>
 
-1. 配置 [soar.outputs.Guanguans\LaravelSoar\Outputs\ConsoleOutput::class](config/soar.php)
+1. 配置 [soar.outputs.Outputs\ConsoleOutput::class](config/soar.php)
 
 ![Console](docs/console.png)
 </details>
@@ -76,7 +76,7 @@ SOAR_SUDO_PASSWORD='your sudo password' # 设置 sudo 密码，以 sudo 运行 s
 <summary><b>Debug bar</b></summary>
 
 1. 安装 [barryvdh/laravel-debugbar](https://github.com/barryvdh/laravel-debugbar)
-2. 配置 [soar.outputs.Guanguans\LaravelSoar\Outputs\DebugBarOutput::class](config/soar.php)
+2. 配置 [soar.outputs.Outputs\DebugBarOutput::class](config/soar.php)
 
 ![DebugBar](docs/debug-bar.png)
 </details>
@@ -84,7 +84,7 @@ SOAR_SUDO_PASSWORD='your sudo password' # 设置 sudo 密码，以 sudo 运行 s
 <details>
 <summary><b>Dump</b></summary>
 
-1. 配置 [soar.outputs.Guanguans\LaravelSoar\Outputs\DumpOutput::class](config/soar.php)
+1. 配置 [soar.outputs.Outputs\DumpOutput::class](config/soar.php)
 
 ![Dump](docs/dump.png)
 </details>
@@ -92,7 +92,7 @@ SOAR_SUDO_PASSWORD='your sudo password' # 设置 sudo 密码，以 sudo 运行 s
 <details>
 <summary><b>Json</b></summary>
 
-1. 配置 [soar.outputs.Guanguans\LaravelSoar\Outputs\JsonOutput::class](config/soar.php)
+1. 配置 [soar.outputs.Outputs\JsonOutput::class](config/soar.php)
 
 ```json
 {
@@ -409,7 +409,7 @@ SOAR_SUDO_PASSWORD='your sudo password' # 设置 sudo 密码，以 sudo 运行 s
 <summary><b>LaraDumps</b></summary>
 
 1. 安装 [laradumps/laradumps](https://github.com/laradumps/laradumps)
-2. 配置 [soar.outputs.Guanguans\LaravelSoar\Outputs\LaraDumpsOutput::class](config/soar.php)
+2. 配置 [soar.outputs.Outputs\LaraDumpsOutput::class](config/soar.php)
 
 ![LaraDumps](docs/lara-dumps.png)
 </details>
@@ -417,7 +417,7 @@ SOAR_SUDO_PASSWORD='your sudo password' # 设置 sudo 密码，以 sudo 运行 s
 <details>
 <summary><b>Log</b></summary>
 
-1. 配置 [soar.outputs.Guanguans\LaravelSoar\Outputs\LogOutput::class](config/soar.php)
+1. 配置 [soar.outputs.Outputs\LogOutput::class](config/soar.php)
 
 ![Log](docs/log.png)
 </details>
@@ -426,7 +426,7 @@ SOAR_SUDO_PASSWORD='your sudo password' # 设置 sudo 密码，以 sudo 运行 s
 <summary><b>Ray</b></summary>
 
 1. 安装 [spatie/laravel-ray](https://github.com/spatie/laravel-ray)
-2. 配置 [soar.outputs.Guanguans\LaravelSoar\Outputs\RayOutput::class](config/soar.php)
+2. 配置 [soar.outputs.Outputs\RayOutput::class](config/soar.php)
 
 ![Ray](docs/ray.png)
 </details>
@@ -477,7 +477,7 @@ return [
 <summary><b>自定义输出器</b></summary>
 
 1. 实现 [OutputContract](src/Contracts/OutputContract.php)
-2. 配置 [soar.outputs.YourOutput::class](config/soar.php)
+2. 配置 [soar.outputs.Outputs\CustomOutput::class](config/soar.php)
 </details>
 
 ### Soar 命令
