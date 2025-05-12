@@ -17,11 +17,9 @@
 
 ## 功能
 
-* 支持启发式算法语句优化建议、索引优化建议
-* 支持 EXPLAIN 信息丰富解读
-* 自动监控输出 SQL 优化建议
-* [Debug bar](https://github.com/barryvdh/laravel-debugbar)、[Clockwork](https://github.com/itsgoingd/clockwork)、[Ray](https://github.com/spatie/ray)、JSON、Console、Dump、Log、自定义输出器(多种场景输出)
-* 支持查询构建器生成 SQL 优化建议
+* 支持启发式规则建议、索引规则建议、`EXPLAIN` 信息解读
+* 支持调用查询构建器 `Mixin` 方法便捷的打印规则建议
+* 自动监控输出规则建议到配置的输出器
 
 ## 相关项目
 
@@ -55,84 +53,7 @@ SOAR_SUDO_PASSWORD='your sudo password' # 设置 sudo 密码，以 sudo 运行 s
 
 ## 使用
 
-### 示例代码
-
-<details>
-<summary><b>详情</b></summary>
-
-```php
-<?php
-
-namespace App\Admin\Controllers;
-
-use App\Http\Controllers\Controller;
-use App\User;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
-
-class SoarController extends Controller
-{
-    public function sqlScores()
-    {
-        // 创建表
-        DB::select(
-            <<<SQL
-CREATE TABLE `users` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email_verified_at` timestamp NULL DEFAULT NULL,
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `users_email_unique` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-SQL
-        );
-
-        // 插入数据
-        User::query()->insert([
-            'name'              => 'soar',
-            'email'             => 'soar@soar.com',
-            'email_verified_at' => now(),
-            'password'          => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
-            'remember_token'    => Str::random(10),
-        ]);
-
-        // 更新数据
-        User::query()->update([
-            'name'     => 'name',
-            'password' => 'password',
-        ]);
-
-        // 查询数据
-        User::query()->where('name', 'soar')->groupBy('name')->having('created_at', '>', now())->get();
-
-        // 删除数据
-        User::query()->where('name', 'soar')->delete();
-
-        // 删除表
-        DB::select('DROP table `users`;');
-
-        // return response()->json(['message' => 'ok']); // JSON 响应
-        return response('ok'); // HTML 响应
-    }
-}
-```
-</details>
-
-### 自动监控输出 SQL 优化建议
-
-<details>
-<summary><b>Debug bar</b></summary>
-
-1. 安装 [barryvdh/laravel-debugbar](https://github.com/barryvdh/laravel-debugbar)
-2. 配置 [soar.outputs.Guanguans\LaravelSoar\Outputs\DebugBarOutput::class](config/soar.php)
-
-![Debug bar](docs/debug-bar.png)
-</details>
+### 安装、配置输出器(可选的)
 
 <details>
 <summary><b>Clockwork</b></summary>
@@ -144,16 +65,32 @@ SQL
 </details>
 
 <details>
-<summary><b>Ray</b></summary>
+<summary><b>Console</b></summary>
 
-1. 安装 [spatie/laravel-ray](https://github.com/spatie/laravel-ray)
-2. 配置 [soar.outputs.Guanguans\LaravelSoar\Outputs\RayOutput::class](config/soar.php)
+1. 配置 [soar.outputs.Guanguans\LaravelSoar\Outputs\ConsoleOutput::class](config/soar.php)
 
-![Ray](docs/ray.png)
+![Console](docs/console.png)
 </details>
 
 <details>
-<summary><b>Json 响应</b></summary> 
+<summary><b>Debug bar</b></summary>
+
+1. 安装 [barryvdh/laravel-debugbar](https://github.com/barryvdh/laravel-debugbar)
+2. 配置 [soar.outputs.Guanguans\LaravelSoar\Outputs\DebugBarOutput::class](config/soar.php)
+
+![Debug bar](docs/debug-bar.png)
+</details>
+
+<details>
+<summary><b>Dump</b></summary>
+
+1. 配置 [soar.outputs.Guanguans\LaravelSoar\Outputs\DumpOutput::class](config/soar.php)
+
+![Dump](docs/dump.png)
+</details>
+
+<details>
+<summary><b>Json</b></summary>
 
 1. 配置 [soar.outputs.Guanguans\LaravelSoar\Outputs\JsonOutput::class](config/soar.php)
 
@@ -469,22 +406,6 @@ SQL
 </details>
 
 <details>
-<summary><b>Console</b></summary>
-
-1. 配置 [soar.outputs.Guanguans\LaravelSoar\Outputs\ConsoleOutput::class](config/soar.php)
-
-![Console](docs/console.png)
-</details>
-
-<details>
-<summary><b>Dump</b></summary>
-
-1. 配置 [soar.outputs.Guanguans\LaravelSoar\Outputs\DumpOutput::class](config/soar.php)
-
-![Dump](docs/dump.png)
-</details>
-
-<details>
 <summary><b>Log</b></summary>
 
 1. 配置 [soar.outputs.Guanguans\LaravelSoar\Outputs\LogOutput::class](config/soar.php)
@@ -493,13 +414,22 @@ SQL
 </details>
 
 <details>
+<summary><b>Ray</b></summary>
+
+1. 安装 [spatie/laravel-ray](https://github.com/spatie/laravel-ray)
+2. 配置 [soar.outputs.Guanguans\LaravelSoar\Outputs\RayOutput::class](config/soar.php)
+
+![Ray](docs/ray.png)
+</details>
+
+<details>
 <summary><b>自定义输出器</b></summary>
 
 1. 实现 [OutputContract](src/Contracts/OutputContract.php)
-2. `config/soar.php` 中配置输出器 `soar.outputs`
+2. 配置 [soar.outputs.YourOutput::class](config/soar.php)
 </details>
 
-### Artisan 命令
+### Soar 命令
 
 <details>
 <summary><b>details</b></summary>
@@ -516,7 +446,7 @@ Available commands:
 ...
 ```
 
-#### 示例(支持标准输入)
+#### 使用示例(支持标准输入)
 
 ```shell
 echo 'select * from foo; select * from bar;' | php artisan soar:score --ansi
@@ -528,9 +458,9 @@ php artisan soar:score --ansi < tests/Fixtures/queries.sql
 ![commands](docs/commands.gif)
 </details>
 
-### [Soar 实例及方法](src/Facades/Soar.php)
+### [Soar 门面及方法](src/Facades/Soar.php)
 
-### [查询构建器方法](src/Mixins/QueryBuilderMixin.php)
+### 查询构建器 [`Mixin`](src/Mixins/QueryBuilderMixin.php) 的[方法](_ide_helper.php)
 
 ## 测试
 

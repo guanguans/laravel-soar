@@ -17,11 +17,9 @@
 
 ## Feature
 
-* Support heuristic algorithm statement optimization suggestions, index optimization suggestions
-* Supports rich interpretation of EXPLAIN information
-* Automatically monitor output SQL optimization recommendations
-* [Debug bar](https://github.com/barryvdh/laravel-debugbar)、[Clockwork](https://github.com/itsgoingd/clockwork)、[Ray](https://github.com/spatie/ray)、JSON、Console、Dump、Log、Custom output(Multiple scene output)
-* Support query builder to generate SQL optimization suggestions
+* Supports heuristic rule suggestions, index rule suggestions, and `EXPLAIN` information interpretation
+* Support calling query builder `Mixin` methods for convenient dumping of rule suggestions
+* Automatically monitor output rule suggestions to configured outputs
 
 ## Related Links
 
@@ -55,84 +53,7 @@ SOAR_SUDO_PASSWORD='your sudo password' # Set a sudo password to run the soar co
 
 ## Usage
 
-### Sample code
-
-<details>
-<summary><b>details</b></summary>
-
-```php
-<?php
-
-namespace App\Admin\Controllers;
-
-use App\Http\Controllers\Controller;
-use App\User;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
-
-class SoarController extends Controller
-{
-    public function sqlScores()
-    {
-        // 创建表
-        DB::select(
-            <<<SQL
-CREATE TABLE `users` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email_verified_at` timestamp NULL DEFAULT NULL,
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `users_email_unique` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-SQL
-        );
-
-        // 插入数据
-        User::query()->insert([
-            'name'              => 'soar',
-            'email'             => 'soar@soar.com',
-            'email_verified_at' => now(),
-            'password'          => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
-            'remember_token'    => Str::random(10),
-        ]);
-
-        // 更新数据
-        User::query()->update([
-            'name'     => 'name',
-            'password' => 'password',
-        ]);
-
-        // 查询数据
-        User::query()->where('name', 'soar')->groupBy('name')->having('created_at', '>', now())->get();
-
-        // 删除数据
-        User::query()->where('name', 'soar')->delete();
-
-        // 删除表
-        DB::select('DROP table `users`;');
-
-        // return response()->json(['message' => 'ok']); // JSON 响应
-        return response('ok'); // HTML 响应
-    }
-}
-```
-</details>
-
-### Automatically monitor output SQL optimization recommendations
-
-<details>
-<summary><b>Debug bar</b></summary>
-
-1. Install [barryvdh/laravel-debugbar](https://github.com/barryvdh/laravel-debugbar)
-2. Configure [soar.outputs.Guanguans\LaravelSoar\Outputs\DebugBarOutput::class](config/soar.php)
-
-![Debug bar](docs/debug-bar.png)
-</details>
+### Install and configure outputs(optional)
 
 <details>
 <summary><b>Clockwork</b></summary>
@@ -144,16 +65,32 @@ SQL
 </details>
 
 <details>
-<summary><b>Ray</b></summary>
+<summary><b>Console</b></summary>
 
-1. Install [spatie/laravel-ray](https://github.com/spatie/laravel-ray)
-2. Configure [soar.outputs.Guanguans\LaravelSoar\Outputs\RayOutput::class](config/soar.php)
+1. Configure [soar.outputs.Guanguans\LaravelSoar\Outputs\ConsoleOutput::class](config/soar.php)
 
-![Ray](docs/ray.png)
+![Console](docs/console.png)
 </details>
 
 <details>
-<summary><b>Json response</b></summary>
+<summary><b>Debug bar</b></summary>
+
+1. Install [barryvdh/laravel-debugbar](https://github.com/barryvdh/laravel-debugbar)
+2. Configure [soar.outputs.Guanguans\LaravelSoar\Outputs\DebugBarOutput::class](config/soar.php)
+
+![Debug bar](docs/debug-bar.png)
+</details>
+
+<details>
+<summary><b>Dump</b></summary>
+
+1. Configure [soar.outputs.Guanguans\LaravelSoar\Outputs\DumpOutput::class](config/soar.php)
+
+![Dump](docs/dump.png)
+</details>
+
+<details>
+<summary><b>Json</b></summary>
 
 1. Configure [soar.outputs.Guanguans\LaravelSoar\Outputs\JsonOutput::class](config/soar.php)
 
@@ -469,22 +406,6 @@ SQL
 </details>
 
 <details>
-<summary><b>Console</b></summary>
-
-1. Configure [soar.outputs.Guanguans\LaravelSoar\Outputs\ConsoleOutput::class](config/soar.php)
-
-![Console](docs/console.png)
-</details>
-
-<details>
-<summary><b>Dump</b></summary>
-
-1. Configure [soar.outputs.Guanguans\LaravelSoar\Outputs\DumpOutput::class](config/soar.php)
-
-![Dump](docs/dump.png)
-</details>
-
-<details>
 <summary><b>Log</b></summary>
 
 1. Configure [soar.outputs.Guanguans\LaravelSoar\Outputs\LogOutput::class](config/soar.php)
@@ -493,13 +414,22 @@ SQL
 </details>
 
 <details>
+<summary><b>Ray</b></summary>
+
+1. Install [spatie/laravel-ray](https://github.com/spatie/laravel-ray)
+2. Configure [soar.outputs.Guanguans\LaravelSoar\Outputs\RayOutput::class](config/soar.php)
+
+![Ray](docs/ray.png)
+</details>
+
+<details>
 <summary><b>Custom output</b></summary>
 
 1. Implement [OutputContract](src/Contracts/OutputContract.php)
-2. Configure the Output `soar.outputs` in `config/soar.php`
+2. Configure [soar.outputs.YourOutput::class](config/soar.php)
 </details>
 
-### Artisan command
+### Soar commands
 
 <details>
 <summary><b>details</b></summary>
@@ -516,7 +446,7 @@ Available commands:
 ...
 ```
 
-#### Example(support standard input)
+#### Usage example(support standard input)
 
 ```shell
 echo 'select * from foo; select * from bar;' | php artisan soar:score --ansi
@@ -528,9 +458,9 @@ php artisan soar:score --ansi < tests/Fixtures/queries.sql
 ![commands](docs/commands.gif)
 </details>
 
-### [Soar instance and methods](src/Facades/Soar.php)
+### [Soar facade and methods](src/Facades/Soar.php)
 
-### [Query builder method](src/Mixins/QueryBuilderMixin.php)
+### [Methods](_ide_helper.php) of the query builder [`Mixin`](src/Mixins/QueryBuilderMixin.php)
 
 ## Testing
 
