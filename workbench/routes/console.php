@@ -14,7 +14,6 @@ declare(strict_types=1);
 use Guanguans\LaravelSoar\OutputManager;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
-use Workbench\Database\Factories\UserFactory;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,7 +32,6 @@ use Workbench\Database\Factories\UserFactory;
 
 Artisan::command('output:all', function (): void {
     extend_output_manager();
-    UserFactory::new()->times(3)->create();
 
     /** @var \Illuminate\Console\Command $this */
     $this->info(OutputManager::class);

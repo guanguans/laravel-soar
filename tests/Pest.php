@@ -34,6 +34,8 @@ use Guanguans\LaravelSoar\Outputs\RayOutput;
 use Guanguans\LaravelSoarTests\TestCase;
 use Illuminate\Support\Facades\Artisan;
 use Pest\Expectation;
+use Workbench\App\Models\User;
+use Workbench\Database\Factories\UserFactory;
 
 uses(TestCase::class)
     ->beforeAll(function (): void {})
@@ -157,4 +159,7 @@ function extend_output_manager(null|array|string $outputs = null): void
             return $outputManager;
         }
     );
+
+    UserFactory::new()->times(3)->create();
+    User::query()->first();
 }

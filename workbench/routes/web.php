@@ -15,7 +15,6 @@ use Guanguans\LaravelSoar\OutputManager;
 use Guanguans\LaravelSoar\Outputs\JsonOutput;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Route;
-use Workbench\Database\Factories\UserFactory;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,7 +33,6 @@ Route::get('output-all', static fn () => tap(
     response(OutputManager::class),
     static function (): void {
         extend_output_manager();
-        UserFactory::new()->times(3)->create();
     }
 ));
 
@@ -42,6 +40,5 @@ Route::get('output-json', static fn () => tap(
     new JsonResponse(JsonOutput::class),
     static function (): void {
         extend_output_manager(JsonOutput::class);
-        UserFactory::new()->times(3)->create();
     }
 ));

@@ -19,9 +19,12 @@ declare(strict_types=1);
  * @see https://github.com/guanguans/laravel-soar
  */
 
+use Guanguans\LaravelSoar\Bootstrapper;
 use Illuminate\Support\Arr;
 
 beforeEach(function (): void {
+    resolve(Bootstrapper::class)->boot();
+
     $this->see = collect(Arr::first(Soar::arrayScores('select * from users')))
         ->except(['ID', 'Fingerprint'])
         ->keys()

@@ -67,7 +67,7 @@ class TestCase extends \Orchestra\Testbench\TestCase
             $repository->set('database.default', 'sqlite');
             $repository->set('database.connections.sqlite.database', ':memory:');
 
-            $repository->set('soar.enabled', true);
+            // $repository->set('soar.enabled', true);
             // $repository->set('soar.outputs', []);
             // $repository->set('soar.options.-test-dsn.disable', true);
             // $repository->set('soar.options.-online-dsn.disable', true);

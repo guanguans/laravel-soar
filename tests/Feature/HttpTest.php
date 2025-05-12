@@ -19,12 +19,15 @@ declare(strict_types=1);
  * @see https://github.com/guanguans/laravel-soar
  */
 
+use Guanguans\LaravelSoar\Bootstrapper;
 use Guanguans\LaravelSoar\Facades\Soar;
 use Guanguans\LaravelSoar\OutputManager;
 use Guanguans\LaravelSoar\Outputs\JsonOutput;
 use Illuminate\Support\Arr;
 
 beforeEach(function (): void {
+    resolve(Bootstrapper::class)->boot();
+
     $this->see = collect(Arr::first(Soar::arrayScores('select * from users')))
         ->except(['ID', 'Fingerprint'])
         ->keys()
@@ -33,14 +36,16 @@ beforeEach(function (): void {
 });
 
 it('can output to all', function (): void {
-    $this->get('output-all')
+    $this
+        ->get('output-all')
         ->assertOk()
         ->assertSee($this->see)
         ->assertSee(OutputManager::class);
 })->group(__DIR__, __FILE__);
 
 it('can output to json', function (): void {
-    $this->getJson('output-json')
+    $this
+        ->getJson('output-json')
         ->assertOk()
         ->assertJsonStructure()
         ->assertSee($this->see)

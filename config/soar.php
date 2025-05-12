@@ -15,7 +15,7 @@ use function Guanguans\LaravelSoar\Support\env_explode;
 
 return [
     // 是否启用评分
-    'enabled' => (bool) env('SOAR_ENABLED', 'local' === config('app.env')),
+    'enabled' => (bool) env('SOAR_ENABLED', false),
 
     // 二进制文件
     'binary' => env('SOAR_BINARY'),
