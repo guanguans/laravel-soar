@@ -117,8 +117,6 @@ class QueryBuilderMixin
 
     public function exitSoarHtmlScores(): \Closure
     {
-        return function (): void {
-            exit($this->toSoarHtmlScores()); // @codeCoverageIgnore
-        };
+        return fn (): mixed => exit($this->toSoarHtmlScores()); // @codeCoverageIgnore
     }
 }

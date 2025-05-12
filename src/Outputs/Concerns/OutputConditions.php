@@ -24,7 +24,7 @@ trait OutputConditions
     protected function isHtmlResponse(CommandFinished|Response $outputter): bool
     {
         return $outputter instanceof Response
-            && false !== $outputter->getContent()
+            && \is_string($outputter->getContent())
             && str($outputter->headers->get('Content-Type'))->contains('text/html')
             && !$this->isJsonResponse($outputter);
     }
@@ -32,20 +32,14 @@ trait OutputConditions
     protected function isJsonResponse(CommandFinished|Response $outputter): bool
     {
         return $outputter instanceof JsonResponse
-            && false !== $outputter->getContent()
+            && \is_string($outputter->getContent())
             && str($outputter->headers->get('Content-Type'))->contains('application/json')
             && transform($outputter, static function (JsonResponse $jsonResponse): bool {
-                if ('' === ($content = $jsonResponse->getContent())) {
-                    return false;
-                }
-
                 try {
-                    json_decode($content, false, 512, \JSON_THROW_ON_ERROR);
+                    return \is_array(json_decode($jsonResponse->getContent(), true, 512, \JSON_THROW_ON_ERROR));
                 } catch (\JsonException) {
                     return false;
                 }
-
-                return true;
             });
     }
 }

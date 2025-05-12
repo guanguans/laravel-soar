@@ -37,7 +37,7 @@ Route::get('output-all', static fn () => tap(
 ));
 
 Route::get('output-json', static fn () => tap(
-    new JsonResponse(JsonOutput::class),
+    new JsonResponse(['output' => JsonOutput::class]),
     static function (): void {
         extend_output_manager(JsonOutput::class);
     }

@@ -38,8 +38,8 @@ class JsonOutput extends AbstractOutput
     {
         \assert($outputter instanceof JsonResponse);
 
-        // $data = Arr::wrap($outputter->getData(true));
-        $data = Arr::wrap(json_decode($outputter->getContent(), true, 512, \JSON_THROW_ON_ERROR));
+        // $data = $outputter->getData(true);
+        $data = json_decode($outputter->getContent(), true, 512, \JSON_THROW_ON_ERROR);
         Arr::set($data, $this->key, $scores);
 
         // Update the new content and reset the content length
