@@ -21,15 +21,12 @@ namespace Illuminate\Database\Query {
     /**
      * @method never ddRawSql()
      * @method never ddSoarArrayScores(int $depth = 512, int $options = 0)
-     * @method never ddSoarJsonScores()
      * @method never exitSoarHtmlScores()
      * @method self dumpRawSql()
      * @method self dumpSoarArrayScores(int $depth = 512, int $options = 0)
-     * @method self dumpSoarJsonScores()
      * @method self echoSoarHtmlScores()
      * @method string toRawSql()
      * @method array toSoarArrayScores(int $depth = 512, int $options = 0)
-     * @method string toSoarJsonScores()
      * @method string toSoarHtmlScores()
      *
      * @mixin \Illuminate\Database\Eloquent\Builder
@@ -44,15 +41,12 @@ namespace Illuminate\Database\Eloquent {
     /**
      * @method never ddRawSql()
      * @method never ddSoarArrayScores(int $depth = 512, int $options = 0)
-     * @method never ddSoarJsonScores()
      * @method never exitSoarHtmlScores()
      * @method self dumpRawSql()
      * @method self dumpSoarArrayScores(int $depth = 512, int $options = 0)
-     * @method self dumpSoarJsonScores()
      * @method self echoSoarHtmlScores()
      * @method string toRawSql()
      * @method array toSoarArrayScores(int $depth = 512, int $options = 0)
-     * @method string toSoarJsonScores()
      * @method string toSoarHtmlScores()
      *
      * @mixin \Illuminate\Database\Query\Builder
@@ -67,15 +61,12 @@ namespace Illuminate\Database\Eloquent\Relations {
     /**
      * @method never ddRawSql()
      * @method never ddSoarArrayScores(int $depth = 512, int $options = 0)
-     * @method never ddSoarJsonScores()
      * @method never exitSoarHtmlScores()
      * @method self dumpRawSql()
      * @method self dumpSoarArrayScores(int $depth = 512, int $options = 0)
-     * @method self dumpSoarJsonScores()
      * @method self echoSoarHtmlScores()
      * @method string toRawSql()
      * @method array toSoarArrayScores(int $depth = 512, int $options = 0)
-     * @method string toSoarJsonScores()
      * @method string toSoarHtmlScores()
      *
      * @mixin \Illuminate\Database\Eloquent\Builder

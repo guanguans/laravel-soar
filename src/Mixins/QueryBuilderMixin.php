@@ -78,25 +78,6 @@ class QueryBuilderMixin
         return fn (int $depth = 512, int $options = 0): mixed => dd($this->toSoarArrayScores($depth, $options)); // @codeCoverageIgnore
     }
 
-    public function toSoarJsonScores(): \Closure
-    {
-        return fn (): string => resolve(Soar::class)->jsonScores($this->toRawSql());
-    }
-
-    public function dumpSoarJsonScores(): \Closure
-    {
-        return function (): self {
-            dump($this->toSoarJsonScores());
-
-            return $this;
-        };
-    }
-
-    public function ddSoarJsonScores(): \Closure
-    {
-        return fn (): mixed => dd($this->toSoarJsonScores()); // @codeCoverageIgnore
-    }
-
     public function toSoarHtmlScores(): \Closure
     {
         return fn (): string => resolve(Soar::class)->htmlScores($this->toRawSql());
@@ -104,7 +85,6 @@ class QueryBuilderMixin
 
     /**
      * @noinspection PhpToStringImplementationInspection
-     * @noinspection ToStringCallInspection
      */
     public function echoSoarHtmlScores(): \Closure
     {

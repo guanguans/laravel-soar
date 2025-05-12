@@ -40,14 +40,6 @@ it('can dump soar array scores for `dumpSoarArrayScores`', function (): void {
     expect(User::query()->where('id', 1)->where('name', 'soar')->dumpSoarArrayScores())->toBeInstanceOf(Builder::class);
 })->group(__DIR__, __FILE__);
 
-it('can return soar json scores for `toSoarJsonScores`', function (): void {
-    expect(User::query()->where('id', 1)->where('name', 'soar')->toSoarJsonScores())->toBeJson();
-})->group(__DIR__, __FILE__);
-
-it('can dump soar json scores for `dumpSoarJsonScores`', function (): void {
-    expect(User::query()->where('id', 1)->where('name', 'soar')->dumpSoarJsonScores())->toBeInstanceOf(Builder::class);
-})->group(__DIR__, __FILE__);
-
 it('can return soar html scores for `toSoarHtmlScores`', function (): void {
     expect(User::query()->where('id', 1)->where('name', 'soar')->toSoarHtmlScores())->toBeString()->toContain(
         '<head>',
