@@ -39,15 +39,3 @@ it('can return soar array scores for `toSoarArrayScores`', function (): void {
 it('can dump soar array scores for `dumpSoarArrayScores`', function (): void {
     expect(User::query()->where('id', 1)->where('name', 'soar')->dumpSoarArrayScores())->toBeInstanceOf(Builder::class);
 })->group(__DIR__, __FILE__);
-
-it('can return soar html scores for `toSoarHtmlScores`', function (): void {
-    expect(User::query()->where('id', 1)->where('name', 'soar')->toSoarHtmlScores())->toBeString()->toContain(
-        '<head>',
-        '<body onload=load()>',
-        '<script>'
-    );
-})->group(__DIR__, __FILE__);
-
-it('can echo soar html scores for `echoSoarHtmlScores`', function (): void {
-    expect(User::query()->where('id', 1)->where('name', 'soar')->echoSoarHtmlScores())->toBeInstanceOf(Builder::class);
-})->group(__DIR__, __FILE__);

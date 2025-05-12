@@ -77,26 +77,4 @@ class QueryBuilderMixin
     {
         return fn (int $depth = 512, int $options = 0): mixed => dd($this->toSoarArrayScores($depth, $options)); // @codeCoverageIgnore
     }
-
-    public function toSoarHtmlScores(): \Closure
-    {
-        return fn (): string => resolve(Soar::class)->htmlScores($this->toRawSql());
-    }
-
-    /**
-     * @noinspection PhpToStringImplementationInspection
-     */
-    public function echoSoarHtmlScores(): \Closure
-    {
-        return function (): self {
-            echo $this->toSoarHtmlScores();
-
-            return $this;
-        };
-    }
-
-    public function exitSoarHtmlScores(): \Closure
-    {
-        return fn (): mixed => exit($this->toSoarHtmlScores()); // @codeCoverageIgnore
-    }
 }
