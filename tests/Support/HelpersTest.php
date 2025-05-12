@@ -34,6 +34,10 @@ it('can get classes', function (): void {
 })->group(__DIR__, __FILE__);
 
 it('can explode env', function (): void {
+    putenv('APP_DEBUG=false');
+    putenv('APP_NAME=Laravel Soar');
+    putenv('REDIS_PORT=6379');
+
     expect([
         'APP_',
         'APP_DEBUG',
