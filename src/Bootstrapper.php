@@ -94,7 +94,7 @@ class Bootstrapper
     {
         return self::$queries
             ->pluck('sql')
-            ->pipe(static fn (Collection $queries): Collection => collect(
+            ->whenNotEmpty(static fn (Collection $queries): Collection => collect(
                 resolve(Soar::class)->arrayScores($queries->all())
             ));
     }
