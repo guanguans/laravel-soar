@@ -39,28 +39,32 @@ class OutputManager extends Fluent implements OutputContract
 
     public function output(Collection $scores, CommandFinished|Response $outputter): array
     {
-        return $this->shouldOutput($outputter)
-            ? array_reduce(
-                $this->attributes,
-                static function (array $results, OutputContract $outputContract) use ($outputter, $scores): array {
-                    if (!$outputContract->shouldOutput($outputter)) {
-                        return $results;
-                    }
+        if (!$this->shouldOutput($outputter)) {
+            return [];
+        }
 
-                    if ($outputContract instanceof SanitizerContract) {
-                        $scores = $outputContract->sanitize($scores);
-                    }
+        event(new OutputtingEvent($this, $scores, $outputter));
 
-                    event(new OutputtingEvent($outputContract, $scores, $outputter));
-                    $result = $outputContract->output($scores, $outputter);
-                    event(new OutputtedEvent($outputContract, $scores, $outputter, $result));
-
-                    $results[$outputContract::class] = $result;
-
+        $results = array_reduce(
+            $this->attributes,
+            static function (array $results, OutputContract $outputContract) use ($outputter, $scores): array {
+                if (!$outputContract->shouldOutput($outputter)) {
                     return $results;
-                },
-                []
-            )
-            : [];
+                }
+
+                if ($outputContract instanceof SanitizerContract) {
+                    $scores = $outputContract->sanitize($scores);
+                }
+
+                $results[$outputContract::class] = $outputContract->output($scores, $outputter);
+
+                return $results;
+            },
+            []
+        );
+
+        event(new OutputtedEvent($this, $scores, $outputter, $results));
+
+        return $results;
     }
 }

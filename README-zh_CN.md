@@ -432,6 +432,48 @@ SOAR_SUDO_PASSWORD='your sudo password' # 设置 sudo 密码，以 sudo 运行 s
 </details>
 
 <details>
+<summary><b>Telescope</b></summary>
+
+Telescope 的 `EventWatcher` 和 `LogWatcher` 可观察到 Soar 评分的输出。
+
+1. 安装 [laravel/telescope](https://github.com/laravel/telescope)
+2. 配置 `telescope.watchers`:
+
+```php
+<?php
+
+use Laravel\Telescope\Watchers;
+
+return [
+    // ...
+
+    'watchers' => [
+        // ...
+
+        Watchers\EventWatcher::class => [
+            'enabled' => env('TELESCOPE_EVENT_WATCHER', true),
+            'ignore' => [
+                Guanguans\LaravelSoar\Events\OutputtedEvent::class, // ignore `OutputtedEvent`
+            ],
+        ],
+
+        // ...
+
+        Watchers\LogWatcher::class => [
+            'enabled' => env('TELESCOPE_LOG_WATCHER', true),
+            'level' => 'warning', // `warning` level
+        ],
+
+        // ...
+    ],
+];
+```
+
+| ![Telescope event](docs/telescope-event.png) | ![Telescope log](docs/telescope-log.png) |
+|----------------------------------------------|------------------------------------------|
+</details>
+
+<details>
 <summary><b>自定义输出器</b></summary>
 
 1. 实现 [OutputContract](src/Contracts/OutputContract.php)

@@ -432,6 +432,48 @@ SOAR_SUDO_PASSWORD='your sudo password' # Set a sudo password to run the soar co
 </details>
 
 <details>
+<summary><b>Telescope</b></summary>
+
+Telescope's `EventWatcher` and `LogWatcher` can watch the output of Soar scores.
+
+1. Install [laravel/telescope](https://github.com/laravel/telescope)
+2. Configure `telescope.watchers`:
+
+```php
+<?php
+
+use Laravel\Telescope\Watchers;
+
+return [
+    // ...
+
+    'watchers' => [
+        // ...
+
+        Watchers\EventWatcher::class => [
+            'enabled' => env('TELESCOPE_EVENT_WATCHER', true),
+            'ignore' => [
+                Guanguans\LaravelSoar\Events\OutputtedEvent::class, // ignore `OutputtedEvent`
+            ],
+        ],
+
+        // ...
+
+        Watchers\LogWatcher::class => [
+            'enabled' => env('TELESCOPE_LOG_WATCHER', true),
+            'level' => 'warning', // `warning` level
+        ],
+
+        // ...
+    ],
+];
+```
+
+| ![Telescope event](docs/telescope-event.png) | ![Telescope log](docs/telescope-log.png) |
+|----------------------------------------------|------------------------------------------|
+</details>
+
+<details>
 <summary><b>Custom output</b></summary>
 
 1. Implement [OutputContract](src/Contracts/OutputContract.php)
