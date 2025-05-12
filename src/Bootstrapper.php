@@ -92,11 +92,9 @@ class Bootstrapper
      */
     private function toOriginalScores(): Collection
     {
-        return self::$queries
-            ->pluck('sql')
-            ->whenNotEmpty(static fn (Collection $queries): Collection => collect(
-                resolve(Soar::class)->arrayScores($queries->all())
-            ));
+        return self::$queries->whenNotEmpty(static fn (Collection $queries): Collection => collect(
+            resolve(Soar::class)->arrayScores($queries->pluck('sql')->all())
+        ));
     }
 
     private function hydrateScore(array $score): array
