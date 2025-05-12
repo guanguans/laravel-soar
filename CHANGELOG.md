@@ -8,6 +8,18 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 
+<a name="4.0.2"></a>
+## [4.0.2] - 2025-05-12
+### 📖 Documents
+- **README:** update feature list and remove example code ([da6688a](https://github.com/guanguans/laravel-soar/commit/da6688a))
+
+### ✅ Tests
+- **helpers:** add environment variable setup in explode env test ([fac9c3b](https://github.com/guanguans/laravel-soar/commit/fac9c3b))
+
+### 📦 Builds
+- **dependencies:** update composer dependencies and remove placeholder file ([8eb10b5](https://github.com/guanguans/laravel-soar/commit/8eb10b5))
+
+
 <a name="4.0.1"></a>
 ## [4.0.1] - 2025-05-11
 ### 🐞 Bug Fixes
@@ -609,7 +621,8 @@ All notable changes to this project will be documented in this file.
 - Merge pull request [#1](https://github.com/guanguans/laravel-soar/issues/1) from guanguans/add-license-1
 
 
-[Unreleased]: https://github.com/guanguans/laravel-soar/compare/4.0.1...HEAD
+[Unreleased]: https://github.com/guanguans/laravel-soar/compare/4.0.2...HEAD
+[4.0.2]: https://github.com/guanguans/laravel-soar/compare/4.0.1...4.0.2
 [4.0.1]: https://github.com/guanguans/laravel-soar/compare/4.0.0...4.0.1
 [4.0.0]: https://github.com/guanguans/laravel-soar/compare/3.18.1...4.0.0
 [3.18.1]: https://github.com/guanguans/laravel-soar/compare/3.18.0...3.18.1
