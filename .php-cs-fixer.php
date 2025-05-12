@@ -276,6 +276,7 @@ return Factory::fromRuleSet(Php80::create()
             'stick_comment_to_next_continuous_control_statement' => true,
         ],
         'static_lambda' => false, // pest
+        // 'string_implicit_backslashes' => false,
     ])))
     ->setUsingCache(true)
     ->setCacheFile(__DIR__.'/.build/php-cs-fixer/.php-cs-fixer.cache')

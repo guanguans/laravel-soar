@@ -20,12 +20,14 @@ declare(strict_types=1);
  */
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\DB;
 use Workbench\App\Models\User;
 
 it('can return raw sql for `toRawSql`', function (): void {
-    expect(User::query()->where('id', 1)->where('name', 'soar')->toRawSql())->toBe(
-        'select * from "users" where "id" = 1 and "name" = \'soar\''
-    );
+    expect([
+        User::query()->where('id', 1)->where('name', 'soar')->toRawSql(),
+        DB::table('users')->where('id', 1)->where('name', 'soar')->toRawSql(),
+    ])->each->toBe('select * from "users" where "id" = 1 and "name" = \'soar\'');
 })->group(__DIR__, __FILE__);
 
 it('can dump raw sql for `dumpRawSql`', function (): void {

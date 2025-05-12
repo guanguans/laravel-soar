@@ -19,7 +19,8 @@ declare(strict_types=1);
 
 namespace Guanguans\LaravelSoar\Mixins;
 
-use Guanguans\LaravelSoar\Soar;
+use Guanguans\LaravelSoar\Facades\Soar;
+use Guanguans\LaravelSoar\Support\Utils;
 
 /**
  * @mixin \Illuminate\Database\Eloquent\Builder
@@ -44,7 +45,7 @@ class QueryBuilderMixin
 
     public function toSoarScore(): \Closure
     {
-        return fn (int $depth = 512, int $options = 0): array => resolve(Soar::class)->arrayScores(
+        return fn (int $depth = 512, int $options = 0): array => Soar::arrayScores(
             $this->toRawSql(),
             $depth,
             $options
@@ -67,14 +68,6 @@ class QueryBuilderMixin
 
     public function toRawSql(): \Closure
     {
-        return fn (): string => vsprintf(
-            str_replace(['%', '?', '%s%s'], ['%%', '%s', '?'], $this->toSql()),
-            array_map(
-                fn (mixed $binding): string => \is_string($binding)
-                    ? $this->getConnection()->getPdo()->quote($binding)
-                    : var_export($binding, true),
-                $this->getConnection()->prepareBindings($this->getBindings())
-            )
-        );
+        return fn (): string => Utils::toRawSql($this);
     }
 }

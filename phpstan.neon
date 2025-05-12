@@ -109,7 +109,5 @@ parameters:
                 - src/Support/helpers.php
         -
             messages:
-                - '#^Call to an undefined method Illuminate\\Database\\ConnectionInterface\:\:getPdo\(\)\.$#'
-                - '#^Dynamic call to static method Illuminate\\Database\\Query\\Builder\:\:.*\(\)\.$#'
                 - '#^Method Guanguans\\LaravelSoar\\Mixins\\QueryBuilderMixin\:\:.*\(\) invoked with \d parameters?, 0 required\.$#'
             path: src/Mixins/
