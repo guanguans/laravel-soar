@@ -28,6 +28,7 @@ use Guanguans\LaravelSoar\Outputs\ConsoleOutput;
 use Guanguans\LaravelSoar\Outputs\DebugBarOutput;
 use Guanguans\LaravelSoar\Outputs\DumpOutput;
 use Guanguans\LaravelSoar\Outputs\JsonOutput;
+use Guanguans\LaravelSoar\Outputs\LaraDumpsOutput;
 use Guanguans\LaravelSoar\Outputs\LogOutput;
 use Guanguans\LaravelSoar\Outputs\RayOutput;
 use Guanguans\LaravelSoarTests\TestCase;
@@ -137,6 +138,7 @@ function extend_output_manager(null|array|string $outputs = null): void
         DebugBarOutput::class => ['name' => 'Soar Scores', 'label' => 'warning'],
         DumpOutput::class => ['exit' => false],
         JsonOutput::class => ['key' => 'soar_scores'],
+        LaraDumpsOutput::class => ['label' => 'Soar Scores'],
         LogOutput::class => ['channel' => 'daily', 'level' => 'warning'],
         RayOutput::class => ['label' => 'Soar Scores'],
     ];

@@ -5,6 +5,7 @@ providers:
   - Barryvdh\Debugbar\ServiceProvider
   - Clockwork\Support\Laravel\ClockworkServiceProvider
   - Guanguans\LaravelSoar\SoarServiceProvider
+  - LaraDumps\LaraDumps\LaraDumpsServiceProvider
 
 migrations:
   - workbench/database/migrations

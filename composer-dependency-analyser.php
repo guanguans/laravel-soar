@@ -56,6 +56,11 @@ return (new Configuration)
         [ErrorType::DEV_DEPENDENCY_IN_PROD]
     )
     ->ignoreErrorsOnPackageAndPath(
+        'laradumps/laradumps-core',
+        __DIR__.'/src/Outputs/LaraDumpsOutput.php',
+        [ErrorType::SHADOW_DEPENDENCY]
+    )
+    ->ignoreErrorsOnPackageAndPath(
         'spatie/ray',
         __DIR__.'/src/Outputs/RayOutput.php',
         [ErrorType::SHADOW_DEPENDENCY]
