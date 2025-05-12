@@ -8,6 +8,15 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 
+<a name="4.1.0"></a>
+## [4.1.0] - 2025-05-12
+### ✨ Features
+- **dependency-analyser:** add support for LaraDumps integration ([8e484f8](https://github.com/guanguans/laravel-soar/commit/8e484f8))
+
+### 📖 Documents
+- **readme:** add LaraDumps setup guide in Chinese documentation ([941165f](https://github.com/guanguans/laravel-soar/commit/941165f))
+
+
 <a name="4.0.2"></a>
 ## [4.0.2] - 2025-05-12
 ### 📖 Documents
@@ -621,7 +630,8 @@ All notable changes to this project will be documented in this file.
 - Merge pull request [#1](https://github.com/guanguans/laravel-soar/issues/1) from guanguans/add-license-1
 
 
-[Unreleased]: https://github.com/guanguans/laravel-soar/compare/4.0.2...HEAD
+[Unreleased]: https://github.com/guanguans/laravel-soar/compare/4.1.0...HEAD
+[4.1.0]: https://github.com/guanguans/laravel-soar/compare/4.0.2...4.1.0
 [4.0.2]: https://github.com/guanguans/laravel-soar/compare/4.0.1...4.0.2
 [4.0.1]: https://github.com/guanguans/laravel-soar/compare/4.0.0...4.0.1
 [4.0.0]: https://github.com/guanguans/laravel-soar/compare/3.18.1...4.0.0
