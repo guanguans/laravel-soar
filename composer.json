@@ -66,9 +66,10 @@
         "laradumps/laradumps": "^2.2 || ^3.0 || ^4.0",
         "laravel/facade-documenter": "dev-main",
         "laravel/helpers": "^1.7",
+        "laravel/telescope": "^5.7",
         "mockery/mockery": "^1.6",
         "nette/utils": "^4.0",
-        "orchestra/testbench": "^7.54 || ^8.0 || ^9.0 || ^10.0",
+        "orchestra/testbench": "^7.55 || ^8.0 || ^9.0 || ^10.0",
         "pestphp/pest": "^1.23 || ^2.0 || ^3.0",
         "pestphp/pest-plugin-faker": "^1.0 || ^2.0 || ^3.0",
         "pestphp/pest-plugin-laravel": "^1.4 || ^2.0 || ^3.0",
@@ -103,6 +104,7 @@
         "buggregator/trap": "Output SQL scores to Trap.",
         "itsgoingd/clockwork": "Output SQL scores to Clockwork.",
         "laradumps/laradumps": "Output SQL scores to Laradumps.",
+        "laravel/telescope": "Output SQL scores to Telescope.",
         "spatie/laravel-ray": "Output SQL scores to Laravel Ray."
     },
     "repositories": {
