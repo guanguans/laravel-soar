@@ -41,8 +41,11 @@
 /tests/        export-ignore
 /vendor-bin/   export-ignore
 /vendor/       export-ignore
+/workbench/    export-ignore
 
-/*.tape                             export-ignore
+*.mp4                               export-ignore
+*.tape                              export-ignore
+*.zip                               export-ignore
 /.*                                 export-ignore
 /CHANGELOG-*.md                     export-ignore
 /CHANGELOG.md                       export-ignore
@@ -54,4 +57,5 @@
 /phpunit.xml.dist                   export-ignore
 /rector-*.php                       export-ignore
 /rector.php                         export-ignore
+/testbench.yaml                     export-ignore
 /tests.*                            export-ignore
