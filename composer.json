@@ -21,9 +21,13 @@
         "console",
         "debugbar",
         "dump",
-        "log",
+        "json",
         "errorlog",
+        "laradumps",
+        "log",
         "syslog",
+        "telescope",
+        "trap",
         "ray"
     ],
     "authors": [
