@@ -78,7 +78,7 @@ SOAR_SUDO_PASSWORD='your sudo password' # 设置 sudo 密码，以 sudo 运行 s
 1. 安装 [barryvdh/laravel-debugbar](https://github.com/barryvdh/laravel-debugbar)
 2. 配置 [soar.outputs.Guanguans\LaravelSoar\Outputs\DebugBarOutput::class](config/soar.php)
 
-![Debug bar](docs/debug-bar.png)
+![DebugBar](docs/debug-bar.png)
 </details>
 
 <details>
@@ -403,6 +403,15 @@ SOAR_SUDO_PASSWORD='your sudo password' # 设置 sudo 密码，以 sudo 运行 s
     ]
 }
 ```
+</details>
+
+<details>
+<summary><b>LaraDumps</b></summary>
+
+1. 安装 [laradumps/laradumps](https://github.com/laradumps/laradumps)
+2. 配置 [soar.outputs.Guanguans\LaravelSoar\Outputs\LaraDumpsOutput::class](config/soar.php)
+
+![LaraDumps](docs/lara-dumps.png)
 </details>
 
 <details>

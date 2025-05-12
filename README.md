@@ -73,12 +73,12 @@ SOAR_SUDO_PASSWORD='your sudo password' # Set a sudo password to run the soar co
 </details>
 
 <details>
-<summary><b>Debug bar</b></summary>
+<summary><b>DebugBar</b></summary>
 
 1. Install [barryvdh/laravel-debugbar](https://github.com/barryvdh/laravel-debugbar)
 2. Configure [soar.outputs.Guanguans\LaravelSoar\Outputs\DebugBarOutput::class](config/soar.php)
 
-![Debug bar](docs/debug-bar.png)
+![DebugBar](docs/debug-bar.png)
 </details>
 
 <details>
@@ -403,6 +403,15 @@ SOAR_SUDO_PASSWORD='your sudo password' # Set a sudo password to run the soar co
     ]
 }
 ```
+</details>
+
+<details>
+<summary><b>LaraDumps</b></summary>
+
+1. Install [laradumps/laradumps](https://github.com/laradumps/laradumps)
+2. Configure [soar.outputs.Guanguans\LaravelSoar\Outputs\LaraDumpsOutput::class](config/soar.php)
+
+![LaraDumps](docs/lara-dumps.png)
 </details>
 
 <details>
