@@ -19,12 +19,12 @@ namespace {
 
 namespace Illuminate\Database\Query {
     /**
+     * @method never ddSoarScore(int $depth = 512, int $options = 0)
+     * @method self dumpSoarScore(int $depth = 512, int $options = 0)
+     * @method array toSoarScore(int $depth = 512, int $options = 0)
      * @method never ddRawSql()
-     * @method never ddSoarArrayScores(int $depth = 512, int $options = 0)
      * @method self dumpRawSql()
-     * @method self dumpSoarArrayScores(int $depth = 512, int $options = 0)
      * @method string toRawSql()
-     * @method array toSoarArrayScores(int $depth = 512, int $options = 0)
      *
      * @mixin \Illuminate\Database\Eloquent\Builder
      *
@@ -36,12 +36,12 @@ namespace Illuminate\Database\Query {
 
 namespace Illuminate\Database\Eloquent {
     /**
+     * @method never ddSoarScore(int $depth = 512, int $options = 0)
+     * @method self dumpSoarScore(int $depth = 512, int $options = 0)
+     * @method array toSoarScore(int $depth = 512, int $options = 0)
      * @method never ddRawSql()
-     * @method never ddSoarArrayScores(int $depth = 512, int $options = 0)
      * @method self dumpRawSql()
-     * @method self dumpSoarArrayScores(int $depth = 512, int $options = 0)
      * @method string toRawSql()
-     * @method array toSoarArrayScores(int $depth = 512, int $options = 0)
      *
      * @mixin \Illuminate\Database\Query\Builder
      *
@@ -53,12 +53,12 @@ namespace Illuminate\Database\Eloquent {
 
 namespace Illuminate\Database\Eloquent\Relations {
     /**
+     * @method never ddSoarScore(int $depth = 512, int $options = 0)
+     * @method self dumpSoarScore(int $depth = 512, int $options = 0)
+     * @method array toSoarScore(int $depth = 512, int $options = 0)
      * @method never ddRawSql()
-     * @method never ddSoarArrayScores(int $depth = 512, int $options = 0)
      * @method self dumpRawSql()
-     * @method self dumpSoarArrayScores(int $depth = 512, int $options = 0)
      * @method string toRawSql()
-     * @method array toSoarArrayScores(int $depth = 512, int $options = 0)
      *
      * @mixin \Illuminate\Database\Eloquent\Builder
      *

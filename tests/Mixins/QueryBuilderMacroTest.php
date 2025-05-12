@@ -32,10 +32,10 @@ it('can dump raw sql for `dumpRawSql`', function (): void {
     expect(User::query()->where('id', 1)->where('name', 'soar')->dumpRawSql())->toBeInstanceOf(Builder::class);
 })->group(__DIR__, __FILE__);
 
-it('can return soar array scores for `toSoarArrayScores`', function (): void {
-    expect(User::query()->where('id', 1)->where('name', 'soar')->toSoarArrayScores())->toBeArray();
+it('can return soar score for `toSoarScore`', function (): void {
+    expect(User::query()->where('id', 1)->where('name', 'soar')->toSoarScore())->toBeArray();
 })->group(__DIR__, __FILE__);
 
-it('can dump soar array scores for `dumpSoarArrayScores`', function (): void {
-    expect(User::query()->where('id', 1)->where('name', 'soar')->dumpSoarArrayScores())->toBeInstanceOf(Builder::class);
+it('can dump soar score for `dumpSoarScore`', function (): void {
+    expect(User::query()->where('id', 1)->where('name', 'soar')->dumpSoarScore())->toBeInstanceOf(Builder::class);
 })->group(__DIR__, __FILE__);
