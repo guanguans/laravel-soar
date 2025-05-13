@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Guanguans\LaravelSoar;
 
+use Guanguans\LaravelSoar\Facades\Soar;
 use Guanguans\LaravelSoar\Listeners\OutputScoresListener;
 use Guanguans\LaravelSoar\Middleware\OutputScoresMiddleware;
 use Guanguans\LaravelSoar\Support\Utils;
@@ -47,17 +48,9 @@ class Bootstrapper
         $this->registerOutputter();
     }
 
-    /**
-     * @throws \JsonException
-     */
     public function getScores(): Collection
     {
-        return self::$scores = self::$scores->whenEmpty(
-            fn () => $this->toOriginalScores()
-                ->sortBy(['Score', 'Fingerprint'])
-                ->map(fn (array $score): array => $this->hydrateScore($score))
-                ->values()
-        );
+        return self::$scores = self::$scores->whenEmpty(fn (): Collection => $this->toScores());
     }
 
     private function logQueries(): void
@@ -87,11 +80,14 @@ class Bootstrapper
         $this->application->make(Kernel::class)->prependMiddleware(OutputScoresMiddleware::class);
     }
 
-    private function toOriginalScores(): Collection
+    private function toScores(): Collection
     {
-        return self::$queries->whenNotEmpty(static fn (Collection $queries): Collection => collect(
-            resolve(Soar::class)->arrayScores($queries->pluck('sql')->all())
-        ));
+        return self::$queries->whenNotEmpty(
+            fn (Collection $queries): Collection => collect(Soar::arrayScores($queries->pluck('sql')->all()))
+                ->sortBy(['Score', 'Fingerprint'])
+                ->map(fn (array $score): array => $this->hydrateScore($score))
+                ->values()
+        );
     }
 
     private function hydrateScore(array $score): array
