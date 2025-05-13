@@ -14,21 +14,14 @@ declare(strict_types=1);
 namespace Guanguans\LaravelSoar\Listeners;
 
 use Guanguans\LaravelSoar\Bootstrapper;
-use Guanguans\LaravelSoar\OutputManager;
 use Illuminate\Console\Events\CommandFinished;
 
 class OutputScoresListener
 {
-    public function __construct(
-        private Bootstrapper $bootstrapper,
-        private OutputManager $outputManager
-    ) {}
+    public function __construct(private Bootstrapper $bootstrapper) {}
 
-    /**
-     * @throws \JsonException
-     */
     public function handle(CommandFinished $commandFinished): void
     {
-        $this->outputManager->output($this->bootstrapper->getScores(), $commandFinished);
+        $this->bootstrapper->outputScores($commandFinished);
     }
 }

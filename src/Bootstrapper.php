@@ -23,6 +23,7 @@ use Illuminate\Database\Events\QueryExecuted;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Event;
+use Symfony\Component\HttpFoundation\Response;
 use function Guanguans\LaravelSoar\Support\humanly_milliseconds;
 
 class Bootstrapper
@@ -48,9 +49,9 @@ class Bootstrapper
         $this->registerOutputter();
     }
 
-    public function getScores(): Collection
+    public function outputScores(CommandFinished|Response $outputter): Collection
     {
-        return self::$scores = self::$scores->whenEmpty(fn (): Collection => $this->toScores());
+        return $this->application->make(OutputManager::class)->output($this->getScores(), $outputter);
     }
 
     private function logQueries(): void
@@ -78,6 +79,11 @@ class Bootstrapper
     {
         Event::listen(CommandFinished::class, OutputScoresListener::class);
         $this->application->make(Kernel::class)->prependMiddleware(OutputScoresMiddleware::class);
+    }
+
+    private function getScores(): Collection
+    {
+        return self::$scores = self::$scores->whenEmpty(fn (): Collection => $this->toScores());
     }
 
     private function toScores(): Collection
