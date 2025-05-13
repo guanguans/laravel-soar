@@ -94,6 +94,15 @@ class Utils
      * @noinspection DebugFunctionUsageInspection
      *
      * @see \Laravel\Telescope\Watchers\QueryWatcher::replaceBindings()
+     * @see addslashes()
+     * @see addcslashes()
+     * @see stripslashes()
+     * @see stripcslashes()
+     * @see quotemeta()
+     * @see mysqli_real_escape_string()
+     * @see PDO::quote()
+     * @see var_export()
+     * @see json_encode()
      */
     public static function replaceSqlBindings(string $sql, array $bindings, Connection $connection): string
     {
