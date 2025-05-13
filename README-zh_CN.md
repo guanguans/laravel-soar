@@ -53,6 +53,30 @@ SOAR_SUDO_PASSWORD='your sudo password' # 设置 sudo 密码，以 sudo 运行 s
 
 ## 使用
 
+### 启用自动输出 SQL 优化建议
+
+<details>
+<summary><b>details</b></summary>
+
+#### 配置 `SOAR_ENABLED`
+
+```dotenv
+SOAR_ENABLED=true
+```
+
+#### 或者配置 [`soar.enabled`](config/soar.php)
+
+```php
+<?php
+
+return [
+    'enabled' => (bool) env('SOAR_ENABLED', env('APP_ENV') === 'local'),
+
+    // ...
+];
+```
+</details>
+
 ### 安装、配置输出器(可选的)
 
 <details>

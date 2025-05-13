@@ -53,6 +53,30 @@ SOAR_SUDO_PASSWORD='your sudo password' # Set a sudo password to run the soar co
 
 ## Usage
 
+### Enable to automatically output SQL optimization suggestions
+
+<details>
+<summary><b>details</b></summary>
+
+#### Configure `SOAR_ENABLED`
+
+```dotenv
+SOAR_ENABLED=true
+```
+
+#### Or configure [`soar.enabled`](config/soar.php)
+
+```php
+<?php
+
+return [
+    'enabled' => (bool) env('SOAR_ENABLED', env('APP_ENV') === 'local'),
+
+    // ...
+];
+```
+</details>
+
 ### Install and configure outputs(optional)
 
 <details>

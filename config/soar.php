@@ -15,7 +15,7 @@ use Guanguans\LaravelSoar\Outputs;
 use function Guanguans\LaravelSoar\Support\env_explode;
 
 return [
-    // 是否启用评分
+    // 是否启用自动评分
     'enabled' => (bool) env('SOAR_ENABLED', false),
 
     // 二进制文件
