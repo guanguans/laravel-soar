@@ -31,7 +31,7 @@ return [
     ]),
 
     // 排除评分的查询
-    'except_queries' => env_explode('EXCEPT_QUERIES', [
+    'except_queries' => env_explode('SOAR_EXCEPT_QUERIES', [
         '^use \?$',
         '^set.*',
         '^show.*',
