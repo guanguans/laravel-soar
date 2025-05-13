@@ -8,6 +8,40 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 
+<a name="4.1.1"></a>
+## [4.1.1] - 2025-05-13
+### 🐞 Bug Fixes
+- **bootstrapper:** correct empty check logic in query processing ([9932df3](https://github.com/guanguans/laravel-soar/commit/9932df3))
+- **output-conditions:** refine content validation in response handling ([0c52dd7](https://github.com/guanguans/laravel-soar/commit/0c52dd7))
+- **utils:** correct file path replacement in stack trace ([5463d8a](https://github.com/guanguans/laravel-soar/commit/5463d8a))
+
+### 📖 Documents
+- **composer:** update log channels in composer.json documentation ([88e6f33](https://github.com/guanguans/laravel-soar/commit/88e6f33))
+- **readme:** add instructions for enabling Soar in Chinese README ([1120a22](https://github.com/guanguans/laravel-soar/commit/1120a22))
+
+### 💅 Code Refactorings
+- **Bootstrapper:** streamline score retrieval logic ([03c5bc9](https://github.com/guanguans/laravel-soar/commit/03c5bc9))
+- **codebase:** remove unused Soar JSON score methods ([587d2f8](https://github.com/guanguans/laravel-soar/commit/587d2f8))
+- **config:** update default value for soar enabled flag ([90ca0b8](https://github.com/guanguans/laravel-soar/commit/90ca0b8))
+- **core:** simplify score output handling and streamline dependencies ([27b3837](https://github.com/guanguans/laravel-soar/commit/27b3837))
+- **database:** rename soar array score methods for clarity ([b1f8e79](https://github.com/guanguans/laravel-soar/commit/b1f8e79))
+- **ide-helper:** remove deprecated SoarHTMLScore methods ([b830a54](https://github.com/guanguans/laravel-soar/commit/b830a54))
+- **output-handling:** improve type consistency and utilize collections ([b484aa6](https://github.com/guanguans/laravel-soar/commit/b484aa6))
+- **utils:** extend toRawSql method to support additional query types ([55daaa1](https://github.com/guanguans/laravel-soar/commit/55daaa1))
+
+### 🏎 Performance Improvements
+- **bootstrapper:** optimize query plucking logic in scoring ([0d4e9be](https://github.com/guanguans/laravel-soar/commit/0d4e9be))
+- **output-manager:** optimize output logic and lifecycle events ([351d9ce](https://github.com/guanguans/laravel-soar/commit/351d9ce))
+
+### ✅ Tests
+- **QueryBuilderMixin:** add test for quoted raw sql handling in `toRawSql` ([104d49b](https://github.com/guanguans/laravel-soar/commit/104d49b))
+
+### Pull Requests
+- Merge pull request [#63](https://github.com/guanguans/laravel-soar/issues/63) from guanguans/dependabot/github_actions/dependabot/fetch-metadata-2.4.0
+- Merge pull request [#62](https://github.com/guanguans/laravel-soar/issues/62) from guanguans/imgbot
+- Merge pull request [#61](https://github.com/guanguans/laravel-soar/issues/61) from guanguans/imgbot
+
+
 <a name="4.1.0"></a>
 ## [4.1.0] - 2025-05-12
 ### ✨ Features
@@ -630,7 +664,8 @@ All notable changes to this project will be documented in this file.
 - Merge pull request [#1](https://github.com/guanguans/laravel-soar/issues/1) from guanguans/add-license-1
 
 
-[Unreleased]: https://github.com/guanguans/laravel-soar/compare/4.1.0...HEAD
+[Unreleased]: https://github.com/guanguans/laravel-soar/compare/4.1.1...HEAD
+[4.1.1]: https://github.com/guanguans/laravel-soar/compare/4.1.0...4.1.1
 [4.1.0]: https://github.com/guanguans/laravel-soar/compare/4.0.2...4.1.0
 [4.0.2]: https://github.com/guanguans/laravel-soar/compare/4.0.1...4.0.2
 [4.0.1]: https://github.com/guanguans/laravel-soar/compare/4.0.0...4.0.1
