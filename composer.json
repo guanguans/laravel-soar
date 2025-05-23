@@ -51,7 +51,7 @@
     ],
     "require": {
         "php": ">=8.0",
-        "guanguans/soar-php": "^6.1",
+        "guanguans/soar-php": "^6.2",
         "laravel/framework": "^9.52 || ^10.0 || ^11.0 || ^12.0"
     },
     "require-dev": {
@@ -63,7 +63,7 @@
         "driftingly/rector-laravel": "^2.0",
         "ergebnis/composer-normalize": "^2.47",
         "ergebnis/rector-rules": "^1.4",
-        "guanguans/ai-commit": "dev-main",
+        "guanguans/ai-commit": "^1.15",
         "guanguans/monorepo-builder-worker": "^2.0",
         "guzzlehttp/guzzle": "^7.9",
         "itsgoingd/clockwork": "^5.3",
