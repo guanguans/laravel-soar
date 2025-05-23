@@ -38,6 +38,7 @@ return (new Configuration)
             'nesbot/carbon',
             'symfony/console',
             'symfony/http-foundation',
+            'symfony/process',
             'symfony/var-dumper',
         ],
         [ErrorType::SHADOW_DEPENDENCY]

@@ -18,6 +18,7 @@ namespace Guanguans\LaravelSoar\Commands\Concerns;
 use Guanguans\LaravelSoar\Soar;
 use Illuminate\Support\Str;
 use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Process\Process;
 
 /**
  * @mixin \Illuminate\Console\Command
@@ -63,5 +64,12 @@ trait WithSoarOptions
                 return [Str::start($key, '-') => $value];
             })
             ->all();
+    }
+
+    protected function callback(): \Closure
+    {
+        return function (string $type, string $line): void {
+            Process::ERR === $type ? $this->error($line) : $this->info($line);
+        };
     }
 }

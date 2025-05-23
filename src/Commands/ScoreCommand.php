@@ -47,6 +47,6 @@ class ScoreCommand extends Command
             }
         }
 
-        $this->info($this->debugSoar()->scores($query));
+        $this->debugSoar()->scores($query, $this->callback());
     }
 }

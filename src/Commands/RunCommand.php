@@ -31,6 +31,6 @@ class RunCommand extends Command
      */
     public function handle(): void
     {
-        $this->info($this->debugSoar()->run());
+        $this->debugSoar()->run($this->callback());
     }
 }

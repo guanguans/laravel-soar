@@ -18,14 +18,14 @@ namespace Guanguans\LaravelSoar\Facades;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @method static string help()
- * @method static string version()
+ * @method static string help(null|callable $callback = null)
+ * @method static string version(null|callable $callback = null)
  * @method static \Guanguans\SoarPHP\Soar clone()
  * @method static array arrayScores(array|string $sqls, int $depth = 512, int $options = 0)
  * @method static string jsonScores(array|string $sqls)
  * @method static string htmlScores(array|string $sqls)
  * @method static string markdownScores(array|string $sqls)
- * @method static string scores(array|string $sqls)
+ * @method static string scores(array|string $sqls, null|callable $callback = null)
  * @method static \Guanguans\SoarPHP\Soar flushOptions()
  * @method static \Guanguans\SoarPHP\Soar setOption(string $name, mixed $value)
  * @method static \Guanguans\SoarPHP\Soar setOptions(array $options)
