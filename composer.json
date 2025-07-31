@@ -4,6 +4,9 @@
     "license": "MIT",
     "type": "laravel",
     "keywords": [
+        "dev",
+        "testing",
+        "static analysis",
         "soar",
         "SQL",
         "sql",
