@@ -53,13 +53,13 @@
         }
     ],
     "require": {
-        "php": ">=8.0",
-        "guanguans/soar-php": "^6.3",
-        "laravel/framework": "^9.52 || ^10.0 || ^11.0 || ^12.0"
+        "php": ">=8.1",
+        "guanguans/soar-php": "^7.0",
+        "laravel/framework": "^10.50 || ^11.0 || ^12.0"
     },
     "require-dev": {
         "bamarni/composer-bin-plugin": "^1.8",
-        "barryvdh/laravel-debugbar": "^3.14",
+        "barryvdh/laravel-debugbar": "^3.16",
         "brainmaestro/composer-git-hooks": "^3.0",
         "dg/bypass-finals": "^1.9",
         "driftingly/rector-laravel": "^2.1",
@@ -69,16 +69,16 @@
         "guanguans/monorepo-builder-worker": "^2.1",
         "guzzlehttp/guzzle": "^7.10",
         "itsgoingd/clockwork": "^5.3",
-        "laradumps/laradumps": "^2.2 || ^3.0 || ^4.0",
+        "laradumps/laradumps": "^4.6",
         "laravel/facade-documenter": "dev-main",
         "laravel/helpers": "^1.8",
         "laravel/telescope": "^5.15",
         "mockery/mockery": "^1.6",
         "nette/utils": "^4.0",
-        "orchestra/testbench": "^7.55 || ^8.0 || ^9.0 || ^10.0",
-        "pestphp/pest": "^1.23 || ^2.0 || ^3.0 || ^4.0",
-        "pestphp/pest-plugin-faker": "^1.0 || ^2.0 || ^3.0 || ^4.0",
-        "pestphp/pest-plugin-laravel": "^1.4 || ^2.0 || ^3.0 || ^4.0",
+        "orchestra/testbench": "^8.36 || ^9.0 || ^10.0",
+        "pestphp/pest": "^2.36 || ^3.0 || ^4.0",
+        "pestphp/pest-plugin-faker": "^2.0 || ^3.0 || ^4.0",
+        "pestphp/pest-plugin-laravel": "^2.4 || ^3.0 || ^4.0",
         "php-mock/php-mock-phpunit": "^2.14",
         "phpstan/extension-installer": "^1.4",
         "phpstan/phpstan": "^2.1",
@@ -86,24 +86,24 @@
         "phpstan/phpstan-strict-rules": "^2.0",
         "phpstan/phpstan-webmozart-assert": "^2.0",
         "povils/phpmnd": "^3.6",
-        "rector/jack": "^0.2",
+        "rector/jack": "^0.4",
         "rector/rector": "^2.2",
         "rector/swiss-knife": "^2.3",
         "rector/type-perfect": "^2.1",
         "shipmonk/composer-dependency-analyser": "^1.8",
-        "shipmonk/dead-code-detector": "^0.11",
+        "shipmonk/dead-code-detector": "^0.14",
         "shipmonk/phpstan-baseline-per-identifier": "^2.2",
         "spatie/laravel-ray": "^1.43",
-        "spatie/pest-plugin-snapshots": "^1.1 || ^2.0",
+        "spatie/pest-plugin-snapshots": "^2.2",
         "spaze/phpstan-disallowed-calls": "^4.7",
-        "staabm/phpstan-todo-by": "^0.2",
-        "symfony/thanks": "^1.3",
+        "staabm/phpstan-todo-by": "^0.3",
+        "symfony/thanks": "^1.4",
         "symplify/phpstan-extensions": "^12.0",
         "symplify/phpstan-rules": "^14.9",
         "tomasvotruba/class-leak": "^2.1",
         "tomasvotruba/cognitive-complexity": "^1.0",
         "tomasvotruba/type-coverage": "^2.0",
-        "yamadashy/phpstan-friendly-formatter": "^1.2"
+        "yamadashy/phpstan-friendly-formatter": "^1.3"
     },
     "conflict": {
         "pestphp/pest": "^4.0",
@@ -123,7 +123,7 @@
             "url": "git@github.com:laravel/facade-documenter.git"
         }
     },
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "prefer-stable": true,
     "autoload": {
         "psr-4": {
@@ -230,7 +230,28 @@
         "class-leak-check": "@class-leak check ./config ./src --skip-suffix=Pipe --skip-path=Support/Traits --skip-path=Channels --skip-type=\\Guanguans\\LaravelExceptionNotify\\Contracts\\Channel --skip-type=\\Guanguans\\LaravelExceptionNotify\\Contracts\\Collector --skip-type=Rector\\Rector\\AbstractRector",
         "composer-audit": "@composer audit --ansi -v",
         "composer-bin-all-update": "@composer bin all update --ansi -v",
+        "composer-bump": [
+            "@putenv:php",
+            "@composer-config:disable-process-timeout",
+            "@php composer-bump --highest-php-binary=$PHP85 --except-package=laravel/framework --ansi"
+        ],
+        "composer-bump:all": [
+            "@composer-bump",
+            "@composer-bump:vendor-bin-common",
+            "@composer-bump:vendor-bin-php82"
+        ],
+        "composer-bump:vendor-bin-common": [
+            "@putenv:php",
+            "ln -f composer-bump vendor-bin/common/composer-bump",
+            "@php vendor-bin/common/composer-bump --highest-php-binary=$PHP85 --ansi"
+        ],
+        "composer-bump:vendor-bin-php82": [
+            "@putenv:php",
+            "ln -f composer-bump vendor-bin/php82/composer-bump",
+            "$PHP82 vendor-bin/php82/composer-bump --php-binary=$PHP82 --highest-php-binary=$PHP85 --ansi"
+        ],
         "composer-check-platform-reqs": "@composer check-platform-reqs --lock --ansi -v",
+        "composer-config:disable-process-timeout": "Composer\\Config::disableProcessTimeout",
         "composer-dependency-analyser": "@php ./vendor/bin/composer-dependency-analyser --verbose",
         "composer-diff": "@composer diff --with-platform --ansi -v",
         "composer-disable-process-timeout": "Composer\\Config::disableProcessTimeout",
@@ -327,6 +348,21 @@
         "pint-dirty-bail": "@pint-dirty --bail",
         "pint-dirty-test": "@pint-dirty --test",
         "pint-test": "@pint --test",
+        "putenv:composer-memory-unlimited": "@putenv COMPOSER_MEMORY_LIMIT=-1",
+        "putenv:php": [
+            "@putenv PHP74=/opt/homebrew/opt/php@7.4/bin/php",
+            "@putenv PHP80=/opt/homebrew/opt/php@8.0/bin/php",
+            "@putenv PHP81=/opt/homebrew/opt/php@8.1/bin/php",
+            "@putenv PHP82=/opt/homebrew/opt/php@8.2/bin/php",
+            "@putenv PHP83=/opt/homebrew/opt/php@8.3/bin/php",
+            "@putenv PHP84=/opt/homebrew/opt/php@8.4/bin/php",
+            "@putenv PHP85=/opt/homebrew/opt/php@8.5/bin/php"
+        ],
+        "putenv:xdebug-off": "@putenv XDEBUG_MODE=off",
+        "putenv:xdebug-on": [
+            "@putenv XDEBUG_MODE=coverage,debug",
+            "@putenv XDEBUG_SESSION=1"
+        ],
         "rector": "@php ./vendor/bin/rector --ansi",
         "rector-clear-cache": "@rector --clear-cache",
         "rector-clear-cache-dry-run": "@rector-clear-cache --dry-run",

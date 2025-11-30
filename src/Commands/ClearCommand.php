@@ -36,6 +36,6 @@ class ClearCommand extends Command
 
     public static function soarLogFile(): string
     {
-        return Soar::getLogOutput(\dirname(Soar::getSoarBinary()).\DIRECTORY_SEPARATOR.'soar.log');
+        return Soar::getLogOutput(\dirname(Soar::getBinary()).\DIRECTORY_SEPARATOR.'soar.log');
     }
 }
