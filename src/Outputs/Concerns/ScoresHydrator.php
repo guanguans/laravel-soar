@@ -34,6 +34,8 @@ trait ScoresHydrator
     }
 
     /**
+     * @param array<string, mixed> $score
+     *
      * @throws \JsonException
      */
     protected function hydrateScore(array $score): string

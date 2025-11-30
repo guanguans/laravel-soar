@@ -19,7 +19,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class RayOutput extends AbstractOutput
 {
-    public function __construct(private string $label = 'Soar Scores') {}
+    public function __construct(private readonly string $label = 'Soar Scores') {}
 
     /**
      * @noinspection PhpMissingParentCallCommonInspection

@@ -19,6 +19,7 @@ use Illuminate\Support\Collection;
 
 if (!\function_exists('Guanguans\LaravelSoar\Support\classes')) {
     /**
+     * @see https://github.com/illuminate/collections
      * @see https://github.com/alekitto/class-finder
      * @see https://github.com/ergebnis/classy
      * @see https://gitlab.com/hpierce1102/ClassFinder
@@ -27,23 +28,35 @@ if (!\function_exists('Guanguans\LaravelSoar\Support\classes')) {
      * @see \get_declared_interfaces()
      * @see \get_declared_traits()
      * @see \DG\BypassFinals::enable()
+     * @see \Composer\Util\ErrorHandler
+     * @see \Monolog\ErrorHandler
+     * @see \PhpCsFixer\ExecutorWithoutErrorHandler
+     * @see \Phrity\Util\ErrorHandler
      *
      * @noinspection RedundantDocCommentTagInspection
+     * @noinspection PhpUndefinedNamespaceInspection
      *
-     * @param callable(string, class-string): bool $filter
+     * @param null|(callable(class-string, string): bool) $filter
+     *
+     * @return \Illuminate\Support\Collection<class-string, \ReflectionClass>
      */
-    function classes(callable $filter): Collection
+    function classes(?callable $filter = null): Collection
     {
-        static $allClasses;
+        static $classes;
 
-        $allClasses ??= collect(spl_autoload_functions())->flatMap(
+        $classes ??= collect(spl_autoload_functions())->flatMap(
             static fn (mixed $loader): array => \is_array($loader) && $loader[0] instanceof ClassLoader
                 ? $loader[0]->getClassMap()
                 : []
         );
 
-        return $allClasses
-            ->filter($filter)
+        return $classes
+            ->when(
+                \is_callable($filter),
+                static fn (Collection $classes): Collection => $classes->filter(
+                    static fn (string $file, string $class) => $filter($class, $file)
+                )
+            )
             ->mapWithKeys(static function (string $file, string $class): array {
                 try {
                     return [$class => new \ReflectionClass($class)];

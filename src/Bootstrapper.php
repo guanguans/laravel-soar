@@ -32,7 +32,7 @@ class Bootstrapper
     private static Collection $queries;
     private static Collection $scores;
 
-    public function __construct(private Application $application)
+    public function __construct(private readonly Application $application)
     {
         self::$queries = collect();
         self::$scores = collect();
@@ -96,6 +96,11 @@ class Bootstrapper
         );
     }
 
+    /**
+     * @param array<string, mixed> $score
+     *
+     * @return array<string, mixed>
+     */
     private function hydrateScore(array $score): array
     {
         $query = $this->matchQuery($score);
@@ -125,6 +130,8 @@ class Bootstrapper
     }
 
     /**
+     * @param array<string, mixed> $score
+     *
      * @return array{
      *     sql: string,
      *     time: string,
@@ -139,7 +146,7 @@ class Bootstrapper
             static fn (array $query): bool => $score['Sample'] === $query['sql'],
             static fn (): array => self::$queries
                 ->map(static function (array $query) use ($score): array {
-                    $query['similarity'] = similar_text($score['Sample'], $query['sql']);
+                    $query['similarity'] = similar_text((string) $score['Sample'], (string) $query['sql']);
 
                     return $query;
                 })

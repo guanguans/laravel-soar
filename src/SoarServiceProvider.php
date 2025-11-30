@@ -28,6 +28,7 @@ use Illuminate\Support\ServiceProvider;
 
 class SoarServiceProvider extends ServiceProvider
 {
+    /** @var list<class-string> */
     public array $singletons = [
         Bootstrapper::class,
     ];

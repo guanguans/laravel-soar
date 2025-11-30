@@ -21,8 +21,8 @@ use Symfony\Component\HttpFoundation\Response;
 class LogOutput extends AbstractOutput
 {
     public function __construct(
-        private string $channel = 'daily',
-        private string $level = 'warning'
+        private readonly string $channel = 'daily',
+        private readonly string $level = 'warning'
     ) {}
 
     /**

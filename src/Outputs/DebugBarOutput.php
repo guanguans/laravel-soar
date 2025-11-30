@@ -22,8 +22,8 @@ use Symfony\Component\HttpFoundation\Response;
 class DebugBarOutput extends AbstractOutput
 {
     public function __construct(
-        private string $name = 'Soar Scores',
-        private string $label = 'warning'
+        private readonly string $name = 'Soar Scores',
+        private readonly string $label = 'warning'
     ) {}
 
     /**

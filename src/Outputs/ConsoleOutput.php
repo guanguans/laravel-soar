@@ -19,7 +19,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ConsoleOutput extends AbstractOutput
 {
-    public function __construct(private string $method = 'warn') {}
+    public function __construct(private readonly string $method = 'warn') {}
 
     /**
      * @noinspection PhpMissingParentCallCommonInspection

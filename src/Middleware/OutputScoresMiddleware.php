@@ -23,7 +23,7 @@ use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 
 class OutputScoresMiddleware
 {
-    public function __construct(private Bootstrapper $bootstrapper) {}
+    public function __construct(private readonly Bootstrapper $bootstrapper) {}
 
     /**
      * @noinspection RedundantDocCommentTagInspection

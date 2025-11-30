@@ -21,6 +21,7 @@ declare(strict_types=1);
  * @see https://github.com/guanguans/laravel-soar
  */
 
+use Illuminate\Support\Collection;
 use Pest\Expectation;
 use function Guanguans\LaravelSoar\Support\classes;
 use function Guanguans\LaravelSoar\Support\env_explode;
@@ -28,9 +29,10 @@ use function Guanguans\LaravelSoar\Support\humanly_milliseconds;
 use function Guanguans\LaravelSoar\Support\json_pretty_encode;
 
 it('can get classes', function (): void {
-    expect(
-        classes(fn (string $file, string $class): bool => str($class)->startsWith('Rector'))
-    )->toBeCollection();
+    expect(classes(fn (string $class): bool => str($class)->startsWith('Rector\\')))
+        ->toBeInstanceOf(Collection::class)
+        ->groupBy(fn (object $object): bool => $object instanceof ReflectionClass)
+        ->toHaveCount(2);
 })->group(__DIR__, __FILE__);
 
 it('can explode env', function (): void {

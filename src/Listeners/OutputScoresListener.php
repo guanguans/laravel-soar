@@ -18,7 +18,7 @@ use Illuminate\Console\Events\CommandFinished;
 
 class OutputScoresListener
 {
-    public function __construct(private Bootstrapper $bootstrapper) {}
+    public function __construct(private readonly Bootstrapper $bootstrapper) {}
 
     public function handle(CommandFinished $commandFinished): void
     {

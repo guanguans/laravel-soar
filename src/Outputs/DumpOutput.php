@@ -19,7 +19,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class DumpOutput extends AbstractOutput
 {
-    public function __construct(private bool $exit = false) {}
+    public function __construct(private readonly bool $exit = false) {}
 
     /**
      * @noinspection ForgottenDebugOutputInspection
