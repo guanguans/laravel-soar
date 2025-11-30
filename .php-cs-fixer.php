@@ -184,6 +184,24 @@ return Factory::fromRuleSet(Php80::create()
             'anonymous_class' => false,
             'named_class' => false,
         ],
+        'no_extra_blank_lines' => [
+            'tokens' => [
+                'attribute',
+                'break',
+                'case',
+                // 'comma',
+                'continue',
+                'curly_brace_block',
+                'default',
+                'extra',
+                'parenthesis_brace_block',
+                'return',
+                'square_brace_block',
+                'switch',
+                'throw',
+                'use',
+            ],
+        ],
         'ordered_traits' => [
             'case_sensitive' => true,
         ],
@@ -277,6 +295,7 @@ return Factory::fromRuleSet(Php80::create()
         ],
         'static_lambda' => false, // pest
         // 'string_implicit_backslashes' => false,
+        'static_private_method' => false,
     ])))
     ->setUsingCache(true)
     ->setCacheFile(__DIR__.'/.build/php-cs-fixer/.php-cs-fixer.cache')

@@ -3,11 +3,11 @@
 parameters:
     ignoreErrors:
         -
-            message: '#^Offset ''file'' might not exist on array\{function\: string, line\?\: int, file\?\: string, class\?\: class\-string, type\?\: string, args\?\: array\<mixed\>, object\?\: object\}\.$#'
+            message: '#^Offset ''file'' might not exist on array\{function\: string, line\?\: int, file\?\: string, class\?\: class\-string, type\?\: string, args\?\: list\<mixed\>, object\?\: object\}\.$#'
             count: 1
             path: ../src/Support/Utils.php
 
         -
-            message: '#^Offset ''line'' might not exist on array\{function\: string, line\?\: int, file\?\: string, class\?\: class\-string, type\?\: string, args\?\: array\<mixed\>, object\?\: object\}\.$#'
+            message: '#^Offset ''line'' might not exist on array\{function\: string, line\?\: int, file\?\: string, class\?\: class\-string, type\?\: string, args\?\: list\<mixed\>, object\?\: object\}\.$#'
             count: 1
             path: ../src/Support/Utils.php

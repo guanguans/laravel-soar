@@ -130,7 +130,7 @@ class Bootstrapper
      *     time: string,
      *     connection: string,
      *     driver: string,
-     *     backtraces: array<string>
+     *     backtraces: list<string>
      * }
      */
     private function matchQuery(array $score): array

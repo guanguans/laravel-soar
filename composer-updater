@@ -206,7 +206,7 @@ $status = (new SingleCommandApplication)
                             $output = $this
                                 ->mustRunCommand("$this->highestComposerBinary outdated --format=json --direct --ansi")
                                 ->getOutput(),
-                            strpos($output, '{'.\PHP_EOL)
+                            (int) strpos($output, '{'.\PHP_EOL)
                         ),
                         true,
                         512,
@@ -235,11 +235,10 @@ $status = (new SingleCommandApplication)
 
             private function getComposerBinary(?string $composerBinary = null, ?string $phpBinary = null): string
             {
-                return \sprintf(
-                    '%s %s',
-                    $phpBinary ?? (new PhpExecutableFinder)->find(),
-                    $composerBinary ?? (new ExecutableFinder)->find('composer')
-                );
+                return implode(' ', [
+                    escapeshellarg($phpBinary ?? (new PhpExecutableFinder)->find()),
+                    escapeshellarg((string) ($composerBinary ?? (new ExecutableFinder)->find('composer'))),
+                ]);
             }
 
             /**

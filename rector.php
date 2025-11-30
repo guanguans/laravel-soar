@@ -27,6 +27,7 @@ use Illuminate\Support\Str;
 use Rector\CodeQuality\Rector\If_\ExplicitBoolCompareRector;
 use Rector\CodeQuality\Rector\LogicalAnd\LogicalToBooleanRector;
 use Rector\CodingStyle\Rector\ArrowFunction\StaticArrowFunctionRector;
+use Rector\CodingStyle\Rector\ClassLike\NewlineBetweenClassLikeStmtsRector;
 use Rector\CodingStyle\Rector\Closure\StaticClosureRector;
 use Rector\CodingStyle\Rector\Encapsed\EncapsedStringsToSprintfRector;
 use Rector\CodingStyle\Rector\Encapsed\WrapEncapsedVariableInCurlyBracesRector;
@@ -34,7 +35,7 @@ use Rector\CodingStyle\Rector\FuncCall\ArraySpreadInsteadOfArrayMergeRector;
 use Rector\CodingStyle\Rector\Stmt\NewlineAfterStatementRector;
 use Rector\Config\RectorConfig;
 use Rector\DeadCode\Rector\ClassLike\RemoveAnnotationRector;
-use Rector\DowngradePhp81\Rector\Array_\DowngradeArraySpreadStringKeyRector;
+use Rector\DowngradePhp74\Rector\Array_\DowngradeArraySpreadRector;
 use Rector\EarlyReturn\Rector\Return_\ReturnBinaryOrToEarlyReturnRector;
 use Rector\Naming\Rector\Foreach_\RenameForeachValueVariableToMatchExprVariableRector;
 use Rector\Php71\Rector\FuncCall\RemoveExtraParametersRector;
@@ -52,6 +53,7 @@ use Rector\ValueObject\PhpVersion;
 use Rector\ValueObject\Visibility;
 use Rector\Visibility\Rector\ClassMethod\ChangeMethodVisibilityRector;
 use Rector\Visibility\ValueObject\ChangeMethodVisibility;
+use RectorLaravel\Rector\ArrayDimFetch\ArrayToArrGetRector;
 use RectorLaravel\Rector\Class_\ModelCastsPropertyToCastsMethodRector;
 use RectorLaravel\Rector\Class_\RemoveModelPropertyFromFactoriesRector;
 use RectorLaravel\Rector\Empty_\EmptyToBlankAndFilledFuncRector;
@@ -121,7 +123,7 @@ return RectorConfig::configure()
     ])
     ->withRules([
         AddSeeTestAnnotationRector::class,
-        ArraySpreadInsteadOfArrayMergeRector::class,
+        // ArraySpreadInsteadOfArrayMergeRector::class,
         JsonThrowOnErrorRector::class,
         SimplifyListIndexRector::class,
         SortAssociativeArrayByKeyRector::class,
@@ -212,10 +214,11 @@ return RectorConfig::configure()
         )
     )
     ->withSkip([
+        NewlineBetweenClassLikeStmtsRector::class,
         DisallowedEmptyRuleFixerRector::class,
         RenameForeachValueVariableToMatchExprVariableRector::class,
 
-        DowngradeArraySpreadStringKeyRector::class,
+        DowngradeArraySpreadRector::class,
         EncapsedStringsToSprintfRector::class,
         ExplicitBoolCompareRector::class,
         LogicalToBooleanRector::class,
@@ -224,6 +227,7 @@ return RectorConfig::configure()
         WrapEncapsedVariableInCurlyBracesRector::class,
     ])
     ->withSkip([
+        ArrayToArrGetRector::class,
         RemoveModelPropertyFromFactoriesRector::class,
         ThrowIfRector::class,
         UseComponentPropertyWithinCommandsRector::class,
