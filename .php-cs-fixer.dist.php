@@ -19,13 +19,20 @@ use Ergebnis\License\Year;
 use Ergebnis\PhpCsFixer\Config\Factory;
 use Ergebnis\PhpCsFixer\Config\Fixers;
 use Ergebnis\PhpCsFixer\Config\Rules;
-use Ergebnis\PhpCsFixer\Config\RuleSet\Php80;
-use Ergebnis\PhpCsFixer\Config\RuleSet\Php83;
+use Ergebnis\PhpCsFixer\Config\RuleSet\Php81;
 use PhpCsFixer\Finder;
 use PhpCsFixer\Fixer\DeprecatedFixerInterface;
 use PhpCsFixerCustomFixers\Fixer\AbstractFixer;
 
-return Factory::fromRuleSet(Php80::create()
+require __DIR__.'/vendor/autoload.php';
+
+// putenv('PHP_CS_FIXER_ENFORCE_CACHE=1');
+// putenv('PHP_CS_FIXER_IGNORE_ENV=1');
+putenv('PHP_CS_FIXER_FUTURE_MODE=1');
+putenv('PHP_CS_FIXER_NON_MONOLITHIC=1');
+putenv('PHP_CS_FIXER_PARALLEL=1');
+
+return Factory::fromRuleSet(Php81::create()
     ->withHeader(
         (static function (): string {
             $mit = MIT::text(
@@ -46,54 +53,34 @@ return Factory::fromRuleSet(Php80::create()
     ->withCustomFixers(Fixers::fromFixers(...$phpCsFixerCustomFixers = array_filter(
         iterator_to_array(new PhpCsFixerCustomFixers\Fixers),
         static fn (AbstractFixer $fixer): bool => !$fixer instanceof DeprecatedFixerInterface
-            && !\array_key_exists($fixer->getName(), Php83::create()->rules()->toArray())
+            && !\array_key_exists($fixer->getName(), Php81::create()->rules()->toArray())
     )))
-    // ->withRules(Rules::fromArray(array_reduce(
-    //     $phpCsFixerCustomFixers,
-    //     static function (array $rules, AbstractFixer $fixer): array {
-    //         if (
-    //             \in_array(
-    //                 $fixer->getName(),
-    //                 [
-    //                     'PhpCsFixerCustomFixers/comment_surrounded_by_spaces',
-    //                     'PhpCsFixerCustomFixers/declare_after_opening_tag',
-    //                     'PhpCsFixerCustomFixers/isset_to_array_key_exists',
-    //                     'PhpCsFixerCustomFixers/no_commented_out_code',
-    //                     'PhpCsFixerCustomFixers/phpdoc_only_allowed_annotations',
-    //                     'PhpCsFixerCustomFixers/phpdoc_var_annotation_to_assert',
-    //                 ],
-    //                 true
-    //             )
-    //         ) {
-    //             return $rules;
-    //
-    //         }
-    //
-    //         $rules[$fixer->getName()] = true;
-    //
-    //         return $rules;
-    //     },
-    //     []
-    // )))
     ->withRules(Rules::fromArray([
-        '@PHP70Migration' => true,
-        '@PHP70Migration:risky' => true,
-        '@PHP71Migration' => true,
-        '@PHP71Migration:risky' => true,
-        '@PHP73Migration' => true,
-        '@PHP74Migration' => true,
-        '@PHP74Migration:risky' => true,
-        '@PHP80Migration' => true,
-        '@PHP80Migration:risky' => true,
-        // '@PHP81Migration' => true,
-        // '@PHP82Migration' => true,
-        // '@PHP83Migration' => true,
-        // '@PHPUnit75Migration:risky' => true,
-        // '@PHPUnit84Migration:risky' => true,
-        // '@PHPUnit100Migration:risky' => true,
+        // '@auto' => true,
+        // '@auto:risky' => true,
+        // '@autoPHPMigration' => true,
+        // '@autoPHPMigration:risky' => true,
+        // '@autoPHPUnitMigration:risky' => true,
         // '@DoctrineAnnotation' => true,
+        // '@PHP7x4Migration' => true,
+        // '@PHP7x4Migration:risky' => true,
+        // '@PHP8x0Migration' => true,
+        // '@PHP8x0Migration:risky' => true,
+        '@PHP8x1Migration' => true,
+        // '@PHP8x1Migration:risky' => true,
+        // '@PHP8x2Migration' => true,
+        // '@PHP8x2Migration:risky' => true,
+        // '@PHP8x3Migration' => true,
+        // '@PHP8x3Migration:risky' => true,
+        // '@PHP8x4Migration' => true,
+        // '@PHP8x4Migration:risky' => true,
+        // '@PHP8x5Migration' => true,
+        // '@PHP8x5Migration:risky' => true,
         // '@PhpCsFixer' => true,
         // '@PhpCsFixer:risky' => true,
+        // '@PHPUnit8x4Migration:risky' => true,
+        // '@PHPUnit9x1Migration:risky' => true,
+        '@PHPUnit10x0Migration:risky' => true,
     ]))
     ->withRules(Rules::fromArray([
         'align_multiline_comment' => [
@@ -232,6 +219,8 @@ return Factory::fromRuleSet(Php80::create()
         'phpdoc_no_alias_tag' => [
             'replacements' => [
                 'link' => 'see',
+                // 'property-read' => 'property',
+                // 'property-write' => 'property',
                 'type' => 'var',
             ],
         ],
@@ -294,36 +283,35 @@ return Factory::fromRuleSet(Php80::create()
             'stick_comment_to_next_continuous_control_statement' => true,
         ],
         'static_lambda' => false, // pest
-        // 'string_implicit_backslashes' => false,
         'static_private_method' => false,
     ])))
     ->setUsingCache(true)
-    ->setCacheFile(__DIR__.'/.build/php-cs-fixer/.php-cs-fixer.cache')
+    ->setCacheFile(\sprintf('%s/.build/php-cs-fixer/%s.cache', __DIR__, pathinfo(__FILE__, \PATHINFO_FILENAME)))
+    ->setUnsupportedPhpVersionAllowed(true)
     ->setFinder(
+        /**
+         * @see https://github.com/laravel/pint/blob/main/app/Commands/DefaultCommand.php
+         * @see https://github.com/laravel/pint/blob/main/app/Factories/ConfigurationFactory.php
+         * @see https://github.com/laravel/pint/blob/main/app/Repositories/ConfigurationJsonRepository.php
+         */
         Finder::create()
-            ->in([
-                __DIR__.'/config/',
-                __DIR__.'/src/',
-                __DIR__.'/tests/',
-                __DIR__.'/workbench/',
-            ])
+            ->in(__DIR__)
             ->exclude([
-                '__snapshots__',
-                'Fixtures',
+                '__snapshots__/',
+                'Fixtures/',
+                'vendor-bin/',
+            ])
+            ->notPath([
+                // '/lang\/.*\.json$/',
             ])
             ->notName([
-                '*.blade.php',
-                'JavascriptRenderer.php',
+                '/\.blade\.php$/',
             ])
+            ->ignoreDotFiles(false)
+            ->ignoreUnreadableDirs(false)
+            ->ignoreVCS(true)
+            ->ignoreVCSIgnored(true)
             ->append([
-                ...array_filter(
-                    glob(__DIR__.'/{*,.*}.php', \GLOB_BRACE),
-                    static fn (string $filename): bool => !\in_array($filename, [
-                        __DIR__.'/.phpstorm.meta.php',
-                        // __DIR__.'/_ide_helper.php',
-                        __DIR__.'/_ide_helper_models.php',
-                    ], true)
-                ),
-                __DIR__.'/composer-updater',
+                __DIR__.'/composer-bump',
             ])
     );
