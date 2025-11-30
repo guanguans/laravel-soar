@@ -8,6 +8,26 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 
+<a name="4.2.0"></a>
+## [4.2.0] - 2025-11-30
+### 🐞 Bug Fixes
+- **composer:** update keywords in composer.json ([a196b63](https://github.com/guanguans/laravel-soar/commit/a196b63))
+
+### 📦 Builds
+- **dependencies:** update rector/jack to version 0.2 and enhance command options ([c66d032](https://github.com/guanguans/laravel-soar/commit/c66d032))
+- **deps:** update dependencies and improve configurations ([5ca1a7c](https://github.com/guanguans/laravel-soar/commit/5ca1a7c))
+
+### Pull Requests
+- Merge pull request [#71](https://github.com/guanguans/laravel-soar/issues/71) from guanguans/dependabot/github_actions/actions/checkout-6
+- Merge pull request [#70](https://github.com/guanguans/laravel-soar/issues/70) from guanguans/dependabot/github_actions/actions/setup-node-6
+- Merge pull request [#69](https://github.com/guanguans/laravel-soar/issues/69) from guanguans/dependabot/github_actions/stefanzweifel/git-auto-commit-action-7
+- Merge pull request [#68](https://github.com/guanguans/laravel-soar/issues/68) from guanguans/dependabot/github_actions/actions/labeler-6
+- Merge pull request [#67](https://github.com/guanguans/laravel-soar/issues/67) from guanguans/dependabot/github_actions/actions/setup-node-5
+- Merge pull request [#66](https://github.com/guanguans/laravel-soar/issues/66) from guanguans/dependabot/github_actions/actions/stale-10
+- Merge pull request [#65](https://github.com/guanguans/laravel-soar/issues/65) from guanguans/dependabot/github_actions/actions/checkout-5
+- Merge pull request [#64](https://github.com/guanguans/laravel-soar/issues/64) from guanguans/dependabot/github_actions/stefanzweifel/git-auto-commit-action-6
+
+
 <a name="4.1.2"></a>
 ## [4.1.2] - 2025-05-23
 ### 🐞 Bug Fixes
@@ -676,7 +696,8 @@ All notable changes to this project will be documented in this file.
 - Merge pull request [#1](https://github.com/guanguans/laravel-soar/issues/1) from guanguans/add-license-1
 
 
-[Unreleased]: https://github.com/guanguans/laravel-soar/compare/4.1.2...HEAD
+[Unreleased]: https://github.com/guanguans/laravel-soar/compare/4.2.0...HEAD
+[4.2.0]: https://github.com/guanguans/laravel-soar/compare/4.1.2...4.2.0
 [4.1.2]: https://github.com/guanguans/laravel-soar/compare/4.1.1...4.1.2
 [4.1.1]: https://github.com/guanguans/laravel-soar/compare/4.1.0...4.1.1
 [4.1.0]: https://github.com/guanguans/laravel-soar/compare/4.0.2...4.1.0
