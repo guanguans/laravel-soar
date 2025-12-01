@@ -2,7 +2,6 @@
 
 /** @noinspection DebugFunctionUsageInspection */
 /** @noinspection ForgottenDebugOutputInspection */
-/** @noinspection PhpParamsInspection */
 /** @noinspection PhpUnused */
 
 declare(strict_types=1);
@@ -19,7 +18,6 @@ declare(strict_types=1);
 namespace Guanguans\LaravelSoar\Mixins;
 
 use Guanguans\LaravelSoar\Facades\Soar;
-use Guanguans\LaravelSoar\Support\Utils;
 
 /**
  * @mixin \Illuminate\Database\Eloquent\Builder
@@ -49,24 +47,5 @@ class QueryBuilderMixin
             $depth,
             $options
         )[0];
-    }
-
-    public function ddRawSql(): \Closure
-    {
-        return fn (): mixed => dd($this->toRawSql()); // @codeCoverageIgnore
-    }
-
-    public function dumpRawSql(): \Closure
-    {
-        return function (): self {
-            dump($this->toRawSql());
-
-            return $this;
-        };
-    }
-
-    public function toRawSql(): \Closure
-    {
-        return fn (): string => Utils::toRawSql($this);
     }
 }

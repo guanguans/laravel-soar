@@ -13,11 +13,7 @@ declare(strict_types=1);
 
 namespace Guanguans\LaravelSoar\Support;
 
-use Illuminate\Database\Connection;
-use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
-use Illuminate\Database\Eloquent\Relations\Relation as RelationBuilder;
 use Illuminate\Database\Events\QueryExecuted;
-use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Support\Str;
 
 class Utils
@@ -67,32 +63,9 @@ class Utils
         return str_repeat('★', $good = (int) round($score / 100 * 5)).str_repeat('☆', 5 - $good);
     }
 
-    public static function toRawSql(EloquentBuilder|QueryBuilder|QueryExecuted|RelationBuilder $query): string
-    {
-        if (method_exists($query, 'toRawSql')) {
-            return $query->toRawSql(); // @codeCoverageIgnore
-        }
-
-        if ($query instanceof QueryExecuted) {
-            $sql = $query->sql;
-            $bindings = $query->bindings;
-            $connection = $query->connection;
-        } else {
-            $sql = $query->toSql();
-            $bindings = $query->getBindings();
-            $connection = $query->getConnection();
-        }
-
-        if ([] === $bindings) {
-            return $sql;
-        }
-
-        return self::replaceSqlBindings($sql, $bindings, $connection);
-    }
-
     /**
-     * @noinspection DebugFunctionUsageInspection
-     *
+     * @see \Illuminate\Database\Query\Builder::toRawSql()
+     * @see https://github.com/laravel/framework/blob/12.x/src/Illuminate/Database/Events/QueryExecuted.php
      * @see \Laravel\Telescope\Watchers\QueryWatcher::replaceBindings()
      * @see addslashes()
      * @see addcslashes()
@@ -104,57 +77,18 @@ class Utils
      * @see var_export()
      * @see json_encode()
      */
-    public static function replaceSqlBindings(string $sql, array $bindings, Connection $connection): string
+    public static function toRawSql(QueryExecuted $queryExecuted): string
     {
-        // $quoteStringBinding = static function (mixed $pdo, mixed $binding): string {
-        //     try {
-        //         if ($pdo instanceof \PDO) {
-        //             return $pdo->quote($binding);
-        //         }
-        //     } catch (\PDOException $pdoException) {
-        //         throw_if('IM001' !== $pdoException->getCode(), $pdoException);
-        //     }
-        //
-        //     // Fallback when PDO::quote function is missing...
-        //     $binding = strtr($binding, [
-        //         \chr(26) => '\\Z',
-        //         \chr(8) => '\\b',
-        //         '"' => '\"',
-        //         "'" => "\\'",
-        //         '\\' => '\\\\',
-        //     ]);
-        //
-        //     return "'".$binding."'";
-        // };
-        //
-        // return collect($connection->prepareBindings($bindings))->reduce(
-        //     static function (string $sql, mixed $binding, mixed $key) use ($quoteStringBinding, $connection): string {
-        //         if (null === $binding) {
-        //             $binding = 'null';
-        //         } elseif (!\is_int($binding) && !\is_float($binding)) {
-        //             $binding = $quoteStringBinding($connection->getPdo(), $binding);
-        //         }
-        //
-        //         return preg_replace(
-        //             is_numeric($key)
-        //                 ? "/\\?(?=(?:[^'\\\\']*'[^'\\\\']*')*[^'\\\\']*$)/"
-        //                 : "/:$key(?=(?:[^'\\\\']*'[^'\\\\']*')*[^'\\\\']*$)/",
-        //             (string) $binding,
-        //             $sql,
-        //             is_numeric($key) ? 1 : -1
-        //         );
-        //     },
-        //     $sql,
-        // );
+        if (method_exists($queryExecuted, 'toRawSql')) {
+            return $queryExecuted->toRawSql(); // @codeCoverageIgnore
+        }
 
-        return vsprintf(
-            str_replace(['%', '?', '%s%s'], ['%%', '%s', '?'], $sql),
-            array_map(
-                static fn (mixed $binding): string => \is_string($binding)
-                    ? $connection->getPdo()->quote($binding)
-                    : var_export($binding, true),
-                $connection->prepareBindings($bindings)
-            )
-        );
+        return $queryExecuted->connection
+            ->query()
+            ->getGrammar()
+            ->substituteBindingsIntoRawSql(
+                $queryExecuted->sql,
+                $queryExecuted->connection->prepareBindings($queryExecuted->bindings)
+            );
     }
 }

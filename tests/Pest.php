@@ -41,7 +41,8 @@ uses(TestCase::class)
     // ->compact()
     ->beforeAll(function (): void {})
     ->beforeEach(function (): void {
-        links([
+        static $linked;
+        $linked ??= links([
             __DIR__.'/../'.basename($target = __DIR__.'/../vendor/orchestra/testbench-core/laravel') => $target,
         ]);
 

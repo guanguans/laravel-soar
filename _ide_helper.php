@@ -22,9 +22,6 @@ namespace Illuminate\Database\Query {
      * @method never ddSoarScore(int $depth = 512, int $options = 0)
      * @method self dumpSoarScore(int $depth = 512, int $options = 0)
      * @method array toSoarScore(int $depth = 512, int $options = 0)
-     * @method never ddRawSql()
-     * @method self dumpRawSql()
-     * @method string toRawSql()
      *
      * @mixin \Illuminate\Database\Eloquent\Builder
      *
@@ -39,9 +36,6 @@ namespace Illuminate\Database\Eloquent {
      * @method never ddSoarScore(int $depth = 512, int $options = 0)
      * @method self dumpSoarScore(int $depth = 512, int $options = 0)
      * @method array toSoarScore(int $depth = 512, int $options = 0)
-     * @method never ddRawSql()
-     * @method self dumpRawSql()
-     * @method string toRawSql()
      *
      * @mixin \Illuminate\Database\Query\Builder
      *
@@ -56,9 +50,6 @@ namespace Illuminate\Database\Eloquent\Relations {
      * @method never ddSoarScore(int $depth = 512, int $options = 0)
      * @method self dumpSoarScore(int $depth = 512, int $options = 0)
      * @method array toSoarScore(int $depth = 512, int $options = 0)
-     * @method never ddRawSql()
-     * @method self dumpRawSql()
-     * @method string toRawSql()
      *
      * @mixin \Illuminate\Database\Eloquent\Builder
      *
