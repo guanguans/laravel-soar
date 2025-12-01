@@ -28,6 +28,7 @@ class ScoreCommand extends Command
 
     /**
      * @noinspection MethodShouldBeFinalInspection
+     * @noinspection OffsetOperationsInspection
      *
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
      */

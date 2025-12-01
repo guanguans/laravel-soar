@@ -15,6 +15,7 @@ namespace Guanguans\LaravelSoar\Outputs;
 
 use Illuminate\Console\Events\CommandFinished;
 use Illuminate\Support\Collection;
+use LaraDumps\LaraDumpsCore\LaraDumps;
 use Symfony\Component\HttpFoundation\Response;
 
 class LaraDumpsOutput extends AbstractOutput
@@ -29,7 +30,7 @@ class LaraDumpsOutput extends AbstractOutput
         return \function_exists('ds');
     }
 
-    public function output(Collection $scores, CommandFinished|Response $outputter): mixed
+    public function output(Collection $scores, CommandFinished|Response $outputter): LaraDumps
     {
         return ds(...$scores)->label($this->label);
     }

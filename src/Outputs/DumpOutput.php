@@ -23,8 +23,8 @@ class DumpOutput extends AbstractOutput
 
     /**
      * @noinspection ForgottenDebugOutputInspection
-     * @noinspection ClosureToArrowFunctionInspection
      * @noinspection DebugFunctionUsageInspection
+     * @noinspection PhpVoidFunctionResultUsedInspection
      */
     public function output(Collection $scores, CommandFinished|Response $outputter): mixed
     {

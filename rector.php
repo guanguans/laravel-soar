@@ -216,7 +216,7 @@ return RectorConfig::configure()
             [
                 'classes',
                 'env_explode',
-                'humanly_milliseconds',
+                'human_milliseconds',
                 'json_pretty_encode',
             ],
             static function (array $carry, string $func): array {

@@ -83,11 +83,11 @@ if (!\function_exists('Guanguans\LaravelSoar\Support\env_explode')) {
     }
 }
 
-if (!\function_exists('Guanguans\LaravelSoar\Support\humanly_milliseconds')) {
+if (!\function_exists('Guanguans\LaravelSoar\Support\human_milliseconds')) {
     /**
      * @noinspection PhpUnhandledExceptionInspection
      */
-    function humanly_milliseconds(float|int $milliseconds, array $syntax = []): string
+    function human_milliseconds(float|int $milliseconds, array $syntax = []): string
     {
         return CarbonInterval::microseconds($milliseconds * 1000)
             ->cascade()

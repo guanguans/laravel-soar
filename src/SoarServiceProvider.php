@@ -92,6 +92,9 @@ class SoarServiceProvider extends ServiceProvider
         RelationBuilder::mixin($queryBuilderMixin);
     }
 
+    /**
+     * @noinspection PhpIncompatibleReturnTypeInspection
+     */
     private function registerOutputManager(): void
     {
         $this->app->singleton(

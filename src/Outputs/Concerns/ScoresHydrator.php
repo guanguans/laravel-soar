@@ -22,6 +22,7 @@ trait ScoresHydrator
 {
     /**
      * @noinspection PhpStrictTypeCheckingInspection
+     * @noinspection PhpIncompatibleReturnTypeInspection
      *
      * @throws \JsonException
      */

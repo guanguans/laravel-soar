@@ -24,7 +24,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Event;
 use Symfony\Component\HttpFoundation\Response;
-use function Guanguans\LaravelSoar\Support\humanly_milliseconds;
+use function Guanguans\LaravelSoar\Support\human_milliseconds;
 
 class Bootstrapper
 {
@@ -67,7 +67,7 @@ class Bootstrapper
 
             self::$queries->put($queryExecuted->sql, [
                 'sql' => $sql,
-                'time' => humanly_milliseconds($queryExecuted->time),
+                'time' => human_milliseconds($queryExecuted->time),
                 'connection' => $queryExecuted->connectionName,
                 'driver' => $queryExecuted->connection->getDriverName(),
                 'backtraces' => Utils::backtraces(),
@@ -130,6 +130,8 @@ class Bootstrapper
     }
 
     /**
+     * @noinspection PhpIncompatibleReturnTypeInspection
+     *
      * @param array<string, mixed> $score
      *
      * @return array{

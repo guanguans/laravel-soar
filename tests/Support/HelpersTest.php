@@ -9,7 +9,6 @@
 /** @noinspection SqlResolve */
 /** @noinspection StaticClosureCanBeUsedInspection */
 /** @noinspection LaravelFunctionsInspection */
-/** @noinspection PhpInternalEntityUsedInspection */
 declare(strict_types=1);
 
 /**
@@ -25,7 +24,7 @@ use Illuminate\Support\Collection;
 use Pest\Expectation;
 use function Guanguans\LaravelSoar\Support\classes;
 use function Guanguans\LaravelSoar\Support\env_explode;
-use function Guanguans\LaravelSoar\Support\humanly_milliseconds;
+use function Guanguans\LaravelSoar\Support\human_milliseconds;
 use function Guanguans\LaravelSoar\Support\json_pretty_encode;
 
 it('can get classes', function (): void {
@@ -55,12 +54,12 @@ it('can explode env', function (): void {
     });
 })->group(__DIR__, __FILE__);
 
-it('can humanly milliseconds', function (): void {
+it('can human milliseconds', function (): void {
     expect([
-        humanly_milliseconds(0.1),
-        humanly_milliseconds(100),
-        humanly_milliseconds(10000),
-        humanly_milliseconds(100000),
+        human_milliseconds(0.1),
+        human_milliseconds(100),
+        human_milliseconds(10000),
+        human_milliseconds(100000),
     ])->each->toBeString()->toEndWith('s');
 })->group(__DIR__, __FILE__);
 

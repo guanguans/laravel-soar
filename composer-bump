@@ -109,7 +109,7 @@ class ComposerBump
     {
         $outdatedComposerJsonContents = json_encode(
             $this->outdatedDecodedComposerJson(),
-            \JSON_PRETTY_PRINT | \JSON_UNESCAPED_UNICODE | \JSON_UNESCAPED_SLASHES
+            \JSON_THROW_ON_ERROR | \JSON_PRETTY_PRINT | \JSON_UNESCAPED_UNICODE | \JSON_UNESCAPED_SLASHES
         ).\PHP_EOL;
 
         file_put_contents($this->composerJsonPath, $outdatedComposerJsonContents);
@@ -140,7 +140,6 @@ class ComposerBump
     /**
      * @noinspection LongLine
      * @noinspection D
-     * @noinspection PhpMultipleClassDeclarationsInspection
      *
      * @throws \JsonException
      */
