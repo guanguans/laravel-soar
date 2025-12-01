@@ -27,22 +27,31 @@ namespace Guanguans\LaravelSoarTests;
 use Guanguans\LaravelSoar\Facades\Soar;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Foundation\Testing\Concerns\InteractsWithViews;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Foundation\Testing\DatabaseTruncation;
 use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
+use Illuminate\Foundation\Testing\WithCachedConfig;
+use Illuminate\Foundation\Testing\WithCachedRoutes;
 use Orchestra\Testbench\Concerns\WithWorkbench;
 use phpmock\phpunit\PHPMock;
+use PHPUnit\Framework\Attributes\Small;
 use Symfony\Component\VarDumper\Test\VarDumperTestTrait;
 
+#[Small]
 class TestCase extends \Orchestra\Testbench\TestCase
 {
+    // use DatabaseMigrations;
     // use DatabaseTransactions;
+    // use DatabaseTruncation;
     // use InteractsWithViews;
     // use LazilyRefreshDatabase;
-    // use MockeryPHPUnitIntegration;
-    // use PHPMock;
+    // use WithCachedConfig;
+    // use WithCachedRoutes;
+
     // use VarDumperTestTrait;
+    // use PHPMock;
 
     use RefreshDatabase;
     use WithWorkbench;

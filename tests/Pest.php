@@ -39,6 +39,7 @@ use Workbench\App\Models\User;
 use Workbench\Database\Factories\UserFactory;
 
 uses(TestCase::class)
+    // ->compact()
     ->beforeAll(function (): void {})
     ->beforeEach(function (): void {
         links([
@@ -52,8 +53,10 @@ uses(TestCase::class)
     ->afterAll(function (): void {})
     ->in(
         __DIR__,
-        // __DIR__.'/Feature',
-        // __DIR__.'/Unit'
+        // __DIR__.'/Arch/',
+        // __DIR__.'/Feature/',
+        // __DIR__.'/Integration/',
+        // __DIR__.'/Unit/'
     );
 
 /*
@@ -67,9 +70,27 @@ uses(TestCase::class)
 |
  */
 
-expect()->extend('toBetween', fn (int $min, int $max): Expectation => expect($this->value)
-    ->toBeGreaterThanOrEqual($min)
-    ->toBeLessThanOrEqual($max));
+/**
+ * @see expect()->toBetween()
+ */
+expect()->extend(
+    'toAssert',
+    function (Closure $assertions): Expectation {
+        $assertions($this->value);
+
+        return $this;
+    }
+);
+
+/**
+ * @see Expectation::toBeBetween()
+ */
+expect()->extend(
+    'toBetween',
+    fn (int $min, int $max): Expectation => expect($this->value)
+        ->toBeGreaterThanOrEqual($min)
+        ->toBeLessThanOrEqual($max)
+);
 
 /*
 |--------------------------------------------------------------------------
@@ -97,15 +118,15 @@ function fixtures_path(string $path = ''): string
     return __DIR__.\DIRECTORY_SEPARATOR.'Fixtures'.($path ? \DIRECTORY_SEPARATOR.$path : $path);
 }
 
-function faker(string $locale = Factory::DEFAULT_LOCALE): Generator
-{
-    return fake($locale);
+if (!\function_exists('fake')) {
+    /**
+     * @see https://github.com/laravel/framework/blob/12.x/src/Illuminate/Foundation/helpers.php#L515
+     */
+    function fake(string $locale = Factory::DEFAULT_LOCALE): Generator
+    {
+        return Factory::create($locale);
+    }
 }
-
-// function fake(string $locale = Factory::DEFAULT_LOCALE): Generator
-// {
-//     return Factory::create($locale);
-// }
 
 function running_in_github_action(): bool
 {
