@@ -36,11 +36,10 @@ parameters:
     excludePaths:
         - tests/Fixtures/
         - *.blade.php
-    level: max
-#    level: 10
     tmpDir: .build/phpstan/
+    phpVersion: 80100
+    level: max
     editorUrl: 'phpstorm://open?file=%%file%%&line=%%line%%'
-#    errorFormat: symplify
     errorFormat: friendly
     friendly:
         lineBefore: 3
@@ -57,7 +56,7 @@ parameters:
         function: 8
         dependency_tree: 150
         dependency_tree_types:
-            # only these explicit types are checked, nothing else
+#            # only these explicit types are checked, nothing else
 #            - Rector\Contract\Rector\RectorInterface
     type_coverage:
         declare: 100
@@ -80,14 +79,45 @@ parameters:
             function: 'env_explode()'
             message: 'use config() instead'
     ignoreErrors:
+#        - identifier: argument.templateType
+#        - identifier: argument.type
+#        - identifier: arrayFilter.strict
+#        - identifier: assign.propertyType
+#        - identifier: binaryOp.invalid
+#        - identifier: cast.double
+#        - identifier: cast.int
 #        - identifier: cast.string
+#        - identifier: empty.notAllowed
 #        - identifier: encapsedStringPart.nonString
+#        - identifier: foreach.valueOverwrite
 #        - identifier: logicalAnd.resultUnused
+#        - identifier: logicalOr.resultUnused
+#        - identifier: method.childParameterType
+#        - identifier: method.dynamicName
+#        - identifier: method.nonObject
+#        - identifier: missingType.generics
+#        - identifier: missingType.iterableValue
+#        - identifier: new.static
+#        - identifier: offsetAccess.nonOffsetAccessible
+#        - identifier: paramOut.type
+#        - identifier: return.type
+#        - identifier: return.void
+#        - identifier: shipmonk.deadMethod
+#        - identifier: symplify.explicitInterfaceSuffixName
+#        - identifier: symplify.explicitTraitSuffixName
+#        - identifier: symplify.forbiddenExtendOfNonAbstractClass
+#        - identifier: symplify.forbiddenStaticClassConstFetch
 #        - identifier: symplify.noDynamicName
+#        - identifier: symplify.noReference
+#        - identifier: symplify.noReturnSetterMethod
+#        - identifier: symplify.requireExceptionNamespace
+#        - identifier: trait.unused
 #        - identifier: typePerfect.noMixedMethodCaller
+
         - identifier: argument.templateType
         - identifier: argument.type
         - identifier: binaryOp.invalid
+        - identifier: cast.string
         - identifier: method.nonObject
         - identifier: missingType.generics
         - identifier: missingType.iterableValue

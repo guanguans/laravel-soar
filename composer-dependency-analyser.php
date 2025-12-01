@@ -44,16 +44,14 @@ return (new Configuration)
         [ErrorType::SHADOW_DEPENDENCY]
     )
     ->ignoreErrorsOnPackageAndPath(
+        'barryvdh/laravel-debugbar',
+        __DIR__.'/src/Outputs/DebugBarOutput.php',
+        [ErrorType::DEV_DEPENDENCY_IN_PROD]
+    )
+    ->ignoreErrorsOnPackageAndPath(
         'php-debugbar/php-debugbar',
         __DIR__.'/src/Outputs/DebugBarOutput.php',
         [ErrorType::SHADOW_DEPENDENCY]
-    )
-    ->ignoreErrorsOnPackagesAndPaths(
-        [
-            'barryvdh/laravel-debugbar',
-        ],
-        [__DIR__.'/src/Outputs/DebugBarOutput.php'],
-        [ErrorType::DEV_DEPENDENCY_IN_PROD]
     )
     ->ignoreErrorsOnPackageAndPath(
         'laradumps/laradumps-core',
@@ -64,10 +62,4 @@ return (new Configuration)
         'spatie/ray',
         __DIR__.'/src/Outputs/RayOutput.php',
         [ErrorType::SHADOW_DEPENDENCY]
-    )
-    ->ignoreErrorsOnPackages(
-        [
-            // 'guanguans/ai-commit',
-        ],
-        [ErrorType::DEV_DEPENDENCY_IN_PROD]
     );

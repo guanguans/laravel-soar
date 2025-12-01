@@ -1,0 +1,8 @@
+{
+    "preset": "default",
+    "rules": {
+        "fullwidthPunctuation": "，。；？！“”‘’",
+        "spaceAfterHalfwidthPauseOrStop": false,
+        "spaceOutsideHalfwidthBracket": false
+    }
+}

@@ -1,0 +1,13 @@
+{
+    "preset": "laravel",
+    "ignore": {
+        "words": [
+            "php",
+            "bootstrapper",
+            "mixin",
+            "hydrator",
+            "utils"
+        ],
+        "paths": []
+    }
+}

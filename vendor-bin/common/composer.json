@@ -1,0 +1,14 @@
+{
+    "require-dev": {
+        "php": ">=8.1",
+        "ergebnis/composer-normalize": "^2.48"
+    },
+    "config": {
+        "allow-plugins": {
+            "ergebnis/composer-normalize": true,
+            "theofidry/composer-inheritance-plugin": false,
+            "wikimedia/composer-merge-plugin": false
+        },
+        "sort-packages": true
+    }
+}

@@ -4,42 +4,15 @@
   bootstrap="vendor/autoload.php"
   cacheResultFile=".build/phpunit/.phpunit.result.cache"
   colors="true"
-  verbose="true"
+  failOnDeprecation="true"
+  failOnRisky="true"
+  failOnWarning="true"
   xsi:noNamespaceSchemaLocation="./vendor/phpunit/phpunit/phpunit.xsd"
 >
-  <!--printerClass="NunoMaduro\Collision\Adapters\Phpunit\Printer"-->
-  <!--printerClass="NunoMaduro\Collision\Adapters\Phpunit\Printers\DefaultPrinter"-->
-  <!--printerClass="NunoMaduro\Collision\Adapters\Phpunit\Printers\ReportablePrinter"-->
-  <testsuites>
-    <testsuite name="Guanguans Test Suite">
-      <directory>tests/</directory>
-      <exclude>vendor/</exclude>
-    </testsuite>
-  </testsuites>
-  <source>
-    <include>
-      <directory suffix=".php">src/</directory>
-    </include>
-    <exclude>
-      <!--<directory>src/Contracts/</directory>-->
-      <file>src/SoarServiceProvider.php</file>
-    </exclude>
-  </source>
-  <coverage>
-    <include>
-      <directory suffix=".php">src/</directory>
-    </include>
-    <exclude>
-      <!--<directory>src/Contracts/</directory>-->
-      <file>src/SoarServiceProvider.php</file>
-    </exclude>
-  </coverage>
-  <extensions>
-    <!--<extension class="NunoMaduro\Collision\Adapters\Phpunit\Printer"/>-->
-    <!--<extension class="Ergebnis\PHPUnit\SlowTestDetector\Extension"/>-->
-    <!--<bootstrap class="Ergebnis\PHPUnit\SlowTestDetector\Extension"/>-->
-  </extensions>
   <php>
+    <ini name="memory_limit" value="-1" />
+    <env name="DUMP_LIGHT_ARRAY" value="" />
+    <env name="DUMP_STRING_LENGTH" value="" />
     <!--<env name="APP_ENV" value="testing"/>
     <env name="APP_DEBUG" value="true"/>
     <env name="APP_MAINTENANCE_DRIVER" value="file"/>
@@ -54,4 +27,30 @@
     <env name="TELESCOPE_ENABLED" value="false"/>
     <env name="TELESCOPE_ENABLED" value="false"/>-->
   </php>
+  <testsuites>
+    <testsuite name="Guanguans Test Suite">
+      <directory>tests/</directory>
+    </testsuite>
+  </testsuites>
+  <source>
+    <include>
+      <directory>src/</directory>
+    </include>
+    <exclude>
+      <!--<directory>src/Contracts/</directory>-->
+      <file>src/SoarServiceProvider.php</file>
+    </exclude>
+  </source>
+  <coverage>
+    <include>
+      <directory>src/</directory>
+    </include>
+    <exclude>
+      <!--<directory>src/Contracts/</directory>-->
+      <file>src/SoarServiceProvider.php</file>
+    </exclude>
+  </coverage>
+  <extensions>
+    <!--<bootstrap class="Ergebnis\PHPUnit\SlowTestDetector\Extension"/>-->
+  </extensions>
 </phpunit>

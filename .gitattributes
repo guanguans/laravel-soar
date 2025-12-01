@@ -49,11 +49,11 @@
 /.*                                 export-ignore
 /CHANGELOG-*.md                     export-ignore
 /CHANGELOG.md                       export-ignore
-/composer-dependency-analyser.php   export-ignore
 /composer-bump                      export-ignore
+/composer-dependency-analyser.php   export-ignore
 /monorepo-builder.php               export-ignore
-/phpbench.json                      export-ignore
-/phpstan.neon                       export-ignore
+/peck.json                          export-ignore
+/phpstan.neon.dist                  export-ignore
 /phpunit.xml.dist                   export-ignore
 /rector-*.php                       export-ignore
 /rector.php                         export-ignore

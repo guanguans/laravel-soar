@@ -86,7 +86,6 @@ return RectorConfig::configure()
         // __DIR__.'/vendor/symplify/monorepo-builder/vendor/scoper-autoload.php',
     ])
     ->withSkip([
-        '**/__snapshots__/*',
         '**/Fixtures/*',
         __DIR__.'/tests.php',
         __FILE__,
@@ -263,7 +262,7 @@ return RectorConfig::configure()
             __DIR__.'/src/Mixins/QueryBuilderMixin.php',
         ],
         StaticArrowFunctionRector::class => $staticClosureSkipPaths = [
-            __DIR__.'/tests',
+            __DIR__.'/tests/',
         ],
         StaticClosureRector::class => $staticClosureSkipPaths,
         SortAssociativeArrayByKeyRector::class => [
@@ -300,9 +299,6 @@ return RectorConfig::configure()
             __DIR__.'/workbench/',
             ...$rootFiles,
             __DIR__.'/composer-bump',
-            __DIR__.'/tests/Factories/',
-            __DIR__.'/tests/Models/',
-            __DIR__.'/tests/Seeder/',
             __DIR__.'/tests/TestCase.php',
         ],
     ]);

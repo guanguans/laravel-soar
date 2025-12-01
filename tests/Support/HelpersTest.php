@@ -65,5 +65,5 @@ it('can humanly milliseconds', function (): void {
 })->group(__DIR__, __FILE__);
 
 it('can json pretty encode', function (): void {
-    expect(json_pretty_encode([1, 2, 3]))->toMatchJsonSnapshot();
+    expect(json_pretty_encode([1, 2, 3]))->toMatchSnapshot();
 })->group(__DIR__, __FILE__);

@@ -1,4 +1,4 @@
-name: issues-translator
+name: issues-translate
 
 on:
   workflow_dispatch:

@@ -3,7 +3,7 @@
 
 # laravel-soar
 
-> SQL optimizer and rewriter for laravel. - laravel 的 SQL 优化器和重写器。
+> SQL optimizer and rewriter for laravel.
 
 [简体中文](README-zh_CN.md) | [ENGLISH](README.md)
 
@@ -28,7 +28,7 @@
 
 ## Requirement
 
-* PHP >= 8.0
+* PHP >= 8.1
 
 ## Installation
 
@@ -46,12 +46,14 @@ php artisan vendor:publish --provider="Guanguans\\LaravelSoar\\SoarServiceProvid
 
 ### :warning: When running in a unix OS non-cli environment, may throw Fatal error: ...Exit Code: 2(Misuse of shell builtins)
 
-> Reference [https://github.com/guanguans/soar-php#configure-sudo-password](https://github.com/guanguans/soar-php#configure-sudo-password)
+#### Configure sudo password
 
 ```shell
 # Fatal error: Uncaught Guanguans\SoarPHP\Exceptions\ProcessFailedException: The command "'/Users/yaozm/Documents/develop/soar-php/bin/soar.darwin-amd64' '-report-type=json' '-query=select * from users;'" failed. Exit Code: 2(Misuse of shell builtins) Working directory: /Users/yaozm/Documents/develop/soar-php Output: ================ Error Output: ================ panic: runtime error: invalid memory address or nil pointer dereference [signal SIGSEGV: segmentation violation code=0x1 addr=0x0 pc=0x1938665] goroutine 1 [running]: github.com/pingcap/tidb/util/memory.MemTotalNormal() pkg/mod/github.com/pingcap/tidb@v1.1.0-beta.0.20210601085537-5d7c852770eb/util/memory/meminfo.go:41 +0x65 github.com/pingcap/tidb/util/memory.init.0() pkg/mod/github.com/pingcap/tidb@v1.1.0-beta.0.20210601085537-5d7c852770eb/util/memory/meminfo.go:134 +0x175 in /Users/yaozm/Documents/develop/soar-php/src/Concerns/WithRunable.php:36 Stack trace: #0 /Users/yaozm/Documents/develop/soar-php/test.php(163): Guanguans\SoarPHP\Soar->run() #1 /User in /Users/yaozm/Documents/develop/soar-php/src/Concerns/WithRunable.php on line 36
 SOAR_SUDO_PASSWORD='your sudo password' # Set a sudo password to run the soar command with sudo to avoid the above errors.
 ```
+
+#### [Or configure sudoers](https://github.com/guanguans/soar-php#configure-sudo-password)
 
 ## Usage
 
@@ -539,9 +541,10 @@ php artisan soar:score --ansi < tests/Fixtures/queries.sql
 
 ### [Methods](_ide_helper.php) of the query builder [`Mixin`](src/Mixins/QueryBuilderMixin.php)
 
-## Testing
+## Composer scripts
 
 ```shell
+composer checks:required
 composer test
 ```
 

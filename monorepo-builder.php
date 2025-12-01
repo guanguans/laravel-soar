@@ -18,7 +18,15 @@ use Guanguans\MonorepoBuilderWorker\Support\EnvironmentChecker;
 use Guanguans\MonorepoBuilderWorker\UpdateChangelogViaGoReleaseWorker;
 use Guanguans\MonorepoBuilderWorker\UpdateChangelogViaNodeReleaseWorker;
 use Guanguans\MonorepoBuilderWorker\UpdateChangelogViaPhpReleaseWorker;
+use Symfony\Component\Console\Input\ArgvInput;
+use Symfony\Component\Console\Output\ConsoleOutput;
+use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\Process\ExecutableFinder;
+use Symfony\Component\Process\PhpExecutableFinder;
+use Symfony\Component\Process\Process;
 use Symplify\MonorepoBuilder\Config\MBConfig;
+use Symplify\MonorepoBuilder\Contract\Git\TagResolverInterface;
+use Symplify\MonorepoBuilder\Git\BranchAwareTagResolver;
 use Symplify\MonorepoBuilder\Release\ReleaseWorker\AddTagToChangelogReleaseWorker;
 use Symplify\MonorepoBuilder\Release\ReleaseWorker\PushNextDevReleaseWorker;
 use Symplify\MonorepoBuilder\Release\ReleaseWorker\PushTagReleaseWorker;
@@ -32,6 +40,10 @@ return static function (MBConfig $mbConfig): void {
     require __DIR__.'/vendor/autoload.php';
     $mbConfig->defaultBranch('master');
     MBConfig::disableDefaultWorkers();
+
+    // $services = $mbConfig->services();
+    // $services->set(BranchAwareTagResolver::class);
+    // $services->alias(TagResolverInterface::class, BranchAwareTagResolver::class);
 
     /**
      * release workers - in order to execute.
@@ -52,6 +64,22 @@ return static function (MBConfig $mbConfig): void {
         // UpdateBranchAliasReleaseWorker::class,
         // PushNextDevReleaseWorker::class,
     ]);
+
+    if (!(new ArgvInput)->hasParameterOption('--dry-run')) {
+        (new Process([
+            (new PhpExecutableFinder)->find(),
+            (new ExecutableFinder)->find($composer = 'composer', $composer),
+            'run',
+            'checks:required',
+            '--ansi',
+        ]))
+            ->setEnv(['COMPOSER_MEMORY_LIMIT' => -1])
+            ->setTimeout(600)
+            ->mustRun(static function (string $type, string $buffer): void {
+                $symfonyStyle ??= new SymfonyStyle(new ArgvInput, new ConsoleOutput);
+                $symfonyStyle->write($buffer);
+            });
+    }
 
     EnvironmentChecker::checks($workers);
 };

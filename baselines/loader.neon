@@ -1,6 +1,7 @@
 # total 9 errors
 
 includes:
+    - callable.nonCallable.neon
     - method.notFound.neon
     - offsetAccess.nonArray.neon
     - offsetAccess.notFound.neon

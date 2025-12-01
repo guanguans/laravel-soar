@@ -1,0 +1,18 @@
+{
+    "require-dev": {
+        "php": ">=8.2",
+        "ergebnis/composer-normalize": "^2.48",
+        "peckphp/peck": "^0.2",
+        "phpro/grumphp-shim": "^2.17",
+        "theofidry/composer-inheritance-plugin": "^1.2"
+    },
+    "config": {
+        "allow-plugins": {
+            "ergebnis/composer-normalize": true,
+            "phpro/grumphp-shim": true,
+            "theofidry/composer-inheritance-plugin": false,
+            "wikimedia/composer-merge-plugin": false
+        },
+        "sort-packages": true
+    }
+}

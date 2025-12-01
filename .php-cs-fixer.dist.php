@@ -297,7 +297,6 @@ return Factory::fromRuleSet(Php81::create()
         Finder::create()
             ->in(__DIR__)
             ->exclude([
-                '__snapshots__/',
                 'Fixtures/',
                 'vendor-bin/',
             ])

@@ -1,12 +1,7 @@
-# total 5 errors
+# total 4 errors
 
 parameters:
     ignoreErrors:
-        -
-            message: '#^Call to an undefined method Illuminate\\Contracts\\Http\\Kernel\:\:prependMiddleware\(\)\.$#'
-            count: 1
-            path: ../src/Bootstrapper.php
-
         -
             message: '#^Call to an undefined method DebugBar\\DataCollector\\DataCollectorInterface\:\:addMessage\(\)\.$#'
             count: 1
