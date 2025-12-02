@@ -23,7 +23,6 @@ use Guanguans\MonorepoBuilderWorker\Support\Rectors\RemoveNamespaceRector;
 use Guanguans\MonorepoBuilderWorker\Support\Rectors\SimplifyListIndexRector;
 use Illuminate\Support\Carbon as IlluminateCarbon;
 use Illuminate\Support\Str;
-use Rector\CodeQuality\Rector\Class_\ConvertStaticToSelfRector;
 use Rector\CodeQuality\Rector\If_\ExplicitBoolCompareRector;
 use Rector\CodeQuality\Rector\LogicalAnd\LogicalToBooleanRector;
 use Rector\CodingStyle\Rector\ArrowFunction\StaticArrowFunctionRector;
@@ -37,16 +36,13 @@ use Rector\Config\RectorConfig;
 use Rector\DeadCode\Rector\ClassLike\RemoveAnnotationRector;
 use Rector\EarlyReturn\Rector\If_\ChangeOrIfContinueToMultiContinueRector;
 use Rector\EarlyReturn\Rector\Return_\ReturnBinaryOrToEarlyReturnRector;
-use Rector\Naming\Rector\Foreach_\RenameForeachValueVariableToMatchExprVariableRector;
 use Rector\Php71\Rector\FuncCall\RemoveExtraParametersRector;
 use Rector\Php73\Rector\FuncCall\JsonThrowOnErrorRector;
 use Rector\Php80\Rector\Class_\AnnotationToAttributeRector;
 use Rector\Php80\ValueObject\AnnotationToAttribute;
-use Rector\PHPUnit\CodeQuality\Rector\Class_\AddSeeTestAnnotationRector;
 use Rector\PHPUnit\Set\PHPUnitSetList;
 use Rector\Renaming\Rector\FuncCall\RenameFunctionRector;
 use Rector\Renaming\Rector\Name\RenameClassRector;
-use Rector\Strict\Rector\Empty_\DisallowedEmptyRuleFixerRector;
 use Rector\Transform\Rector\FuncCall\FuncCallToStaticCallRector;
 use Rector\Transform\Rector\StaticCall\StaticCallToFuncCallRector;
 use Rector\Transform\ValueObject\FuncCallToStaticCall;
@@ -57,13 +53,11 @@ use Rector\Visibility\Rector\ClassMethod\ChangeMethodVisibilityRector;
 use Rector\Visibility\ValueObject\ChangeMethodVisibility;
 use RectorLaravel\Rector\ArrayDimFetch\ArrayToArrGetRector;
 use RectorLaravel\Rector\Class_\ModelCastsPropertyToCastsMethodRector;
-use RectorLaravel\Rector\Class_\RemoveModelPropertyFromFactoriesRector;
 use RectorLaravel\Rector\Empty_\EmptyToBlankAndFilledFuncRector;
 use RectorLaravel\Rector\FuncCall\HelperFuncCallToFacadeClassRector;
 use RectorLaravel\Rector\FuncCall\RemoveDumpDataDeadCodeRector;
 use RectorLaravel\Rector\FuncCall\TypeHintTappableCallRector;
 use RectorLaravel\Rector\If_\ThrowIfRector;
-use RectorLaravel\Rector\MethodCall\UseComponentPropertyWithinCommandsRector;
 use RectorLaravel\Rector\StaticCall\DispatchToHelperFunctionsRector;
 use RectorLaravel\Set\LaravelSetList;
 use RectorLaravel\Set\LaravelSetProvider;
@@ -130,7 +124,6 @@ return RectorConfig::configure()
             ->all(),
     ])
     ->withRules([
-        AddSeeTestAnnotationRector::class,
         ArraySpreadInsteadOfArrayMergeRector::class,
         JsonThrowOnErrorRector::class,
         SimplifyListIndexRector::class,
@@ -230,36 +223,30 @@ return RectorConfig::configure()
     )
     ->withSkip([
         ChangeOrIfContinueToMultiContinueRector::class,
-        ConvertStaticToSelfRector::class,
-        DisallowedEmptyRuleFixerRector::class,
-        NewlineBetweenClassLikeStmtsRector::class,
-        RenameForeachValueVariableToMatchExprVariableRector::class,
-
         EncapsedStringsToSprintfRector::class,
         ExplicitBoolCompareRector::class,
         LogicalToBooleanRector::class,
         NewlineAfterStatementRector::class,
+        NewlineBetweenClassLikeStmtsRector::class,
         ReturnBinaryOrToEarlyReturnRector::class,
         WrapEncapsedVariableInCurlyBracesRector::class,
     ])
     ->withSkip([
-        ArrayToArrGetRector::class,
-        RemoveModelPropertyFromFactoriesRector::class,
-        ThrowIfRector::class,
-        UseComponentPropertyWithinCommandsRector::class,
+        ModelCastsPropertyToCastsMethodRector::class,
+        TypeHintTappableCallRector::class,
 
+        ArrayToArrGetRector::class,
         DispatchToHelperFunctionsRector::class,
         EmptyToBlankAndFilledFuncRector::class,
         HelperFuncCallToFacadeClassRector::class,
-        ModelCastsPropertyToCastsMethodRector::class,
-        TypeHintTappableCallRector::class,
+        ThrowIfRector::class,
     ])
     ->withSkip([
         RemoveDumpDataDeadCodeRector::class => [
             __DIR__.'/src/Mixins/QueryBuilderMixin.php',
         ],
         RemoveExtraParametersRector::class => [
-            __DIR__.'/src/Mixins/QueryBuilderMixin.php',
+            __DIR__.'/src/Mixins/',
         ],
         StaticArrowFunctionRector::class => $staticClosureSkipPaths = [
             __DIR__.'/tests/',

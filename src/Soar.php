@@ -35,7 +35,7 @@ class Soar extends \Guanguans\SoarPHP\Soar
      */
     public function __call(string $method, array $parameters): mixed
     {
-        if (static::hasMacro($method)) {
+        if (self::hasMacro($method)) {
             return $this->macroCall($method, $parameters);
         }
 

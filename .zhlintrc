@@ -1,8 +1,9 @@
 {
     "preset": "default",
+    "caseIgnores": [
+        ":warning:"
+    ],
     "rules": {
-        "fullwidthPunctuation": "，。；？！“”‘’",
-        "spaceAfterHalfwidthPauseOrStop": false,
         "spaceOutsideHalfwidthBracket": false
     }
 }

@@ -1,7 +1,8 @@
-# total 9 errors
+# total 7 errors
 
 includes:
     - callable.nonCallable.neon
     - method.notFound.neon
     - offsetAccess.nonArray.neon
     - offsetAccess.notFound.neon
+    - staticMethod.dynamicCall.neon

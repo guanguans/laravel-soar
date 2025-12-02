@@ -1,0 +1,8 @@
+# total 1 error
+
+parameters:
+    ignoreErrors:
+        -
+            message: '#^Dynamic call to static method Illuminate\\Database\\Query\\Builder\:\:toRawSql\(\)\.$#'
+            count: 1
+            path: ../src/Mixins/QueryBuilderMixin.php

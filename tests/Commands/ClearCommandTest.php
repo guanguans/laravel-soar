@@ -29,8 +29,10 @@ it('can clear the Soar log file', function (): void {
     expect($logFile = ClearCommand::soarLogFile())->toBeFile();
 
     artisan(ClearCommand::class)
-        ->expectsOutput('⏳ Clearing Soar log file...')
-        ->expectsOutput("✅ The Soar log file [$logFile] has been cleared.")
+        // ->expectsOutput('⏳ Clearing Soar log file...')
+        // ->expectsOutput("✅ The Soar log file [$logFile] has been cleared.")
+        ->expectsOutputToContain('⏳ Clearing Soar log file...')
+        ->expectsOutputToContain("✅ The Soar log file [$logFile] has been cleared.")
         ->assertOk();
 
     expect($logFile)->not->toBeFile();

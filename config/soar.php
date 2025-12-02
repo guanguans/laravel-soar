@@ -59,8 +59,8 @@ return [
     ],
 
     /**
-     * @see https://github.com/guanguans/soar-php/blob/master/examples/soar-options-example.php
-     * @see https://github.com/guanguans/soar-php/blob/master/examples/soar-options.php
+     * @see https://github.com/guanguans/soar-php/blob/master/examples/options-example.php
+     * @see https://github.com/guanguans/soar-php/blob/master/examples/options.php
      * @see https://github.com/XiaoMi/soar
      */
     'options' => [
@@ -91,7 +91,7 @@ return [
         '-allow-online-as-test' => env('SOAR_ALLOW_ONLINE_AS_TEST', true),
 
         // 指定 blacklist 配置文件的位置，文件中的 SQL 不会被评审。一行一条SQL，可以是指纹，也可以是正则
-        '-blacklist' => env('SOAR_BLACKLIST', base_path('vendor/guanguans/soar-php/examples/soar.blacklist.example')),
+        '-blacklist' => env('SOAR_BLACKLIST', base_path('vendor/guanguans/soar-php/examples/blacklist.example')),
 
         // Explain, 是否开启Explain执行计划分析 (default true)
         '-explain' => env('SOAR_EXPLAIN', true),

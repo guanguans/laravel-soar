@@ -1,0 +1,61 @@
+<?php
+
+declare(strict_types=1);
+
+/**
+ * Copyright (c) 2020-2025 guanguans<ityaozm@gmail.com>
+ *
+ * For the full copyright and license information, please view
+ * the LICENSE file that was distributed with this source code.
+ *
+ * @see https://github.com/guanguans/laravel-soar
+ */
+
+namespace Workbench\App\Support;
+
+use Guanguans\LaravelSoar\OutputManager;
+use Guanguans\LaravelSoar\Outputs\ClockworkOutput;
+use Guanguans\LaravelSoar\Outputs\ConsoleOutput;
+use Guanguans\LaravelSoar\Outputs\DebugBarOutput;
+use Guanguans\LaravelSoar\Outputs\DumpOutput;
+use Guanguans\LaravelSoar\Outputs\JsonOutput;
+use Guanguans\LaravelSoar\Outputs\LaraDumpsOutput;
+use Guanguans\LaravelSoar\Outputs\LogOutput;
+use Guanguans\LaravelSoar\Outputs\RayOutput;
+use Workbench\App\Models\User;
+use Workbench\Database\Factories\UserFactory;
+
+class Utils
+{
+    public static function extendOutputManager(null|array|string $outputs = null): void
+    {
+        $outputs ??= [
+            ClockworkOutput::class,
+            ConsoleOutput::class => ['method' => 'warn'],
+            DebugBarOutput::class => ['name' => 'Soar Scores', 'label' => 'warning'],
+            DumpOutput::class => ['exit' => false],
+            JsonOutput::class => ['key' => 'soar_scores'],
+            LaraDumpsOutput::class => ['label' => 'Soar Scores'],
+            LogOutput::class => ['channel' => 'daily', 'level' => 'warning'],
+            RayOutput::class => ['label' => 'Soar Scores'],
+        ];
+
+        app()->extend(
+            OutputManager::class,
+            static function (OutputManager $outputManager) use ($outputs): OutputManager {
+                foreach ((array) $outputs as $class => $parameters) {
+                    if (!\is_array($parameters)) {
+                        [$parameters, $class] = [(array) $class, $parameters];
+                    }
+
+                    $outputManager[$class] = resolve($class, $parameters);
+                }
+
+                return $outputManager;
+            }
+        );
+
+        UserFactory::new()->times(3)->create();
+        User::query()->first();
+    }
+}

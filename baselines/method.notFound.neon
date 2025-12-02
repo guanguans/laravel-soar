@@ -1,4 +1,4 @@
-# total 4 errors
+# total 1 error
 
 parameters:
     ignoreErrors:
@@ -6,18 +6,3 @@ parameters:
             message: '#^Call to an undefined method DebugBar\\DataCollector\\DataCollectorInterface\:\:addMessage\(\)\.$#'
             count: 1
             path: ../src/Outputs/DebugBarOutput.php
-
-        -
-            message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Builder\|Illuminate\\Database\\Eloquent\\Relations\\Relation\|Illuminate\\Database\\Query\\Builder\:\:getBindings\(\)\.$#'
-            count: 1
-            path: ../src/Support/Utils.php
-
-        -
-            message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Builder\|Illuminate\\Database\\Eloquent\\Relations\\Relation\|Illuminate\\Database\\Query\\Builder\:\:getConnection\(\)\.$#'
-            count: 1
-            path: ../src/Support/Utils.php
-
-        -
-            message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Builder\|Illuminate\\Database\\Eloquent\\Relations\\Relation\|Illuminate\\Database\\Query\\Builder\:\:toSql\(\)\.$#'
-            count: 1
-            path: ../src/Support/Utils.php

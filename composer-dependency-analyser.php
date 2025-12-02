@@ -17,14 +17,12 @@ use ShipMonk\ComposerDependencyAnalyser\Config\ErrorType;
 return (new Configuration)
     ->addPathsToScan(
         [
-            __DIR__.'/config',
-            __DIR__.'/src',
+            __DIR__.'/config/',
         ],
         false
     )
     ->addPathsToExclude([
-        __DIR__.'/tests',
-        // __DIR__.'/src/Support/Rectors',
+        __DIR__.'/tests/',
     ])
     /** @see \ShipMonk\ComposerDependencyAnalyser\Analyser::CORE_EXTENSIONS */
     ->ignoreErrorsOnExtensions(

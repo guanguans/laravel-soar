@@ -95,7 +95,7 @@ class ComposerBump
     public function __invoke(): void
     {
         $this
-            ->updateComposerPackages()
+            // ->updateComposerPackages()
             ->updateOutdatedComposerPackages()
             ->updateComposerPackages()
             ->normalizeComposerJson()
@@ -109,7 +109,7 @@ class ComposerBump
     {
         $outdatedComposerJsonContents = json_encode(
             $this->outdatedDecodedComposerJson(),
-            \JSON_THROW_ON_ERROR | \JSON_PRETTY_PRINT | \JSON_UNESCAPED_UNICODE | \JSON_UNESCAPED_SLASHES
+            \JSON_PRETTY_PRINT | \JSON_THROW_ON_ERROR | \JSON_UNESCAPED_SLASHES | \JSON_UNESCAPED_UNICODE
         ).\PHP_EOL;
 
         file_put_contents($this->composerJsonPath, $outdatedComposerJsonContents);
@@ -162,12 +162,18 @@ class ComposerBump
                     continue;
                 }
 
-                if ($version = InstalledVersions::getVersion($package)) {
-                    $dependencyVersion = $this->dependencyVersionFor($version);
+                if (
+                    !Str::is($this->exceptVersions, $version = InstalledVersions::getVersion($package))
+                   && !Str::is($this->exceptVersions, $originalVersion = $this->dependencyVersionFor($version))
+                ) {
+                    $dependencyVersion = $originalVersion;
                 }
 
-                if (isset($outdatedComposerPackages[$package])) {
-                    $dependencyVersion = $outdatedComposerPackages[$package]['dependency_version'];
+                if (
+                    isset($outdatedComposerPackages[$package])
+                    && !Str::is($this->exceptVersions, $outdatedVersion = $outdatedComposerPackages[$package]['dependency_version'])
+                ) {
+                    $dependencyVersion = $outdatedVersion;
                 }
             }
         }
@@ -238,6 +244,7 @@ class ComposerBump
     {
         return implode(' ', [
             escapeshellarg($phpBinary ?? (new PhpExecutableFinder)->find()),
+            // '-d', escapeshellarg('error_reporting=E_ALL &~ E_DEPRECATED'),
             escapeshellarg((string) ($composerBinary ?? (new ExecutableFinder)->find('composer'))),
         ]);
     }
@@ -261,7 +268,10 @@ class ComposerBump
         ];
 
         $cwd ??= \dirname($this->composerJsonPath);
-        $env += ['COMPOSER_MEMORY_LIMIT' => -1];
+        $env += [
+            'COMPOSER_MEMORY_LIMIT' => -1,
+            'XDEBUG_MODE' => 'off',
+        ];
 
         $process = \is_string($command)
             ? Process::fromShellCommandline(implode(' ', [$command, ...$options]), $cwd, $env, $input, $timeout)

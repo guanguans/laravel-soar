@@ -41,7 +41,7 @@ trait WithSoarOptions
     {
         $soar = $this->soar();
 
-        if ($this->output->isVerbose()) {
+        if ($this->output->isDebug()) {
             $soar->dump();
 
             $this->output->newLine();

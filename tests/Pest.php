@@ -22,20 +22,9 @@ declare(strict_types=1);
  */
 
 use Faker\Factory;
-use Guanguans\LaravelSoar\OutputManager;
-use Guanguans\LaravelSoar\Outputs\ClockworkOutput;
-use Guanguans\LaravelSoar\Outputs\ConsoleOutput;
-use Guanguans\LaravelSoar\Outputs\DebugBarOutput;
-use Guanguans\LaravelSoar\Outputs\DumpOutput;
-use Guanguans\LaravelSoar\Outputs\JsonOutput;
-use Guanguans\LaravelSoar\Outputs\LaraDumpsOutput;
-use Guanguans\LaravelSoar\Outputs\LogOutput;
-use Guanguans\LaravelSoar\Outputs\RayOutput;
 use Guanguans\LaravelSoarTests\TestCase;
 use Illuminate\Support\Facades\Artisan;
 use Pest\Expectation;
-use Workbench\App\Models\User;
-use Workbench\Database\Factories\UserFactory;
 
 uses(TestCase::class)
     // ->compact()
@@ -43,7 +32,7 @@ uses(TestCase::class)
     ->beforeEach(function (): void {
         static $linked;
         $linked ??= links([
-            __DIR__.'/../'.basename($target = __DIR__.'/../vendor/orchestra/testbench-core/laravel') => $target,
+            __DIR__.'/../'.basename($target = __DIR__.'/../vendor/orchestra/testbench-core/laravel/') => $target,
         ]);
 
         /** @var \Guanguans\LaravelSoarTests\TestCase $this */
@@ -152,36 +141,4 @@ function links(array $links, array $parameters = []): int
     // echo Artisan::output();
 
     return $status;
-}
-
-function extend_output_manager(null|array|string $outputs = null): void
-{
-    $outputs ??= [
-        ClockworkOutput::class,
-        ConsoleOutput::class => ['method' => 'warn'],
-        DebugBarOutput::class => ['name' => 'Soar Scores', 'label' => 'warning'],
-        DumpOutput::class => ['exit' => false],
-        JsonOutput::class => ['key' => 'soar_scores'],
-        LaraDumpsOutput::class => ['label' => 'Soar Scores'],
-        LogOutput::class => ['channel' => 'daily', 'level' => 'warning'],
-        RayOutput::class => ['label' => 'Soar Scores'],
-    ];
-
-    app()->extend(
-        OutputManager::class,
-        static function (OutputManager $outputManager) use ($outputs): OutputManager {
-            foreach ((array) $outputs as $class => $parameters) {
-                if (!\is_array($parameters)) {
-                    [$parameters, $class] = [(array) $class, $parameters];
-                }
-
-                $outputManager[$class] = resolve($class, $parameters);
-            }
-
-            return $outputManager;
-        }
-    );
-
-    UserFactory::new()->times(3)->create();
-    User::query()->first();
 }

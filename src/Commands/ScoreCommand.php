@@ -43,7 +43,7 @@ class ScoreCommand extends Command
         }
 
         while (blank($query)) {
-            if (filled($query = $this->ask('Please input the SQL statements'))) {
+            if (filled($query = $this->ask('Please input the SQL statements', 'SELECT * FROM user'))) {
                 break;
             }
         }

@@ -15,6 +15,7 @@ use Guanguans\LaravelSoar\OutputManager;
 use Guanguans\LaravelSoar\Outputs\JsonOutput;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Route;
+use Workbench\App\Support\Utils;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,13 +33,13 @@ Route::get('/', static fn () => view('welcome'));
 Route::get('output-all', static fn () => tap(
     response(OutputManager::class),
     static function (): void {
-        extend_output_manager();
+        Utils::extendOutputManager();
     }
 ));
 
 Route::get('output-json', static fn () => tap(
     new JsonResponse(['output' => JsonOutput::class]),
     static function (): void {
-        extend_output_manager(JsonOutput::class);
+        Utils::extendOutputManager(JsonOutput::class);
     }
 ));

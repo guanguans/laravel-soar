@@ -14,6 +14,7 @@ declare(strict_types=1);
 use Guanguans\LaravelSoar\OutputManager;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
+use Workbench\App\Support\Utils;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,7 +32,7 @@ use Illuminate\Support\Facades\Artisan;
 // })->purpose('Display an inspiring quote');
 
 Artisan::command('output:all', function (): void {
-    extend_output_manager();
+    Utils::extendOutputManager();
 
     /** @var \Illuminate\Console\Command $this */
     $this->info(OutputManager::class);

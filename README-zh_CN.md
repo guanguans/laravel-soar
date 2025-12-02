@@ -465,7 +465,7 @@ return [
 Telescope 的 `EventWatcher` 和 `LogWatcher` 可观察到 Soar 评分的输出。
 
 1. 安装 [laravel/telescope](https://github.com/laravel/telescope)
-2. 配置 `telescope.watchers`:
+2. 配置 `telescope.watchers`：
 
 ```php
 <?php
@@ -546,6 +546,10 @@ php artisan soar:score --ansi < tests/Fixtures/queries.sql
 ```shell
 composer checks:required
 composer test
+composer testbench soar:run
+composer testbench soar:score
+composer testbench:example-serve
+composer testbench:serve
 ```
 
 ## 变更日志

@@ -27,11 +27,11 @@ class ClearCommand extends Command
 
     public function handle(): void
     {
-        $this->info('⏳ Clearing Soar log file...');
+        $this->components->info('⏳ Clearing Soar log file...');
 
         File::delete($logFile = self::soarLogFile());
 
-        $this->info("✅ The Soar log file [$logFile] has been cleared.");
+        $this->components->info("✅ The Soar log file [$logFile] has been cleared.");
     }
 
     public static function soarLogFile(): string

@@ -257,7 +257,7 @@
         "composer-bump": [
             "@putenv:php",
             "@composer-config:disable-process-timeout",
-            "@php composer-bump --highest-php-binary=$PHP85 --except-package=laravel/framework --ansi"
+            "@php composer-bump --highest-php-binary=$PHP85 --except-package=foo/bar --ansi"
         ],
         "composer-bump:all": [
             "@composer-bump",
@@ -428,7 +428,7 @@
         "rector:process-dry-run": "@rector:process --dry-run",
         "rector:process-only": "@rector:process-clear-cache --only=Guanguans\\LaravelSoar\\Support\\Rectors\\AddHasOptionsDocCommentRector",
         "rector:process-only-dry-run": "@rector:process-only --dry-run",
-        "rector:process-soar-options": "@rector:process-clear-cache --config=rector-soar-options.php",
+        "rector:process-soar-options": "@rector:process-clear-cache --config=rector-options.php",
         "rector:process-soar-options-dry-run": "@rector:process-soar-options --dry-run",
         "rector:setup-ci": "@rector setup-ci",
         "rule-doc-generator": [
@@ -453,13 +453,14 @@
         "sk:search-regex": "@sk search-regex 'Guanguans.*ValetDrivers'",
         "sk:split-config-per-package": "@sk split-config-per-package monorepo-builder.php",
         "sk:spot-lazy-traits": "@sk spot-lazy-traits src/ --max-used=2",
-        "soar:usage-example-serve": [
-            "@composer-config:disable-process-timeout",
-            "@php -S localhost:8123 examples/usage-example.php"
-        ],
-        "testbench": "@php vendor/bin/testbench --ansi",
+        "testbench": "@php vendor/bin/testbench --ansi -vv",
         "testbench:build": "@testbench workbench:build",
         "testbench:clear": "@testbench package:purge-skeleton",
+        "testbench:example-serve": [
+            "@composer-config:disable-process-timeout",
+            "@testbench:build",
+            "@php -S localhost:8123 laravel/public/index.php"
+        ],
         "testbench:prepare": "@testbench package:discover",
         "testbench:serve": [
             "@composer-config:disable-process-timeout",

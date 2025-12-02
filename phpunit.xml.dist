@@ -15,6 +15,7 @@
     <env name="DUMP_STRING_LENGTH" value="" />
     <!--<env name="APP_ENV" value="testing"/>
     <env name="APP_DEBUG" value="true"/>
+    <env name="APP_KEY" value="base64:UZ5sDPZSB7DSLKY+DYlU8G/V1e/qW+Ag0WF03VNxiSg="/>
     <env name="APP_MAINTENANCE_DRIVER" value="file"/>
     <env name="BCRYPT_ROUNDS" value="4"/>
     <env name="CACHE_STORE" value="array"/>
