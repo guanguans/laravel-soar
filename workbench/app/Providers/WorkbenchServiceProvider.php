@@ -13,6 +13,8 @@ declare(strict_types=1);
 
 namespace Workbench\App\Providers;
 
+use Guanguans\LaravelSoar\Facades\Soar;
+use Illuminate\Http\Request;
 use Illuminate\Support\ServiceProvider;
 
 class WorkbenchServiceProvider extends ServiceProvider
@@ -28,8 +30,10 @@ class WorkbenchServiceProvider extends ServiceProvider
     /**
      * Bootstrap services.
      */
-    public function boot(): void
+    public function boot(Request $request): void
     {
-        // ...
+        if (str($request->server('DOCUMENT_ROOT'))->contains('vendor/orchestra/testbench-core/laravel/public')) {
+            Soar::withSudoPassword('password');
+        }
     }
 }

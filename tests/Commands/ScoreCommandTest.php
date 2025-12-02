@@ -38,6 +38,9 @@ it('can get the Soar scores of the given stdin SQL statements', function (): voi
             'soar:score',
         ])
     )
+        ->setEnv([
+            'SOAR_SUDO_PASSWORD' => null,
+        ])
         ->setInput('select * from foo; select * from bar;')
         ->mustRun()
         ->getOutput()
@@ -60,6 +63,9 @@ it('can get the Soar scores of the given stdin SQL statements file', function ()
             ))->getCommandLine()
         ))
     )
+        ->setEnv([
+            'SOAR_SUDO_PASSWORD' => null,
+        ])
         ->mustRun()
         ->getOutput()
         ->toContain('select * from foo', 'select * from bar');

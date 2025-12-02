@@ -43,7 +43,6 @@ trait WithSoarOptions
 
         if ($this->output->isDebug()) {
             $soar->dump();
-
             $this->output->newLine();
         }
 

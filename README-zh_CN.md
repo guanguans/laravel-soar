@@ -3,7 +3,7 @@
 
 # laravel-soar
 
-> laravel 的 SQL 优化器和重写器。
+> SQL optimizer and rewriter for laravel. - laravel 的 SQL 优化器和重写器。
 
 [简体中文](README-zh_CN.md) | [ENGLISH](README.md)
 
@@ -53,7 +53,7 @@ php artisan vendor:publish --provider="Guanguans\\LaravelSoar\\SoarServiceProvid
 SOAR_SUDO_PASSWORD='your sudo password' # 设置 sudo 密码，以 sudo 运行 soar 命令，避免出现上述错误。
 ```
 
-#### [或者配置 sudoers](https://github.com/guanguans/soar-php#configure-sudo-password)
+#### [或者配置 sudoers](https://github.com/guanguans/soar-php#or-configure-sudoers)
 
 ## 使用
 
@@ -550,6 +550,7 @@ composer testbench soar:run
 composer testbench soar:score
 composer testbench:example-serve
 composer testbench:serve
+composer testbench:test
 ```
 
 ## 变更日志

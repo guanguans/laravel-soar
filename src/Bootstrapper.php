@@ -60,13 +60,13 @@ class Bootstrapper
             if (
                 self::$queries->has($queryExecuted->sql)
                 || Utils::isExceptQuery($queryExecuted->sql)
-                || Utils::isExceptQuery($sql = Utils::toRawSql($queryExecuted))
+                || Utils::isExceptQuery($rawSql = Utils::toRawSql($queryExecuted))
             ) {
                 return;
             }
 
             self::$queries->put($queryExecuted->sql, [
-                'sql' => $sql,
+                'sql' => $rawSql,
                 'time' => human_milliseconds($queryExecuted->time),
                 'connection' => $queryExecuted->connectionName,
                 'driver' => $queryExecuted->connection->getDriverName(),

@@ -16,6 +16,7 @@ namespace Guanguans\LaravelSoar\Commands;
 use Guanguans\LaravelSoar\Facades\Soar;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
+use function Illuminate\Filesystem\join_paths;
 
 class ClearCommand extends Command
 {
@@ -36,6 +37,6 @@ class ClearCommand extends Command
 
     public static function soarLogFile(): string
     {
-        return Soar::getLogOutput(\dirname(Soar::getBinary()).\DIRECTORY_SEPARATOR.'soar.log');
+        return Soar::getLogOutput(join_paths(\dirname(Soar::getBinary()), 'soar.log'));
     }
 }

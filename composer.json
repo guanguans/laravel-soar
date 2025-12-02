@@ -95,6 +95,7 @@
         "shipmonk/dead-code-detector": "^0.14",
         "shipmonk/name-collision-detector": "^2.1",
         "shipmonk/phpstan-baseline-per-identifier": "^2.2",
+        "spatie/laravel-image-optimizer": "^1.8",
         "spatie/laravel-ray": "^1.43",
         "spaze/phpstan-disallowed-calls": "^4.7",
         "staabm/phpstan-todo-by": "^0.3",
@@ -239,7 +240,6 @@
             "@actionlint",
             "@gitleaks",
             "@lint-md",
-            "@peck",
             "@zhlint"
         ],
         "checks:required": [
@@ -461,6 +461,8 @@
             "@testbench:build",
             "@php -S localhost:8123 laravel/public/index.php"
         ],
+        "testbench:optimize:image": "@testbench optimize:image",
+        "testbench:optimize:image-dry-run": "@testbench:optimize:image --dry-run",
         "testbench:prepare": "@testbench package:discover",
         "testbench:serve": [
             "@composer-config:disable-process-timeout",
@@ -472,6 +474,7 @@
             "@pest"
         ],
         "todo-lint": "! git --no-pager grep --extended-regexp --ignore-case 'todo|fixme' -- '*.php' ':!*.blade.php' ':(exclude)resources/'",
+        "touch:database-sqlite": "@php -r \"file_exists('vendor/orchestra/testbench-core/laravel/database/database.sqlite') || touch('vendor/orchestra/testbench-core/laravel/database/database.sqlite');\"",
         "trufflehog": "trufflehog git https://github.com/guanguans/laravel-soar --only-verified",
         "user:composer": [
             "@putenv:composer-memory-unlimited",

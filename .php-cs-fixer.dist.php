@@ -126,9 +126,9 @@ return Factory::fromRuleSet(Php81::create()
         'concat_space' => [
             'spacing' => 'none',
         ],
-        // 'empty_loop_condition' => [
-        //     'style' => 'for',
-        // ],
+        'empty_loop_condition' => [
+            'style' => 'for',
+        ],
         'explicit_string_variable' => false,
         'final_class' => false,
         // 'final_internal_class' => false,

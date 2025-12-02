@@ -3,7 +3,7 @@
 
 # laravel-soar
 
-> SQL optimizer and rewriter for laravel.
+> SQL optimizer and rewriter for laravel. - laravel 的 SQL 优化器和重写器。
 
 [简体中文](README-zh_CN.md) | [ENGLISH](README.md)
 
@@ -15,7 +15,7 @@
 [![Total Downloads](https://poser.pugx.org/guanguans/laravel-soar/downloads)](https://packagist.org/packages/guanguans/laravel-soar)
 [![License](https://poser.pugx.org/guanguans/laravel-soar/license)](https://packagist.org/packages/guanguans/laravel-soar)
 
-## Feature
+## Features
 
 * Supports heuristic rule suggestions, index rule suggestions, and `EXPLAIN` information interpretation
 * Support calling query builder `Mixin` methods for convenient dumping of rule suggestions
@@ -53,7 +53,7 @@ php artisan vendor:publish --provider="Guanguans\\LaravelSoar\\SoarServiceProvid
 SOAR_SUDO_PASSWORD='your sudo password' # Set a sudo password to run the soar command with sudo to avoid the above errors.
 ```
 
-#### [Or configure sudoers](https://github.com/guanguans/soar-php#configure-sudo-password)
+#### [Or configure sudoers](https://github.com/guanguans/soar-php#or-configure-sudoers)
 
 ## Usage
 
@@ -550,6 +550,7 @@ composer testbench soar:run
 composer testbench soar:score
 composer testbench:example-serve
 composer testbench:serve
+composer testbench:test
 ```
 
 ## Changelog

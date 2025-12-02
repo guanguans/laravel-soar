@@ -29,6 +29,7 @@ class ScoreCommand extends Command
     /**
      * @noinspection MethodShouldBeFinalInspection
      * @noinspection OffsetOperationsInspection
+     * @noinspection SqlResolve
      *
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
      */
@@ -43,7 +44,7 @@ class ScoreCommand extends Command
         }
 
         while (blank($query)) {
-            if (filled($query = $this->ask('Please input the SQL statements', 'SELECT * FROM user'))) {
+            if (filled($query = $this->ask('Please input the SQL statements', 'select * from foo;'))) {
                 break;
             }
         }

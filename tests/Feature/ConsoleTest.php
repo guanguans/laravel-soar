@@ -37,11 +37,13 @@ it('can not output soar scores', function (): void {
 
     $this->artisan('output:all')
         // ->expectsOutput(OutputManager::class)
+        ->expectsOutputToContain(OutputManager::class)
         ->assertOk();
 })->group(__DIR__, __FILE__);
 
 it('can outputs console', function (): void {
     $this->artisan('output:all')
         // ->expectsOutput(OutputManager::class)
+        ->expectsOutputToContain(OutputManager::class)
         ->assertOk();
 })->group(__DIR__, __FILE__);

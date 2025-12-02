@@ -34,10 +34,9 @@ class Utils
             ->map(static fn (array $trace, int $index): string => \sprintf(
                 '#%s %s:%s',
                 $index,
-                str_replace(base_path().\DIRECTORY_SEPARATOR, '', $trace['file']),
+                str_replace(Str::finish(base_path(), \DIRECTORY_SEPARATOR), '', $trace['file']),
                 $trace['line']
             ))
-            ->values()
             ->all();
     }
 

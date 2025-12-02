@@ -37,7 +37,7 @@ beforeEach(function (): void {
 
 it('can output to all', function (): void {
     $this
-        ->get('output-all')
+        ->get('output/all-example')
         ->assertOk()
         ->assertSee($this->see)
         ->assertSee(OutputManager::class);
@@ -45,7 +45,7 @@ it('can output to all', function (): void {
 
 it('can output to json', function (): void {
     $this
-        ->getJson('output-json')
+        ->getJson('output/json-example')
         ->assertOk()
         ->assertJsonStructure()
         ->assertSee($this->see)
