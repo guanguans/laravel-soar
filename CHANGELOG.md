@@ -8,6 +8,29 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 
+<a name="5.0.0"></a>
+## [5.0.0] - 2025-12-02
+### 🎨 Styles
+- apply php-cs-fixer ([e2b3fa0](https://github.com/guanguans/laravel-soar/commit/e2b3fa0))
+
+### 💅 Code Refactorings
+- apply inspection ([21ad292](https://github.com/guanguans/laravel-soar/commit/21ad292))
+- apply rector ([7ce3a5a](https://github.com/guanguans/laravel-soar/commit/7ce3a5a))
+- **commands:** remove extra blank line and use join_paths for log path - Remove an unnecessary blank line after the dump() call in debug mode. - Build the soar.log path with join_paths instead of manual concatenation and import the function. ([80aa9cb](https://github.com/guanguans/laravel-soar/commit/80aa9cb))
+- **mixins:** Remove unused raw SQL methods ([81bbacb](https://github.com/guanguans/laravel-soar/commit/81bbacb))
+
+### ✅ Tests
+- **tests:** Add ArchTest and Movies dataset tests; extend Pest with helpers ([19aab95](https://github.com/guanguans/laravel-soar/commit/19aab95))
+
+### 📦 Builds
+- **composer:** update PHP, soar-php and Laravel versions ([5973385](https://github.com/guanguans/laravel-soar/commit/5973385))
+
+### 🤖 Continuous Integrations
+- **config:** Update config files ([5a2d8aa](https://github.com/guanguans/laravel-soar/commit/5a2d8aa))
+- **config:** update config files ([0b1d401](https://github.com/guanguans/laravel-soar/commit/0b1d401))
+- **github:** Update github config files ([b766e8a](https://github.com/guanguans/laravel-soar/commit/b766e8a))
+
+
 <a name="4.2.0"></a>
 ## [4.2.0] - 2025-11-30
 ### 🐞 Bug Fixes
@@ -696,7 +719,8 @@ All notable changes to this project will be documented in this file.
 - Merge pull request [#1](https://github.com/guanguans/laravel-soar/issues/1) from guanguans/add-license-1
 
 
-[Unreleased]: https://github.com/guanguans/laravel-soar/compare/4.2.0...HEAD
+[Unreleased]: https://github.com/guanguans/laravel-soar/compare/5.0.0...HEAD
+[5.0.0]: https://github.com/guanguans/laravel-soar/compare/4.2.0...5.0.0
 [4.2.0]: https://github.com/guanguans/laravel-soar/compare/4.1.2...4.2.0
 [4.1.2]: https://github.com/guanguans/laravel-soar/compare/4.1.1...4.1.2
 [4.1.1]: https://github.com/guanguans/laravel-soar/compare/4.1.0...4.1.1
