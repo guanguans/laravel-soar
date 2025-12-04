@@ -21,6 +21,8 @@ class WorkbenchServiceProvider extends ServiceProvider
 {
     /**
      * Register services.
+     *
+     * @noinspection PhpMissingParentCallCommonInspection
      */
     public function register(): void
     {

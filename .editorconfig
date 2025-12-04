@@ -20,8 +20,8 @@ max_line_length = 0
 [*.bat]
 end_of_line = crlf
 
-[*.go]
-indent_style = tab
+# [*.go]
+# indent_style = tab
 
 [*.md]
 trim_trailing_whitespace = false

@@ -1,5 +1,8 @@
 <?php
 
+/** @noinspection ClassOverridesFieldOfSuperClassInspection */
+/** @noinspection LaravelUnknownEloquentFactoryInspection */
+
 declare(strict_types=1);
 
 /**
