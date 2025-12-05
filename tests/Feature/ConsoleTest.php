@@ -30,7 +30,7 @@ uses(WithConsoleEvents::class)
     ->beforeEach(function (): void {
         resolve(Bootstrapper::class)->boot();
 
-        $this->see = collect(Arr::first(Soar::arrayScores('select * from users')))
+        $this->see = collect(Arr::first(\Soar::arrayScores('select * from users')))
             ->except(['ID', 'Fingerprint'])
             ->keys()
             ->push('Summary', 'Basic', 'Backtraces')

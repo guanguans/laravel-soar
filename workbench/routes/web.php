@@ -32,7 +32,7 @@ use Workbench\App\Support\Utils;
 
 Route::get('/', static fn () => view('routes', [
     'routes' => collect(Route::getRoutes()->get('GET'))->filter(
-        static fn (Illuminate\Routing\Route $route) => str($route->uri())->endsWith('-example')
+        static fn (\Illuminate\Routing\Route $route) => str($route->uri())->endsWith('-example')
     ),
 ]));
 

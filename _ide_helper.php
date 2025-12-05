@@ -12,7 +12,7 @@ declare(strict_types=1);
  */
 
 namespace {
-    class Soar extends Guanguans\LaravelSoar\Facades\Soar {}
+    class Soar extends \Guanguans\LaravelSoar\Facades\Soar {}
 }
 
 namespace Illuminate\Database\Query {

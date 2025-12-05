@@ -30,7 +30,7 @@ use function Guanguans\LaravelSoar\Support\json_pretty_encode;
 it('can get classes', function (): void {
     expect(classes(fn (string $class): bool => str($class)->startsWith('Rector\\')))
         ->toBeInstanceOf(Collection::class)
-        ->groupBy(fn (object $object): bool => $object instanceof ReflectionClass)
+        ->groupBy(fn (object $object): bool => $object instanceof \ReflectionClass)
         ->toHaveCount(2);
 })->group(__DIR__, __FILE__);
 

@@ -112,7 +112,7 @@ return RectorConfig::configure()
     )
     ->withSets([
         PHPUnitSetList::PHPUNIT_100,
-        ...collect((new ReflectionClass(LaravelSetList::class))->getConstants(ReflectionClassConstant::IS_PUBLIC))
+        ...collect((new \ReflectionClass(LaravelSetList::class))->getConstants(\ReflectionClassConstant::IS_PUBLIC))
             ->reject(
                 static fn (string $constant, string $name): bool => \in_array(
                     $name,
@@ -131,7 +131,7 @@ return RectorConfig::configure()
         StaticArrowFunctionRector::class,
         StaticClosureRector::class,
         ...classes(static fn (string $class): bool => str_starts_with($class, 'RectorLaravel\Rector'))
-            ->filter(static fn (ReflectionClass $reflectionClass): bool => $reflectionClass->isInstantiable())
+            ->filter(static fn (\ReflectionClass $reflectionClass): bool => $reflectionClass->isInstantiable())
             ->keys()
             // ->dd()
             ->all(),
@@ -171,8 +171,8 @@ return RectorConfig::configure()
     ->withConfiguredRule(
         AnnotationToAttributeRector::class,
         classes(static fn (string $class): bool => str_starts_with($class, 'PhpBench\Attributes'))
-            ->filter(static fn (ReflectionClass $reflectionClass): bool => $reflectionClass->isInstantiable())
-            ->map(static fn (ReflectionClass $reflectionClass): AnnotationToAttribute => new AnnotationToAttribute(
+            ->filter(static fn (\ReflectionClass $reflectionClass): bool => $reflectionClass->isInstantiable())
+            ->map(static fn (\ReflectionClass $reflectionClass): AnnotationToAttribute => new AnnotationToAttribute(
                 $reflectionClass->getShortName(),
                 $reflectionClass->getName(),
                 [],
@@ -183,11 +183,11 @@ return RectorConfig::configure()
     ->withConfiguredRule(
         ChangeMethodVisibilityRector::class,
         classes(static fn (string $class, string $file): bool => str_starts_with($class, 'Guanguans\LaravelSoar'))
-            ->filter(static fn (ReflectionClass $reflectionClass): bool => $reflectionClass->isTrait())
+            ->filter(static fn (\ReflectionClass $reflectionClass): bool => $reflectionClass->isTrait())
             ->map(
-                static fn (ReflectionClass $reflectionClass): array => collect($reflectionClass->getMethods(ReflectionMethod::IS_PRIVATE))
-                    ->reject(static fn (ReflectionMethod $reflectionMethod): bool => $reflectionMethod->isFinal() || $reflectionMethod->isInternal())
-                    ->map(static fn (ReflectionMethod $reflectionMethod): ChangeMethodVisibility => new ChangeMethodVisibility(
+                static fn (\ReflectionClass $reflectionClass): array => collect($reflectionClass->getMethods(\ReflectionMethod::IS_PRIVATE))
+                    ->reject(static fn (\ReflectionMethod $reflectionMethod): bool => $reflectionMethod->isFinal() || $reflectionMethod->isInternal())
+                    ->map(static fn (\ReflectionMethod $reflectionMethod): ChangeMethodVisibility => new ChangeMethodVisibility(
                         $reflectionClass->getName(),
                         $reflectionMethod->getName(),
                         Visibility::PROTECTED

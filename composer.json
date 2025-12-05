@@ -59,6 +59,7 @@
         "laravel/framework": "^10.50 || ^11.0 || ^12.0"
     },
     "require-dev": {
+        "adamwojs/php-cs-fixer-phpdoc-force-fqcn": "^2.0",
         "bamarni/composer-bin-plugin": "^1.8",
         "barryvdh/laravel-debugbar": "^3.16",
         "brainmaestro/composer-git-hooks": "^3.0",

@@ -11,6 +11,7 @@ declare(strict_types=1);
  * @see https://github.com/guanguans/laravel-soar
  */
 
+use AdamWojs\PhpCsFixerPhpdocForceFQCN\Fixer\Phpdoc\ForceFQCNFixer;
 use Ergebnis\License\Holder;
 use Ergebnis\License\Range;
 use Ergebnis\License\Type\MIT;
@@ -39,7 +40,7 @@ return Factory::fromRuleSet(Php81::create()
                 __DIR__.'/LICENSE',
                 Range::since(
                     Year::fromString('2020'),
-                    new DateTimeZone('Asia/Shanghai'),
+                    new \DateTimeZone('Asia/Shanghai'),
                 ),
                 Holder::fromString('guanguans<ityaozm@gmail.com>'),
                 Url::fromString('https://github.com/guanguans/laravel-soar'),
@@ -50,8 +51,9 @@ return Factory::fromRuleSet(Php81::create()
             return $mit->header();
         })()
     )
+    ->withCustomFixers(Fixers::fromFixers(new ForceFQCNFixer))
     ->withCustomFixers(Fixers::fromFixers(...$phpCsFixerCustomFixers = array_filter(
-        iterator_to_array(new PhpCsFixerCustomFixers\Fixers),
+        iterator_to_array(new \PhpCsFixerCustomFixers\Fixers),
         static fn (AbstractFixer $fixer): bool => !$fixer instanceof DeprecatedFixerInterface
             && !\array_key_exists($fixer->getName(), Php81::create()->rules()->toArray())
     )))
@@ -83,6 +85,7 @@ return Factory::fromRuleSet(Php81::create()
         '@PHPUnit10x0Migration:risky' => true,
     ]))
     ->withRules(Rules::fromArray([
+        'AdamWojs/phpdoc_force_fqcn_fixer' => true,
         'align_multiline_comment' => [
             'comment_type' => 'phpdocs_only',
         ],
@@ -135,7 +138,7 @@ return Factory::fromRuleSet(Php81::create()
         'final_public_method_for_abstract_class' => false,
         'fully_qualified_strict_types' => [
             'import_symbols' => false,
-            'leading_backslash_in_global_namespace' => false,
+            'leading_backslash_in_global_namespace' => true,
             'phpdoc_tags' => [
                 // 'param',
                 // 'phpstan-param',
