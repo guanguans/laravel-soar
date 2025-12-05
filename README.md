@@ -548,9 +548,9 @@ composer checks:required
 composer test
 composer testbench soar:run
 composer testbench soar:score
-composer testbench:example-serve
 composer testbench:serve
 composer testbench:test
+composer testbench:user-serve
 ```
 
 ## Changelog

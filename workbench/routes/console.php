@@ -13,7 +13,6 @@ declare(strict_types=1);
  * @see https://github.com/guanguans/laravel-soar
  */
 
-use Guanguans\LaravelSoar\OutputManager;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Artisan;
@@ -36,14 +35,23 @@ use Workbench\App\Support\Utils;
 */
 
 // Artisan::command('inspire', function () {
-//     $this->comment(Inspiring::quote());
+//     $this->components->comment(Inspiring::quote());
 // })->purpose('Display an inspiring quote');
 
-Artisan::command('output:all', function (): void {
+Artisan::command('output:example', function (): void {
     Utils::extendOutputManager();
 
     /** @var \Illuminate\Console\Command $this */
-    $this->info(OutputManager::class);
+    $this->components->info(Utils::CONSOLE_OUTPUT_PHRASE);
+});
+
+Artisan::command('public:link', function (): void {
+    Utils::links([
+        __DIR__.'/../'.basename($target = __DIR__.'/../../vendor/orchestra/testbench-core/laravel/public/') => $target,
+    ]);
+
+    /** @var \Illuminate\Console\Command $this */
+    $this->components->info('The [public] directory has been linked.');
 });
 
 Artisan::command('optimize:image {--dry-run : Only list found images}', function (): void {

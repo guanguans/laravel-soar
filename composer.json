@@ -456,11 +456,6 @@
         "testbench": "@php vendor/bin/testbench --ansi -vv",
         "testbench:build": "@testbench workbench:build",
         "testbench:clear": "@testbench package:purge-skeleton",
-        "testbench:example-serve": [
-            "@composer-config:disable-process-timeout",
-            "@testbench:build",
-            "@php -S localhost:8123 laravel/public/index.php"
-        ],
         "testbench:optimize:image": "@testbench optimize:image",
         "testbench:optimize:image-dry-run": "@testbench:optimize:image --dry-run",
         "testbench:prepare": "@testbench package:discover",
@@ -473,6 +468,12 @@
             "@testbench:clear",
             "@pest"
         ],
+        "testbench:user-serve": [
+            "@composer-config:disable-process-timeout",
+            "@testbench:build",
+            "@php -S localhost:8123 workbench/public/index.php"
+        ],
+        "testbench:workbench:install": "@testbench workbench:install",
         "todo-lint": "! git --no-pager grep --extended-regexp --ignore-case 'todo|fixme' -- '*.php' ':!*.blade.php' ':(exclude)resources/'",
         "touch:database-sqlite": "@php -r \"file_exists('vendor/orchestra/testbench-core/laravel/database/database.sqlite') || touch('vendor/orchestra/testbench-core/laravel/database/database.sqlite');\"",
         "trufflehog": "trufflehog git https://github.com/guanguans/laravel-soar --only-verified",

@@ -9,10 +9,10 @@ providers:
 
 env:
   APP_NAME: "Testbench"
-  SOAR_ENABLED: true
+  SOAR_ENABLED: (true)
   # SOAR_SUDO_PASSWORD: "password"
-  SOAR_TEST_DSN_DISABLE: true
-  SOAR_ONLINE_DSN_DISABLE: true
+  SOAR_TEST_DSN_DISABLE: (true)
+  SOAR_ONLINE_DSN_DISABLE: (true)
 
 migrations:
   - workbench/database/migrations
@@ -35,9 +35,13 @@ workbench:
     - create-sqlite-db
     - db-wipe
     - migrate-fresh
+    - public:link
   assets:
     - laravel-assets
   sync:
+    - from: public
+      to: workbench/public
+      reverse: true
     - from: storage
       to: workbench/storage
       reverse: true

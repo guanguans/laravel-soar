@@ -22,11 +22,16 @@ use Guanguans\LaravelSoar\Outputs\JsonOutput;
 use Guanguans\LaravelSoar\Outputs\LaraDumpsOutput;
 use Guanguans\LaravelSoar\Outputs\LogOutput;
 use Guanguans\LaravelSoar\Outputs\RayOutput;
+use Illuminate\Support\Facades\Artisan;
 use Workbench\App\Models\User;
 use Workbench\Database\Factories\UserFactory;
 
 class Utils
 {
+    public const CONSOLE_OUTPUT_PHRASE = 'This is a console output example.';
+    public const GENERAL_OUTPUT_PHRASE = 'This is a general output example.';
+    public const JSON_OUTPUT_PHRASE = 'This is a json output example.';
+
     public static function extendOutputManager(null|array|string $outputs = null): void
     {
         $outputs ??= [
@@ -57,5 +62,26 @@ class Utils
 
         UserFactory::new()->times(3)->create();
         User::query()->first();
+    }
+
+    /**
+     * @see \Illuminate\Foundation\Console\StorageLinkCommand
+     */
+    public static function links(array $links, array $parameters = []): int
+    {
+        $originalLinks = config('filesystems.links', []);
+
+        config()->set('filesystems.links', $links);
+
+        $status = Artisan::call('storage:link', $parameters + [
+            '--ansi' => true,
+            '--verbose' => true,
+        ]);
+
+        config()->set('filesystems.links', $originalLinks);
+
+        // echo Artisan::output();
+
+        return $status;
     }
 }

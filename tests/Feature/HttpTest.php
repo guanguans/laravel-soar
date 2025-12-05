@@ -21,9 +21,8 @@ declare(strict_types=1);
 
 use Guanguans\LaravelSoar\Bootstrapper;
 use Guanguans\LaravelSoar\Facades\Soar;
-use Guanguans\LaravelSoar\OutputManager;
-use Guanguans\LaravelSoar\Outputs\JsonOutput;
 use Illuminate\Support\Arr;
+use Workbench\App\Support\Utils;
 
 beforeEach(function (): void {
     resolve(Bootstrapper::class)->boot();
@@ -35,19 +34,29 @@ beforeEach(function (): void {
         ->all();
 });
 
-it('can output to all', function (): void {
+it('is a general not output example', function (): void {
+    config()->set('soar.except', ['general-example']);
+
     $this
-        ->get('output/all-example')
+        ->get('general-example')
         ->assertOk()
-        ->assertSee($this->see)
-        ->assertSee(OutputManager::class);
+        ->assertDontSee($this->see)
+        ->assertSee(Utils::GENERAL_OUTPUT_PHRASE);
 })->group(__DIR__, __FILE__);
 
-it('can output to json', function (): void {
+it('is a general output example', function (): void {
     $this
-        ->getJson('output/json-example')
+        ->get('general-example')
+        ->assertOk()
+        ->assertSee($this->see)
+        ->assertSee(Utils::GENERAL_OUTPUT_PHRASE);
+})->group(__DIR__, __FILE__);
+
+it('is a json output example', function (): void {
+    $this
+        ->getJson('json-example')
         ->assertOk()
         ->assertJsonStructure()
         ->assertSee($this->see)
-        ->assertSee(class_basename(JsonOutput::class));
+        ->assertSee(Utils::JSON_OUTPUT_PHRASE);
 })->group(__DIR__, __FILE__);

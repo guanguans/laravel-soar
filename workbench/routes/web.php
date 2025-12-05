@@ -14,13 +14,7 @@ declare(strict_types=1);
  * @see https://github.com/guanguans/laravel-soar
  */
 
-use Guanguans\LaravelSoar\OutputManager;
-use Guanguans\LaravelSoar\Outputs\JsonOutput;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
-use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 use Workbench\App\Support\Utils;
 
 /*
@@ -34,34 +28,16 @@ use Workbench\App\Support\Utils;
 |
 */
 
-Route::get('/', static fn () => view('welcome'));
+// Route::get('/', static fn () => view('welcome'));
 
-Route::get('/routes', static function () {
-    $routes = collect(Route::getRoutes()->get('GET'))->filter(
-        static fn (Illuminate\Routing\Route $route) => str($route->uri())->startsWith('output')
-    );
+Route::get('/', static fn () => view('routes', [
+    'routes' => collect(Route::getRoutes()->get('GET'))->filter(
+        static fn (Illuminate\Routing\Route $route) => str($route->uri())->endsWith('-example')
+    ),
+]));
 
-    return view('routes', ['routes' => $routes]);
-});
+Route::get('general-example', static function (): string {
+    Utils::extendOutputManager();
 
-Route::group([
-    'prefix' => 'output',
-    'middleware' => [
-        // static function (Request $request, Closure $next): SymfonyResponse {
-        //     Utils::extendOutputManager(JsonOutput::class);
-        //
-        //     return $next($request);
-        // },
-    ],
-], static function (Router $router): void {
-    $router->get('all-example', static function (): string {
-        Utils::extendOutputManager();
-
-        return OutputManager::class;
-    });
-    $router->get('json-example', static function (): JsonResponse {
-        Utils::extendOutputManager(JsonOutput::class);
-
-        return new JsonResponse(['output' => JsonOutput::class]);
-    });
+    return Utils::GENERAL_OUTPUT_PHRASE;
 });

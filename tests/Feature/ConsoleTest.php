@@ -20,30 +20,39 @@ declare(strict_types=1);
  */
 
 use Guanguans\LaravelSoar\Bootstrapper;
+use Illuminate\Console\Events\CommandFinished;
+use Illuminate\Foundation\Testing\WithConsoleEvents;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Event;
+use Workbench\App\Support\Utils;
 
-beforeEach(function (): void {
-    resolve(Bootstrapper::class)->boot();
+uses(WithConsoleEvents::class)
+    ->beforeEach(function (): void {
+        resolve(Bootstrapper::class)->boot();
 
-    $this->see = collect(Arr::first(Soar::arrayScores('select * from users')))
-        ->except(['ID', 'Fingerprint'])
-        ->keys()
-        ->push('Summary', 'Basic', 'Backtraces')
-        ->all();
-});
+        $this->see = collect(Arr::first(Soar::arrayScores('select * from users')))
+            ->except(['ID', 'Fingerprint'])
+            ->keys()
+            ->push('Summary', 'Basic', 'Backtraces')
+            ->all();
+    });
 
-it('can not output soar scores', function (): void {
-    config()->set('soar.except', ['output:all']);
+it('is a console not output example', function (): void {
+    config()->set('soar.except', ['output:example']);
 
-    $this->artisan('output:all')
-        // ->expectsOutput(OutputManager::class)
-        ->expectsOutputToContain(OutputManager::class)
+    $this->artisan('output:example')
+        // ->expectsOutput(Utils::CONSOLE_OUTPUT_PHRASE)
+        ->expectsOutputToContain(Utils::CONSOLE_OUTPUT_PHRASE)
         ->assertOk();
 })->group(__DIR__, __FILE__);
 
-it('can outputs console', function (): void {
-    $this->artisan('output:all')
-        // ->expectsOutput(OutputManager::class)
-        ->expectsOutputToContain(OutputManager::class)
-        ->assertOk();
+it('is a console output example', function (): void {
+    Event::fakeFor(function (): void {
+        $this->artisan('output:example')
+            // ->expectsOutput(Utils::CONSOLE_OUTPUT_PHRASE)
+            ->expectsOutputToContain(Utils::CONSOLE_OUTPUT_PHRASE)
+            ->assertOk();
+
+        // Event::assertDispatched(CommandFinished::class);
+    });
 })->group(__DIR__, __FILE__);
