@@ -25,8 +25,9 @@ use Symfony\Component\Process\ExecutableFinder;
 use Symfony\Component\Process\PhpExecutableFinder;
 use Symfony\Component\Process\Process;
 
-require __DIR__.'/vendor/autoload.php';
 file_exists($autoload = __DIR__.'/../../vendor/autoload.php') and require $autoload;
+
+require __DIR__.'/vendor/autoload.php';
 
 /** @noinspection PhpUnhandledExceptionInspection */
 /** @noinspection DuplicatedCode */
@@ -41,7 +42,7 @@ $statusCode = (new SingleCommandApplication)
     ->setCode(static function (InputInterface $input, OutputInterface $output): void {
         assert_options(\ASSERT_BAIL, 1);
         \assert((bool) $input->getOption('highest-php-binary'));
-        (new \ComposerBump(
+        (new ComposerBump(
             $input->getOption('composer-json-path') ?: implode(\DIRECTORY_SEPARATOR, [__DIR__, 'composer.json']),
             $input->getOption('php-binary'),
             $input->getOption('highest-php-binary'),

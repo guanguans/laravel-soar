@@ -23,7 +23,7 @@ use Ergebnis\PhpCsFixer\Config\Rules;
 use Ergebnis\PhpCsFixer\Config\RuleSet\Php81;
 use PhpCsFixer\Finder;
 use PhpCsFixer\Fixer\DeprecatedFixerInterface;
-use PhpCsFixerCustomFixers\Fixer\AbstractFixer;
+use PhpCsFixer\Fixer\FixerInterface;
 
 require __DIR__.'/vendor/autoload.php';
 
@@ -40,7 +40,7 @@ return Factory::fromRuleSet(Php81::create()
                 __DIR__.'/LICENSE',
                 Range::since(
                     Year::fromString('2020'),
-                    new \DateTimeZone('Asia/Shanghai'),
+                    new DateTimeZone('Asia/Shanghai'),
                 ),
                 Holder::fromString('guanguans<ityaozm@gmail.com>'),
                 Url::fromString('https://github.com/guanguans/laravel-soar'),
@@ -51,11 +51,55 @@ return Factory::fromRuleSet(Php81::create()
             return $mit->header();
         })()
     )
-    ->withCustomFixers(Fixers::fromFixers(new ForceFQCNFixer))
-    ->withCustomFixers(Fixers::fromFixers(...$phpCsFixerCustomFixers = array_filter(
-        iterator_to_array(new \PhpCsFixerCustomFixers\Fixers),
-        static fn (AbstractFixer $fixer): bool => !$fixer instanceof DeprecatedFixerInterface
+    ->withCustomFixers(Fixers::fromFixers($forceFQCNFixer = new ForceFQCNFixer))
+    ->withCustomFixers(Fixers::fromFixers(...$erickSkrauchFixers = array_filter(
+        iterator_to_array(new ErickSkrauch\PhpCsFixer\Fixers),
+        static fn (FixerInterface $fixer): bool => !$fixer instanceof DeprecatedFixerInterface
             && !\array_key_exists($fixer->getName(), Php81::create()->rules()->toArray())
+            && !\in_array(
+                $fixer->getName(),
+                [
+                    'ErickSkrauch/align_multiline_parameters',
+                    'ErickSkrauch/blank_line_around_class_body',
+                ],
+                true
+            )
+    )))
+    ->withRules(Rules::fromArray(array_reduce(
+        $erickSkrauchFixers,
+        static function (array $carry, FixerInterface $fixer): array {
+            $carry[$fixer->getName()] = true;
+
+            return $carry;
+        },
+        []
+    )))
+    ->withCustomFixers(Fixers::fromFixers(...$phpCsFixerCustomFixers = array_filter(
+        iterator_to_array(new PhpCsFixerCustomFixers\Fixers),
+        static fn (FixerInterface $fixer): bool => !$fixer instanceof DeprecatedFixerInterface
+            && !\array_key_exists($fixer->getName(), Php81::create()->rules()->toArray())
+            && !\in_array(
+                $fixer->getName(),
+                [
+                    'PhpCsFixerCustomFixers/comment_surrounded_by_spaces',
+                    'PhpCsFixerCustomFixers/declare_after_opening_tag',
+                    'PhpCsFixerCustomFixers/isset_to_array_key_exists',
+                    'PhpCsFixerCustomFixers/no_commented_out_code',
+                    // 'PhpCsFixerCustomFixers/no_leading_slash_in_global_namespace',
+                    'PhpCsFixerCustomFixers/phpdoc_only_allowed_annotations',
+                    'PhpCsFixerCustomFixers/typed_class_constant', // @since 8.3
+                ],
+                true
+            )
+    )))
+    ->withRules(Rules::fromArray(array_reduce(
+        $phpCsFixerCustomFixers,
+        static function (array $carry, FixerInterface $fixer): array {
+            $carry[$fixer->getName()] = true;
+
+            return $carry;
+        },
+        []
     )))
     ->withRules(Rules::fromArray([
         // '@auto' => true,
@@ -85,7 +129,7 @@ return Factory::fromRuleSet(Php81::create()
         '@PHPUnit10x0Migration:risky' => true,
     ]))
     ->withRules(Rules::fromArray([
-        'AdamWojs/phpdoc_force_fqcn_fixer' => true,
+        $forceFQCNFixer->getName() => true,
         'align_multiline_comment' => [
             'comment_type' => 'phpdocs_only',
         ],
@@ -138,7 +182,7 @@ return Factory::fromRuleSet(Php81::create()
         'final_public_method_for_abstract_class' => false,
         'fully_qualified_strict_types' => [
             'import_symbols' => false,
-            'leading_backslash_in_global_namespace' => true,
+            'leading_backslash_in_global_namespace' => false,
             'phpdoc_tags' => [
                 // 'param',
                 // 'phpstan-param',
@@ -315,5 +359,6 @@ return Factory::fromRuleSet(Php81::create()
             ->ignoreVCSIgnored(true)
             ->append([
                 __DIR__.'/composer-bump',
+                __DIR__.'/rule-doc-generator',
             ])
     );

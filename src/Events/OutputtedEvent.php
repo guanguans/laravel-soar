@@ -21,9 +21,9 @@ use Symfony\Component\HttpFoundation\Response;
 class OutputtedEvent
 {
     public function __construct(
-        public OutputContract $output,
-        public Collection $scores,
-        public CommandFinished|Response $outputter,
-        public mixed $result
+        public readonly OutputContract $output,
+        public readonly Collection $scores,
+        public readonly CommandFinished|Response $outputter,
+        public readonly mixed $result
     ) {}
 }

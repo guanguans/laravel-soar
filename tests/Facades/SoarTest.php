@@ -20,5 +20,5 @@ declare(strict_types=1);
  */
 
 it('can return soar version using Soar alias', function (): void {
-    expect(\Soar::version())->toBeString();
+    expect(Soar::version())->toBeString();
 })->group(__DIR__, __FILE__);
