@@ -140,7 +140,6 @@ class ComposerBump
 
     /**
      * @noinspection LongLine
-     * @noinspection D
      *
      * @throws \JsonException
      */

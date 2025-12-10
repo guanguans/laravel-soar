@@ -1,9 +1,24 @@
 {
     "preset": "default",
-    "caseIgnores": [
-        ":warning:"
-    ],
     "rules": {
         "spaceOutsideHalfwidthBracket": false
-    }
+    },
+    "caseIgnores": [
+        ":+1:",
+        ":bangbang:",
+        ":cn:",
+        ":eyes:",
+        ":heart:",
+        ":heavy_exclamation_mark:",
+        ":mail:",
+        ":no_entry_sign:",
+        ":smile:",
+        ":tada:",
+        ":thumbsup:",
+        ":warning:",
+        ":white_check_mark:",
+        ":x:",
+        "Fatal error: ...Exit Code:",
+        "SQL optimizer and rewriter for laravel."
+    ]
 }
