@@ -226,10 +226,15 @@
         "checks:optional": [
             "@putenv:xdebug-off",
             "@class-leak:check",
+            "@composer-dependency-analyser",
+            "@composer:normalize-dry-run",
             "@detect-collisions",
+            "@facade:lint",
             "@jack:open-versions-dry-run",
             "@jack:raise-to-installed-dry-run",
             "@phpmnd",
+            "@phpstan:analyse",
+            "@rector:process-dry-run",
             "@sk:check-commented-code",
             "@sk:check-conflicts",
             "@sk:find-multi-classes",
@@ -241,17 +246,13 @@
             "@actionlint",
             "@gitleaks",
             "@lint-md",
+            "@peck",
             "@zhlint"
         ],
         "checks:required": [
             "@putenv:xdebug-off",
-            "@composer:normalize-dry-run",
-            "@composer-dependency-analyser",
-            "@facade:lint",
-            "@php-cs-fixer:fix-dry-run-stop-on-violation",
-            "@pest:bail",
-            "@rector:process-dry-run",
-            "@phpstan:analyse"
+            "@php-cs-fixer:fix-dry-run",
+            "@pest:bail"
         ],
         "class-leak": "@php vendor/bin/class-leak --ansi -vv",
         "class-leak:check": "@class-leak check config/ src/ --skip-type=Guanguans\\LaravelSoar\\Contracts\\OutputContract --skip-suffix=InvalidArgumentException --skip-path=Support/Rectors/",
@@ -370,7 +371,6 @@
         "php-cs-fixer:describe": "@php-cs-fixer describe",
         "php-cs-fixer:fix": "@php-cs-fixer fix --show-progress=dots --diff",
         "php-cs-fixer:fix-dry-run": "@php-cs-fixer:fix --dry-run",
-        "php-cs-fixer:fix-dry-run-stop-on-violation": "@php-cs-fixer:fix-dry-run --stop-on-violation",
         "php-cs-fixer:list-files": "@php-cs-fixer list-files",
         "php-cs-fixer:list-sets": "@php-cs-fixer list-sets --ansi -vv",
         "php-lint": [
