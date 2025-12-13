@@ -22,6 +22,7 @@ declare(strict_types=1);
  */
 
 use Faker\Factory;
+use Faker\Generator;
 use Guanguans\LaravelSoarTests\TestCase;
 use Illuminate\Support\Facades\Artisan;
 use Pest\Expectation;

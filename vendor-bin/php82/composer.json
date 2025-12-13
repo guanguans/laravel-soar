@@ -2,9 +2,13 @@
     "require-dev": {
         "php": ">=8.2",
         "ergebnis/composer-normalize": "^2.48",
+        "guanguans/monorepo-builder-worker": "^2.1",
         "peckphp/peck": "^0.2",
-        "phpro/grumphp-shim": "^2.17",
+        "phpro/grumphp-shim": "^2.18",
         "theofidry/composer-inheritance-plugin": "^1.2"
+    },
+    "conflict": {
+        "symplify/monorepo-builder": "^12.0"
     },
     "config": {
         "allow-plugins": {

@@ -68,7 +68,7 @@
         "ergebnis/license": "^2.7",
         "ergebnis/php-cs-fixer-config": "^6.57",
         "ergebnis/rector-rules": "^1.7",
-        "guanguans/monorepo-builder-worker": "^2.1",
+        "guanguans/php-cs-fixer-custom-fixers": "^1.0",
         "itsgoingd/clockwork": "^5.3",
         "laradumps/laradumps": "^4.6",
         "laravel/facade-documenter": "dev-main",
@@ -108,8 +108,7 @@
         "yamadashy/phpstan-friendly-formatter": "^1.3"
     },
     "conflict": {
-        "pestphp/pest": "^4.0",
-        "symplify/monorepo-builder": "^12.0"
+        "pestphp/pest": "^4.0"
     },
     "suggest": {
         "barryvdh/laravel-debugbar": "Output SQL scores to Laravel DebugBar.",
@@ -199,22 +198,11 @@
             "@testbench:clear",
             "@testbench:prepare"
         ],
-        "actionlint": [
-            "if ! command -v actionlint >/dev/null 2>&1; then echo 'actionlint not found, installing...'; brew install actionlint; fi",
-            "actionlint -ignore=SC2035 -ignore=SC2086 -color -oneline -verbose"
-        ],
+        "actionlint": "actionlint -ignore=SC2035 -ignore=SC2086 -color -oneline -verbose",
         "blade-formatter": "blade-formatter resources/views/*.blade.php resources/views/**/*.blade.php --ignore-path= --php-version=8.1 --progress",
         "blade-formatter:check-formatted": "@blade-formatter --check-formatted",
         "blade-formatter:write": "@blade-formatter --write",
         "cghooks": "@php vendor/bin/cghooks --ansi -vv",
-        "cghooks:remove": [
-            "@php -r \"file_exists('.git/hooks/post-merge') and rename('.git/hooks/post-merge', '.git/hooks/post-merge.sample');\"",
-            "@php -r \"file_exists('.git/hooks/pre-commit') and rename('.git/hooks/pre-commit', '.git/hooks/pre-commit.sample');\""
-        ],
-        "cghooks:try": [
-            "@putenv:php",
-            "[ ! -f \"vendor/bin/cghooks\" ] && exit 0 || $PHP81 vendor/bin/cghooks --ansi -vv"
-        ],
         "cghooks:upsert": [
             "@cghooks add --ignore-lock",
             "@cghooks update"
@@ -230,6 +218,7 @@
             "@composer:normalize-dry-run",
             "@detect-collisions",
             "@facade:lint",
+            "@jack:breakpoint",
             "@jack:open-versions-dry-run",
             "@jack:raise-to-installed-dry-run",
             "@phpmnd",
@@ -252,7 +241,7 @@
         "checks:required": [
             "@putenv:xdebug-off",
             "@php-cs-fixer:fix-dry-run",
-            "@pest:bail"
+            "@pest"
         ],
         "class-leak": "@php vendor/bin/class-leak --ansi -vv",
         "class-leak:check": "@class-leak check config/ src/ --skip-type=Guanguans\\LaravelSoar\\Contracts\\OutputContract --skip-suffix=InvalidArgumentException --skip-path=Support/Rectors/",
@@ -296,7 +285,7 @@
             "$PHP82 vendor/bin/grumphp run --ansi -vv"
         ],
         "jack": "@php vendor/bin/jack --ansi -vv",
-        "jack:breakpoint": "@jack breakpoint --limit=5",
+        "jack:breakpoint": "@jack breakpoint --limit=7",
         "jack:breakpoint-dev": "@jack:breakpoint --dev",
         "jack:open-versions": "@jack open-versions --limit=99",
         "jack:open-versions-dev": "@jack:open-versions --dev",
@@ -328,7 +317,10 @@
         "mago:lint-dry-run": "@mago:lint --dry-run",
         "mago:lint-list-rules": "@mago lint --list-rules",
         "mago:lint-semantics-only": "@mago lint --semantics-only",
-        "monorepo-builder": "@php vendor/bin/monorepo-builder --ansi -vv",
+        "monorepo-builder": [
+            "@putenv:php",
+            "$PHP82 vendor/bin/monorepo-builder --ansi -vv"
+        ],
         "monorepo-builder:release": "@monorepo-builder release",
         "monorepo-builder:release-1.0.0-BETA1": "@monorepo-builder:release 1.0.0-BETA1",
         "monorepo-builder:release-1.0.0-BETA1-dry-run": "@monorepo-builder:release-1.0.0-BETA1 --dry-run",
@@ -350,10 +342,7 @@
             "@php vendor/bin/pest --colors=always --min=80 --coverage --profile",
             "@putenv:xdebug-off"
         ],
-        "pest:bail": "@pest --bail",
-        "pest:compact": "@pest --compact",
         "pest:coverage": "@pest --coverage-html=.build/phpunit/ --coverage-clover=.build/phpunit/clover.xml",
-        "pest:disable-coverage-ignore": "@pest --disable-coverage-ignore",
         "pest:highest": [
             "@putenv:php",
             "@putenv:xdebug-on",
@@ -367,8 +356,11 @@
         "pest:type-coverage": "@pest --type-coverage",
         "pest:update-snapshots": "@pest --update-snapshots",
         "php-cs-fixer": "@php vendor/bin/php-cs-fixer --ansi -vv",
-        "php-cs-fixer:check": "@php-cs-fixer check --show-progress=dots --diff",
-        "php-cs-fixer:describe": "@php-cs-fixer describe",
+        "php-cs-fixer:custom": "@php-cs-fixer --config=.php-cs-fixer-custom.php",
+        "php-cs-fixer:custom-check": "@php-cs-fixer:custom check --show-progress=dots --diff",
+        "php-cs-fixer:custom-fix": "@php-cs-fixer:custom fix --show-progress=dots --diff",
+        "php-cs-fixer:custom-fix-dry-run": "@php-cs-fixer:custom-fix --dry-run",
+        "php-cs-fixer:custom-list-files": "@php-cs-fixer:custom list-files",
         "php-cs-fixer:fix": "@php-cs-fixer fix --show-progress=dots --diff",
         "php-cs-fixer:fix-dry-run": "@php-cs-fixer:fix --dry-run",
         "php-cs-fixer:list-files": "@php-cs-fixer list-files",
@@ -379,14 +371,9 @@
             "for DIR in src/ tests/; do find $DIR -type f -name '*.php' -type f ! -name 'xxx.php' -exec $PHP81 -l {} \\; 2>&1 | (! grep -v '^No syntax errors detected'); done"
         ],
         "phpbench": "@php vendor/bin/phpbench run --report=aggregate --ansi -vv",
-        "phpcs": "@php vendor/bin/phpcs config/ src/ --extensions=php --ignore=*/vendor/* --parallel=8 --cache --colors -n -p -s -v",
-        "phpcs:compatibility": "@phpcs --standard=PHPCompatibility --exclude=PHPCompatibility.FunctionDeclarations.NewClosure --runtime-set testVersion 8.5-",
-        "phpcs:help": "@phpcs --help",
-        "phpcs:i": "@phpcs -i",
         "phpmnd": "@php vendor/bin/phpmnd src/ --exclude-path=Support/helpers.phpp --ignore-numbers=2,-1 --hint --progress --ansi -vv",
         "phpstan": "@php vendor/bin/phpstan --ansi -vv",
         "phpstan:analyse": "@phpstan analyse",
-        "phpstan:analyse-fix": "@phpstan:analyse --fix",
         "phpstan:analyse-generate-baseline": "@phpstan:analyse --generate-baseline --allow-empty-baseline",
         "phpstan:analyse-split-baseline": [
             "@phpstan:analyse --generate-baseline=baselines/loader.neon --allow-empty-baseline",
@@ -399,10 +386,6 @@
             "@putenv:xdebug-off",
             "@php vendor/bin/pint --ansi -vv"
         ],
-        "pint:bail": "@pint --bail",
-        "pint:dirty": "@pint --dirty",
-        "pint:dirty-bail": "@pint:dirty --bail",
-        "pint:dirty-test": "@pint:dirty --test",
         "pint:test": "@pint --test",
         "putenv:composer-memory-unlimited": "@putenv COMPOSER_MEMORY_LIMIT=-1",
         "putenv:php": [
@@ -419,7 +402,6 @@
             "@putenv XDEBUG_MODE=coverage,debug",
             "@putenv XDEBUG_SESSION=1"
         ],
-        "readme-lint": "@php readme-lint --ansi -vv",
         "rector": "@php vendor/bin/rector",
         "rector:custom-rule": "@rector custom-rule",
         "rector:list-rules": "@rector list-rules",
@@ -429,9 +411,6 @@
         "rector:process-dry-run": "@rector:process --dry-run",
         "rector:process-only": "@rector:process-clear-cache --only=Guanguans\\LaravelSoar\\Support\\Rectors\\AddHasOptionsDocCommentRector",
         "rector:process-only-dry-run": "@rector:process-only --dry-run",
-        "rector:process-soar-options": "@rector:process-clear-cache --config=rector-options.php",
-        "rector:process-soar-options-dry-run": "@rector:process-soar-options --dry-run",
-        "rector:setup-ci": "@rector setup-ci",
         "rule-doc-generator": [
             "@putenv:php",
             "$PHP82 rule-doc-generator --ansi -vv"
@@ -478,15 +457,6 @@
         "todo-lint": "! git --no-pager grep --extended-regexp --ignore-case 'todo|fixme' -- '*.php' ':!*.blade.php' ':(exclude)resources/'",
         "touch:database-sqlite": "@php -r \"file_exists('vendor/orchestra/testbench-core/laravel/database/database.sqlite') || touch('vendor/orchestra/testbench-core/laravel/database/database.sqlite');\"",
         "trufflehog": "trufflehog git https://github.com/guanguans/laravel-soar --only-verified",
-        "user:composer": [
-            "@putenv:composer-memory-unlimited",
-            "@putenv:xdebug-off",
-            "@composer --ansi -vv"
-        ],
-        "user:php": [
-            "@putenv:xdebug-off",
-            "@php -d xdebug.mode=off"
-        ],
         "var-dump-server:cli": "@php vendor/bin/var-dump-server --ansi -vv",
         "var-dump-server:html": [
             "@composer-config:disable-process-timeout",
@@ -496,11 +466,7 @@
             "@php vendor/bin/var-dump-server --ansi -v --format=html > .build/dump.html"
         ],
         "vendor-patches": "@php vendor/bin/vendor-patches generate --ansi -vv",
-        "vhs": [
-            "@cghooks:remove",
-            "vhs < laravel-soar.tape",
-            "@cghooks:upsert"
-        ],
+        "vhs": "vhs < laravel-soar.tape",
         "yaml-lint": "@php vendor/bin/yaml-lint .github/ *.yaml --ansi -vv",
         "zhlint": [
             "if ! command -v zhlint >/dev/null 2>&1; then echo 'zhlint not found, installing...'; npm install -g zhlint; fi",
@@ -508,10 +474,7 @@
         ],
         "zhlint:fix": "@zhlint:prototype --fix",
         "zhlint:prototype": "zhlint {,docs/,docs/**/}*-zh_CN.md",
-        "zizmor": [
-            "if ! command -v zizmor >/dev/null 2>&1; then echo 'zizmor not found, installing...'; brew install zizmor; fi",
-            "zizmor .github/ --verbose"
-        ]
+        "zizmor": "zizmor .github/ --verbose"
     },
     "scripts-aliases": {
         "pest": [

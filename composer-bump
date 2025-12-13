@@ -56,7 +56,7 @@ $statusCode = (new SingleCommandApplication)
 
 exit($statusCode);
 
-class ComposerBump
+final class ComposerBump
 {
     private readonly string $composerJsonPath;
     private readonly string $composer;
