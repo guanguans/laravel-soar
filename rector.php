@@ -41,6 +41,7 @@ use Rector\Php73\Rector\FuncCall\JsonThrowOnErrorRector;
 use Rector\Php80\Rector\Class_\AnnotationToAttributeRector;
 use Rector\Php80\ValueObject\AnnotationToAttribute;
 use Rector\PHPUnit\Set\PHPUnitSetList;
+use Rector\Renaming\Rector\ClassConstFetch\RenameClassConstFetchRector;
 use Rector\Renaming\Rector\FuncCall\RenameFunctionRector;
 use Rector\Renaming\Rector\Name\RenameClassRector;
 use Rector\Transform\Rector\FuncCall\FuncCallToStaticCallRector;
@@ -242,6 +243,9 @@ return RectorConfig::configure()
         ThrowIfRector::class,
     ])
     ->withSkip([
+        RenameClassConstFetchRector::class => [
+            __DIR__.'/workbench/config/database.php',
+        ],
         RemoveDumpDataDeadCodeRector::class => [
             __DIR__.'/src/Mixins/QueryBuilderMixin.php',
         ],

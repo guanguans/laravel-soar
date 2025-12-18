@@ -107,9 +107,6 @@
         "tomasvotruba/type-coverage": "^2.0",
         "yamadashy/phpstan-friendly-formatter": "^1.3"
     },
-    "conflict": {
-        "pestphp/pest": "^4.0"
-    },
     "suggest": {
         "barryvdh/laravel-debugbar": "Output SQL scores to Laravel DebugBar.",
         "buggregator/trap": "Output SQL scores to Trap.",

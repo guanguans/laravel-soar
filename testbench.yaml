@@ -7,6 +7,9 @@ providers:
   - Guanguans\LaravelSoar\SoarServiceProvider
   - LaraDumps\LaraDumps\LaraDumpsServiceProvider
 
+dont-discover:
+  - spatie/laravel-ray
+
 env:
   APP_NAME: "Testbench"
   SOAR_ENABLED: (true)
@@ -24,6 +27,7 @@ workbench:
   start: '/'
   install: true
   discovers:
+    config: true
     web: true
     api: true
     commands: true
