@@ -31,6 +31,7 @@ require __DIR__.'/vendor/autoload.php';
 
 /** @noinspection PhpUnhandledExceptionInspection */
 /** @noinspection DuplicatedCode */
+/** @see https://github.com/symfony/ai/blob/main/bump */
 $statusCode = (new SingleCommandApplication)
     ->setName('Composer Bump')
     ->addOption('composer-json-path', null, InputOption::VALUE_OPTIONAL)

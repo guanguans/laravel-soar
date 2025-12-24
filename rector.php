@@ -83,7 +83,6 @@ return RectorConfig::configure()
     ->withSkip([
         '**/Fixtures/*',
         __DIR__.'/tests.php',
-        __FILE__,
     ])
     ->withCache(__DIR__.'/.build/rector/')
     // ->withoutParallel()
@@ -243,25 +242,6 @@ return RectorConfig::configure()
         ThrowIfRector::class,
     ])
     ->withSkip([
-        RenameClassConstFetchRector::class => [
-            __DIR__.'/workbench/config/database.php',
-        ],
-        RemoveDumpDataDeadCodeRector::class => [
-            __DIR__.'/src/Mixins/QueryBuilderMixin.php',
-        ],
-        RemoveExtraParametersRector::class => [
-            __DIR__.'/src/Mixins/',
-        ],
-        StaticArrowFunctionRector::class => $staticClosureSkipPaths = [
-            __DIR__.'/tests/',
-        ],
-        StaticClosureRector::class => $staticClosureSkipPaths,
-        SortAssociativeArrayByKeyRector::class => [
-            // __DIR__.'/config/',
-            __DIR__.'/src/',
-            __DIR__.'/tests/',
-            __DIR__.'/workbench/',
-        ],
         // AddNoinspectionsDocCommentToDeclareRector::class => [
         //     // __DIR__.'/config/',
         //     __DIR__.'/src/',
@@ -292,4 +272,26 @@ return RectorConfig::configure()
         //     __DIR__.'/composer-bump',
         //     __DIR__.'/tests/TestCase.php',
         // ],
+        RemoveDumpDataDeadCodeRector::class => [
+            __DIR__.'/src/Mixins/QueryBuilderMixin.php',
+        ],
+        RemoveExtraParametersRector::class => [
+            __DIR__.'/src/Mixins/',
+        ],
+        RenameClassConstFetchRector::class => [
+            __DIR__.'/workbench/config/database.php',
+        ],
+        RenameClassRector::class => [
+            __FILE__,
+        ],
+        SortAssociativeArrayByKeyRector::class => [
+            // __DIR__.'/config/',
+            __DIR__.'/src/',
+            __DIR__.'/tests/',
+            __DIR__.'/workbench/',
+        ],
+        StaticArrowFunctionRector::class => $staticClosureSkipPaths = [
+            __DIR__.'/tests/',
+        ],
+        StaticClosureRector::class => $staticClosureSkipPaths,
     ]);

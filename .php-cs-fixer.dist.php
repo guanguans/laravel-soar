@@ -86,6 +86,7 @@ return Factory::fromRuleSet(Php81::create()
                     'PhpCsFixerCustomFixers/isset_to_array_key_exists',
                     'PhpCsFixerCustomFixers/no_commented_out_code',
                     // 'PhpCsFixerCustomFixers/no_leading_slash_in_global_namespace',
+                    'PhpCsFixerCustomFixers/no_nullable_boolean_type',
                     'PhpCsFixerCustomFixers/phpdoc_only_allowed_annotations',
                     'PhpCsFixerCustomFixers/typed_class_constant', // @since 8.3
                 ],
