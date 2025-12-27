@@ -8,6 +8,24 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 
+<a name="5.0.1"></a>
+## [5.0.1] - 2025-12-24
+### 🎨 Styles
+- apply php-cs-fixer ([d502961](https://github.com/guanguans/laravel-soar/commit/d502961))
+- **namespaces:** Prefix global class references with leading backslashes ([5695fd3](https://github.com/guanguans/laravel-soar/commit/5695fd3))
+
+### 🤖 Continuous Integrations
+- **config:** Add new dependencies to composer.json ([1997612](https://github.com/guanguans/laravel-soar/commit/1997612))
+- **config:** Update config files ([ba57f62](https://github.com/guanguans/laravel-soar/commit/ba57f62))
+- **config:** Update config files ([5b6b415](https://github.com/guanguans/laravel-soar/commit/5b6b415))
+- **config:** Update config files ([3358c4f](https://github.com/guanguans/laravel-soar/commit/3358c4f))
+- **config:** Update configuration files and .gitignore ([a2eb895](https://github.com/guanguans/laravel-soar/commit/a2eb895))
+- **tests:** Update PHP version in CI configuration ([b7daa8e](https://github.com/guanguans/laravel-soar/commit/b7daa8e))
+
+### Pull Requests
+- Merge pull request [#72](https://github.com/guanguans/laravel-soar/issues/72) from guanguans/dependabot/github_actions/actions/cache-5
+
+
 <a name="5.0.0"></a>
 ## [5.0.0] - 2025-12-02
 ### 🎨 Styles
@@ -719,7 +737,8 @@ All notable changes to this project will be documented in this file.
 - Merge pull request [#1](https://github.com/guanguans/laravel-soar/issues/1) from guanguans/add-license-1
 
 
-[Unreleased]: https://github.com/guanguans/laravel-soar/compare/5.0.0...HEAD
+[Unreleased]: https://github.com/guanguans/laravel-soar/compare/5.0.1...HEAD
+[5.0.1]: https://github.com/guanguans/laravel-soar/compare/5.0.0...5.0.1
 [5.0.0]: https://github.com/guanguans/laravel-soar/compare/4.2.0...5.0.0
 [4.2.0]: https://github.com/guanguans/laravel-soar/compare/4.1.2...4.2.0
 [4.1.2]: https://github.com/guanguans/laravel-soar/compare/4.1.1...4.1.2
