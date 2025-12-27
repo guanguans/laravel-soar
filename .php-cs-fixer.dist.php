@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2020-2025 guanguans<ityaozm@gmail.com>
+ * Copyright (c) 2020-2026 guanguans<ityaozm@gmail.com>
  *
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
@@ -52,6 +52,9 @@ return Factory::fromRuleSet(Php81::create()
         })()
     )
     ->withCustomFixers(Fixers::fromFixers($forceFQCNFixer = new ForceFQCNFixer))
+    ->withRules(Rules::fromArray([
+        $forceFQCNFixer->getName() => true,
+    ]))
     ->withCustomFixers(Fixers::fromFixers(...$erickSkrauchFixers = array_filter(
         iterator_to_array(new ErickSkrauch\PhpCsFixer\Fixers),
         static fn (FixerInterface $fixer): bool => !$fixer instanceof DeprecatedFixerInterface
@@ -130,7 +133,6 @@ return Factory::fromRuleSet(Php81::create()
         '@PHPUnit10x0Migration:risky' => true,
     ]))
     ->withRules(Rules::fromArray([
-        $forceFQCNFixer->getName() => true,
         'align_multiline_comment' => [
             'comment_type' => 'phpdocs_only',
         ],
