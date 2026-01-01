@@ -33,29 +33,30 @@ if (!\function_exists('Guanguans\LaravelSoar\Support\classes')) {
      * @see \PhpCsFixer\ExecutorWithoutErrorHandler
      * @see \Phrity\Util\ErrorHandler
      *
-     * @noinspection RedundantDocCommentTagInspection
+     * @template TObject of object
+     *
+     * @internal
+     *
+     * @param null|(callable(class-string<TObject>, string): bool) $filter
+     *
+     * @return \Illuminate\Support\Collection<class-string<TObject>, \ReflectionClass<TObject>|\Throwable>
+     *
      * @noinspection PhpUndefinedNamespaceInspection
-     *
-     * @param null|(callable(class-string, string): bool) $filter
-     *
-     * @return \Illuminate\Support\Collection<class-string, \ReflectionClass>
      */
     function classes(?callable $filter = null): Collection
     {
+        $filter ??= static fn (string $class, string $file): bool => true;
+
+        /** @var null|\Illuminate\Support\Collection $classes */
         static $classes;
         $classes ??= collect(spl_autoload_functions())->flatMap(
-            static fn (mixed $loader): array => \is_array($loader) && $loader[0] instanceof ClassLoader
+            static fn (callable $loader): array => \is_array($loader) && $loader[0] instanceof ClassLoader
                 ? $loader[0]->getClassMap()
                 : []
         );
 
         return $classes
-            ->when(
-                \is_callable($filter),
-                static fn (Collection $classes): Collection => $classes->filter(
-                    static fn (string $file, string $class) => $filter($class, $file)
-                )
-            )
+            ->filter(static fn (string $file, string $class): bool => $filter($class, $file))
             ->mapWithKeys(static function (string $file, string $class): array {
                 try {
                     return [$class => new \ReflectionClass($class)];

@@ -140,9 +140,9 @@ final class ComposerBump
     }
 
     /**
-     * @noinspection LongLine
-     *
      * @throws \JsonException
+     *
+     * @noinspection LongLine
      */
     private function outdatedDecodedComposerJson(): array
     {

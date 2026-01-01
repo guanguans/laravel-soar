@@ -14,7 +14,7 @@
     "config": {
         "allow-plugins": {
             "ergebnis/composer-normalize": true,
-            "phpro/grumphp-shim": true,
+            "phpro/grumphp-shim": false,
             "theofidry/composer-inheritance-plugin": false,
             "wikimedia/composer-merge-plugin": false
         },

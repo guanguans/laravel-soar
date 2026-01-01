@@ -38,10 +38,10 @@ class DebugBarOutput extends AbstractOutput
     }
 
     /**
-     * @noinspection PhpPossiblePolymorphicInvocationInspection
-     *
      * @throws \DebugBar\DebugBarException
      * @throws \JsonException
+     *
+     * @noinspection PhpPossiblePolymorphicInvocationInspection
      */
     public function output(Collection $scores, CommandFinished|Response $outputter): LaravelDebugbar
     {

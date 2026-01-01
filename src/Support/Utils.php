@@ -19,9 +19,9 @@ use Illuminate\Support\Str;
 class Utils
 {
     /**
-     * @noinspection DebugFunctionUsageInspection
-     *
      * @param int|list<int> $forgetLines
+     *
+     * @noinspection DebugFunctionUsageInspection
      */
     public static function backtraces(int $limit = 0, array|int $forgetLines = 0): array
     {

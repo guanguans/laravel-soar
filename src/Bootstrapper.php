@@ -130,8 +130,6 @@ class Bootstrapper
     }
 
     /**
-     * @noinspection PhpIncompatibleReturnTypeInspection
-     *
      * @param array<string, mixed> $score
      *
      * @return array{
@@ -141,6 +139,8 @@ class Bootstrapper
      *     driver: string,
      *     backtraces: list<string>
      * }
+     *
+     * @noinspection PhpIncompatibleReturnTypeInspection
      */
     private function matchQuery(array $score): array
     {

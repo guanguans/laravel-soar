@@ -21,10 +21,10 @@ namespace Illuminate\Database\Query {
      * @method self dumpSoarScore(int $depth = 512, int $options = 0)
      * @method array toSoarScore(int $depth = 512, int $options = 0)
      *
-     * @mixin \Illuminate\Database\Eloquent\Builder
-     *
      * @see \Guanguans\LaravelSoar\Mixins\QueryBuilderMixin
      * @see \Illuminate\Database\Query\Builder
+     *
+     * @mixin \Illuminate\Database\Eloquent\Builder
      */
     class Builder {}
 }
@@ -35,10 +35,10 @@ namespace Illuminate\Database\Eloquent {
      * @method self dumpSoarScore(int $depth = 512, int $options = 0)
      * @method array toSoarScore(int $depth = 512, int $options = 0)
      *
-     * @mixin \Illuminate\Database\Query\Builder
-     *
      * @see \Guanguans\LaravelSoar\Mixins\QueryBuilderMixin
      * @see \Illuminate\Database\Eloquent\Builder
+     *
+     * @mixin \Illuminate\Database\Query\Builder
      */
     class Builder {}
 }
@@ -49,10 +49,10 @@ namespace Illuminate\Database\Eloquent\Relations {
      * @method self dumpSoarScore(int $depth = 512, int $options = 0)
      * @method array toSoarScore(int $depth = 512, int $options = 0)
      *
-     * @mixin \Illuminate\Database\Eloquent\Builder
-     *
      * @see \Guanguans\LaravelSoar\Mixins\QueryBuilderMixin
      * @see \Illuminate\Database\Eloquent\Relations\Relation
+     *
+     * @mixin \Illuminate\Database\Eloquent\Builder
      */
     class Relation {}
 }

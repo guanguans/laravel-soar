@@ -27,11 +27,11 @@ class ScoreCommand extends Command
     protected $description = 'Get the Soar scores of the given SQL statements';
 
     /**
+     * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
+     *
      * @noinspection MethodShouldBeFinalInspection
      * @noinspection OffsetOperationsInspection
      * @noinspection SqlResolve
-     *
-     * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
      */
     public function handle(): void
     {

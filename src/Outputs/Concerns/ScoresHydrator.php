@@ -21,10 +21,10 @@ use function Guanguans\LaravelSoar\Support\json_pretty_encode;
 trait ScoresHydrator
 {
     /**
+     * @throws \JsonException
+     *
      * @noinspection PhpStrictTypeCheckingInspection
      * @noinspection PhpIncompatibleReturnTypeInspection
-     *
-     * @throws \JsonException
      */
     protected function hydrateScores(Collection $scores): string
     {

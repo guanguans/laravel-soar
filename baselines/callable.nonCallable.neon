@@ -1,8 +1,0 @@
-# total 1 error
-
-parameters:
-    ignoreErrors:
-        -
-            message: '#^Trying to invoke \(callable\(class\-string, string\)\: bool\)\|null but it might not be a callable\.$#'
-            count: 1
-            path: ../src/Support/helpers.php

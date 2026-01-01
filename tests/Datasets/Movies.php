@@ -19,8 +19,6 @@ declare(strict_types=1);
  * @see https://github.com/guanguans/laravel-soar
  */
 
-namespace Guanguans\PackageSkeletonTests\Datasets;
-
 dataset('movies', [
     '肖申克的救赎',
     '美丽人生',

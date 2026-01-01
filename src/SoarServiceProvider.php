@@ -34,9 +34,9 @@ class SoarServiceProvider extends ServiceProvider
     ];
 
     /**
-     * @noinspection PhpMissingParentCallCommonInspection
-     *
      * @throws \ReflectionException
+     *
+     * @noinspection PhpMissingParentCallCommonInspection
      */
     public function register(): void
     {
