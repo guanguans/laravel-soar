@@ -27,6 +27,16 @@ includes:
 #    - vendor/symplify/phpstan-rules/config/rector-rules.neon
 #    - vendor/symplify/phpstan-rules/config/symfony-rules.neon
 
+services:
+    # https://github.com/guanguans/laravel-soar/security/code-scanning
+    # https://github.com/jbelien/phpstan-sarif-formatter
+    errorFormatter.sarif:
+        class: PHPStanSarifErrorFormatter\SarifErrorFormatter
+        arguments:
+            relativePathHelper: @simpleRelativePathHelper
+            currentWorkingDirectory: %currentWorkingDirectory%
+            pretty: true
+
 parameters:
     paths:
         - config/

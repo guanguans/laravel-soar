@@ -1,8 +1,10 @@
 {
     "require-dev": {
         "php": ">=8.2",
+        "canvural/larastan-strict-rules": "^3.0",
         "ergebnis/composer-normalize": "^2.48",
         "guanguans/monorepo-builder-worker": "^2.1",
+        "larastan/larastan": "^3.8",
         "mrpunyapal/rector-pest": "^0.1",
         "peckphp/peck": "^0.2",
         "phpro/grumphp-shim": "^2.18",

@@ -71,6 +71,7 @@
         "guanguans/php-cs-fixer-custom-fixers": "^1.0",
         "guanguans/rector-rules": "^1.0",
         "itsgoingd/clockwork": "^5.3",
+        "jbelien/phpstan-sarif-formatter": "^1.2",
         "laradumps/laradumps": "^4.6",
         "laravel/facade-documenter": "dev-main",
         "laravel/telescope": "^5.16",
@@ -385,6 +386,10 @@
         "phpmnd": "@php vendor/bin/phpmnd src/ --exclude-path=Support/helpers.phpp --ignore-numbers=2,-1 --hint --progress --ansi -vv",
         "phpstan": "@php vendor/bin/phpstan --ansi -vv",
         "phpstan:analyse": "@phpstan analyse",
+        "phpstan:analyse-error-format-sarif": [
+            "[ -d .build/phpstan/ ] || mkdir -p .build/phpstan/",
+            "@php vendor/bin/phpstan --ansi -vv analyse --error-format=sarif > .build/phpstan/results.sarif"
+        ],
         "phpstan:analyse-generate-baseline": "@phpstan:analyse --generate-baseline --allow-empty-baseline",
         "phpstan:analyse-split-baseline": [
             "@phpstan:analyse --generate-baseline=baselines/loader.neon --allow-empty-baseline",
@@ -471,7 +476,7 @@
         "var-dump-server:cli": "@php vendor/bin/var-dump-server --ansi -vv",
         "var-dump-server:html": [
             "@composer-config:disable-process-timeout",
-            "[ -d .build ] || mkdir -p .build/",
+            "[ -d .build/ ] || mkdir -p .build/",
             "[ -f .build/dump.html ] || touch .build/dump.html",
             "open .build/dump.html",
             "@php vendor/bin/var-dump-server --ansi -v --format=html > .build/dump.html"
