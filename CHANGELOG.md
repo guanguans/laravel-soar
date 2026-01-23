@@ -8,6 +8,20 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 
+<a name="5.0.2"></a>
+## [5.0.2] - 2026-01-23
+### 🎨 Styles
+- apply php-cs-fixer ([6c8e2f1](https://github.com/guanguans/laravel-soar/commit/6c8e2f1))
+
+### 🤖 Continuous Integrations
+- **config:** Update CI config files ([c8c4e1e](https://github.com/guanguans/laravel-soar/commit/c8c4e1e))
+- **config:** Update config files ([7fcc3b7](https://github.com/guanguans/laravel-soar/commit/7fcc3b7))
+- **deps-dev:** Add strict rules for Larastan and update dependencies ([a3adec4](https://github.com/guanguans/laravel-soar/commit/a3adec4))
+
+### Pull Requests
+- Merge pull request [#73](https://github.com/guanguans/laravel-soar/issues/73) from guanguans/dependabot/composer/rector/jack-tw-0.5
+
+
 <a name="5.0.1"></a>
 ## [5.0.1] - 2025-12-24
 ### 🎨 Styles
@@ -737,7 +751,8 @@ All notable changes to this project will be documented in this file.
 - Merge pull request [#1](https://github.com/guanguans/laravel-soar/issues/1) from guanguans/add-license-1
 
 
-[Unreleased]: https://github.com/guanguans/laravel-soar/compare/5.0.1...HEAD
+[Unreleased]: https://github.com/guanguans/laravel-soar/compare/5.0.2...HEAD
+[5.0.2]: https://github.com/guanguans/laravel-soar/compare/5.0.1...5.0.2
 [5.0.1]: https://github.com/guanguans/laravel-soar/compare/5.0.0...5.0.1
 [5.0.0]: https://github.com/guanguans/laravel-soar/compare/4.2.0...5.0.0
 [4.2.0]: https://github.com/guanguans/laravel-soar/compare/4.1.2...4.2.0
