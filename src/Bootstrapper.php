@@ -38,6 +38,9 @@ class Bootstrapper
         self::$scores = collect();
     }
 
+    /**
+     * @api
+     */
     public function boot(): void
     {
         if ($this->booted) {

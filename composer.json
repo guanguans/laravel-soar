@@ -67,17 +67,20 @@
         "ergebnis/composer-normalize": "^2.48",
         "ergebnis/license": "^2.7",
         "ergebnis/php-cs-fixer-config": "^6.58",
+        "ergebnis/phpstan-rules": "^2.12",
         "ergebnis/rector-rules": "^1.9",
-        "guanguans/php-cs-fixer-custom-fixers": "^1.0",
-        "guanguans/rector-rules": "^1.0",
+        "guanguans/php-cs-fixer-custom-fixers": "^1.1",
+        "guanguans/phpstan-rules": "^1.0",
+        "guanguans/rector-rules": "^1.5",
         "itsgoingd/clockwork": "^5.3",
         "jbelien/phpstan-sarif-formatter": "^1.2",
-        "laradumps/laradumps": "^4.6",
+        "laradumps/laradumps": "^4.6 || ^5.0",
         "laravel/facade-documenter": "dev-main",
         "laravel/telescope": "^5.16",
         "mockery/mockery": "^1.6",
         "nette/utils": "^4.0",
-        "orchestra/testbench": "^8.36 || ^9.0 || ^10.0",
+        "nicksdot/phpstan-phpstorm-error-identifiers": "^0.2",
+        "orchestra/testbench": "^8.37 || ^9.0 || ^10.0",
         "pestphp/pest": "^2.36 || ^3.0 || ^4.0",
         "pestphp/pest-plugin-arch": "^2.7 || ^3.0 || ^4.0",
         "pestphp/pest-plugin-laravel": "^2.4 || ^3.0 || ^4.0",
@@ -91,6 +94,7 @@
         "phpstan/phpstan-webmozart-assert": "^2.0",
         "phpunit/phpunit": "^10.5 || ^11.0 || ^12.0",
         "povils/phpmnd": "^3.6",
+        "rector/argtyper": "^0.6",
         "rector/jack": "^0.5",
         "rector/rector": "^2.3",
         "rector/swiss-knife": "^2.3",
@@ -99,16 +103,22 @@
         "shipmonk/dead-code-detector": "^0.14",
         "shipmonk/name-collision-detector": "^2.1",
         "shipmonk/phpstan-baseline-per-identifier": "^2.3",
+        "shipmonk/phpstan-rules": "^4.3",
+        "sidz/phpstan-rules": "^0.5",
         "spatie/invade": "^2.1",
         "spatie/laravel-image-optimizer": "^1.8",
         "spatie/laravel-ray": "^1.43",
         "spaze/phpstan-disallowed-calls": "^4.7",
+        "staabm/annotate-pull-request-from-checkstyle": "^1.8",
         "staabm/phpstan-todo-by": "^0.3",
+        "staabm/side-effects-detector": "^1.0",
         "symfony/thanks": "^1.4",
         "symplify/phpstan-rules": "^14.9",
         "tomasvotruba/class-leak": "^2.1",
         "tomasvotruba/cognitive-complexity": "^1.0",
+        "tomasvotruba/ctor": "^2.2",
         "tomasvotruba/type-coverage": "^2.1",
+        "tomasvotruba/unused-public": "^2.2",
         "yamadashy/phpstan-friendly-formatter": "^1.3"
     },
     "suggest": {
@@ -200,6 +210,8 @@
             "@testbench:prepare"
         ],
         "actionlint": "actionlint -ignore=SC2035 -ignore=SC2086 -color -oneline -verbose",
+        "argtyper": "@php vendor/bin/argtyper --ansi -vv",
+        "argtyper:add-types": "@argtyper add-types .",
         "blade-formatter": "blade-formatter resources/views/*.blade.php resources/views/**/*.blade.php --ignore-path= --php-version=8.1 --progress",
         "blade-formatter:check-formatted": "@blade-formatter --check-formatted",
         "blade-formatter:write": "@blade-formatter --write",
@@ -238,7 +250,7 @@
             "@lint-md",
             "@peck",
             "@php-cs-fixer:custom-fix-dry-run",
-            "@php-cs-fixer:custom-ln-config",
+            "@typos",
             "@zhlint"
         ],
         "checks:required": [
@@ -287,8 +299,8 @@
             "@putenv:php",
             "$PHP82 vendor/bin/grumphp run --ansi -vv"
         ],
-        "jack": "@php vendor/bin/jack --ansi -vv",
-        "jack:breakpoint": "@jack breakpoint --limit=7",
+        "jack": "@php vendor/bin/jack",
+        "jack:breakpoint": "@jack breakpoint --limit=10",
         "jack:breakpoint-dev": "@jack:breakpoint --dev",
         "jack:open-versions": "@jack open-versions --limit=99",
         "jack:open-versions-dev": "@jack:open-versions --dev",
@@ -371,10 +383,11 @@
         "php-cs-fixer:custom-list-files": "@php-cs-fixer:custom list-files",
         "php-cs-fixer:custom-ln-config": [
             "ln -f vendor/guanguans/php-cs-fixer-custom-fixers/.php-cs-fixer-custom.php .php-cs-fixer-custom.php",
-            "YEAR=$(date +%Y); sed -i '' -e 's|guanguans/php-cs-fixer-custom-fixers|guanguans/laravel-soar|g' -e \"s|2025-$YEAR|2020-$YEAR|g\" -e \"s|2025|2020-$YEAR|g\" .php-cs-fixer-custom.php"
+            "YEAR=$(date +%Y); sed -i '' -e 's|guanguans/php-cs-fixer-custom-fixers|guanguans/laravel-soar|g' -e \"s|2025-$YEAR|2020-$YEAR|g\" .php-cs-fixer-custom.php"
         ],
         "php-cs-fixer:fix": "@php-cs-fixer fix --show-progress=dots --diff",
         "php-cs-fixer:fix-dry-run": "@php-cs-fixer:fix --dry-run",
+        "php-cs-fixer:fix-dry-run-format-annotate-pull-request": "@php vendor/bin/php-cs-fixer --ansi -vv 'fix' '--show-progress=dots' '--diff' '--dry-run' --format=checkstyle | vendor/bin/cs2pr --notices-as-warnings --colorize",
         "php-cs-fixer:list-files": "@php-cs-fixer list-files",
         "php-cs-fixer:list-sets": "@php-cs-fixer list-sets --ansi -vv",
         "php-lint": [
@@ -386,9 +399,11 @@
         "phpmnd": "@php vendor/bin/phpmnd src/ --exclude-path=Support/helpers.phpp --ignore-numbers=2,-1 --hint --progress --ansi -vv",
         "phpstan": "@php vendor/bin/phpstan --ansi -vv",
         "phpstan:analyse": "@phpstan analyse",
+        "phpstan:analyse-error-format-annotate-pull-request": "@php vendor/bin/phpstan --ansi -vv 'analyse' --error-format=checkstyle | vendor/bin/cs2pr --notices-as-warnings --colorize",
+        "phpstan:analyse-error-format-github": "@phpstan:analyse --error-format=github",
         "phpstan:analyse-error-format-sarif": [
             "[ -d .build/phpstan/ ] || mkdir -p .build/phpstan/",
-            "@php vendor/bin/phpstan --ansi -vv analyse --error-format=sarif > .build/phpstan/results.sarif"
+            "@php vendor/bin/phpstan --ansi -vv 'analyse' --error-format=sarif > .build/phpstan/results.sarif"
         ],
         "phpstan:analyse-generate-baseline": "@phpstan:analyse --generate-baseline --allow-empty-baseline",
         "phpstan:analyse-split-baseline": [
@@ -403,6 +418,10 @@
             "@php vendor/bin/pint --ansi -vv"
         ],
         "pint:test": "@pint --test",
+        "pint:test-format-annotate-pull-request": [
+            "@putenv:xdebug-off",
+            "@php vendor/bin/pint --ansi -vv '--test' --format=checkstyle | vendor/bin/cs2pr --notices-as-warnings --colorize"
+        ],
         "putenv:composer-memory-unlimited": "@putenv COMPOSER_MEMORY_LIMIT=-1",
         "putenv:php": [
             "@putenv PHP74=/opt/homebrew/opt/php@7.4/bin/php",
@@ -425,8 +444,14 @@
         "rector:process-clear-cache": "@rector:process --clear-cache",
         "rector:process-clear-cache-dry-run": "@rector:process-clear-cache --dry-run",
         "rector:process-dry-run": "@rector:process --dry-run",
+        "rector:process-dry-run-output-format-github": "@rector:process-dry-run --output-format=github",
         "rector:process-only": "@rector:process-clear-cache --only=Guanguans\\LaravelSoar\\Support\\Rectors\\AddHasOptionsDocCommentRector",
         "rector:process-only-dry-run": "@rector:process-only --dry-run",
+        "roave-backward-compatibility-check": [
+            "@putenv:php",
+            "$PHP82 vendor/bin/roave-backward-compatibility-check --install-development-dependencies --ansi -vv"
+        ],
+        "roave-backward-compatibility-check:format-github-actions": "@roave-backward-compatibility-check --format=github-actions",
         "rule-doc-generator": [
             "@putenv:php",
             "$PHP82 rule-doc-generator --ansi -vv"
@@ -442,7 +467,12 @@
         "sk:finalize-classes-dry-run": "@sk:finalize-classes --dry-run",
         "sk:find-multi-classes": "@sk find-multi-classes config/ src/",
         "sk:generate-symfony-config-builders": "@sk generate-symfony-config-builders --help",
-        "sk:namespace-to-psr-4": "@sk namespace-to-psr-4 src/ --namespace-root=Guanguans\\LaravelSoar\\",
+        "sk:namespace-to-psr-4": [
+            "@sk:namespace-to-psr-4-src",
+            "@sk:namespace-to-psr-4-tests"
+        ],
+        "sk:namespace-to-psr-4-src": "@sk namespace-to-psr-4 src/ --namespace-root=Guanguans\\LaravelSoar\\",
+        "sk:namespace-to-psr-4-tests": "@sk namespace-to-psr-4 tests/ --namespace-root=Guanguans\\LaravelSoarTests\\",
         "sk:pretty-json": "@sk pretty-json .lintmdrc",
         "sk:pretty-json-dry-run": "@sk:pretty-json --dry-run",
         "sk:privatize-constants": "@sk privatize-constants config/ src/",
@@ -473,10 +503,12 @@
         "todo-lint": "! git --no-pager grep --extended-regexp --ignore-case 'todo|fixme' -- '*.php' ':!*.blade.php' ':(exclude)resources/'",
         "touch:database-sqlite": "@php -r \"file_exists('vendor/orchestra/testbench-core/laravel/database/database.sqlite') || touch('vendor/orchestra/testbench-core/laravel/database/database.sqlite');\"",
         "trufflehog": "trufflehog git https://github.com/guanguans/laravel-soar --only-verified",
+        "typos": "typos --color=always --sort --verbose",
+        "typos:write-changes": "@typos --write-changes",
         "var-dump-server:cli": "@php vendor/bin/var-dump-server --ansi -vv",
         "var-dump-server:html": [
             "@composer-config:disable-process-timeout",
-            "[ -d .build/ ] || mkdir -p .build/",
+            "[ -d .build ] || mkdir -p .build/",
             "[ -f .build/dump.html ] || touch .build/dump.html",
             "open .build/dump.html",
             "@php vendor/bin/var-dump-server --ansi -v --format=html > .build/dump.html"

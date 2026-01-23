@@ -47,5 +47,9 @@ jobs:
           sarif_file: .build/phpstan/results.sarif
           wait-for-processing: true
 
+      - name: Run phpstan with annotate-pull-request error format
+        continue-on-error: true
+        run: composer phpstan:analyse-error-format-annotate-pull-request
+
       - name: Run phpstan
         run: composer phpstan:analyse

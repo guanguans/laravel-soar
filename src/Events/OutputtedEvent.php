@@ -18,6 +18,9 @@ use Illuminate\Console\Events\CommandFinished;
 use Illuminate\Support\Collection;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * @api
+ */
 class OutputtedEvent
 {
     public function __construct(

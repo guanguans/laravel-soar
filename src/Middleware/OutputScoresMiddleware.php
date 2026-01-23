@@ -26,6 +26,8 @@ class OutputScoresMiddleware
     public function __construct(private readonly Bootstrapper $bootstrapper) {}
 
     /**
+     * @api
+     *
      * @param \Closure(\Illuminate\Http\Request): (JsonResponse|RedirectResponse|Response) $next
      *
      * @noinspection RedundantDocCommentTagInspection

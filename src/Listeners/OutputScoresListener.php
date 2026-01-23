@@ -20,6 +20,9 @@ class OutputScoresListener
 {
     public function __construct(private readonly Bootstrapper $bootstrapper) {}
 
+    /**
+     * @api
+     */
     public function handle(CommandFinished $commandFinished): void
     {
         $this->bootstrapper->outputScores($commandFinished);

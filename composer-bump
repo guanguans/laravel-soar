@@ -26,6 +26,7 @@ use Symfony\Component\Process\PhpExecutableFinder;
 use Symfony\Component\Process\Process;
 
 file_exists($autoload = __DIR__.'/../../vendor/autoload.php') and require $autoload;
+is_file($composer = __DIR__.'/vendor/bin/composer') and unlink($composer);
 
 require __DIR__.'/vendor/autoload.php';
 
@@ -97,7 +98,8 @@ final class ComposerBump
     public function __invoke(): void
     {
         $this
-            // ->updateComposerPackages()
+            ->updateOutdatedComposerPackages()
+            ->updateComposerPackages()
             ->updateOutdatedComposerPackages()
             ->updateComposerPackages()
             ->normalizeComposerJson()

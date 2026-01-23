@@ -37,5 +37,9 @@ jobs:
       - name: Run composer install
         run: composer install --no-interaction --ansi -v
 
+      - name: Run rector with github output format
+        continue-on-error: true
+        run: composer rector:process-dry-run-output-format-github
+
       - name: Run rector
         run: composer rector:process-dry-run

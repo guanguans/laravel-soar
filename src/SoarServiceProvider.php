@@ -28,7 +28,11 @@ use Illuminate\Support\ServiceProvider;
 
 class SoarServiceProvider extends ServiceProvider
 {
-    /** @var list<class-string> */
+    /**
+     * @api
+     *
+     * @var list<class-string>
+     */
     public array $singletons = [
         Bootstrapper::class,
     ];
@@ -56,6 +60,8 @@ class SoarServiceProvider extends ServiceProvider
     }
 
     /**
+     * @return list<string>
+     *
      * @noinspection PhpMissingParentCallCommonInspection
      */
     public function provides(): array
@@ -104,6 +110,8 @@ class SoarServiceProvider extends ServiceProvider
                     if (!\is_array($parameters)) {
                         [$parameters, $class] = [(array) $class, $parameters];
                     }
+
+                    \assert(\is_string($class));
 
                     return [$class => $application->make($class, $parameters)];
                 })

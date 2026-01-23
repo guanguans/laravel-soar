@@ -15,17 +15,11 @@ declare(strict_types=1);
  * @see https://github.com/guanguans/laravel-soar
  */
 
-use Carbon\Carbon;
 use Ergebnis\Rector\Rules\Arrays\SortAssociativeArrayByKeyRector;
-use Guanguans\LaravelSoar\Contracts\ThrowableContract;
-use Guanguans\RectorRules\Rector\Array_\SimplifyListIndexRector;
-use Guanguans\RectorRules\Rector\Class_\UpdateRectorRefactorParamDocblockFromNodeTypesRector;
-use Guanguans\RectorRules\Rector\Declare_\AddNoinspectionDocblockToDeclareRector;
-use Guanguans\RectorRules\Rector\Name\RenameToPsrNameRector;
-use Guanguans\RectorRules\Rector\Namespace_\RemoveNamespaceRector;
-use Guanguans\RectorRules\Rector\New_\NewExceptionToNewAnonymousExtendsExceptionImplementsRector;
-use Illuminate\Support\Carbon as IlluminateCarbon;
-use Illuminate\Support\Str;
+use Guanguans\RectorRules\Rector\File\AddNoinspectionDocblockToFileFirstStmtRector;
+use Guanguans\RectorRules\Rector\FunctionLike\RenameGarbageParamNameRector;
+use Guanguans\RectorRules\Rector\Name\RenameToConventionalCaseNameRector;
+use Guanguans\RectorRules\Set\SetList;
 use PhpParser\NodeVisitor\ParentConnectingVisitor;
 use Rector\CodeQuality\Rector\If_\ExplicitBoolCompareRector;
 use Rector\CodeQuality\Rector\LogicalAnd\LogicalToBooleanRector;
@@ -42,12 +36,10 @@ use Rector\EarlyReturn\Rector\If_\ChangeOrIfContinueToMultiContinueRector;
 use Rector\EarlyReturn\Rector\Return_\ReturnBinaryOrToEarlyReturnRector;
 use Rector\Php71\Rector\FuncCall\RemoveExtraParametersRector;
 use Rector\Php73\Rector\FuncCall\JsonThrowOnErrorRector;
-use Rector\PHPUnit\Set\PHPUnitSetList;
 use Rector\Renaming\Rector\ClassConstFetch\RenameClassConstFetchRector;
 use Rector\Renaming\Rector\FuncCall\RenameFunctionRector;
 use Rector\Renaming\Rector\Name\RenameClassRector;
-use Rector\Transform\Rector\StaticCall\StaticCallToFuncCallRector;
-use Rector\Transform\ValueObject\StaticCallToFuncCall;
+use Rector\Transform\Rector\Scalar\ScalarValueToConstFetchRector;
 use Rector\ValueObject\PhpVersion;
 use Rector\ValueObject\Visibility;
 use Rector\Visibility\Rector\ClassMethod\ChangeMethodVisibilityRector;
@@ -62,7 +54,7 @@ use RectorLaravel\Rector\If_\ThrowIfRector;
 use RectorLaravel\Rector\StaticCall\DispatchToHelperFunctionsRector;
 use RectorLaravel\Set\LaravelSetList;
 use RectorLaravel\Set\LaravelSetProvider;
-use function Guanguans\LaravelSoar\Support\classes;
+use function Guanguans\RectorRules\Support\classes;
 
 return RectorConfig::configure()
     ->withPaths([
@@ -74,7 +66,7 @@ return RectorConfig::configure()
     ])
     ->withRootFiles()
     ->withSkip([
-        '**/Fixtures/*',
+        '*/Fixtures/*',
         __DIR__.'/tests.php',
     ])
     ->withCache(__DIR__.'/.build/rector/')
@@ -104,7 +96,7 @@ return RectorConfig::configure()
         carbon: true,
     )
     ->withSets([
-        PHPUnitSetList::PHPUNIT_100,
+        SetList::ALL,
         ...collect((new ReflectionClass(LaravelSetList::class))->getConstants(ReflectionClassConstant::IS_PUBLIC))
             ->reject(
                 static fn (string $constant, string $name): bool => \in_array(
@@ -117,13 +109,9 @@ return RectorConfig::configure()
             ->all(),
     ])
     ->withRules([
-        RemoveNamespaceRector::class,
-        SimplifyListIndexRector::class,
-        SortAssociativeArrayByKeyRector::class,
-        UpdateRectorRefactorParamDocblockFromNodeTypesRector::class,
-
         ArraySpreadInsteadOfArrayMergeRector::class,
         JsonThrowOnErrorRector::class,
+        SortAssociativeArrayByKeyRector::class,
         StaticArrowFunctionRector::class,
         StaticClosureRector::class,
         ...classes(static fn (string $class): bool => str_starts_with($class, 'RectorLaravel\Rector'))
@@ -132,7 +120,7 @@ return RectorConfig::configure()
             // ->dd()
             ->all(),
     ])
-    ->withConfiguredRule(AddNoinspectionDocblockToDeclareRector::class, [
+    ->withConfiguredRule(AddNoinspectionDocblockToFileFirstStmtRector::class, [
         '*/tests/*' => [
             'AnonymousFunctionStaticInspection',
             'NullPointerExceptionInspection',
@@ -144,9 +132,8 @@ return RectorConfig::configure()
             'StaticClosureCanBeUsedInspection',
         ],
     ])
-    ->withConfiguredRule(NewExceptionToNewAnonymousExtendsExceptionImplementsRector::class, [ThrowableContract::class])
     ->registerDecoratingNodeVisitor(ParentConnectingVisitor::class)
-    ->withConfiguredRule(RenameToPsrNameRector::class, [
+    ->withConfiguredRule(RenameToConventionalCaseNameRector::class, [
         'beforeEach',
         'MIT',
         'PDO',
@@ -157,12 +144,6 @@ return RectorConfig::configure()
         'phpstan-ignore',
         'phpstan-ignore-next-line',
         'psalm-suppress',
-    ])
-    ->withConfiguredRule(RenameClassRector::class, [
-        Carbon::class => IlluminateCarbon::class,
-    ])
-    ->withConfiguredRule(StaticCallToFuncCallRector::class, [
-        new StaticCallToFuncCall(Str::class, 'of', 'str'),
     ])
     ->withConfiguredRule(
         ChangeMethodVisibilityRector::class,
@@ -182,13 +163,11 @@ return RectorConfig::configure()
             // ->dd()
             ->all(),
     )
-    ->withConfiguredRule(RenameFunctionRector::class, [
-        // 'app' => 'resolve',
-        'Pest\Faker\fake' => 'fake',
-        'Pest\Faker\faker' => 'fake',
-        'test' => 'it',
-    ])
     ->withSkip([
+        RenameFunctionRector::class,
+        RenameGarbageParamNameRector::class,
+        ScalarValueToConstFetchRector::class,
+
         ChangeOrIfContinueToMultiContinueRector::class,
         EncapsedStringsToSprintfRector::class,
         ExplicitBoolCompareRector::class,

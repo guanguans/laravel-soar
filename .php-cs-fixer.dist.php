@@ -47,7 +47,6 @@ return Factory::fromRuleSet(Php81::create()
     ->withRules(Rules::fromArray(require __DIR__.'/vendor/guanguans/php-cs-fixer-custom-fixers/config/rules.php'))
     ->withRules(Rules::fromArray([
         '@autoPHPUnitMigration:risky' => true,
-        'PhpCsFixerCustomFixers/comment_surrounded_by_spaces' => false,
         'final_public_method_for_abstract_class' => false,
     ])))
     ->setUsingCache(true)

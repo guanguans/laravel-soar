@@ -109,6 +109,14 @@ return (new Config)
             ])
             ->name($fixers->extensionPatterns())
             ->notName([
+                '/\.gif$/',
+                '/\.ico$/',
+                '/\.jpeg$/',
+                '/\.jpg$/',
+                '/\.mp4$/',
+                '/\.phar$/',
+                '/\.png$/',
+                '/\.svg$/',
                 '/\-overview\.md$/',
                 '/\.lock$/',
                 '/\-lock\.json$/',

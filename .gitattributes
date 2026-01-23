@@ -35,7 +35,7 @@
 # Ignore all test and documentation with "export-ignore".
 /.*/           export-ignore
 /baselines/    export-ignore
-/benchmarks/   export-ignore
+#/benchmarks/   export-ignore
 #/docs/         export-ignore
 #/examples/     export-ignore
 /tests/        export-ignore
@@ -57,5 +57,6 @@
 /phpunit.xml.dist                   export-ignore
 /rector-*.php                       export-ignore
 /rector.php                         export-ignore
+/rule-doc-generator                 export-ignore
 /testbench.yaml                     export-ignore
 /tests.*                            export-ignore

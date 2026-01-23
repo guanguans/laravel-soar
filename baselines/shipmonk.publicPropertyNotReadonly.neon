@@ -1,0 +1,8 @@
+# total 1 error
+
+parameters:
+    ignoreErrors:
+        -
+            message: '#^Public property `singletons` not marked as readonly\.$#'
+            count: 1
+            path: ../src/SoarServiceProvider.php

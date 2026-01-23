@@ -13,11 +13,11 @@ declare(strict_types=1);
  * @see https://github.com/guanguans/laravel-soar
  */
 
-use Guanguans\MonorepoBuilderWorker\CreateGithubReleaseReleaseWorker;
+use Guanguans\MonorepoBuilderWorker\ReleaseWorker\CreateGithubReleaseReleaseWorker;
+use Guanguans\MonorepoBuilderWorker\ReleaseWorker\UpdateChangelogViaGoReleaseWorker;
+use Guanguans\MonorepoBuilderWorker\ReleaseWorker\UpdateChangelogViaNodeReleaseWorker;
+use Guanguans\MonorepoBuilderWorker\ReleaseWorker\UpdateChangelogViaPhpReleaseWorker;
 use Guanguans\MonorepoBuilderWorker\Support\EnvironmentChecker;
-use Guanguans\MonorepoBuilderWorker\UpdateChangelogViaGoReleaseWorker;
-use Guanguans\MonorepoBuilderWorker\UpdateChangelogViaNodeReleaseWorker;
-use Guanguans\MonorepoBuilderWorker\UpdateChangelogViaPhpReleaseWorker;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Style\SymfonyStyle;
@@ -37,9 +37,8 @@ use Symplify\MonorepoBuilder\Release\ReleaseWorker\UpdateBranchAliasReleaseWorke
 use Symplify\MonorepoBuilder\Release\ReleaseWorker\UpdateReplaceReleaseWorker;
 
 return static function (MBConfig $mbConfig): void {
-    require __DIR__.'/vendor/autoload.php';
     $mbConfig->defaultBranch('master');
-    MBConfig::disableDefaultWorkers();
+    // MBConfig::disableDefaultWorkers();
 
     // $services = $mbConfig->services();
     // $services->set(BranchAwareTagResolver::class);
@@ -54,8 +53,8 @@ return static function (MBConfig $mbConfig): void {
         // UpdateReplaceReleaseWorker::class,
         // SetCurrentMutualDependenciesReleaseWorker::class,
         // AddTagToChangelogReleaseWorker::class,
-        TagVersionReleaseWorker::class,
-        PushTagReleaseWorker::class,
+        // TagVersionReleaseWorker::class,
+        // PushTagReleaseWorker::class,
         UpdateChangelogViaGoReleaseWorker::class,
         // UpdateChangelogViaNodeReleaseWorker::class,
         // UpdateChangelogViaPhpReleaseWorker::class,
@@ -65,7 +64,10 @@ return static function (MBConfig $mbConfig): void {
         // PushNextDevReleaseWorker::class,
     ]);
 
-    if (!(new ArgvInput)->hasParameterOption('--dry-run', true)) {
+    if (
+        \PHP_MAJOR_VERSION === 8 && \PHP_MINOR_VERSION === 1
+        && !(new ArgvInput)->hasParameterOption('--dry-run', true)
+    ) {
         (new Process([
             (new PhpExecutableFinder)->find(),
             (new ExecutableFinder)->find($composer = 'composer', $composer),

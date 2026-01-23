@@ -103,11 +103,6 @@ function class_namespace(object|string $class): string
     return (new ReflectionClass($class))->getNamespaceName();
 }
 
-function fixtures_path(string $path = ''): string
-{
-    return __DIR__.\DIRECTORY_SEPARATOR.'Fixtures'.($path ? \DIRECTORY_SEPARATOR.$path : $path);
-}
-
 if (!\function_exists('fake')) {
     /**
      * @see https://github.com/laravel/framework/blob/12.x/src/Illuminate/Foundation/helpers.php#L515
@@ -118,9 +113,9 @@ if (!\function_exists('fake')) {
     }
 }
 
-function running_in_github_action(): bool
+function fixtures_path(string $path = ''): string
 {
-    return getenv('GITHUB_ACTIONS') === 'true';
+    return __DIR__.\DIRECTORY_SEPARATOR.'Fixtures'.($path ? \DIRECTORY_SEPARATOR.$path : $path);
 }
 
 /**
@@ -142,4 +137,9 @@ function links(array $links, array $parameters = []): int
     // echo Artisan::output();
 
     return $status;
+}
+
+function running_in_github_action(): bool
+{
+    return getenv('GITHUB_ACTIONS') === 'true';
 }

@@ -16,11 +16,11 @@ includes:
 #    - vendor/shipmonk/dead-code-detector/rules.neon
 #    - vendor/staabm/phpstan-todo-by/extension.neon
 
-    - vendor/symplify/phpstan-rules/config/code-complexity-rules.neon
+#    - vendor/symplify/phpstan-rules/config/code-complexity-rules.neon
 #    - vendor/symplify/phpstan-rules/config/configurable-rules.neon
-    - vendor/symplify/phpstan-rules/config/naming-rules.neon
-    - vendor/symplify/phpstan-rules/config/static-rules.neon
-#    - vendor/symplify/phpstan-rules/config/symplify-rules.neon
+#    - vendor/symplify/phpstan-rules/config/naming-rules.neon
+#    - vendor/symplify/phpstan-rules/config/static-rules.neon
+    - vendor/symplify/phpstan-rules/config/symplify-rules.neon
 
 #    - vendor/symplify/phpstan-rules/config/doctrine-rules.neon
     - vendor/symplify/phpstan-rules/config/phpunit-rules.neon
@@ -41,9 +41,12 @@ parameters:
     paths:
         - config/
         - src/
+    scanDirectories:
+        - vendor/rector/rector/vendor/symplify/rule-doc-generator-contracts/
     scanFiles:
         - vendor/composer/InstalledVersions.php
     excludePaths:
+#        - src/Support/ComposerScripts.php
         - tests/Fixtures/
         - *.blade.php
     tmpDir: .build/phpstan/
@@ -61,6 +64,30 @@ parameters:
         allRules: true
         booleansInConditions: false
         disallowedShortTernary: false
+    ergebnis:
+        noParameterWithNullableTypeDeclaration:
+            enabled: false
+        noParameterWithNullDefaultValue:
+            enabled: false
+        noConstructorParameterWithDefaultValue:
+            enabled: false
+        noExtends:
+            enabled: false
+        final:
+            enabled: false
+        noIsset:
+            enabled: false
+        finalInAbstractClass:
+            enabled: false
+        noParameterWithContainerTypeDeclaration:
+            enabled: false
+    guanguans:
+        exceptionMustImplementNativeThrowable:
+            nativeThrowable: Guanguans\LaravelSoar\Contracts\ThrowableContract
+        forbiddenSideEffects:
+            enabled: false
+#    sidzIgnoreNumericStrings: true
+    sidzIgnoreMagicNumbers: [2, 3, 5, 100, 512, 1000]
     cognitive_complexity:
         class: 42
         function: 8
@@ -70,10 +97,10 @@ parameters:
 #            - Rector\Contract\Rector\RectorInterface
     type_coverage:
         declare: 100
-        param_type: 100
-        return_type: 100
-        constant_type: 100
-        property_type: 100
+        param: 100
+        return: 100
+        constant: 100
+        property: 100
     type_perfect:
         narrow_param: true
         narrow_return: true
@@ -81,6 +108,13 @@ parameters:
         no_mixed: false
         no_mixed_property: true
         no_mixed_caller: false
+    unused_public:
+        constants: true
+        properties: true
+        methods: true
+        local_methods: true
+        template_paths:
+#            - resources/views/
     disallowedFunctionCalls:
         -
             function: 'env()'
@@ -133,8 +167,12 @@ parameters:
         - identifier: missingType.iterableValue
         - identifier: return.type
         - identifier: return.void
+        - identifier: shipmonk.checkedExceptionInCallable
         - identifier: shipmonk.deadMethod
+        - identifier: shipmonk.forbiddenCast
         - identifier: symplify.explicitTraitSuffixName
+        - identifier: symplify.forbiddenFuncCall
+        - identifier: symplify.forbiddenNode
         - identifier: symplify.requireExceptionNamespace
         - '#^Call to an undefined static method Guanguans\\LaravelSoar\\Facades\\Soar\:\:get.*\(\)\.$#'
         - '#^Call to method label\(\) on an unknown class Spatie\\.*\\Ray\.$#'

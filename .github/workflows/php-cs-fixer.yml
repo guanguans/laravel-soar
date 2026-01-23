@@ -37,5 +37,9 @@ jobs:
       - name: Run composer install
         run: composer install --no-interaction --ansi -v
 
+      - name: Run php-cs-fixer with annotate-pull-request format
+        continue-on-error: true
+        run: composer php-cs-fixer:fix-dry-run-format-annotate-pull-request
+
       - name: Run php-cs-fixer
         run: composer php-cs-fixer:fix-dry-run

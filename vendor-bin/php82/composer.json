@@ -3,16 +3,19 @@
         "php": ">=8.2",
         "canvural/larastan-strict-rules": "^3.0",
         "ergebnis/composer-normalize": "^2.48",
-        "guanguans/monorepo-builder-worker": "^2.1",
-        "larastan/larastan": "^3.8",
+        "guanguans/monorepo-builder-worker": "^3.0",
+        "illuminate/support": "^12.48",
+        "larastan/larastan": "^3.9",
         "mrpunyapal/rector-pest": "^0.1",
         "peckphp/peck": "^0.2",
+        "peststan/peststan": "^0.0",
         "phpro/grumphp-shim": "^2.18",
-        "theofidry/composer-inheritance-plugin": "^1.2"
+        "phpstan/phpstan": "^2.1",
+        "roave/backward-compatibility-check": "^8.14",
+        "roave/no-floaters": "^1.13"
     },
-    "conflict": {
-        "symplify/monorepo-builder": "^12.0"
-    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "config": {
         "allow-plugins": {
             "ergebnis/composer-normalize": true,
