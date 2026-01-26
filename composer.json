@@ -79,7 +79,7 @@
         "laravel/telescope": "^5.16",
         "mockery/mockery": "^1.6",
         "nette/utils": "^4.0",
-        "nicksdot/phpstan-phpstorm-error-identifiers": "^0.2",
+        "nicksdot/phpstan-phpstorm-error-identifiers": "^0.3",
         "orchestra/testbench": "^8.37 || ^9.0 || ^10.0",
         "pestphp/pest": "^2.36 || ^3.0 || ^4.0",
         "pestphp/pest-plugin-arch": "^2.7 || ^3.0 || ^4.0",
