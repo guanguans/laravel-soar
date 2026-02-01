@@ -17,7 +17,6 @@ declare(strict_types=1);
 
 use Ergebnis\Rector\Rules\Arrays\SortAssociativeArrayByKeyRector;
 use Guanguans\RectorRules\Rector\File\AddNoinspectionDocblockToFileFirstStmtRector;
-use Guanguans\RectorRules\Rector\FunctionLike\RenameGarbageParamNameRector;
 use Guanguans\RectorRules\Rector\Name\RenameToConventionalCaseNameRector;
 use Guanguans\RectorRules\Set\SetList;
 use PhpParser\NodeVisitor\ParentConnectingVisitor;
@@ -37,13 +36,9 @@ use Rector\EarlyReturn\Rector\Return_\ReturnBinaryOrToEarlyReturnRector;
 use Rector\Php71\Rector\FuncCall\RemoveExtraParametersRector;
 use Rector\Php73\Rector\FuncCall\JsonThrowOnErrorRector;
 use Rector\Renaming\Rector\ClassConstFetch\RenameClassConstFetchRector;
-use Rector\Renaming\Rector\FuncCall\RenameFunctionRector;
 use Rector\Renaming\Rector\Name\RenameClassRector;
 use Rector\Transform\Rector\Scalar\ScalarValueToConstFetchRector;
 use Rector\ValueObject\PhpVersion;
-use Rector\ValueObject\Visibility;
-use Rector\Visibility\Rector\ClassMethod\ChangeMethodVisibilityRector;
-use Rector\Visibility\ValueObject\ChangeMethodVisibility;
 use RectorLaravel\Rector\ArrayDimFetch\ArrayToArrGetRector;
 use RectorLaravel\Rector\Class_\ModelCastsPropertyToCastsMethodRector;
 use RectorLaravel\Rector\Empty_\EmptyToBlankAndFilledFuncRector;
@@ -99,7 +94,7 @@ return RectorConfig::configure()
         SetList::ALL,
         ...collect((new ReflectionClass(LaravelSetList::class))->getConstants(ReflectionClassConstant::IS_PUBLIC))
             ->reject(
-                static fn (string $constant, string $name): bool => \in_array(
+                static fn (string $_, string $name): bool => \in_array(
                     $name,
                     ['LARAVEL_STATIC_TO_INJECTION', 'LUMEN'],
                     true
@@ -145,27 +140,7 @@ return RectorConfig::configure()
         'phpstan-ignore-next-line',
         'psalm-suppress',
     ])
-    ->withConfiguredRule(
-        ChangeMethodVisibilityRector::class,
-        classes(static fn (string $class, string $file): bool => str_starts_with($class, 'Guanguans\LaravelSoar'))
-            ->filter(static fn (ReflectionClass $reflectionClass): bool => $reflectionClass->isTrait())
-            ->map(
-                static fn (ReflectionClass $reflectionClass): array => collect($reflectionClass->getMethods(ReflectionMethod::IS_PRIVATE))
-                    ->reject(static fn (ReflectionMethod $reflectionMethod): bool => $reflectionMethod->isFinal() || $reflectionMethod->isInternal())
-                    ->map(static fn (ReflectionMethod $reflectionMethod): ChangeMethodVisibility => new ChangeMethodVisibility(
-                        $reflectionClass->getName(),
-                        $reflectionMethod->getName(),
-                        Visibility::PROTECTED
-                    ))
-                    ->all()
-            )
-            ->flatten()
-            // ->dd()
-            ->all(),
-    )
     ->withSkip([
-        RenameFunctionRector::class,
-        RenameGarbageParamNameRector::class,
         ScalarValueToConstFetchRector::class,
 
         ChangeOrIfContinueToMultiContinueRector::class,

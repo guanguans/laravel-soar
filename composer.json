@@ -60,18 +60,18 @@
     },
     "require-dev": {
         "adamwojs/php-cs-fixer-phpdoc-force-fqcn": "^2.0",
-        "bamarni/composer-bin-plugin": "^1.8",
-        "barryvdh/laravel-debugbar": "^3.16",
+        "bamarni/composer-bin-plugin": "^1.9",
+        "barryvdh/laravel-debugbar": "^3.16 || ^4.0",
         "brainmaestro/composer-git-hooks": "^3.0",
         "driftingly/rector-laravel": "^2.1",
-        "ergebnis/composer-normalize": "^2.48",
+        "ergebnis/composer-normalize": "^2.49",
         "ergebnis/license": "^2.7",
-        "ergebnis/php-cs-fixer-config": "^6.58",
-        "ergebnis/phpstan-rules": "^2.12",
+        "ergebnis/php-cs-fixer-config": "^6.59",
+        "ergebnis/phpstan-rules": "^2.13",
         "ergebnis/rector-rules": "^1.9",
         "guanguans/php-cs-fixer-custom-fixers": "^1.1",
         "guanguans/phpstan-rules": "^1.0",
-        "guanguans/rector-rules": "^1.5",
+        "guanguans/rector-rules": "^1.6",
         "itsgoingd/clockwork": "^5.3",
         "jbelien/phpstan-sarif-formatter": "^1.2",
         "laradumps/laradumps": "^4.6 || ^5.0",
@@ -119,7 +119,7 @@
         "tomasvotruba/ctor": "^2.2",
         "tomasvotruba/type-coverage": "^2.1",
         "tomasvotruba/unused-public": "^2.2",
-        "yamadashy/phpstan-friendly-formatter": "^1.3"
+        "yamadashy/phpstan-friendly-formatter": "^1.4"
     },
     "suggest": {
         "barryvdh/laravel-debugbar": "Output SQL scores to Laravel DebugBar.",
@@ -250,6 +250,7 @@
             "@lint-md",
             "@peck",
             "@php-cs-fixer:custom-fix-dry-run",
+            "@php-cs-fixer:custom-ln-config",
             "@typos",
             "@zhlint"
         ],

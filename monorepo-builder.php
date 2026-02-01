@@ -77,7 +77,7 @@ return static function (MBConfig $mbConfig): void {
         ]))
             ->setEnv(['COMPOSER_MEMORY_LIMIT' => -1])
             ->setTimeout(600)
-            ->mustRun(static function (string $type, string $buffer): void {
+            ->mustRun(static function (string $_, string $buffer): void {
                 $symfonyStyle ??= new SymfonyStyle(new ArgvInput, new ConsoleOutput);
                 $symfonyStyle->write($buffer);
             });

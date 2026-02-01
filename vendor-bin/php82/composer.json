@@ -2,9 +2,9 @@
     "require-dev": {
         "php": ">=8.2",
         "canvural/larastan-strict-rules": "^3.0",
-        "ergebnis/composer-normalize": "^2.48",
+        "ergebnis/composer-normalize": "^2.49",
         "guanguans/monorepo-builder-worker": "^3.0",
-        "illuminate/support": "^12.48",
+        "illuminate/support": "^12.49",
         "larastan/larastan": "^3.9",
         "mrpunyapal/rector-pest": "^0.1",
         "peckphp/peck": "^0.2",

@@ -28,6 +28,7 @@ use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\SqlfluffFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\SqruffFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\TextlintFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\TombiFixer;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\TyposFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\XmllintFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\YamlfmtFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\ZhlintFixer;
@@ -38,12 +39,6 @@ use Guanguans\PhpCsFixerCustomFixers\Fixers;
 use PhpCsFixer\Config;
 use PhpCsFixer\Finder;
 use PhpCsFixer\Runner\Parallel\ParallelConfigFactory;
-
-// putenv('PHP_CS_FIXER_ENFORCE_CACHE=1');
-// putenv('PHP_CS_FIXER_IGNORE_ENV=1');
-putenv('PHP_CS_FIXER_FUTURE_MODE=1');
-putenv('PHP_CS_FIXER_NON_MONOLITHIC=1');
-putenv('PHP_CS_FIXER_PARALLEL=1');
 
 return (new Config)
     ->registerCustomFixers($fixers = Fixers::make())
@@ -89,6 +84,7 @@ return (new Config)
         JsonFixer::name() => true,
         ShfmtFixer::name() => true,
         TombiFixer::name() => true,
+        TyposFixer::name() => true,
         XmllintFixer::name() => true,
         YamlfmtFixer::name() => true,
     ])
@@ -109,20 +105,13 @@ return (new Config)
             ])
             ->name($fixers->extensionPatterns())
             ->notName([
-                '/\.gif$/',
-                '/\.ico$/',
-                '/\.jpeg$/',
-                '/\.jpg$/',
-                '/\.mp4$/',
-                '/\.phar$/',
-                '/\.png$/',
-                '/\.svg$/',
                 '/\-overview\.md$/',
                 '/\.lock$/',
                 '/\-lock\.json$/',
                 // '/\.php$/',
                 '/(?<!\.blade)\.php$/',
-                '/zhlint\-.*\.zh_CN\.md$/',
+                // Exclude temporary files created by `zhlint` in the current working directory.
+                '/zhlint\-.*\..*$/',
             ])
             ->ignoreDotFiles(false)
             ->ignoreUnreadableDirs(false)

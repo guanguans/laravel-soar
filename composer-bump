@@ -98,6 +98,7 @@ final class ComposerBump
     public function __invoke(): void
     {
         $this
+            ->updateComposerPackages()
             ->updateOutdatedComposerPackages()
             ->updateComposerPackages()
             ->updateOutdatedComposerPackages()
@@ -123,7 +124,7 @@ final class ComposerBump
 
     private function updateComposerPackages(): self
     {
-        $this->mustRunCommand("$this->composer update --with-all-dependencies");
+        $this->mustRunCommand("$this->composer update --with-all-dependencies --no-security-blocking");
 
         return $this;
     }
@@ -282,7 +283,7 @@ final class ComposerBump
 
         $this->symfonyStyle->warning("The command [{$process->getCommandLine()}] is running in the working directory [$cwd] .");
 
-        return $process->mustRun(function (string $type, string $buffer): void {
+        return $process->mustRun(function (string $_, string $buffer): void {
             $this->symfonyStyle->isVerbose() and $this->symfonyStyle->write($buffer);
         });
     }
