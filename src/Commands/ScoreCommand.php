@@ -44,9 +44,7 @@ class ScoreCommand extends Command
         }
 
         while (blank($query)) {
-            if (filled($query = $this->ask('Please input the SQL statements', 'select * from foo;'))) {
-                break;
-            }
+            $query = $this->ask('Please input the SQL statements', 'select * from foo;');
         }
 
         $this->debugSoar()->scores($query, $this->callback());
