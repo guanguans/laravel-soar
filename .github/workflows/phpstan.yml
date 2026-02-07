@@ -5,6 +5,13 @@ on:
   push:
   pull_request:
 
+env:
+  COMPOSER_NO_SECURITY_BLOCKING: 1
+
+permissions:
+  contents: read
+  security-events: write
+
 jobs:
   phpstan:
     name: phpstan
