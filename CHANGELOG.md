@@ -8,6 +8,22 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 
+<a name="5.1.0"></a>
+## [5.1.0] - 2026-02-07
+### 🐞 Bug Fixes
+- **DebugBarOutput:** Improve Laravel DebugBar integration ([e9554de](https://github.com/guanguans/laravel-soar/commit/e9554de))
+
+### 💅 Code Refactorings
+- **ScoreCommand:** Simplify query input logic ([0f6c9c4](https://github.com/guanguans/laravel-soar/commit/0f6c9c4))
+
+### 🤖 Continuous Integrations
+- **config:** Add environment variable for Composer security checks ([6c13c6b](https://github.com/guanguans/laravel-soar/commit/6c13c6b))
+- **deps-dev:** Bump development dependencies in composer.json ([e121a97](https://github.com/guanguans/laravel-soar/commit/e121a97))
+
+### Pull Requests
+- Merge pull request [#74](https://github.com/guanguans/laravel-soar/issues/74) from guanguans/dependabot/composer/nicksdot/phpstan-phpstorm-error-identifiers-tw-0.3
+
+
 <a name="5.0.2"></a>
 ## [5.0.2] - 2026-01-23
 ### 🎨 Styles
@@ -751,7 +767,8 @@ All notable changes to this project will be documented in this file.
 - Merge pull request [#1](https://github.com/guanguans/laravel-soar/issues/1) from guanguans/add-license-1
 
 
-[Unreleased]: https://github.com/guanguans/laravel-soar/compare/5.0.2...HEAD
+[Unreleased]: https://github.com/guanguans/laravel-soar/compare/5.1.0...HEAD
+[5.1.0]: https://github.com/guanguans/laravel-soar/compare/5.0.2...5.1.0
 [5.0.2]: https://github.com/guanguans/laravel-soar/compare/5.0.1...5.0.2
 [5.0.1]: https://github.com/guanguans/laravel-soar/compare/5.0.0...5.0.1
 [5.0.0]: https://github.com/guanguans/laravel-soar/compare/4.2.0...5.0.0
