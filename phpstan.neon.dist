@@ -178,6 +178,9 @@ parameters:
         - '#^Call to method label\(\) on an unknown class Spatie\\.*\\Ray\.$#'
         - '#^Function clock not found\.$#'
         -
+            identifier: class.notFound
+            path: src/Outputs/DebugBarOutput.php
+        -
             identifier: symplify.explicitInterfaceSuffixName
             path: src/Contracts/
         -

@@ -1,5 +1,8 @@
 <?php
 
+/** @noinspection PhpUndefinedClassInspection */
+/** @noinspection PhpUndefinedNamespaceInspection */
+
 declare(strict_types=1);
 
 /**
@@ -14,6 +17,7 @@ declare(strict_types=1);
 namespace Guanguans\LaravelSoar\Outputs;
 
 use Barryvdh\Debugbar\LaravelDebugbar;
+use Barryvdh\Debugbar\ServiceProvider;
 use DebugBar\DataCollector\MessagesCollector;
 use Illuminate\Console\Events\CommandFinished;
 use Illuminate\Support\Collection;
@@ -31,9 +35,9 @@ class DebugBarOutput extends AbstractOutput
      */
     public function shouldOutput(CommandFinished|Response $outputter): bool
     {
-        return class_exists(LaravelDebugbar::class)
-            && app()->has(LaravelDebugbar::class)
-            // && resolve(LaravelDebugbar::class)->isEnabled()
+        return class_exists($this->laravelDebugbarClass())
+            && app()->has($this->laravelDebugbarClass())
+            // && resolve($this->laravelDebugbarClass())->isEnabled()
             && $this->isHtmlResponse($outputter);
     }
 
@@ -43,11 +47,10 @@ class DebugBarOutput extends AbstractOutput
      *
      * @noinspection PhpPossiblePolymorphicInvocationInspection
      */
-    public function output(Collection $scores, CommandFinished|Response $outputter): LaravelDebugbar
+    public function output(Collection $scores, CommandFinished|Response $outputter): \Fruitcake\LaravelDebugbar\LaravelDebugbar|LaravelDebugbar
     {
-        $debugBar = resolve(LaravelDebugbar::class);
-
-        \assert($debugBar instanceof LaravelDebugbar);
+        $debugBar = resolve($this->laravelDebugbarClass());
+        \assert($debugBar instanceof \Fruitcake\LaravelDebugbar\LaravelDebugbar || $debugBar instanceof LaravelDebugbar);
 
         if (!$debugBar->hasCollector($this->name)) {
             $debugBar->addCollector(new MessagesCollector($this->name));
@@ -56,9 +59,27 @@ class DebugBarOutput extends AbstractOutput
         $scores->each(fn (array $score) => $debugBar->getCollector($this->name)->addMessage(
             $this->hydrateScore($score),
             $this->label,
-            false
+            $this->laravelDebugbarClass() === LaravelDebugbar::class ? false : []
         ));
 
         return $debugBar;
+    }
+
+    /**
+     * @api
+     *
+     * @return class-string<\Fruitcake\LaravelDebugbar\ServiceProvider|ServiceProvider>
+     */
+    public static function laravelDebugbarServiceProviderClass(): string
+    {
+        return class_exists($class = \Fruitcake\LaravelDebugbar\ServiceProvider::class) ? $class : ServiceProvider::class;
+    }
+
+    /**
+     * @return class-string<\Fruitcake\LaravelDebugbar\LaravelDebugbar|LaravelDebugbar>
+     */
+    private function laravelDebugbarClass(): string
+    {
+        return class_exists($class = \Fruitcake\LaravelDebugbar\LaravelDebugbar::class) ? $class : LaravelDebugbar::class;
     }
 }

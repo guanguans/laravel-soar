@@ -25,6 +25,7 @@ declare(strict_types=1);
 namespace Guanguans\LaravelSoarTests;
 
 use Guanguans\LaravelSoar\Facades\Soar;
+use Guanguans\LaravelSoar\Outputs\DebugBarOutput;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Foundation\Testing\Concerns\InteractsWithViews;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -65,6 +66,14 @@ class TestCase extends \Orchestra\Testbench\TestCase
     {
         return [
             'Soar' => Soar::class,
+        ];
+    }
+
+    protected function getPackageProviders(mixed $app): array
+    {
+        return [
+            ...parent::getPackageProviders($app),
+            DebugBarOutput::laravelDebugbarServiceProviderClass(),
         ];
     }
 

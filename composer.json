@@ -69,6 +69,7 @@
         "ergebnis/php-cs-fixer-config": "^6.59",
         "ergebnis/phpstan-rules": "^2.13",
         "ergebnis/rector-rules": "^1.9",
+        "fruitcake/laravel-debugbar": "^3.16 || ^4.0",
         "guanguans/php-cs-fixer-custom-fixers": "^1.1",
         "guanguans/phpstan-rules": "^1.0",
         "guanguans/rector-rules": "^1.6",
@@ -124,6 +125,7 @@
     "suggest": {
         "barryvdh/laravel-debugbar": "Output SQL scores to Laravel DebugBar.",
         "buggregator/trap": "Output SQL scores to Trap.",
+        "fruitcake/laravel-debugbar": "Output SQL scores to Laravel DebugBar.",
         "itsgoingd/clockwork": "Output SQL scores to Clockwork.",
         "laradumps/laradumps": "Output SQL scores to Laradumps.",
         "laravel/telescope": "Output SQL scores to Telescope.",
@@ -301,7 +303,7 @@
             "$PHP82 vendor/bin/grumphp run --ansi -vv"
         ],
         "jack": "@php vendor/bin/jack",
-        "jack:breakpoint": "@jack breakpoint --limit=10",
+        "jack:breakpoint": "@jack breakpoint --limit=11",
         "jack:breakpoint-dev": "@jack:breakpoint --dev",
         "jack:open-versions": "@jack open-versions --limit=99",
         "jack:open-versions-dev": "@jack:open-versions --dev",

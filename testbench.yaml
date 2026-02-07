@@ -2,7 +2,8 @@ laravel: '@testbench'
 
 providers:
   - Workbench\App\Providers\WorkbenchServiceProvider
-  - Barryvdh\Debugbar\ServiceProvider
+  # - Barryvdh\Debugbar\ServiceProvider
+  # - Fruitcake\LaravelDebugbar\ServiceProvider
   - Clockwork\Support\Laravel\ClockworkServiceProvider
   - Guanguans\LaravelSoar\SoarServiceProvider
   - LaraDumps\LaraDumps\LaraDumpsServiceProvider

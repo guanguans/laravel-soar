@@ -1,5 +1,7 @@
 <?php
 
+/** @noinspection PhpUndefinedClassInspection */
+/** @noinspection PhpUndefinedNamespaceInspection */
 declare(strict_types=1);
 
 /**
@@ -11,6 +13,8 @@ declare(strict_types=1);
  * @see https://github.com/guanguans/laravel-soar
  */
 
+use Fruitcake\LaravelDebugbar\LaravelDebugbar;
+use Fruitcake\LaravelDebugbar\ServiceProvider;
 use ShipMonk\ComposerDependencyAnalyser\Config\Configuration;
 use ShipMonk\ComposerDependencyAnalyser\Config\ErrorType;
 
@@ -31,6 +35,10 @@ return (new Configuration)
         ],
         [ErrorType::SHADOW_DEPENDENCY]
     )
+    ->ignoreUnknownClasses([
+        LaravelDebugbar::class,
+        ServiceProvider::class,
+    ])
     ->ignoreErrorsOnPackages(
         [
             'nesbot/carbon',
@@ -42,7 +50,7 @@ return (new Configuration)
         [ErrorType::SHADOW_DEPENDENCY]
     )
     ->ignoreErrorsOnPackageAndPath(
-        'barryvdh/laravel-debugbar',
+        'fruitcake/laravel-debugbar',
         __DIR__.'/src/Outputs/DebugBarOutput.php',
         [ErrorType::DEV_DEPENDENCY_IN_PROD]
     )
