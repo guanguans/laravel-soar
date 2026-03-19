@@ -21,11 +21,11 @@ namespace Guanguans\LaravelSoar\Mixins;
 use Guanguans\LaravelSoar\Facades\Soar;
 
 /**
- * @api
- *
  * @mixin \Illuminate\Database\Eloquent\Builder
  * @mixin \Illuminate\Database\Eloquent\Relations\Relation
  * @mixin \Illuminate\Database\Query\Builder
+ *
+ * @api
  */
 class QueryBuilderMixin
 {
