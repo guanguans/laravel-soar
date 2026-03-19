@@ -8,6 +8,15 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 
+<a name="5.2.0"></a>
+## [5.2.0] - 2026-03-19
+### ✨ Features
+- **dependencies:** Update soar-php and laravel/framework versions ([d241356](https://github.com/guanguans/laravel-soar/commit/d241356))
+
+### Pull Requests
+- Merge pull request [#75](https://github.com/guanguans/laravel-soar/issues/75) from guanguans/dependabot/composer/shipmonk/dead-code-detector-tw-0.15
+
+
 <a name="5.1.0"></a>
 ## [5.1.0] - 2026-02-07
 ### 🐞 Bug Fixes
@@ -767,7 +776,8 @@ All notable changes to this project will be documented in this file.
 - Merge pull request [#1](https://github.com/guanguans/laravel-soar/issues/1) from guanguans/add-license-1
 
 
-[Unreleased]: https://github.com/guanguans/laravel-soar/compare/5.1.0...HEAD
+[Unreleased]: https://github.com/guanguans/laravel-soar/compare/5.2.0...HEAD
+[5.2.0]: https://github.com/guanguans/laravel-soar/compare/5.1.0...5.2.0
 [5.1.0]: https://github.com/guanguans/laravel-soar/compare/5.0.2...5.1.0
 [5.0.2]: https://github.com/guanguans/laravel-soar/compare/5.0.1...5.0.2
 [5.0.1]: https://github.com/guanguans/laravel-soar/compare/5.0.0...5.0.1
