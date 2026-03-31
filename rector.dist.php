@@ -16,6 +16,8 @@ declare(strict_types=1);
  */
 
 use Ergebnis\Rector\Rules\Arrays\SortAssociativeArrayByKeyRector;
+use Ergebnis\Rector\Rules\Faker\GeneratorPropertyFetchToMethodCallRector;
+use Ergebnis\Rector\Rules\Files\ReferenceNamespacedSymbolsRelativeToNamespacePrefixRector;
 use Guanguans\RectorRules\Rector\File\AddNoinspectionDocblockToFileFirstStmtRector;
 use Guanguans\RectorRules\Rector\Name\RenameToConventionalCaseNameRector;
 use Guanguans\RectorRules\Set\SetList;
@@ -27,31 +29,34 @@ use Rector\CodingStyle\Rector\ClassLike\NewlineBetweenClassLikeStmtsRector;
 use Rector\CodingStyle\Rector\Closure\StaticClosureRector;
 use Rector\CodingStyle\Rector\Encapsed\EncapsedStringsToSprintfRector;
 use Rector\CodingStyle\Rector\Encapsed\WrapEncapsedVariableInCurlyBracesRector;
+use Rector\CodingStyle\Rector\Enum_\EnumCaseToPascalCaseRector;
 use Rector\CodingStyle\Rector\FuncCall\ArraySpreadInsteadOfArrayMergeRector;
-use Rector\CodingStyle\Rector\Stmt\NewlineAfterStatementRector;
 use Rector\Config\RectorConfig;
-use Rector\DeadCode\Rector\ClassLike\RemoveAnnotationRector;
 use Rector\EarlyReturn\Rector\If_\ChangeOrIfContinueToMultiContinueRector;
 use Rector\EarlyReturn\Rector\Return_\ReturnBinaryOrToEarlyReturnRector;
+use Rector\Naming\Rector\ClassMethod\RenameParamToMatchTypeRector;
 use Rector\Php71\Rector\FuncCall\RemoveExtraParametersRector;
 use Rector\Php73\Rector\FuncCall\JsonThrowOnErrorRector;
+use Rector\Php82\Rector\Param\AddSensitiveParameterAttributeRector;
+use Rector\PHPUnit\CodeQuality\Rector\Class_\PreferPHPUnitThisCallRector;
 use Rector\Renaming\Rector\ClassConstFetch\RenameClassConstFetchRector;
 use Rector\Renaming\Rector\Name\RenameClassRector;
+use Rector\Strict\Rector\Empty_\DisallowedEmptyRuleFixerRector;
 use Rector\Transform\Rector\Scalar\ScalarValueToConstFetchRector;
+use Rector\Transform\Rector\String_\StringToClassConstantRector;
+use Rector\TypeDeclaration\Rector\StmtsAwareInterface\SafeDeclareStrictTypesRector;
 use Rector\ValueObject\PhpVersion;
 use RectorLaravel\Rector\ArrayDimFetch\ArrayToArrGetRector;
 use RectorLaravel\Rector\Class_\FillablePropertyToFillableAttributeRector;
 use RectorLaravel\Rector\Class_\HiddenPropertyToHiddenAttributeRector;
-use RectorLaravel\Rector\Class_\ModelCastsPropertyToCastsMethodRector;
 use RectorLaravel\Rector\Empty_\EmptyToBlankAndFilledFuncRector;
 use RectorLaravel\Rector\FuncCall\HelperFuncCallToFacadeClassRector;
 use RectorLaravel\Rector\FuncCall\RemoveDumpDataDeadCodeRector;
-use RectorLaravel\Rector\FuncCall\TypeHintTappableCallRector;
 use RectorLaravel\Rector\If_\ThrowIfRector;
 use RectorLaravel\Rector\StaticCall\DispatchToHelperFunctionsRector;
-use RectorLaravel\Set\LaravelSetList;
 use RectorLaravel\Set\LaravelSetProvider;
-use function Guanguans\RectorRules\Support\classes;
+use RectorPest\Set\PestLevelSetList;
+use RectorPest\Set\PestSetList;
 
 return RectorConfig::configure()
     ->withPaths([
@@ -62,10 +67,7 @@ return RectorConfig::configure()
         __DIR__.'/composer-bump',
     ])
     ->withRootFiles()
-    ->withSkip([
-        '*/Fixtures/*',
-        __DIR__.'/tests.php',
-    ])
+    ->withSkip(['*/Fixtures/*', __DIR__.'/tests.php'])
     ->withCache(__DIR__.'/.build/rector/')
     // ->withoutParallel()
     ->withParallel()
@@ -90,32 +92,25 @@ return RectorConfig::configure()
         naming: true,
         instanceOf: true,
         earlyReturn: true,
+        // strictBooleans: true,
         carbon: true,
+        rectorPreset: true,
+        phpunitCodeQuality: true,
     )
     ->withSets([
         SetList::ALL,
-        ...collect((new ReflectionClass(LaravelSetList::class))->getConstants(ReflectionClassConstant::IS_PUBLIC))
-            ->reject(
-                static fn (string $_, string $name): bool => \in_array(
-                    $name,
-                    ['LARAVEL_STATIC_TO_INJECTION', 'LUMEN'],
-                    true
-                ) || preg_match('/^LARAVEL_\d{2,3}$/', $name)
-            )
-            // ->dd()
-            ->all(),
+        PestLevelSetList::UP_TO_PEST_30,
+        PestSetList::PEST_CODE_QUALITY,
     ])
     ->withRules([
         ArraySpreadInsteadOfArrayMergeRector::class,
+        EnumCaseToPascalCaseRector::class,
+        GeneratorPropertyFetchToMethodCallRector::class,
         JsonThrowOnErrorRector::class,
+        SafeDeclareStrictTypesRector::class,
         SortAssociativeArrayByKeyRector::class,
         StaticArrowFunctionRector::class,
         StaticClosureRector::class,
-        ...classes(static fn (string $class): bool => str_starts_with($class, 'RectorLaravel\Rector'))
-            ->filter(static fn (ReflectionClass $reflectionClass): bool => $reflectionClass->isInstantiable())
-            ->keys()
-            // ->dd()
-            ->all(),
     ])
     ->withConfiguredRule(AddNoinspectionDocblockToFileFirstStmtRector::class, [
         '*/tests/*' => [
@@ -130,35 +125,28 @@ return RectorConfig::configure()
         ],
     ])
     ->registerDecoratingNodeVisitor(ParentConnectingVisitor::class)
-    ->withConfiguredRule(RenameToConventionalCaseNameRector::class, [
-        'beforeEach',
-        'MIT',
-        'PDO',
-    ])
-    ->withConfiguredRule(RemoveAnnotationRector::class, [
-        'codeCoverageIgnore',
-        'inheritDoc',
-        'phpstan-ignore',
-        'phpstan-ignore-next-line',
-        'psalm-suppress',
+    ->withConfiguredRule(RenameToConventionalCaseNameRector::class, ['beforeEach', 'MIT', 'PDO'])
+    ->withConfiguredRule(ReferenceNamespacedSymbolsRelativeToNamespacePrefixRector::class, [
+        // 'namespacePrefixes' => ['Guanguans\\LaravelSoar'],
     ])
     ->withSkip([
+        AddSensitiveParameterAttributeRector::class,
         ScalarValueToConstFetchRector::class,
+        StringToClassConstantRector::class,
 
         ChangeOrIfContinueToMultiContinueRector::class,
+        DisallowedEmptyRuleFixerRector::class,
         EncapsedStringsToSprintfRector::class,
         ExplicitBoolCompareRector::class,
         LogicalToBooleanRector::class,
-        NewlineAfterStatementRector::class,
         NewlineBetweenClassLikeStmtsRector::class,
+        PreferPHPUnitThisCallRector::class,
         ReturnBinaryOrToEarlyReturnRector::class,
         WrapEncapsedVariableInCurlyBracesRector::class,
     ])
     ->withSkip([
         FillablePropertyToFillableAttributeRector::class,
         HiddenPropertyToHiddenAttributeRector::class,
-        ModelCastsPropertyToCastsMethodRector::class,
-        TypeHintTappableCallRector::class,
 
         ArrayToArrGetRector::class,
         DispatchToHelperFunctionsRector::class,
@@ -167,6 +155,9 @@ return RectorConfig::configure()
         ThrowIfRector::class,
     ])
     ->withSkip([
+        JsonThrowOnErrorRector::class => [
+            __DIR__.'/tests/Pest.php',
+        ],
         RemoveDumpDataDeadCodeRector::class => [
             __DIR__.'/src/Mixins/QueryBuilderMixin.php',
         ],
@@ -179,6 +170,9 @@ return RectorConfig::configure()
         RenameClassRector::class => [
             __FILE__,
         ],
+        RenameParamToMatchTypeRector::class => [
+            __DIR__.'/tests/Pest.php',
+        ],
         SortAssociativeArrayByKeyRector::class => [
             // __DIR__.'/config/',
             __DIR__.'/src/',
@@ -186,7 +180,8 @@ return RectorConfig::configure()
             __DIR__.'/workbench/',
         ],
         StaticArrowFunctionRector::class => $staticClosureSkipPaths = [
-            __DIR__.'/tests/',
+            __DIR__.'/tests/*Test.php',
+            __DIR__.'/tests/Pest.php',
         ],
         StaticClosureRector::class => $staticClosureSkipPaths,
     ]);

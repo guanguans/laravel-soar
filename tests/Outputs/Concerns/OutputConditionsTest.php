@@ -22,7 +22,7 @@ declare(strict_types=1);
 use Guanguans\LaravelSoar\Outputs\Concerns\OutputConditions;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
-uses(OutputConditions::class);
+pest()->use(OutputConditions::class);
 
 it('can check is json response for `isJsonResponse`', function (): void {
     expect([

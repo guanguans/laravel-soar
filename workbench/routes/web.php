@@ -13,6 +13,7 @@ declare(strict_types=1);
  * @see https://github.com/guanguans/laravel-soar
  */
 
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Route;
 use Workbench\App\Support\Utils;
 
@@ -29,7 +30,7 @@ use Workbench\App\Support\Utils;
 
 // Route::get('/', static fn () => view('welcome'));
 
-Route::get('/', static fn () => view('routes', [
+Route::get('/', static fn (): View => view('routes', [
     'routes' => collect(Route::getRoutes()->get('GET'))->filter(
         static fn (Illuminate\Routing\Route $route) => str($route->uri())->endsWith('-example')
     ),

@@ -26,7 +26,8 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Event;
 use Workbench\App\Support\Utils;
 
-uses(WithConsoleEvents::class)
+pest()
+    ->use(WithConsoleEvents::class)
     ->beforeEach(function (): void {
         resolve(Bootstrapper::class)->boot();
 

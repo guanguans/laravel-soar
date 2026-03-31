@@ -22,7 +22,7 @@ declare(strict_types=1);
 use Guanguans\LaravelSoar\Facades\Soar;
 
 it('can register macro method', function (): void {
-    Soar::macro('foo', fn () => null);
+    Soar::macro('foo', fn (): null => null);
 
     expect(Soar::foo())->toBeNull();
 })->group(__DIR__, __FILE__);
