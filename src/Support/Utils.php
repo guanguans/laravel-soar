@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace Guanguans\LaravelSoar\Support;
 
-use Illuminate\Database\Events\QueryExecuted;
 use Illuminate\Support\Str;
 
 class Utils
@@ -60,24 +59,5 @@ class Utils
     public static function star(int $score): string
     {
         return str_repeat('★', $good = (int) round($score / 100 * 5)).str_repeat('☆', 5 - $good);
-    }
-
-    /**
-     * @see \Illuminate\Database\Query\Builder::toRawSql()
-     * @see https://github.com/laravel/framework/blob/12.x/src/Illuminate/Database/Events/QueryExecuted.php
-     * @see \Laravel\Telescope\Watchers\QueryWatcher::replaceBindings()
-     * @see addslashes()
-     * @see addcslashes()
-     * @see stripslashes()
-     * @see stripcslashes()
-     * @see quotemeta()
-     * @see mysqli_real_escape_string()
-     * @see PDO::quote()
-     * @see var_export()
-     * @see json_encode()
-     */
-    public static function toRawSql(QueryExecuted $queryExecuted): string
-    {
-        return $queryExecuted->toRawSql();
     }
 }

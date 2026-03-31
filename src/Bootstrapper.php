@@ -63,7 +63,7 @@ class Bootstrapper
             if (
                 self::$queries->has($queryExecuted->sql)
                 || Utils::isExceptQuery($queryExecuted->sql)
-                || Utils::isExceptQuery($rawSql = Utils::toRawSql($queryExecuted))
+                || Utils::isExceptQuery($rawSql = $queryExecuted->toRawSql())
             ) {
                 return;
             }
