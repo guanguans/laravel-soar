@@ -8,6 +8,29 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 
+<a name="6.0.0"></a>
+## [6.0.0] - 2026-03-31
+### ✨ Features
+- **env:** Increase minimum PHP version requirement to 8.2 ([4ba1c56](https://github.com/guanguans/laravel-soar/commit/4ba1c56))
+
+### 🐞 Bug Fixes
+- **outputs:** Remove unused context property from DebugBarOutput ([6d2f4a4](https://github.com/guanguans/laravel-soar/commit/6d2f4a4))
+
+### 💅 Code Refactorings
+- apply inspection ([9227319](https://github.com/guanguans/laravel-soar/commit/9227319))
+- apply phpstan ([a19c8ec](https://github.com/guanguans/laravel-soar/commit/a19c8ec))
+- apply rector ([1d8876e](https://github.com/guanguans/laravel-soar/commit/1d8876e))
+- **outputs:** Remove Barryvdh Debugbar references and enforce Fruitcake Debugbar usage ([f5ac2e8](https://github.com/guanguans/laravel-soar/commit/f5ac2e8))
+- **utils:** Simplify raw SQL retrieval in Utils class ([dc8309a](https://github.com/guanguans/laravel-soar/commit/dc8309a))
+
+### ✅ Tests
+- **tests:** Refactor test setup and enhance architecture tests ([42ca05f](https://github.com/guanguans/laravel-soar/commit/42ca05f))
+
+### 🤖 Continuous Integrations
+- **config:** Update github config files ([f2c0b94](https://github.com/guanguans/laravel-soar/commit/f2c0b94))
+- **config:** Update config files ([51e7b5b](https://github.com/guanguans/laravel-soar/commit/51e7b5b))
+
+
 <a name="5.3.0"></a>
 ## [5.3.0] - 2026-03-31
 ### ✨ Features
@@ -786,7 +809,8 @@ All notable changes to this project will be documented in this file.
 - Merge pull request [#1](https://github.com/guanguans/laravel-soar/issues/1) from guanguans/add-license-1
 
 
-[Unreleased]: https://github.com/guanguans/laravel-soar/compare/5.3.0...HEAD
+[Unreleased]: https://github.com/guanguans/laravel-soar/compare/6.0.0...HEAD
+[6.0.0]: https://github.com/guanguans/laravel-soar/compare/5.3.0...6.0.0
 [5.3.0]: https://github.com/guanguans/laravel-soar/compare/5.2.0...5.3.0
 [5.2.0]: https://github.com/guanguans/laravel-soar/compare/5.1.0...5.2.0
 [5.1.0]: https://github.com/guanguans/laravel-soar/compare/5.0.2...5.1.0
