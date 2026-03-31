@@ -209,9 +209,6 @@ parameters:
         - '#^Call to an undefined static method Guanguans\\LaravelSoar\\Facades\\Soar\:\:get.*\(\)\.$#'
         - '#^Call to method label\(\) on an unknown class Spatie\\.*\\Ray\.$#'
         -
-            identifier: class.notFound
-            path: src/Outputs/DebugBarOutput.php
-        -
             identifier: symplify.explicitInterfaceSuffixName
             path: src/Contracts/
         -

@@ -58,7 +58,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static bool hasMacro(string $name)
  * @method static void flushMacros()
  * @method static mixed macroCall(string $method, array $parameters)
- * @method static \Guanguans\LaravelSoar\Soar|\Illuminate\Support\HigherOrderTapProxy tap(callable|null $callback = null)
+ * @method static \Illuminate\Support\HigherOrderTapProxy|\Guanguans\LaravelSoar\Soar tap(callable|null $callback = null)
  *
  * @see \Guanguans\LaravelSoar\Soar
  */

@@ -312,7 +312,7 @@
         "gitleaks:generate-baseline": "gitleaks git --report-path=gitleaks-baseline.json -v",
         "grumphp": "@php vendor/bin/grumphp run --ansi -vv",
         "jack": "@php vendor/bin/jack",
-        "jack:breakpoint": "@jack breakpoint --limit=5",
+        "jack:breakpoint": "@jack breakpoint --limit=7",
         "jack:breakpoint-dev": "@jack:breakpoint --dev",
         "jack:open-versions": "@jack open-versions --limit=99",
         "jack:open-versions-dev": "@jack:open-versions --dev",
