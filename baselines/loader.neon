@@ -1,8 +1,5 @@
-# total 7 errors
+# total 2 errors
 
 includes:
     - method.notFound.neon
-    - offsetAccess.nonArray.neon
-    - offsetAccess.notFound.neon
     - shipmonk.publicPropertyNotReadonly.neon
-    - staticMethod.dynamicCall.neon

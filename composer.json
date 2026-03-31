@@ -258,6 +258,7 @@
             "@peck",
             "@php-cs-fixer:custom-fix-dry-run",
             "@php-cs-fixer:custom-ln-config",
+            "@laravel-soar:fix-neon-files",
             "@typos",
             "@zhlint"
         ],
@@ -320,6 +321,7 @@
         "jack:raise-to-installed": "@jack raise-to-installed",
         "jack:raise-to-installed-dry-run": "@jack:raise-to-installed --dry-run",
         "jsonlint": "@php vendor/bin/jsonlint *.json .*rc",
+        "laravel-soar:fix-neon-files": "Guanguans\\PHPStanRules\\Support\\ComposerScripts::fixNeonFiles",
         "laravel-soar:phpdoc-parse": "Guanguans\\RectorRules\\Support\\ComposerScripts::phpdocParse",
         "lint-md": [
             "if ! command -v lint-md >/dev/null 2>&1; then echo 'lint-md not found, installing...'; npm install -g @lint-md/cli; fi",

@@ -8,9 +8,10 @@ includes:
     - vendor/spaze/phpstan-disallowed-calls/disallowed-loose-calls.neon
 #    - vendor/spaze/phpstan-disallowed-calls/extension.neon
 
-#    - vendor-bin/larastan/vendor/larastan/larastan/extension.neon
 #    - vendor/ekino/phpstan-banned-code/extension.neon
 #    - vendor/ergebnis/phpstan-rules/rules.neon
+    - vendor/canvural/larastan-strict-rules/rules.neon
+#    - vendor/larastan/vendor/larastan/larastan/extension.neon
 #    - vendor/phpstan/phpstan-strict-rules/rules.neon
 #    - vendor/roave/no-floaters/rules.neon
 #    - vendor/shipmonk/dead-code-detector/rules.neon
@@ -26,6 +27,7 @@ includes:
     - vendor/symplify/phpstan-rules/config/phpunit-rules.neon
 #    - vendor/symplify/phpstan-rules/config/rector-rules.neon
 #    - vendor/symplify/phpstan-rules/config/symfony-rules.neon
+#    - vendor/symplify/phpstan-rules/config/symfony-config-rules.neon
 
 services:
     # https://github.com/guanguans/laravel-soar/security/code-scanning
@@ -36,6 +38,10 @@ services:
             relativePathHelper: @simpleRelativePathHelper
             currentWorkingDirectory: %currentWorkingDirectory%
             pretty: true
+#    errorFormatter.checkstyle:
+#        class: NickSdot\PhpStanPhpStormErrorIdentifiers\CheckstyleErrorFormatterPhpStorm
+    errorFormatter.llm:
+        class: NickSdot\PhpStanPhpStormErrorIdentifiers\LlmErrorFormatter
 
 parameters:
     paths:
@@ -46,6 +52,7 @@ parameters:
     scanFiles:
         - vendor/composer/InstalledVersions.php
     excludePaths:
+#        - src/Support/Rector/
 #        - src/Support/ComposerScripts.php
         - tests/Fixtures/
         - *.blade.php
@@ -65,29 +72,17 @@ parameters:
         booleansInConditions: false
         disallowedShortTernary: false
     ergebnis:
-        noParameterWithNullableTypeDeclaration:
-            enabled: false
-        noParameterWithNullDefaultValue:
-            enabled: false
-        noConstructorParameterWithDefaultValue:
-            enabled: false
-        noExtends:
-            enabled: false
-        final:
-            enabled: false
-        noIsset:
-            enabled: false
-        finalInAbstractClass:
-            enabled: false
-        noParameterWithContainerTypeDeclaration:
-            enabled: false
     guanguans:
         exceptionMustImplementNativeThrowable:
             nativeThrowable: Guanguans\LaravelSoar\Contracts\ThrowableContract
-        forbiddenSideEffects:
-            enabled: false
 #    sidzIgnoreNumericStrings: true
     sidzIgnoreMagicNumbers: [2, 3, 5, 100, 512, 1000]
+    # larastan
+    configDirectories:
+        - config/
+    checkOctaneCompatibility: true
+    listenerPaths:
+        - src/Listeners/
     cognitive_complexity:
         class: 42
         function: 8
@@ -131,42 +126,70 @@ parameters:
 #        - identifier: cast.double
 #        - identifier: cast.int
 #        - identifier: cast.string
+#        - identifier: class.extendsFinalByPhpDoc
+#        - identifier: disallowed.function
 #        - identifier: empty.notAllowed
 #        - identifier: encapsedStringPart.nonString
+#        - identifier: ergebnis.final
+#        - identifier: ergebnis.finalInAbstractClass
+#        - identifier: ergebnis.noAssignByReference
+#        - identifier: ergebnis.noConstructorParameterWithDefaultValue
+#        - identifier: ergebnis.noExtends
+#        - identifier: ergebnis.noIsset
+#        - identifier: ergebnis.noNamedArgument
+#        - identifier: ergebnis.noNullableReturnTypeDeclaration
+#        - identifier: ergebnis.noParameterPassedByReference
+#        - identifier: ergebnis.noParameterWithNullableTypeDeclaration
+#        - identifier: ergebnis.noParameterWithNullDefaultValue
 #        - identifier: foreach.valueOverwrite
+#        - identifier: guanguans.forbiddenSideEffects
 #        - identifier: logicalAnd.resultUnused
 #        - identifier: logicalOr.resultUnused
 #        - identifier: method.childParameterType
 #        - identifier: method.dynamicName
-#        - identifier: method.nonObject
 #        - identifier: missingType.generics
 #        - identifier: missingType.iterableValue
 #        - identifier: new.static
 #        - identifier: offsetAccess.nonOffsetAccessible
+#        - identifier: offsetAccess.notFound
 #        - identifier: paramOut.type
+#        - identifier: phpstanApi.class
 #        - identifier: return.type
 #        - identifier: return.void
-#        - identifier: shipmonk.deadMethod
+#        - identifier: shipmonk.binaryOperationWithNull
+#        - identifier: shipmonk.checkedExceptionInCallable
+#        - identifier: shipmonk.forbiddenCast
+#        - identifier: shipmonk.iteratorToArrayWithoutPreserveKeys
+#        - identifier: shipmonk.nonNormalizedType
+#        - identifier: shipmonk.variableTypeOverwritten
 #        - identifier: symplify.explicitInterfaceSuffixName
 #        - identifier: symplify.explicitTraitSuffixName
+#        - identifier: symplify.forbiddenArrayMethodCall
 #        - identifier: symplify.forbiddenExtendOfNonAbstractClass
+#        - identifier: symplify.forbiddenFuncCall
+#        - identifier: symplify.forbiddenNode
 #        - identifier: symplify.forbiddenStaticClassConstFetch
+#        - identifier: symplify.noArrayMapWithArrayCallable
 #        - identifier: symplify.noDynamicName
+#        - identifier: symplify.noGlobalConst
 #        - identifier: symplify.noReference
 #        - identifier: symplify.noReturnSetterMethod
 #        - identifier: symplify.requireExceptionNamespace
 #        - identifier: trait.unused
 #        - identifier: typePerfect.noMixedMethodCaller
+#        - message: '#^Unused Guanguans\\laravelApiResponse\\Rector\\.*\\.*\:\:__construct$#'
 
-        - identifier: argument.templateType
-        - identifier: argument.type
-        - identifier: binaryOp.invalid
-        - identifier: cast.string
-        - identifier: method.nonObject
-        - identifier: missingType.generics
-        - identifier: missingType.iterableValue
-        - identifier: return.type
-        - identifier: return.void
+        - identifier: ergebnis.final
+        - identifier: ergebnis.finalInAbstractClass
+        - identifier: ergebnis.noConstructorParameterWithDefaultValue
+        - identifier: ergebnis.noExtends
+        - identifier: ergebnis.noIsset
+        - identifier: ergebnis.noParameterWithContainerTypeDeclaration
+        - identifier: ergebnis.noParameterWithNullableTypeDeclaration
+        - identifier: ergebnis.noParameterWithNullDefaultValue
+        - identifier: guanguans.forbiddenSideEffects
+        - identifier: larastanStrictRules.noFacadeRule
+        - identifier: larastanStrictRules.noGlobalLaravelFunction
         - identifier: shipmonk.checkedExceptionInCallable
         - identifier: shipmonk.deadMethod
         - identifier: shipmonk.forbiddenCast
@@ -174,9 +197,17 @@ parameters:
         - identifier: symplify.forbiddenFuncCall
         - identifier: symplify.forbiddenNode
         - identifier: symplify.requireExceptionNamespace
+
+        - identifier: argument.templateType
+        - identifier: argument.type
+        - identifier: binaryOp.invalid
+        - identifier: cast.string
+        - identifier: missingType.generics
+        - identifier: missingType.iterableValue
+        - identifier: return.type
+        - identifier: return.void
         - '#^Call to an undefined static method Guanguans\\LaravelSoar\\Facades\\Soar\:\:get.*\(\)\.$#'
         - '#^Call to method label\(\) on an unknown class Spatie\\.*\\Ray\.$#'
-        - '#^Function clock not found\.$#'
         -
             identifier: class.notFound
             path: src/Outputs/DebugBarOutput.php
@@ -189,6 +220,10 @@ parameters:
                 - config/soar.php
                 - src/Support/helpers.php
         -
+            identifier: larastan.noEnvCallsOutsideOfConfig
+            path: src/Support/helpers.php
+        -
             messages:
+                - '#^Dynamic call to static method Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\>\:\:toRawSql\(\)\.$#'
                 - '#^Method Guanguans\\LaravelSoar\\Mixins\\QueryBuilderMixin\:\:.*\(\) invoked with \d parameters?, 0 required\.$#'
             path: src/Mixins/
