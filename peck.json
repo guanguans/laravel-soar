@@ -8,6 +8,9 @@
             "hydrator",
             "utils"
         ],
-        "paths": []
+        "paths": [
+            "vendor/",
+            "vendor-bin/"
+        ]
     }
 }

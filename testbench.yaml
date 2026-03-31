@@ -9,17 +9,20 @@ providers:
   - LaraDumps\LaraDumps\LaraDumpsServiceProvider
 
 dont-discover:
+  - laravel/tinker
   - spatie/laravel-ray
 
 env:
   APP_NAME: "Testbench"
+  # DB_CONNECTION: sqlite
+  # DB_DATABASE: ":memory:"
   SOAR_ENABLED: (true)
   # SOAR_SUDO_PASSWORD: "password"
   SOAR_TEST_DSN_DISABLE: (true)
   SOAR_ONLINE_DSN_DISABLE: (true)
 
 migrations:
-  - workbench/database/migrations
+  - workbench/database/migrations/
 
 seeders:
   - Workbench\Database\Seeders\DatabaseSeeder

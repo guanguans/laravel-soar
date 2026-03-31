@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:noNamespaceSchemaLocation="./vendor/phpunit/phpunit/phpunit.xsd"
+  xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
   bootstrap="vendor/autoload.php"
   cacheDirectory=".build/phpunit/"
-  cacheResultFile=".build/phpunit/test-results"
   colors="true"
   failOnDeprecation="true"
   failOnPhpunitWarning="false"
@@ -13,6 +12,7 @@
 >
   <php>
     <ini name="error_reporting" value="-1"/>
+    <!--<env name="SYMFONY_DEPRECATIONS_HELPER" value="/PDO::MYSQL_ATTR_SSL_CA/"/>-->
     <env name="DUMP_LIGHT_ARRAY" value=""/>
     <env name="DUMP_STRING_LENGTH" value=""/>
     <env name="ENV" value="testing"/>
@@ -50,15 +50,6 @@
       <file>src/SoarServiceProvider.php</file>
     </exclude>
   </source>
-  <coverage>
-    <include>
-      <directory>src/</directory>
-    </include>
-    <exclude>
-      <!--<directory>src/Contracts/</directory>-->
-      <file>src/SoarServiceProvider.php</file>
-    </exclude>
-  </coverage>
   <extensions>
     <!--<bootstrap class="Ergebnis\PHPUnit\SlowTestDetector\Extension"/>-->
   </extensions>

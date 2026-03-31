@@ -1,7 +1,5 @@
 <?php
 
-/** @noinspection PhpUndefinedClassInspection */
-/** @noinspection PhpUndefinedNamespaceInspection */
 declare(strict_types=1);
 
 /**
@@ -19,12 +17,7 @@ use ShipMonk\ComposerDependencyAnalyser\Config\Configuration;
 use ShipMonk\ComposerDependencyAnalyser\Config\ErrorType;
 
 return (new Configuration)
-    ->addPathsToScan(
-        [
-            __DIR__.'/config/',
-        ],
-        false
-    )
+    ->addPathsToScan([__DIR__.'/config/'], false)
     ->addPathsToExclude([
         __DIR__.'/tests/',
     ])

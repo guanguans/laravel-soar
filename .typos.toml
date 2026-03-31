@@ -7,7 +7,7 @@
 ignore-hidden = false
 extend-exclude = [
   ".git/",
-  # "CHANGELOG.md",
+  "CHANGELOG.md",
 ]
 
 [default]
@@ -25,6 +25,7 @@ extend-ignore-words-re = [
 [default.extend-words]
 "Symplify" = "Symplify"
 "reguard" = "reguard"
+"responsable" = "responsable"
 
 [default.extend-identifiers]
 # "Symplify" = "Symplify"
