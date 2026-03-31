@@ -21,14 +21,16 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Collection;
 use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 
-class OutputScoresMiddleware
+readonly class OutputScoresMiddleware
 {
-    public function __construct(private readonly Bootstrapper $bootstrapper) {}
+    public function __construct(private Bootstrapper $bootstrapper) {}
 
     /**
      * @api
      *
      * @param \Closure(\Illuminate\Http\Request): (JsonResponse|RedirectResponse|Response) $next
+     *
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      *
      * @noinspection RedundantDocCommentTagInspection
      */

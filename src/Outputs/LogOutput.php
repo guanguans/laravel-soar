@@ -30,7 +30,7 @@ class LogOutput extends AbstractOutput
      */
     public function output(Collection $scores, CommandFinished|Response $outputter): CommandFinished|Response
     {
-        $scores->each(fn (array $score): mixed => Log::channel($this->channel)->log(
+        $scores->each(fn (array $score): null => Log::channel($this->channel)->log(
             $this->level,
             $this->hydrateScore($score)
         ));

@@ -40,6 +40,8 @@ class Bootstrapper
 
     /**
      * @api
+     *
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function boot(): void
     {
@@ -52,6 +54,9 @@ class Bootstrapper
         $this->registerOutputter();
     }
 
+    /**
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
     public function outputScores(CommandFinished|Response $outputter): Collection
     {
         return $this->application->make(OutputManager::class)->output($this->getScores(), $outputter);
@@ -78,6 +83,9 @@ class Bootstrapper
         });
     }
 
+    /**
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
     private function registerOutputter(): void
     {
         Event::listen(CommandFinished::class, OutputScoresListener::class);
@@ -151,9 +159,9 @@ class Bootstrapper
             static fn (array $query): bool => $score['Sample'] === $query['sql'],
             static fn (): array => self::$queries
                 ->map(static function (array $query) use ($score): array {
-                    $query['similarity'] = similar_text((string) $score['Sample'], (string) $query['sql']);
+                    $query['similarity'] = similar_text((string) $score['Sample'], (string) $query['sql']); // @codeCoverageIgnore
 
-                    return $query;
+                    return $query; // @codeCoverageIgnore
                 })
                 ->sortByDesc('similarity')
                 ->first()

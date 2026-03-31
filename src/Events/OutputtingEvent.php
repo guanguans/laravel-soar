@@ -21,11 +21,11 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * @api
  */
-class OutputtingEvent
+readonly class OutputtingEvent
 {
     public function __construct(
-        public readonly OutputContract $output,
-        public readonly Collection $scores,
-        public readonly CommandFinished|Response $outputter
+        public OutputContract $output,
+        public Collection $scores,
+        public CommandFinished|Response $outputter
     ) {}
 }

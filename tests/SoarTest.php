@@ -24,5 +24,6 @@ use Guanguans\LaravelSoar\Facades\Soar;
 it('can register macro method', function (): void {
     Soar::macro('foo', fn (): null => null);
 
+    /** @noinspection PhpUndefinedMethodInspection */
     expect(Soar::foo())->toBeNull();
 })->group(__DIR__, __FILE__);

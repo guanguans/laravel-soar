@@ -1,5 +1,7 @@
 <?php
 
+/** @noinspection PhpUnusedAliasInspection */
+
 declare(strict_types=1);
 
 /**
@@ -14,7 +16,7 @@ declare(strict_types=1);
 namespace Guanguans\LaravelSoar;
 
 use Illuminate\Support\Traits\Conditionable;
-use Illuminate\Support\Traits\ForwardsCalls;
+use Illuminate\Support\Traits\Dumpable;
 use Illuminate\Support\Traits\Localizable;
 use Illuminate\Support\Traits\Macroable;
 use Illuminate\Support\Traits\Tappable;
@@ -22,7 +24,8 @@ use Illuminate\Support\Traits\Tappable;
 class Soar extends \Guanguans\SoarPHP\Soar
 {
     use Conditionable;
-    use ForwardsCalls;
+
+    // use Dumpable;
     use Localizable;
     use Macroable {
         Macroable::__call as macroCall;

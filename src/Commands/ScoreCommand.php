@@ -30,7 +30,6 @@ class ScoreCommand extends Command
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
      *
      * @noinspection MethodShouldBeFinalInspection
-     * @noinspection OffsetOperationsInspection
      * @noinspection SqlResolve
      */
     public function handle(): void
@@ -39,8 +38,8 @@ class ScoreCommand extends Command
 
         // If the query is not passed in, read from STDIN
         if (($fstat = fstat(\STDIN)) && 0 < $fstat['size']) {
-            $query = trim(stream_get_contents(\STDIN));
-            fclose(\STDIN);
+            $query = trim(stream_get_contents(\STDIN)); // @codeCoverageIgnore
+            fclose(\STDIN); // @codeCoverageIgnore
         }
 
         while (blank($query)) {

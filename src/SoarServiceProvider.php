@@ -18,6 +18,7 @@ use Guanguans\LaravelSoar\Commands\ClearCommand;
 use Guanguans\LaravelSoar\Commands\RunCommand;
 use Guanguans\LaravelSoar\Commands\ScoreCommand;
 use Guanguans\LaravelSoar\Mixins\QueryBuilderMixin;
+use Illuminate\Contracts\Support\DeferrableProvider;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Relations\Relation as RelationBuilder;
 use Illuminate\Database\Query\Builder as QueryBuilder;
@@ -26,12 +27,14 @@ use Illuminate\Foundation\Console\AboutCommand;
 use Illuminate\Support\Collection;
 use Illuminate\Support\ServiceProvider;
 
-class SoarServiceProvider extends ServiceProvider
+class SoarServiceProvider extends ServiceProvider implements DeferrableProvider
 {
     /**
      * @api
      *
      * @var list<class-string>
+     *
+     * @noinspection ClassOverridesFieldOfSuperClassInspection
      */
     public array $singletons = [
         Bootstrapper::class,

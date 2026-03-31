@@ -205,7 +205,6 @@ parameters:
         - identifier: missingType.generics
         - identifier: missingType.iterableValue
         - identifier: return.type
-        - identifier: return.void
         - '#^Call to an undefined static method Guanguans\\LaravelSoar\\Facades\\Soar\:\:get.*\(\)\.$#'
         - '#^Call to method label\(\) on an unknown class Spatie\\.*\\Ray\.$#'
         -

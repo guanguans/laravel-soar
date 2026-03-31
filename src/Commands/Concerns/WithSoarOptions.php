@@ -42,8 +42,8 @@ trait WithSoarOptions
         $soar = $this->soar();
 
         if ($this->output->isDebug()) {
-            $soar->dump();
-            $this->output->newLine();
+            $soar->dump(); // @codeCoverageIgnore
+            $this->output->newLine(); // @codeCoverageIgnore
         }
 
         return $soar;

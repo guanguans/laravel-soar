@@ -16,12 +16,14 @@ namespace Guanguans\LaravelSoar\Listeners;
 use Guanguans\LaravelSoar\Bootstrapper;
 use Illuminate\Console\Events\CommandFinished;
 
-class OutputScoresListener
+readonly class OutputScoresListener
 {
-    public function __construct(private readonly Bootstrapper $bootstrapper) {}
+    public function __construct(private Bootstrapper $bootstrapper) {}
 
     /**
      * @api
+     *
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function handle(CommandFinished $commandFinished): void
     {

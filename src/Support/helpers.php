@@ -59,7 +59,14 @@ if (!\function_exists('Guanguans\LaravelSoar\Support\json_pretty_encode')) {
     {
         return json_encode(
             $value,
-            \JSON_PRETTY_PRINT | \JSON_THROW_ON_ERROR | \JSON_UNESCAPED_SLASHES | \JSON_UNESCAPED_UNICODE | $options,
+            \JSON_INVALID_UTF8_IGNORE |
+            \JSON_INVALID_UTF8_SUBSTITUTE |
+            \JSON_PARTIAL_OUTPUT_ON_ERROR |
+            \JSON_PRESERVE_ZERO_FRACTION |
+            \JSON_PRETTY_PRINT |
+            \JSON_THROW_ON_ERROR |
+            \JSON_UNESCAPED_SLASHES |
+            \JSON_UNESCAPED_UNICODE | $options,
             $depth
         );
     }

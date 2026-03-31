@@ -37,6 +37,8 @@ class User extends Authenticatable
 
     /**
      * @return array<string, string>
+     *
+     * @noinspection PhpMissingParentCallCommonInspection
      */
     protected function casts(): array
     {
