@@ -40,6 +40,8 @@ use Rector\Renaming\Rector\Name\RenameClassRector;
 use Rector\Transform\Rector\Scalar\ScalarValueToConstFetchRector;
 use Rector\ValueObject\PhpVersion;
 use RectorLaravel\Rector\ArrayDimFetch\ArrayToArrGetRector;
+use RectorLaravel\Rector\Class_\FillablePropertyToFillableAttributeRector;
+use RectorLaravel\Rector\Class_\HiddenPropertyToHiddenAttributeRector;
 use RectorLaravel\Rector\Class_\ModelCastsPropertyToCastsMethodRector;
 use RectorLaravel\Rector\Empty_\EmptyToBlankAndFilledFuncRector;
 use RectorLaravel\Rector\FuncCall\HelperFuncCallToFacadeClassRector;
@@ -153,6 +155,8 @@ return RectorConfig::configure()
         WrapEncapsedVariableInCurlyBracesRector::class,
     ])
     ->withSkip([
+        FillablePropertyToFillableAttributeRector::class,
+        HiddenPropertyToHiddenAttributeRector::class,
         ModelCastsPropertyToCastsMethodRector::class,
         TypeHintTappableCallRector::class,
 

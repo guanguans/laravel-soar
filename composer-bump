@@ -217,7 +217,7 @@ final class ComposerBump
                         ),
                         $lowestArrayVersion[0] < $highestArrayVersion[0] => array_map(
                             static fn (string $major): string => "^$major.0",
-                            range($lowestArrayVersion[0] + 1, $highestArrayVersion[0])
+                            range((int) $lowestArrayVersion[0] + 1, $highestArrayVersion[0])
                         ),
                         default => []
                     },
