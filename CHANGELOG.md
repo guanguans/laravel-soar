@@ -8,6 +8,16 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 
+<a name="5.3.0"></a>
+## [5.3.0] - 2026-03-31
+### ✨ Features
+- **dependencies:** Update guanguans/soar-php version constraint ([ec881c9](https://github.com/guanguans/laravel-soar/commit/ec881c9))
+
+### Pull Requests
+- Merge pull request [#77](https://github.com/guanguans/laravel-soar/issues/77) from guanguans/dependabot/composer/guanguans/soar-php-tw-8.0
+- Merge pull request [#76](https://github.com/guanguans/laravel-soar/issues/76) from guanguans/dependabot/github_actions/codecov/codecov-action-6
+
+
 <a name="5.2.0"></a>
 ## [5.2.0] - 2026-03-19
 ### ✨ Features
@@ -776,7 +786,8 @@ All notable changes to this project will be documented in this file.
 - Merge pull request [#1](https://github.com/guanguans/laravel-soar/issues/1) from guanguans/add-license-1
 
 
-[Unreleased]: https://github.com/guanguans/laravel-soar/compare/5.2.0...HEAD
+[Unreleased]: https://github.com/guanguans/laravel-soar/compare/5.3.0...HEAD
+[5.3.0]: https://github.com/guanguans/laravel-soar/compare/5.2.0...5.3.0
 [5.2.0]: https://github.com/guanguans/laravel-soar/compare/5.1.0...5.2.0
 [5.1.0]: https://github.com/guanguans/laravel-soar/compare/5.0.2...5.1.0
 [5.0.2]: https://github.com/guanguans/laravel-soar/compare/5.0.1...5.0.2
