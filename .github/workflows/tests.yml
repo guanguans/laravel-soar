@@ -17,10 +17,8 @@ jobs:
         os: [ubuntu-latest]
         php: [8.2, 8.5]
         dependency-version: [prefer-stable]
-        laravel: [10.*, 11.*, 12.*, 13.*]
+        laravel: [11.*, 12.*, 13.*]
         include:
-          - laravel: 10.*
-            testbench: 8.*
           - laravel: 11.*
             testbench: 9.*
           - laravel: 12.*
@@ -29,13 +27,7 @@ jobs:
             testbench: 11.*
         exclude:
           - php: 8.2
-            laravel: 11.*
-          - php: 8.2
-            laravel: 12.*
-          - php: 8.2
             laravel: 13.*
-          - php: 8.5
-            laravel: 10.*
 
     name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.dependency-version }}
 
