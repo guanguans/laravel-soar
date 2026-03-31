@@ -103,7 +103,7 @@ return [
 <details>
 <summary><b>DebugBar</b></summary>
 
-1. Install [barryvdh/laravel-debugbar](https://github.com/barryvdh/laravel-debugbar)
+1. Install [fruitcake/laravel-debugbar](https://github.com/fruitcake/laravel-debugbar)
 2. Configure [soar.outputs.Outputs\DebugBarOutput::class](config/soar.php)
 
 ![DebugBar](docs/debug-bar.png)

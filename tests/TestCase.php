@@ -34,6 +34,9 @@ use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithCachedConfig;
 use Illuminate\Foundation\Testing\WithCachedRoutes;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Queue;
 use Orchestra\Testbench\Concerns\WithWorkbench;
 use phpmock\phpunit\PHPMock;
 use Symfony\Component\VarDumper\Test\VarDumperTestTrait;
@@ -85,6 +88,12 @@ class TestCase extends \Orchestra\Testbench\TestCase
 
     protected function defineEnvironment(mixed $app): void
     {
+        tap($app, static function (): void {
+            // File::delete(glob(storage_path('logs/*.log')));
+            Mail::fake();
+            // Queue::fake();
+        });
+
         tap($app->make(Repository::class), static function (Repository $repository): void {
             $repository->set('app.key', 'base64:UZ5sDPZSB7DSLKY+DYlU8G/V1e/qW+Ag0WF03VNxiSg=');
             $repository->set('app.debug', false);

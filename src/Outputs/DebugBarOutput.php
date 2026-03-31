@@ -24,7 +24,6 @@ class DebugBarOutput extends AbstractOutput
     public function __construct(
         private readonly string $name = 'Soar Scores',
         private readonly string $label = 'warning',
-        private readonly array $context = [],
     ) {}
 
     /**
@@ -54,9 +53,7 @@ class DebugBarOutput extends AbstractOutput
         }
 
         $scores->each(
-            fn (array $score) => $laravelDebugbar
-                ->getCollector($this->name)
-                ->addMessage($this->hydrateScore($score), $this->label, $this->context)
+            fn (array $score) => $laravelDebugbar->getCollector($this->name)->addMessage($score, $this->label)
         );
 
         return $laravelDebugbar;
