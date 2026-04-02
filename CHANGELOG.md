@@ -8,6 +8,15 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 
+<a name="6.0.1"></a>
+## [6.0.1] - 2026-04-02
+### 💅 Code Refactorings
+- **provider:** Remove DeferrableProvider interface implementation ([46d4681](https://github.com/guanguans/laravel-soar/commit/46d4681))
+
+### 🤖 Continuous Integrations
+- **config:** Update config files ([844665d](https://github.com/guanguans/laravel-soar/commit/844665d))
+
+
 <a name="6.0.0"></a>
 ## [6.0.0] - 2026-03-31
 ### ✨ Features
@@ -809,7 +818,8 @@ All notable changes to this project will be documented in this file.
 - Merge pull request [#1](https://github.com/guanguans/laravel-soar/issues/1) from guanguans/add-license-1
 
 
-[Unreleased]: https://github.com/guanguans/laravel-soar/compare/6.0.0...HEAD
+[Unreleased]: https://github.com/guanguans/laravel-soar/compare/6.0.1...HEAD
+[6.0.1]: https://github.com/guanguans/laravel-soar/compare/6.0.0...6.0.1
 [6.0.0]: https://github.com/guanguans/laravel-soar/compare/5.3.0...6.0.0
 [5.3.0]: https://github.com/guanguans/laravel-soar/compare/5.2.0...5.3.0
 [5.2.0]: https://github.com/guanguans/laravel-soar/compare/5.1.0...5.2.0
