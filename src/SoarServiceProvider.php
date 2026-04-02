@@ -27,7 +27,7 @@ use Illuminate\Foundation\Console\AboutCommand;
 use Illuminate\Support\Collection;
 use Illuminate\Support\ServiceProvider;
 
-class SoarServiceProvider extends ServiceProvider implements DeferrableProvider
+class SoarServiceProvider extends ServiceProvider /* implements DeferrableProvider */
 {
     /**
      * @api
