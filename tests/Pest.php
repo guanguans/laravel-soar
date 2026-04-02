@@ -177,16 +177,9 @@ function fixtures_path(string $path = ''): string
 function links(array $links, array $parameters = []): int
 {
     $originalLinks = config('filesystems.links', []);
-
     config()->set('filesystems.links', $links);
-
-    $status = Artisan::call('storage:link', $parameters + [
-        '--ansi' => true,
-        '--verbose' => true,
-    ]);
-
+    $status = Artisan::call('storage:link', $parameters + ['--ansi' => true, '--verbose' => true]);
     config()->set('filesystems.links', $originalLinks);
-
     // echo Artisan::output();
 
     return $status;

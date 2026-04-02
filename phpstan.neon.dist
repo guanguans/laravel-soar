@@ -112,9 +112,6 @@ parameters:
 #            - resources/views/
     disallowedFunctionCalls:
         -
-            function: 'env()'
-            message: 'use config() instead'
-        -
             function: 'env_explode()'
             message: 'use config() instead'
     ignoreErrors:
@@ -210,11 +207,6 @@ parameters:
         -
             identifier: symplify.explicitInterfaceSuffixName
             path: src/Contracts/
-        -
-            message: '#^Calling env\(\) is forbidden, use config\(\) instead\.$#'
-            paths:
-                - config/soar.php
-                - src/Support/helpers.php
         -
             identifier: larastan.noEnvCallsOutsideOfConfig
             path: src/Support/helpers.php
