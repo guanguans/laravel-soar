@@ -216,6 +216,9 @@
             "@testbench:prepare"
         ],
         "actionlint": "actionlint -ignore=SC2035 -ignore=SC2086 -color -oneline -verbose",
+        "app:fix-neon": "Guanguans\\PHPStanRules\\Support\\ComposerScripts::fixNeon",
+        "app:lint-readme": "App\\Support\\ComposerScripts::lintReadme",
+        "app:parse-phpdoc": "Guanguans\\RectorRules\\Support\\ComposerScripts::parsePhpdoc",
         "argtyper": "@php vendor/bin/argtyper --ansi -vv",
         "argtyper:add-types": "@argtyper add-types .",
         "blade-formatter": "blade-formatter resources/views/*.blade.php resources/views/**/*.blade.php --ignore-path= --php-version=8.2 --progress",
@@ -232,6 +235,7 @@
         ],
         "checks:optional": [
             "@putenv:xdebug-off",
+            "@app:fix-neon",
             "@composer:unlink",
             "@class-leak:check",
             "@composer-dependency-analyser",
@@ -258,7 +262,6 @@
             "@peck",
             "@php-cs-fixer:custom-fix-dry-run",
             "@php-cs-fixer:custom-ln-config",
-            "@laravel-soar:fix-neon-files",
             "@typos",
             "@zhlint"
         ],
@@ -321,8 +324,6 @@
         "jack:raise-to-installed": "@jack raise-to-installed",
         "jack:raise-to-installed-dry-run": "@jack:raise-to-installed --dry-run",
         "jsonlint": "@php vendor/bin/jsonlint *.json .*rc",
-        "laravel-soar:fix-neon-files": "Guanguans\\PHPStanRules\\Support\\ComposerScripts::fixNeonFiles",
-        "laravel-soar:phpdoc-parse": "Guanguans\\RectorRules\\Support\\ComposerScripts::phpdocParse",
         "lint-md": [
             "if ! command -v lint-md >/dev/null 2>&1; then echo 'lint-md not found, installing...'; npm install -g @lint-md/cli; fi",
             "@lint-md:prototype"

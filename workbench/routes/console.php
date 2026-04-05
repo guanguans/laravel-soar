@@ -16,7 +16,6 @@ declare(strict_types=1);
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Number;
 use Spatie\ImageOptimizer\OptimizerChain;
 use Symfony\Component\Finder\Finder;
@@ -58,19 +57,9 @@ Artisan::command('optimize:image {--dry-run : Only list found images}', function
     $imagesFinder = static fn (): Collection => collect(
         Finder::create()
             ->in(getcwd())
-            ->exclude([
-                'Fixtures/',
-                'vendor-bin/',
-            ])
-            ->name([
-                '/\.jpg$/',
-                '/\.jpeg$/',
-                '/\.png$/',
-                '/\.gif$/',
-                '/\.webp$/',
-                '/\.svg$/',
-                '/\.avif$/',
-            ])
+            ->exclude(['.build/', 'Fixtures/', 'vendor-bin/', 'vendor/'])
+            ->name(['/\.jpg$/', '/\.jpeg$/', '/\.png$/', '/\.gif$/', '/\.webp$/', '/\.svg$/', '/\.avif$/'])
+            ->size('> 0')
             ->ignoreDotFiles(false)
             ->ignoreUnreadableDirs(false)
             ->ignoreVCS(true)
@@ -85,40 +74,26 @@ Artisan::command('optimize:image {--dry-run : Only list found images}', function
     /** @var \Illuminate\Console\Command $this */
     if ($this->option('dry-run')) {
         $imagesFinder()
-            ->tap(function (Collection $images): void {
-                $this->components->info("Found {$images->count()} images:");
-            })
-            ->each(function (array $image): void {
-                $this->components->twoColumnDetail($image['real_path'], $image['human_size']);
-            });
+            ->tap(fn (Collection $images) => $this->components->info("Found {$images->count()} images:"))
+            ->each(fn (array $image) => $this->components->twoColumnDetail($image['real_path'], $image['human_size']));
 
         return;
     }
 
     $imagesFinder()
-        ->tap(function (Collection $images): void {
-            $this->components->info("Optimizing {$images->count()} images:");
-        })
-        ->each(function (array $image): void {
-            $this->components->task(
-                $image['real_path'],
-                static fn () => resolve(OptimizerChain::class)->useLogger(Log::channel())->optimize($image['real_path'])
+        ->tap(fn (Collection $images) => $this->components->info("Optimizing {$images->count()} images:"))
+        ->each(fn (array $image) => $this->components->task(
+            $image['real_path'],
+            static fn () => resolve(OptimizerChain::class)->optimize($image['real_path'])
+        ))
+        ->tap(fn (Collection $images) => $this->components->info("Optimization results for {$images->count()} images:"))
+        ->tap(fn (Collection $images) => $imagesFinder()->each(function (array $fileInfo, string $file) use ($images): void {
+            $originalSize = $images->get($file)['size'];
+            // $percentage = \sprintf('(%.2f%%)', ($originalSize - $fileInfo['size']) / $originalSize * 100);
+            $percentage = Number::percentage(($originalSize - $fileInfo['size']) / $originalSize * 100, 1);
+            $this->components->twoColumnDetail(
+                $file,
+                "{$images->get($file)['human_size']} -> {$fileInfo['human_size']} ($percentage)"
             );
-        })
-        ->tap(function (Collection $images): void {
-            $this->components->info("Optimization results for {$images->count()} images:");
-        })
-        ->tap(function (Collection $images) use ($imagesFinder): void {
-            $imagesFinder()->each(function (array $fileInfo, string $file) use ($images): void {
-                $originalSize = $images->get($file)['size'];
-                $percentage = 0 < $originalSize
-                    // ? \sprintf('(%.2f%%)', ($originalSize - $fileInfo['size']) / $originalSize * 100)
-                    ? Number::percentage(abs($originalSize - $fileInfo['size']) / $originalSize * 100, 1)
-                    : '0.0%';
-                $this->components->twoColumnDetail(
-                    $file,
-                    "{$images->get($file)['human_size']} -> {$fileInfo['human_size']} ($percentage)"
-                );
-            });
-        });
+        }));
 });
