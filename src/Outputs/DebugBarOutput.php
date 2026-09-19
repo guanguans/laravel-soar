@@ -46,7 +46,6 @@ class DebugBarOutput extends AbstractOutput
     public function output(Collection $scores, CommandFinished|Response $outputter): LaravelDebugbar
     {
         $laravelDebugbar = resolve(LaravelDebugbar::class);
-        \assert($laravelDebugbar instanceof LaravelDebugbar);
 
         if (!$laravelDebugbar->hasCollector($this->name)) {
             $laravelDebugbar->addCollector(new MessagesCollector($this->name));

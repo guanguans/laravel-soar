@@ -38,7 +38,6 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Queue;
 use Orchestra\Testbench\Concerns\WithWorkbench;
-use phpmock\phpunit\PHPMock;
 use Symfony\Component\VarDumper\Test\VarDumperTestTrait;
 
 class TestCase extends \Orchestra\Testbench\TestCase
@@ -52,7 +51,6 @@ class TestCase extends \Orchestra\Testbench\TestCase
     // use WithCachedRoutes;
 
     // use VarDumperTestTrait;
-    // use PHPMock;
 
     use RefreshDatabase;
     use WithWorkbench;

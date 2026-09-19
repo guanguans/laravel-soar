@@ -2,7 +2,6 @@
 
 /** @noinspection PhpUnusedAliasInspection */
 /** @noinspection UsingInclusionReturnValueInspection */
-
 declare(strict_types=1);
 
 /**
@@ -17,7 +16,6 @@ declare(strict_types=1);
 use Symplify\MonorepoBuilder\Config\MBConfig;
 
 return static function (MBConfig $mbConfig): void {
-    $callback = require __DIR__.'/vendor/guanguans/monorepo-builder-worker/monorepo-builder.php';
-    $callback($mbConfig);
+    (require __DIR__.'/vendor/guanguans/monorepo-builder-worker/monorepo-builder.php')($mbConfig);
     $mbConfig->defaultBranch('master');
 };

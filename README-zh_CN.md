@@ -546,6 +546,7 @@ php artisan soar:score --ansi < tests/Fixtures/queries.sql
 ```shell
 composer checks:required
 composer php-cs-fixer:fix
+composer ecs:fix
 composer test
 composer testbench soar:run
 composer testbench soar:score
