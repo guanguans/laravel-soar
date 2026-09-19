@@ -8,6 +8,27 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 
+<a name="6.0.2"></a>
+## [6.0.2] - 2026-09-19
+### 📦 Builds
+- **deps:** Bump dependencies in composer.json ([c59355d](https://github.com/guanguans/laravel-soar/commit/c59355d))
+
+### 🤖 Continuous Integrations
+- **config:** Update config files ([f289bf7](https://github.com/guanguans/laravel-soar/commit/f289bf7))
+
+### Pull Requests
+- Merge pull request [#93](https://github.com/guanguans/laravel-soar/issues/93) from guanguans/dependabot/github_actions/github/codeql-action-4.38.0
+- Merge pull request [#92](https://github.com/guanguans/laravel-soar/issues/92) from guanguans/dependabot/github_actions/github/codeql-action-4.37.9
+- Merge pull request [#91](https://github.com/guanguans/laravel-soar/issues/91) from guanguans/dependabot/github_actions/github/codeql-action-4.37.8
+- Merge pull request [#90](https://github.com/guanguans/laravel-soar/issues/90) from guanguans/dependabot/github_actions/github/codeql-action-4.37.7
+- Merge pull request [#89](https://github.com/guanguans/laravel-soar/issues/89) from guanguans/dependabot/github_actions/github/codeql-action-4.37.6
+- Merge pull request [#87](https://github.com/guanguans/laravel-soar/issues/87) from guanguans/dependabot/github_actions/github/codeql-action-4.37.4
+- Merge pull request [#86](https://github.com/guanguans/laravel-soar/issues/86) from guanguans/dependabot/github_actions/github/codeql-action-4.37.3
+- Merge pull request [#80](https://github.com/guanguans/laravel-soar/issues/80) from guanguans/dependabot/composer/rector/jack-tw-1.0
+- Merge pull request [#79](https://github.com/guanguans/laravel-soar/issues/79) from guanguans/dependabot/github_actions/dependabot/fetch-metadata-3
+- Merge pull request [#78](https://github.com/guanguans/laravel-soar/issues/78) from guanguans/dependabot/composer/shipmonk/dead-code-detector-tw-1.0
+
+
 <a name="6.0.1"></a>
 ## [6.0.1] - 2026-04-02
 ### 💅 Code Refactorings
@@ -818,7 +839,8 @@ All notable changes to this project will be documented in this file.
 - Merge pull request [#1](https://github.com/guanguans/laravel-soar/issues/1) from guanguans/add-license-1
 
 
-[Unreleased]: https://github.com/guanguans/laravel-soar/compare/6.0.1...HEAD
+[Unreleased]: https://github.com/guanguans/laravel-soar/compare/6.0.2...HEAD
+[6.0.2]: https://github.com/guanguans/laravel-soar/compare/6.0.1...6.0.2
 [6.0.1]: https://github.com/guanguans/laravel-soar/compare/6.0.0...6.0.1
 [6.0.0]: https://github.com/guanguans/laravel-soar/compare/5.3.0...6.0.0
 [5.3.0]: https://github.com/guanguans/laravel-soar/compare/5.2.0...5.3.0
